@@ -1,0 +1,60 @@
+% ============================================================
+% Sección 7: Potencias de un Lenguaje
+% ============================================================
+
+\noindent Dado un lenguaje $A$ sobre $\Sigma$ ($A \subseteq \Sigma^*$) y un número
+natural $n \in \mathbb{N}$, se define $A^n$ de la siguiente forma:
+\[
+A^0 = \{\lambda\}, \qquad
+A^n = \underbrace{A \cdot A \cdots A}_{n \text{ veces}}
+= \{\, u_1 u_2 \cdots u_n : u_i \in A \text{ para todo } 1 \leq i \leq n \,\}.
+\]
+
+\subsection*{Ejercicio 75}
+
+\noindent\textit{Dé una definición recursiva de $A^n$.}
+
+\medskip
+\noindent\textbf{Solución.} Usando la concatenación de lenguajes,
+$A \cdot B = \{\, uv : u \in A,\ v \in B \,\}$, definimos $A^n$ por recursión sobre
+$n \in \mathbb{N}$:
+\[
+\boxed{
+    \begin{aligned}
+        &\text{(Base)}      && A^0 = \{\lambda\}, \\
+        &\text{(Recursión)} && A^{n+1} = A^n \cdot A, \quad \text{para todo } n \geq 0 .
+\end{aligned}}
+\]
+
+\medskip
+\noindent\textbf{Justificación.} Veamos por inducción sobre $n$ que esta definición
+coincide con la definición original:
+\[
+A^n = \{u_1 \cdots u_n : u_i \in A\}.
+\]
+
+\begin{itemize}
+    \item Para $n = 0$ ambas definiciones dan $\{\lambda\}$ (la concatenación de cero
+    cadenas es la cadena vacía). Además,
+    $A^1 = A^0 \cdot A = \{\lambda\} \cdot A = \{\lambda u : u \in A\} = A$.
+    \item Si $A^n = \{u_1 \cdots u_n : u_i \in A\}$, entonces
+    \[
+    A^{n+1} = A^n \cdot A
+    = \{\, (u_1 \cdots u_n)\,u_{n+1} : u_i \in A \,\}
+    = \{\, u_1 \cdots u_{n+1} : u_i \in A \,\},
+    \]
+    que es justamente el conjunto de todas las concatenaciones de $n+1$ cadenas
+    de $A$.
+\end{itemize}
+
+\noindent Como la concatenación es asociativa, también es válida la forma
+equivalente $A^{n+1} = A \cdot A^n$.
+
+\medskip
+\noindent\textbf{Ejemplo.} Sea $A = \{a, ba\}$. Aplicando la definición recursiva:
+\begin{align*}
+    A^0 &= \{\lambda\}, \\
+    A^1 &= A^0 \cdot A = \{a,\ ba\}, \\
+    A^2 &= A^1 \cdot A = \{aa,\ aba,\ baa,\ baba\}, \\
+    A^3 &= A^2 \cdot A = \{aaa,\ aaba,\ abaa,\ ababa,\ baaa,\ baaba,\ babaa,\ bababa\}.
+\end{align*}

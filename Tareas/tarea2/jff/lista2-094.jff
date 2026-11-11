@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="ini">
+      <x>112.2</x>
+      <y>281.8</y>
+      <initial />
+    </state>
+    <state id="1" name="muerto">
+      <x>310.2</x>
+      <y>194.8</y>
+    </state>
+    <state id="2" name="1·">
+      <x>310.2</x>
+      <y>368.8</y>
+    </state>
+    <state id="3" name="1·2">
+      <x>508.2</x>
+      <y>368.8</y>
+      <final />
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>2</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>2</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>2</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>2</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>2</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>2</read>
+    </transition>
+  </automaton>
+</structure>

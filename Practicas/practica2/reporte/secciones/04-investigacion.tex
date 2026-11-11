@@ -1,0 +1,112 @@
+\hypertarget{ejercicio-4.-investigaciuxf3n-y-estado-del-arte}{%
+\section{Ejercicio 4. Investigación y estado del arte}\label{ejercicio-4.-investigaciuxf3n-y-estado-del-arte}}
+
+\hypertarget{investigaciuxf3n}{%
+\subsection{Investigación}\label{investigaciuxf3n}}
+
+\hypertarget{el-no-determinismo}{%
+\subsubsection{El no determinismo}\label{el-no-determinismo}}
+
+Un \textbf{AFN} es una quíntupla N = (Q, Σ, δ, q₀, F) igual a la de un AFD salvo por la función de transición, que ahora devuelve un conjunto: δ: Q × Σ → 𝒫(Q). Un mismo par puede llevar a varios estados o a ninguno. La extensión a cadenas es δ̂(q, λ) = \{q\} y δ̂(q, ωa) = ⋃\_\{p ∈ δ̂(q, ω)\} δ(p, a), y N \textbf{acepta} ω si δ̂(q₀, ω) ∩ F ≠ ∅: basta con que \emph{alguna} de las sucesiones de elecciones termine en un estado final \autocite[sec.~2.3.2]{hopcroft2007}. Una manera útil de pensarlo es que el autómata adivina siempre bien, o que explora todas las elecciones en paralelo y gana si alguna gana.
+
+Un \textbf{AFN-λ} permite además transiciones que no consumen símbolo: δ: Q × (Σ ∪ \{λ\}) → 𝒫(Q). Para él, aceptar significa que existe un camino desde q₀ hasta un estado de F cuyas etiquetas, al concatenarse, forman ω (las λ no aportan nada a la concatenación) \autocite[sec.~1.2]{sipser2013}.
+
+\hypertarget{la-ux3bb-clausura}{%
+\subsubsection{La λ-clausura}\label{la-ux3bb-clausura}}
+
+λ-cl(q) es el menor conjunto que contiene a q y que es cerrado bajo transiciones λ: si p ∈ λ-cl(q) y r ∈ δ(p, λ), entonces r ∈ λ-cl(q). Para un conjunto, λ-cl(S) = ⋃\_\{q∈S\} λ-cl(q). Se calcula con un recorrido de grafo restringido a las aristas λ:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{λ{-}cl(S):}
+\NormalTok{    visitados ← S;  pila ← elementos de S}
+\NormalTok{    mientras pila no esté vacía:}
+\NormalTok{        q ← sacar(pila)}
+\NormalTok{        para cada r en δ(q, λ) que no esté en visitados:}
+\NormalTok{            agregar r a visitados y a pila}
+\NormalTok{    devolver visitados}
+\end{Highlighting}
+\end{Shaded}
+
+Cada estado entra a la pila una vez y cada arista λ se revisa una vez, así que el costo es O(\textbar Q\textbar{} + \textbar δ\_λ\textbar). Con ella, δ̂(q, λ) = λ-cl(q) y δ̂(q, ωa) = λ-cl(⋃\_\{p ∈ δ̂(q, ω)\} δ(p, a)) \autocite[sec.~2.5.3]{hopcroft2007}.
+
+\hypertarget{construcciuxf3n-de-subconjuntos-y-equivalencia-afdafn}{%
+\subsubsection{Construcción de subconjuntos y equivalencia AFD--AFN}\label{construcciuxf3n-de-subconjuntos-y-equivalencia-afdafn}}
+
+\textbf{Teorema} \autocites{rabin1959}[sec.~2.3.5]{hopcroft2007}. Para todo AFN N existe un AFD D tal que L(D) = L(N).
+
+\emph{Esbozo de la demostración.} Se define D = (𝒫(Q), Σ, δ\_D, \{q₀\}, F\_D) con δ\_D(S, a) = ⋃\_\{q∈S\} δ(q, a) y F\_D = \{S : S ∩ F ≠ ∅\}. Por inducción sobre \textbar ω\textbar{} se prueba que δ̂\_D(\{q₀\}, ω) = δ̂\_N(q₀, ω): para λ ambos son \{q₀\}, y el paso inductivo es la definición de δ\_D. Entonces D acepta ω ⇔ δ̂\_D(\{q₀\}, ω) ∩ F ≠ ∅ ⇔ N acepta ω. Para un AFN-λ basta usar λ-cl(\{q₀\}) como inicial y λ-cl(⋃ δ(q, a)) como transición.
+
+\hypertarget{el-costo-de-la-conversiuxf3n}{%
+\subsubsection{El costo de la conversión}\label{el-costo-de-la-conversiuxf3n}}
+
+D puede tener hasta 2\^{}\textbar Q\textbar{} estados, y la cota es justa: el lenguaje de las cadenas cuyo n-ésimo símbolo desde el final es 1 tiene un AFN de n + 1 estados y ningún AFD de menos de 2ⁿ \autocite[sec.~2.3.6]{hopcroft2007}. En la práctica se construyen sólo los subconjuntos alcanzables desde el inicial, y suelen ser muchos menos (Ejercicio 2).
+
+\hypertarget{teorema-de-kleene}{%
+\subsubsection{Teorema de Kleene}\label{teorema-de-kleene}}
+
+\textbf{Teorema} \autocite{kleene1956}. Un lenguaje es reconocido por un autómata finito si y sólo si lo describe una expresión regular. En una dirección se construye, por inducción sobre la expresión, un AFN-λ para ∅, λ y cada símbolo, y para la unión, la concatenación y la estrella; en la otra, se obtiene una expresión del autómata eliminando estados o con las expresiones \(R_{ij}^{(k)}\) \autocite[sec.~3.2]{hopcroft2007}. Junto con la equivalencia anterior, AFD, AFN, AFN-λ y expresiones regulares describen la misma clase: los lenguajes regulares.
+
+\hypertarget{minimizaciuxf3n-myhill-nerode-y-hopcroft}{%
+\subsubsection{Minimización: Myhill-Nerode y Hopcroft}\label{minimizaciuxf3n-myhill-nerode-y-hopcroft}}
+
+Dos cadenas x, y son \emph{indistinguibles} respecto de L (x ≡\_L y) si para toda z, xz ∈ L ⇔ yz ∈ L. \textbf{Teorema de Myhill-Nerode} \autocite{nerode1958}: L es regular si y sólo si ≡\_L tiene un número finito de clases, y ese número es el de estados del AFD mínimo, que es único salvo el nombre de los estados. El \textbf{algoritmo de Hopcroft} \autocite{hopcroft1971} encuentra esas clases refinando particiones: empieza con \{F, Q − F\}, mantiene una lista de bloques «separadores» y, para cada separador B y símbolo a, parte todo bloque cuyos estados van con a unos a B y otros fuera de B. Su truco es agregar a la lista sólo la mitad \emph{más pequeña} de cada bloque partido; así cada estado se procesa O(log \textbar Q\textbar) veces y el algoritmo cuesta O(\textbar Σ\textbar·\textbar Q\textbar{} log \textbar Q\textbar), frente a O(\textbar Σ\textbar·\textbar Q\textbar²) del refinamiento ingenuo de Moore \autocite{moore1971}.
+
+\hypertarget{quuxe9-significa-que-el-no-determinismo-no-aumente-el-poder}{%
+\subsubsection{Qué significa que el no determinismo no aumente el poder}\label{quuxe9-significa-que-el-no-determinismo-no-aumente-el-poder}}
+
+Que AFN y AFD reconozcan la misma clase significa que el no determinismo es una herramienta de \textbf{descripción}, no de \textbf{cómputo}: permite escribir autómatas más pequeños y más fáciles de entender («adivina dónde empieza el patrón»), pero cualquier cosa que haga un AFN puede hacerla un AFD, a costa de quizá exponencialmente más estados. En ingeniería eso se traduce en una elección: se diseña y se razona con el AFN (o con la expresión regular), y se ejecuta con un AFD cuando el tiempo por símbolo importa más que la memoria.
+
+\hypertarget{artuxedculo-asignado-rabin-y-scott-1959}{%
+\subsection{Artículo asignado: Rabin y Scott (1959)}\label{artuxedculo-asignado-rabin-y-scott-1959}}
+
+\textbf{Dónde se prueba.} En la sección 5, «Nondeterministic operation». El artículo define el autómata no determinista como un sistema (S, M, S₀, F) cuya tabla M asigna a cada par (estado, símbolo) un \emph{conjunto} de estados y que admite un \emph{conjunto} de iniciales S₀; una cinta se acepta si alguna sucesión de elecciones termina en F. Después construye el autómata determinista cuyos estados son los subconjuntos de S y, en el \textbf{teorema 11}, prueba que ambos aceptan las mismas cintas \autocite{rabin1959}.
+
+\textbf{La construcción en la notación del curso.} Dado N = (Q, Σ, δ, q₀, F), D = (𝒫(Q), Σ, δ\_D, \{q₀\}, F\_D) con δ\_D(S, a) = ⋃\_\{q∈S\} δ(q, a) y F\_D = \{S ⊆ Q : S ∩ F ≠ ∅\}. Con varios iniciales, como en el artículo, el inicial de D es S₀ completo.
+
+\textbf{Diferencias de notación.} El artículo llama \emph{tapes} a las cadenas, escribe M en lugar de δ, no incluye el alfabeto en la tupla y admite varios iniciales; el libro de texto usa la quíntupla con Σ explícito y un solo q₀. La notación del libro resulta más clara: el mismo símbolo δ sirve para todos los modelos del curso y la extensión δ̂ se define aparte, mientras que el artículo, escrito para lectores de lógica, define la aceptación con sucesiones de estados.
+
+\textbf{El Premio Turing.} La mención oficial de la ACM otorga el premio de 1976 a Rabin y Scott por este artículo y destaca que introdujo la idea de las máquinas no deterministas, un concepto que resultó de enorme valor y que siguió inspirando trabajos posteriores \autocite{acmturing2026}. El reconocimiento no se debe a que los AFN reconozcan más lenguajes ---el propio artículo prueba que no---, sino al concepto: el no determinismo es hoy central en la complejidad (la clase NP), en la verificación y en el procesamiento de expresiones regulares.
+
+\hypertarget{dos-artuxedculos-localizados}{%
+\subsection{Dos artículos localizados}\label{dos-artuxedculos-localizados}}
+
+\hypertarget{saarikivi-veanes-wan-y-xu-2019}{%
+\subsubsection{Saarikivi, Veanes, Wan y Xu (2019)}\label{saarikivi-veanes-wan-y-xu-2019}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Cita.} Saarikivi, O., Veanes, M., Wan, T., y Xu, E. (2019). Symbolic regex matcher. En T. Vojnar y L. Zhang (Eds.), \emph{Tools and Algorithms for the Construction and Analysis of Systems (TACAS 2019)} (Lecture Notes in Computer Science, Vol. 11427, pp.~372--378). Springer. \url{https://doi.org/10.1007/978-3-030-17462-0_24}
+\item
+  \textbf{Problema.} El motor de expresiones regulares de .NET usa retroceso (\emph{backtracking}) y algunos patrones tardan un tiempo exponencial; una herramienta de Microsoft que revisa código en la nube en busca de credenciales necesitaba buscar con tiempo lineal.
+\item
+  \textbf{Método.} SRM construye el autómata sobre la marcha con \emph{derivadas simbólicas de Brzozowski}: el estado es una expresión regular y leer un carácter la transforma en otra. Las clases de caracteres se representan como predicados sobre \emph{minterms} (una partición del alfabeto en clases que se comportan igual) y los estados de AFD ya calculados se guardan en caché.
+\item
+  \textbf{Resultado.} En dos colecciones de prueba, SRM y RE2 de Google fueron en general más rápidos que el motor de .NET; el tiempo medio de SRM fue comparable al de RE2 con menos casos extremos, aunque su compilación es más lenta. Se adoptó internamente y eliminó el retroceso catastrófico en archivos con líneas largas.
+\item
+  \textbf{Relación con el temario.} Construcción de subconjuntos perezosa y equivalencia entre expresiones regulares y autómatas.
+\item
+  \textbf{Aportación.} Es una implementación medida, como pide el enunciado, y muestra la misma decisión que el Ejercicio 3: no construir de antemano el AFD completo, sino sólo los estados que la entrada visita.
+\end{enumerate}
+
+\hypertarget{moseley-et-al.-2023}{%
+\subsubsection{Moseley et al.~(2023)}\label{moseley-et-al.-2023}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Cita.} Moseley, D., Nishio, M., Perez Rodriguez, J., Saarikivi, O., Toub, S., Veanes, M., Wan, T., y Xu, E. (2023). Derivative based nonbacktracking real-world regex matching with backtracking semantics. \emph{Proceedings of the ACM on Programming Languages}, \emph{7}(PLDI), Artículo 148. \url{https://doi.org/10.1145/3591262}
+\item
+  \textbf{Problema.} Los motores sin retroceso eran inmunes a los ataques de denegación de servicio por expresiones regulares, pero no podían reemplazar a los de retroceso porque no soportaban anclas, contadores ni el mismo resultado de coincidencia.
+\item
+  \textbf{Método.} Extienden las derivadas de Brzozowski a \emph{derivadas por posición} que manejan anclas, simulan la prioridad de las alternativas del retroceso sin retroceder y buscan en dos pasadas (una hacia adelante para el final de la coincidencia y otra sobre la expresión invertida para el inicio). Demuestran la corrección formalmente e implementan el resultado como la opción \texttt{RegexOptions.NonBacktracking} de .NET 7.
+\item
+  \textbf{Resultado.} En un conjunto industrial de 184 patrones obtienen una aceleración media geométrica de 4.7× sobre el motor compilado de .NET, y en la búsqueda de credenciales sobre 15 GB de código, mejoras de 9 \% a 26 \%; el beneficio principal es eliminar los casos extremos.
+\item
+  \textbf{Relación con el temario.} Autómatas finitos deterministas construidos desde expresiones regulares; reflexión (la expresión invertida reconoce Lᴿ).
+\item
+  \textbf{Aportación.} Prueba que la teoría del curso llega a un producto de uso masivo y explica por qué un validador debe reconocer con un autómata y no con un motor de retroceso, idea que se retoma en la Práctica 4.
+\end{enumerate}

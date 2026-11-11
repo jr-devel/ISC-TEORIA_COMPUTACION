@@ -1,0 +1,195 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="III">
+      <x>112.2</x>
+      <y>966.5</y>
+      <initial />
+    </state>
+    <state id="1" name="DIIa">
+      <x>290.8</x>
+      <y>818.0</y>
+      <final />
+    </state>
+    <state id="2" name="IDDa">
+      <x>1004.8</x>
+      <y>938.0</y>
+      <final />
+    </state>
+    <state id="3" name="IIDa">
+      <x>469.2</x>
+      <y>318.5</y>
+      <final />
+    </state>
+    <state id="4" name="DDDa">
+      <x>1183.2</x>
+      <y>968.0</y>
+      <final />
+    </state>
+    <state id="5" name="IIDr">
+      <x>1183.2</x>
+      <y>596.0</y>
+    </state>
+    <state id="6" name="DIDa">
+      <x>647.8</x>
+      <y>411.5</y>
+      <final />
+    </state>
+    <state id="7" name="IDIr">
+      <x>1361.8</x>
+      <y>498.5</y>
+    </state>
+    <state id="8" name="DIDr">
+      <x>1361.8</x>
+      <y>783.5</y>
+    </state>
+    <state id="9" name="IIIr">
+      <x>826.2</x>
+      <y>719.0</y>
+    </state>
+    <state id="10" name="DDIr">
+      <x>1540.2</x>
+      <y>761.0</y>
+    </state>
+    <state id="11" name="DDIa">
+      <x>1540.2</x>
+      <y>623.0</y>
+      <final />
+    </state>
+    <state id="12" name="DIIr">
+      <x>1718.8</x>
+      <y>681.5</y>
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>3</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>4</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>4</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>5</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>6</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>7</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>7</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>8</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>5</from>
+      <to>6</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>5</from>
+      <to>7</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>6</from>
+      <to>9</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>6</from>
+      <to>10</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>7</from>
+      <to>11</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>7</from>
+      <to>9</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>9</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>8</from>
+      <to>10</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>9</from>
+      <to>1</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>9</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>10</from>
+      <to>2</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>10</from>
+      <to>12</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>11</from>
+      <to>2</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>11</from>
+      <to>12</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>12</from>
+      <to>3</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>12</from>
+      <to>4</to>
+      <read>1</read>
+    </transition>
+  </automaton>
+</structure>

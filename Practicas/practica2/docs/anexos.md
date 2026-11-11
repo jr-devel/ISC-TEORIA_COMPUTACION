@@ -1,0 +1,302 @@
+# Anexo A. Clasificación de los ejercicios
+
+| Ejercicio                      | Sección | Justificación                                                                       |
+|--------------------------------|---------|-------------------------------------------------------------------------------------|
+| Lista 2 · Ejercicio 094        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 095        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 096        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 097        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 098        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 099        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 100        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 101        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 102        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 103        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 106        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 104        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 105        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 107        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 109        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 108        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 110        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 111        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 112        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 113        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 114        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 115        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 116        | —       | No regular: exige comparar el número de aes con el de ces (lema de bombeo).         |
+| Lista 2 · Ejercicio 117        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 118        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 119        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 120        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 121        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 122        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 123        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 124        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 125        | AFD     | Propiedad de los AFD completos; se ilustra con un AFD.                              |
+| Lista 2 · Ejercicio 126        | AFD     | Propiedad de los AFD; se ilustra con un AFD.                                        |
+| Lista 2 · Ejercicio 127        | AFD     | Propiedad de los AFD; se ilustra con un AFD.                                        |
+| Lista 2 · Ejercicio 128        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 129        | AFD     | El enunciado da la quíntupla de un AFD.                                             |
+| Lista 2 · Ejercicio 130        | AFD     | El enunciado da la quíntupla de un AFD.                                             |
+| Lista 2 · Ejercicio 131        | AFD     | El enunciado da la quíntupla de un AFD.                                             |
+| Lista 2 · Ejercicio 132        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 133        | AFD     | El enunciado da la quíntupla de un AFD.                                             |
+| Lista 2 · Ejercicio 134        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 135        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 136        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 137        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 138        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 139        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 140a       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 140b       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 141        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 142a       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 142b       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 143        | —       | Sin figuras en el enunciado.                                                        |
+| Lista 2 · Ejercicio 144a       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 144b       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 144c       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 144d       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 144e       | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 145        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 146        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 147        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 148        | AFD     | Se decide con información acotada del prefijo: basta un AFD.                        |
+| Lista 2 · Ejercicio 149        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 2 · Ejercicio 150        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 151        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 152        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 153        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 154        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 155        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 156        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 157        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 158        | AFD     | Función de transición determinista (parcial), aunque aparezca en la sección de AFN. |
+| Lista 3 · Ejercicio 159        | AFD     | Función de transición determinista (parcial), aunque aparezca en la sección de AFN. |
+| Lista 3 · Ejercicio 160        | AFD     | Función de transición determinista (parcial), aunque aparezca en la sección de AFN. |
+| Lista 3 · Ejercicio 161        | AFD     | Función de transición determinista (parcial), aunque aparezca en la sección de AFN. |
+| Lista 3 · AFN del problema 094 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 095 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 096 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 097 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 098 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 099 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 100 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 101 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 102 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 103 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 104 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 105 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 106 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 107 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 108 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 109 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 110 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 111 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 112 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 113 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 114 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 115 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 116 | —       | No regular.                                                                         |
+| Lista 3 · AFN del problema 117 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 118 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 119 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 120 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · AFN del problema 121 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 122 | AFD     | Pide un AFN; sin una versión no determinista más simple, se usa el AFD parcial.     |
+| Lista 3 · AFN del problema 123 | AFND    | Adivina una posición o una rama: AFN.                                               |
+| Lista 3 · Ejercicio 189        | AFND    | Unión de dos búsquedas: AFN.                                                        |
+| Lista 3 · Ejercicio 190        | AFND    | Intersección de dos AFN.                                                            |
+| Lista 3 · Ejercicio 191        | —       | Encabezado de los ejercicios 192-195.                                               |
+| Lista 3 · Ejercicio 192        | AFND    | Hay pares (estado, símbolo) con varios destinos.                                    |
+| Lista 3 · Ejercicio 193        | AFND    | Hay pares (estado, símbolo) con varios destinos.                                    |
+| Lista 3 · Ejercicio 194        | AFND    | Hay pares (estado, símbolo) con varios destinos.                                    |
+| Lista 3 · Ejercicio 195        | AFND    | Hay pares (estado, símbolo) con varios destinos.                                    |
+| Lista 3 · Ejercicio 196        | AFND-λ  | La tabla tiene transiciones λ.                                                      |
+| Lista 3 · Ejercicio 197        | AFND-λ  | La tabla tiene transiciones λ.                                                      |
+| Lista 3 · Ejercicio 198        | AFND-λ  | La tabla tiene transiciones λ.                                                      |
+| Lista 3 · Ejercicio 199        | AFND-λ  | La tabla tiene transiciones λ.                                                      |
+| Lista 3 · Ejercicio 200        | AFND-λ  | La tabla tiene transiciones λ.                                                      |
+| Lista 3 · Ejercicio 201-235    | —       | Pertenencia a expresiones regulares (AFN-λ de Thompson).                            |
+| Lista 3 · Ejercicio 236        | AFND-λ  | Se parte de una expresión regular: su autómata natural es el AFN-λ de Thompson.     |
+| Lista 3 · Ejercicio 237        | AFND-λ  | Se parte de una expresión regular: su autómata natural es el AFN-λ de Thompson.     |
+| Lista 3 · Ejercicio 238        | AFND-λ  | Se parte de una expresión regular: su autómata natural es el AFN-λ de Thompson.     |
+| Lista 3 · Ejercicio 239        | AFND-λ  | Se parte de una expresión regular: su autómata natural es el AFN-λ de Thompson.     |
+| Lista 3 · Ejercicio 240        | AFND-λ  | Se parte de una expresión regular: su autómata natural es el AFN-λ de Thompson.     |
+| Lista 3 · Ejercicio 241        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 242        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 243        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 244        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 245        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 246        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 247        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 248        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 249        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 250        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 251        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 252        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 253        | AFND-λ  | Expresión regular → AFN-λ.                                                          |
+| Lista 3 · Ejercicio 254        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 255        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 256        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 257        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 258        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 259        | AFD     | El enunciado da la tabla de un AFD.                                                 |
+| Lista 3 · Ejercicio 260        | AFND    | AFN con varios destinos por par (estado, símbolo).                                  |
+| Lista 3 · Ejercicio 261        | AFND    | AFN con varios destinos por par (estado, símbolo).                                  |
+| Lista 3 · Ejercicio 262        | AFD     | Diseño natural con dos ramas (AFN).                                                 |
+| Lista 3 · Ejercicio 263        | AFND    | AFN con varios destinos por par (estado, símbolo).                                  |
+
+Clasificación de los ejercicios de las Listas 2 y 3.
+
+# Anexo B. Cerraduras λ
+
+Para cada AFN-λ se indica por qué hacen falta las transiciones λ y la cerradura de cada estado. La cerradura es lo primero que calcula el simulador: el inicio de la lectura no es {q₀} sino λ-cl(q₀), y después de cada símbolo se vuelve a cerrar el conjunto de estados activos.
+
+**Lista 3 · Ejercicio 196.** **Cerraduras:** Cl(A) = {A, B}, Cl(B) = {B}, Cl(C) = {C}. **a)** δ̂(A, 110) = ∅. **b)** Cl({A}) = {A, B, C}. **c)** Cl({B}) = {B, C}. **d)** Cl({A, B}) = {A, B, C}. **e)** δ(A, 0) = {A} (sin cerradura). **AFD equivalente:** 3 estados.
+
+λ-cl(A) = {A, B} · λ-cl(B) = {B} · λ-cl(C) = {C}
+
+**Lista 3 · Ejercicio 197.** **Cerraduras:** Cl(A) = {A, B, C, D}, Cl(B) = {B, D}, Cl(C) = {B, C, D}, Cl(D) = {D}. **a)** Cl({A}) = {A, B, C, D}. **b)** Cl({B, D}) = {B, C, D}. **c)** Cl({A, B, C}) = {A, B, C, D}. **d)** δ(A, 0) = {B, D} (sin cerradura). **e)** δ̂({A}, 010) = {A, B, C, D}. **AFD equivalente:** 1 estados.
+
+λ-cl(A) = {A, B, C, D} · λ-cl(B) = {B, D} · λ-cl(C) = {B, C, D} · λ-cl(D) = {D}
+
+**Lista 3 · Ejercicio 198.** **Cerraduras:** Cl(A) = {A, B, C}, Cl(B) = {B}, Cl(C) = {B, C}, Cl(D) = {D}. **a)** Cl({A}) = {A, B, C}. **b)** Cl({C, D}) = {B, C, D}. **c)** Cl({A, C, D}) = {A, B, C, D}. **d)** δ̂(B, 0111) = {B, C, D}. **AFD equivalente:** 3 estados.
+
+λ-cl(A) = {A, B, C} · λ-cl(B) = {B} · λ-cl(C) = {B, C} · λ-cl(D) = {D}
+
+**Lista 3 · Ejercicio 199.** **Cerraduras:** Cl(A) = {A, B, C, E}, Cl(B) = {B}, Cl(C) = {C, E}, Cl(D) = {D}, Cl(E) = {E}. **a)** Cl({A}) = {A, B, C, E}. **b)** Cl({C}) = {C, E}. **c)** δ̂(A, 011) = {D}. **AFD equivalente:** 5 estados.
+
+λ-cl(A) = {A, B, C, E} · λ-cl(B) = {B} · λ-cl(C) = {C, E} · λ-cl(D) = {D} · λ-cl(E) = {E}
+
+**Lista 3 · Ejercicio 200.** **Cerraduras:** Cl(A) = {A, B}, Cl(B) = {B}, Cl(C) = {C, E}, Cl(D) = {D, E, F}, Cl(E) = {E}, Cl(F) = {E, F}. **a)** Cl({A}) = {A, B, C, E}. **b)** Cl({C, D}) = {C, D, E, F}. **c)** δ̂(C, 1011) = {A, B, C, D, E, F}. **AFD equivalente:** 6 estados.
+
+λ-cl(A) = {A, B} · λ-cl(B) = {B} · λ-cl(C) = {C, E} · λ-cl(D) = {D, E, F} · λ-cl(E) = {E} · λ-cl(F) = {E, F}
+
+**Lista 3 · Ejercicio 236.** **Expresión regular:** `(0 + 1)*001(0 + 1)*`.
+
+λ-cl(q6) = {q6, q4, q0, q2, q7, q8} · λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q4, q0, q1, q2, q5, q7, q8} · λ-cl(q2) = {q2} · λ-cl(q3) = {q4, q0, q2, q3, q5, q7, q8} · λ-cl(q5) = {q4, q0, q2, q5, q7, q8} · λ-cl(q7) = {q7, q8} · λ-cl(q8) = {q8} · λ-cl(q9) = {q9, q10} · λ-cl(q10) = {q10} · λ-cl(q11) = {q11, q12} · λ-cl(q12) = {q12} · λ-cl(q13) = {q13, q20, q18, q14, q16, q21} · λ-cl(q20) = {q20, q18, q14, q16, q21} · λ-cl(q18) = {q18, q14, q16} · λ-cl(q14) = {q14} · λ-cl(q15) = {q18, q14, q15, q16, q19, q21} · λ-cl(q16) = {q16} · λ-cl(q17) = {q18, q14, q16, q17, q19, q21} · λ-cl(q19) = {q18, q14, q16, q19, q21} · λ-cl(q21) = {q21}
+
+**Lista 3 · Ejercicio 237.** **Expresión regular:** `(0 + 1)*010`.
+
+λ-cl(q6) = {q6, q4, q0, q2, q7, q8} · λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q4, q0, q1, q2, q5, q7, q8} · λ-cl(q2) = {q2} · λ-cl(q3) = {q4, q0, q2, q3, q5, q7, q8} · λ-cl(q5) = {q4, q0, q2, q5, q7, q8} · λ-cl(q7) = {q7, q8} · λ-cl(q8) = {q8} · λ-cl(q9) = {q9, q10} · λ-cl(q10) = {q10} · λ-cl(q11) = {q11, q12} · λ-cl(q12) = {q12} · λ-cl(q13) = {q13}
+
+**Lista 3 · Ejercicio 238.** **Expresión regular:** `(0 + 1)(0 + 1)(0 + 1)(λ + (0 + 1)(0 + 1))`.
+
+λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q5, q10, q6, q8} · λ-cl(q2) = {q2} · λ-cl(q3) = {q3, q5, q10, q6, q8} · λ-cl(q5) = {q5, q10, q6, q8} · λ-cl(q10) = {q10, q6, q8} · λ-cl(q6) = {q6} · λ-cl(q7) = {q7, q11, q16, q12, q14} · λ-cl(q8) = {q8} · λ-cl(q9) = {q9, q11, q16, q12, q14} · λ-cl(q11) = {q11, q16, q12, q14} · λ-cl(q16) = {q16, q12, q14} · λ-cl(q12) = {q12} · λ-cl(q13) = {q13, q17, q32, q18, q19, q24, q20, q22, q33} · λ-cl(q14) = {q14} · λ-cl(q15) = {q15, q17, q32, q18, q19, q24, q20, q22, q33} · λ-cl(q17) = {q17, q32, q18, q19, q24, q20, q22, q33} · λ-cl(q32) = {q32, q18, q19, q24, q20, q22, q33} · λ-cl(q18) = {q18, q19, q33} · λ-cl(q19) = {q19, q33} · λ-cl(q24) = {q24, q20, q22} · λ-cl(q20) = {q20} · λ-cl(q21) = {q21, q25, q30, q26, q28} · λ-cl(q22) = {q22} · λ-cl(q23) = {q23, q25, q30, q26, q28} · λ-cl(q25) = {q25, q30, q26, q28} · λ-cl(q30) = {q30, q26, q28} · λ-cl(q26) = {q26} · λ-cl(q27) = {q27, q31, q33} · λ-cl(q28) = {q28} · λ-cl(q29) = {q29, q31, q33} · λ-cl(q31) = {q31, q33} · λ-cl(q33) = {q33}
+
+**Lista 3 · Ejercicio 239.** **Expresión regular:** `01(0 + 1)* + (0 + 1)*10`.
+
+λ-cl(q24) = {q24, q0, q18, q16, q12, q14, q19, q20} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q2} · λ-cl(q2) = {q2} · λ-cl(q3) = {q3, q10, q8, q4, q6, q11, q25} · λ-cl(q10) = {q10, q8, q4, q6, q11, q25} · λ-cl(q8) = {q8, q4, q6} · λ-cl(q4) = {q4} · λ-cl(q5) = {q8, q4, q5, q6, q9, q11, q25} · λ-cl(q6) = {q6} · λ-cl(q7) = {q8, q4, q6, q7, q9, q11, q25} · λ-cl(q9) = {q8, q4, q6, q9, q11, q25} · λ-cl(q11) = {q11, q25} · λ-cl(q18) = {q18, q16, q12, q14, q19, q20} · λ-cl(q16) = {q16, q12, q14} · λ-cl(q12) = {q12} · λ-cl(q13) = {q16, q12, q13, q14, q17, q19, q20} · λ-cl(q14) = {q14} · λ-cl(q15) = {q16, q12, q14, q15, q17, q19, q20} · λ-cl(q17) = {q16, q12, q14, q17, q19, q20} · λ-cl(q19) = {q19, q20} · λ-cl(q20) = {q20} · λ-cl(q21) = {q21, q22} · λ-cl(q22) = {q22} · λ-cl(q23) = {q23, q25} · λ-cl(q25) = {q25}
+
+**Lista 3 · Ejercicio 240.** **Expresión regular:** `((0 + 1)(0 + 1))*01((0 + 1)(0 + 1))* + (0 + 1)((0 + 1)(0 + 1))*01((0 + 1)(0 + 1))*(0 + 1)`. Si w = x01y tiene longitud par, \|x\| + \|y\| es par, así que \|x\| y \|y\| son ambos pares o ambos impares; cada término cubre uno de los dos casos.
+
+λ-cl(q76) = {q76, q12, q4, q0, q2, q13, q14, q36, q32, q34} · λ-cl(q12) = {q12, q4, q0, q2, q13, q14} · λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q5, q10, q6, q8} · λ-cl(q2) = {q2} · λ-cl(q3) = {q3, q5, q10, q6, q8} · λ-cl(q5) = {q5, q10, q6, q8} · λ-cl(q10) = {q10, q6, q8} · λ-cl(q6) = {q6} · λ-cl(q7) = {q4, q0, q2, q7, q11, q13, q14} · λ-cl(q8) = {q8} · λ-cl(q9) = {q4, q0, q2, q9, q11, q13, q14} · λ-cl(q11) = {q4, q0, q2, q11, q13, q14} · λ-cl(q13) = {q13, q14} · λ-cl(q14) = {q14} · λ-cl(q15) = {q15, q16} · λ-cl(q16) = {q16} · λ-cl(q17) = {q17, q30, q22, q18, q20, q31, q77} · λ-cl(q30) = {q30, q22, q18, q20, q31, q77} · λ-cl(q22) = {q22, q18, q20} · λ-cl(q18) = {q18} · λ-cl(q19) = {q19, q23, q28, q24, q26} · λ-cl(q20) = {q20} · λ-cl(q21) = {q21, q23, q28, q24, q26} · λ-cl(q23) = {q23, q28, q24, q26} · λ-cl(q28) = {q28, q24, q26} · λ-cl(q24) = {q24} · λ-cl(q25) = {q22, q18, q20, q25, q29, q31, q77} · λ-cl(q26) = {q26} · λ-cl(q27) = {q22, q18, q20, q27, q29, q31, q77} · λ-cl(q29) = {q22, q18, q20, q29, q31, q77} · λ-cl(q31) = {q31, q77} · λ-cl(q36) = {q36, q32, q34} · λ-cl(q32) = {q32} · λ-cl(q33) = {q33, q37, q50, q42, q38, q40, q51, q52} · λ-cl(q34) = {q34} · λ-cl(q35) = {q35, q37, q50, q42, q38, q40, q51, q52} · λ-cl(q37) = {q37, q50, q42, q38, q40, q51, q52} · λ-cl(q50) = {q50, q42, q38, q40, q51, q52} · λ-cl(q42) = {q42, q38, q40} · λ-cl(q38) = {q38} · λ-cl(q39) = {q39, q43, q48, q44, q46} · λ-cl(q40) = {q40} · λ-cl(q41) = {q41, q43, q48, q44, q46} · λ-cl(q43) = {q43, q48, q44, q46} · λ-cl(q48) = {q48, q44, q46} · λ-cl(q44) = {q44} · λ-cl(q45) = {q42, q38, q40, q45, q49, q51, q52} · λ-cl(q46) = {q46} · λ-cl(q47) = {q42, q38, q40, q47, q49, q51, q52} · λ-cl(q49) = {q42, q38, q40, q49, q51, q52} · λ-cl(q51) = {q51, q52} · λ-cl(q52) = {q52} · λ-cl(q53) = {q53, q54} · λ-cl(q54) = {q54} · λ-cl(q55) = {q55, q68, q60, q56, q58, q69, q74, q70, q72} · λ-cl(q68) = {q68, q60, q56, q58, q69, q74, q70, q72} · λ-cl(q60) = {q60, q56, q58} · λ-cl(q56) = {q56} · λ-cl(q57) = {q57, q61, q66, q62, q64} · λ-cl(q58) = {q58} · λ-cl(q59) = {q59, q61, q66, q62, q64} · λ-cl(q61) = {q61, q66, q62, q64} · λ-cl(q66) = {q66, q62, q64} · λ-cl(q62) = {q62} · λ-cl(q63) = {q60, q56, q58, q63, q67, q69, q74, q70, q72} · λ-cl(q64) = {q64} · λ-cl(q65) = {q60, q56, q58, q65, q67, q69, q74, q70, q72} · λ-cl(q67) = {q60, q56, q58, q67, q69, q74, q70, q72} · λ-cl(q69) = {q69, q74, q70, q72} · λ-cl(q74) = {q74, q70, q72} · λ-cl(q70) = {q70} · λ-cl(q71) = {q71, q75, q77} · λ-cl(q72) = {q72} · λ-cl(q73) = {q73, q75, q77} · λ-cl(q75) = {q75, q77} · λ-cl(q77) = {q77}
+
+**Lista 3 · Ejercicio 241.** AFN-λ de 6 estados; AFD mínimo de 3 estados.
+
+λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q5} · λ-cl(q2) = {q2} · λ-cl(q3) = {q3, q5} · λ-cl(q5) = {q5}
+
+**Lista 3 · Ejercicio 242.** AFN-λ de 8 estados; AFD mínimo de 4 estados.
+
+λ-cl(q6) = {q6, q2, q0, q3, q4, q7} · λ-cl(q2) = {q2, q0, q3, q7} · λ-cl(q0) = {q0} · λ-cl(q1) = {q0, q1, q3, q7} · λ-cl(q3) = {q3, q7} · λ-cl(q4) = {q4} · λ-cl(q5) = {q5, q7} · λ-cl(q7) = {q7}
+
+**Lista 3 · Ejercicio 243.** AFN-λ de 8 estados; AFD mínimo de 1 estados.
+
+λ-cl(q6) = {q6, q4, q0, q2, q7} · λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q4, q0, q1, q2, q5, q7} · λ-cl(q2) = {q2} · λ-cl(q3) = {q4, q0, q2, q3, q5, q7} · λ-cl(q5) = {q4, q0, q2, q5, q7} · λ-cl(q7) = {q7}
+
+**Lista 3 · Ejercicio 244.** AFN-λ de 8 estados; AFD mínimo de 4 estados.
+
+λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q6, q2, q4} · λ-cl(q6) = {q6, q2, q4} · λ-cl(q2) = {q2} · λ-cl(q3) = {q3, q7} · λ-cl(q4) = {q4} · λ-cl(q5) = {q5, q7} · λ-cl(q7) = {q7}
+
+**Lista 3 · Ejercicio 245.** AFN-λ de 10 estados; AFD mínimo de 3 estados.
+
+λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q8, q6, q2, q4, q9} · λ-cl(q8) = {q8, q6, q2, q4, q9} · λ-cl(q6) = {q6, q2, q4} · λ-cl(q2) = {q2} · λ-cl(q3) = {q6, q2, q3, q4, q7, q9} · λ-cl(q4) = {q4} · λ-cl(q5) = {q6, q2, q4, q5, q7, q9} · λ-cl(q7) = {q6, q2, q4, q7, q9} · λ-cl(q9) = {q9}
+
+**Lista 3 · Ejercicio 246.** AFN-λ de 10 estados; AFD mínimo de 4 estados.
+
+λ-cl(q2) = {q2, q0, q3, q8, q4, q6} · λ-cl(q0) = {q0} · λ-cl(q1) = {q0, q1, q3, q8, q4, q6} · λ-cl(q3) = {q3, q8, q4, q6} · λ-cl(q8) = {q8, q4, q6} · λ-cl(q4) = {q4} · λ-cl(q5) = {q5, q9} · λ-cl(q6) = {q6} · λ-cl(q7) = {q7, q9} · λ-cl(q9) = {q9}
+
+**Lista 3 · Ejercicio 247.** AFN-λ de 12 estados; AFD mínimo de 5 estados.
+
+λ-cl(q10) = {q10, q4, q0, q5, q8, q6, q9, q11} · λ-cl(q4) = {q4, q0, q5, q11} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q2} · λ-cl(q2) = {q2} · λ-cl(q3) = {q0, q3, q5, q11} · λ-cl(q5) = {q5, q11} · λ-cl(q8) = {q8, q6, q9, q11} · λ-cl(q6) = {q6} · λ-cl(q7) = {q6, q7, q9, q11} · λ-cl(q9) = {q9, q11} · λ-cl(q11) = {q11}
+
+**Lista 3 · Ejercicio 248.** AFN-λ de 10 estados; AFD mínimo de 5 estados.
+
+λ-cl(q6) = {q6, q2, q0, q3, q4, q7, q8} · λ-cl(q2) = {q2, q0, q3, q7, q8} · λ-cl(q0) = {q0} · λ-cl(q1) = {q0, q1, q3, q7, q8} · λ-cl(q3) = {q3, q7, q8} · λ-cl(q4) = {q4} · λ-cl(q5) = {q5, q7, q8} · λ-cl(q7) = {q7, q8} · λ-cl(q8) = {q8} · λ-cl(q9) = {q9}
+
+**Lista 3 · Ejercicio 249.** AFN-λ de 12 estados; AFD mínimo de 3 estados.
+
+λ-cl(q6) = {q6, q2, q0, q3, q4, q7, q10, q8, q11} · λ-cl(q2) = {q2, q0, q3, q7, q10, q8, q11} · λ-cl(q0) = {q0} · λ-cl(q1) = {q0, q1, q3, q7, q10, q8, q11} · λ-cl(q3) = {q3, q7, q10, q8, q11} · λ-cl(q4) = {q4} · λ-cl(q5) = {q5, q7, q10, q8, q11} · λ-cl(q7) = {q7, q10, q8, q11} · λ-cl(q10) = {q10, q8, q11} · λ-cl(q8) = {q8} · λ-cl(q9) = {q8, q9, q11} · λ-cl(q11) = {q11}
+
+**Lista 3 · Ejercicio 250.** AFN-λ de 16 estados; AFD mínimo de 6 estados.
+
+λ-cl(q14) = {q14, q2, q0, q3, q6, q4, q7, q10, q8, q11, q12, q15} · λ-cl(q2) = {q2, q0, q3, q6, q4, q7, q15} · λ-cl(q0) = {q0} · λ-cl(q1) = {q0, q1, q3, q6, q4, q7, q15} · λ-cl(q3) = {q3, q6, q4, q7, q15} · λ-cl(q6) = {q6, q4, q7, q15} · λ-cl(q4) = {q4} · λ-cl(q5) = {q4, q5, q7, q15} · λ-cl(q7) = {q7, q15} · λ-cl(q10) = {q10, q8, q11, q12} · λ-cl(q8) = {q8} · λ-cl(q9) = {q8, q9, q11, q12} · λ-cl(q11) = {q11, q12} · λ-cl(q12) = {q12} · λ-cl(q13) = {q13, q15} · λ-cl(q15) = {q15}
+
+**Lista 3 · Ejercicio 251.** AFN-λ de 18 estados; AFD mínimo de 5 estados.
+
+λ-cl(q16) = {q16, q6, q0, q4, q2, q5, q7, q8, q12, q10, q13, q14} · λ-cl(q6) = {q6, q0, q4, q2, q5, q7, q8} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q7, q8} · λ-cl(q4) = {q4, q2, q5, q7, q8} · λ-cl(q2) = {q2} · λ-cl(q3) = {q2, q3, q5, q7, q8} · λ-cl(q5) = {q5, q7, q8} · λ-cl(q7) = {q7, q8} · λ-cl(q8) = {q8} · λ-cl(q9) = {q9, q17} · λ-cl(q12) = {q12, q10, q13, q14} · λ-cl(q10) = {q10} · λ-cl(q11) = {q10, q11, q13, q14} · λ-cl(q13) = {q13, q14} · λ-cl(q14) = {q14} · λ-cl(q15) = {q15, q17} · λ-cl(q17) = {q17}
+
+**Lista 3 · Ejercicio 252.** AFN-λ de 38 estados; AFD mínimo de 8 estados.
+
+λ-cl(q36) = {q36, q6, q4, q0, q2, q7, q16, q8, q12, q26, q18, q22} · λ-cl(q6) = {q6, q4, q0, q2, q7, q16, q8, q12} · λ-cl(q4) = {q4, q0, q2} · λ-cl(q0) = {q0} · λ-cl(q1) = {q4, q0, q1, q2, q5, q7, q16, q8, q12} · λ-cl(q2) = {q2} · λ-cl(q3) = {q4, q0, q2, q3, q5, q7, q16, q8, q12} · λ-cl(q5) = {q4, q0, q2, q5, q7, q16, q8, q12} · λ-cl(q7) = {q7, q16, q8, q12} · λ-cl(q16) = {q16, q8, q12} · λ-cl(q8) = {q8} · λ-cl(q9) = {q9, q10} · λ-cl(q10) = {q10} · λ-cl(q11) = {q11, q17, q37} · λ-cl(q12) = {q12} · λ-cl(q13) = {q13, q14} · λ-cl(q14) = {q14} · λ-cl(q15) = {q15, q17, q37} · λ-cl(q17) = {q17, q37} · λ-cl(q26) = {q26, q18, q22} · λ-cl(q18) = {q18} · λ-cl(q19) = {q19, q20} · λ-cl(q20) = {q20} · λ-cl(q21) = {q21, q27, q34, q32, q28, q30, q35, q37} · λ-cl(q22) = {q22} · λ-cl(q23) = {q23, q24} · λ-cl(q24) = {q24} · λ-cl(q25) = {q25, q27, q34, q32, q28, q30, q35, q37} · λ-cl(q27) = {q27, q34, q32, q28, q30, q35, q37} · λ-cl(q34) = {q34, q32, q28, q30, q35, q37} · λ-cl(q32) = {q32, q28, q30} · λ-cl(q28) = {q28} · λ-cl(q29) = {q32, q28, q29, q30, q33, q35, q37} · λ-cl(q30) = {q30} · λ-cl(q31) = {q32, q28, q30, q31, q33, q35, q37} · λ-cl(q33) = {q32, q28, q30, q33, q35, q37} · λ-cl(q35) = {q35, q37} · λ-cl(q37) = {q37}
+
+**Lista 3 · Ejercicio 253.** AFN-λ de 44 estados; AFD mínimo de 18 estados.
+
+λ-cl(q14) = {q14, q0, q12, q10, q2, q6, q13, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q0) = {q0} · λ-cl(q1) = {q1, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q12) = {q12, q10, q2, q6, q13, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q10) = {q10, q2, q6} · λ-cl(q2) = {q2} · λ-cl(q3) = {q3, q4} · λ-cl(q4) = {q4} · λ-cl(q5) = {q10, q2, q5, q6, q11, q13, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q6) = {q6} · λ-cl(q7) = {q7, q8} · λ-cl(q8) = {q8} · λ-cl(q9) = {q10, q2, q6, q9, q11, q13, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q11) = {q10, q2, q6, q11, q13, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q13) = {q13, q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q15) = {q15, q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q32) = {q32, q30, q24, q16, q20, q26, q33, q42, q34, q35, q36, q43} · λ-cl(q30) = {q30, q24, q16, q20, q26} · λ-cl(q24) = {q24, q16, q20} · λ-cl(q16) = {q16} · λ-cl(q17) = {q17, q18} · λ-cl(q18) = {q18} · λ-cl(q19) = {q30, q24, q16, q19, q20, q25, q26, q31, q33, q42, q34, q35, q36, q43} · λ-cl(q20) = {q20} · λ-cl(q21) = {q21, q22} · λ-cl(q22) = {q22} · λ-cl(q23) = {q30, q24, q16, q20, q23, q25, q26, q31, q33, q42, q34, q35, q36, q43} · λ-cl(q25) = {q30, q24, q16, q20, q25, q26, q31, q33, q42, q34, q35, q36, q43} · λ-cl(q26) = {q26} · λ-cl(q27) = {q27, q28} · λ-cl(q28) = {q28} · λ-cl(q29) = {q30, q24, q16, q20, q26, q29, q31, q33, q42, q34, q35, q36, q43} · λ-cl(q31) = {q30, q24, q16, q20, q26, q31, q33, q42, q34, q35, q36, q43} · λ-cl(q33) = {q33, q42, q34, q35, q36, q43} · λ-cl(q42) = {q42, q34, q35, q36, q43} · λ-cl(q34) = {q34, q35, q43} · λ-cl(q35) = {q35, q43} · λ-cl(q36) = {q36} · λ-cl(q37) = {q37, q38} · λ-cl(q38) = {q38} · λ-cl(q39) = {q39, q40} · λ-cl(q40) = {q40} · λ-cl(q41) = {q41, q43} · λ-cl(q43) = {q43}
+
+# Anexo C. Conversiones
+
+| Ejercicio                      | Tipo  | Estados del AFN | Estados del AFD | Estados del AFD mínimo |         Cota 2ⁿ          |
+|--------------------------------|-------|:---------------:|:---------------:|:----------------------:|:------------------------:|
+| Lista 3 · AFN del problema 094 | AFN   |        3        |        3        |           3            |            8             |
+| Lista 3 · AFN del problema 098 | AFN   |        6        |        6        |           6            |            64            |
+| Lista 3 · AFN del problema 099 | AFN   |        7        |        7        |           7            |           128            |
+| Lista 3 · AFN del problema 101 | AFN   |        4        |        6        |           4            |            16            |
+| Lista 3 · AFN del problema 102 | AFN   |        7        |       12        |           7            |           128            |
+| Lista 3 · AFN del problema 103 | AFN   |        7        |       12        |           7            |           128            |
+| Lista 3 · AFN del problema 105 | AFN   |        5        |        5        |           5            |            32            |
+| Lista 3 · AFN del problema 106 | AFN   |        8        |       14        |           8            |           256            |
+| Lista 3 · AFN del problema 107 | AFN   |       16        |       20        |           13           |          65536           |
+| Lista 3 · AFN del problema 108 | AFN   |       23        |       88        |           37           |         8388608          |
+| Lista 3 · AFN del problema 109 | AFN   |       26        |       40        |           22           |         67108864         |
+| Lista 3 · AFN del problema 112 | AFN   |        7        |       11        |           7            |           128            |
+| Lista 3 · AFN del problema 113 | AFN   |       11        |       13        |           7            |           2048           |
+| Lista 3 · AFN del problema 118 | AFN   |        5        |        5        |           5            |            32            |
+| Lista 3 · AFN del problema 120 | AFN   |        5        |        7        |           7            |            32            |
+| Lista 3 · AFN del problema 123 | AFN   |       14        |       15        |           15           |          16384           |
+| Lista 3 · Ejercicio 189        | AFN   |        7        |       12        |           7            |           128            |
+| Lista 3 · Ejercicio 190        | AFN   |       26        |       32        |           19           |         67108864         |
+| Lista 3 · Ejercicio 192        | AFN   |        3        |        5        |           5            |            8             |
+| Lista 3 · Ejercicio 193        | AFN   |        4        |        7        |           6            |            16            |
+| Lista 3 · Ejercicio 194        | AFN   |        4        |        4        |           2            |            16            |
+| Lista 3 · Ejercicio 195        | AFN   |        5        |       12        |           7            |            32            |
+| Lista 3 · Ejercicio 196        | AFN-λ |        3        |        3        |           2            |            8             |
+| Lista 3 · Ejercicio 197        | AFN-λ |        4        |        2        |           1            |            16            |
+| Lista 3 · Ejercicio 198        | AFN-λ |        4        |        3        |           2            |            16            |
+| Lista 3 · Ejercicio 199        | AFN-λ |        5        |        4        |           2            |            32            |
+| Lista 3 · Ejercicio 200        | AFN-λ |        6        |        6        |           2            |            64            |
+| Lista 3 · Ejercicio 236        | AFN-λ |       22        |        9        |           4            |         4194304          |
+| Lista 3 · Ejercicio 237        | AFN-λ |       14        |        5        |           4            |          16384           |
+| Lista 3 · Ejercicio 238        | AFN-λ |       34        |       11        |           6            |       17179869184        |
+| Lista 3 · Ejercicio 239        | AFN-λ |       26        |        9        |           6            |         67108864         |
+| Lista 3 · Ejercicio 240        | AFN-λ |       78        |       27        |           6            | 302231454903657293676544 |
+| Lista 3 · Ejercicio 241        | AFN-λ |        6        |        3        |           2            |            64            |
+| Lista 3 · Ejercicio 242        | AFN-λ |        8        |        3        |           3            |           256            |
+| Lista 3 · Ejercicio 243        | AFN-λ |        8        |        3        |           1            |           256            |
+| Lista 3 · Ejercicio 244        | AFN-λ |        8        |        4        |           3            |           256            |
+| Lista 3 · Ejercicio 245        | AFN-λ |       10        |        4        |           2            |           1024           |
+| Lista 3 · Ejercicio 246        | AFN-λ |       10        |        3        |           3            |           1024           |
+| Lista 3 · Ejercicio 247        | AFN-λ |       12        |        4        |           4            |           4096           |
+| Lista 3 · Ejercicio 248        | AFN-λ |       10        |        4        |           4            |           1024           |
+| Lista 3 · Ejercicio 249        | AFN-λ |       12        |        4        |           2            |           4096           |
+| Lista 3 · Ejercicio 250        | AFN-λ |       16        |        6        |           5            |          65536           |
+| Lista 3 · Ejercicio 251        | AFN-λ |       18        |        4        |           4            |          262144          |
+| Lista 3 · Ejercicio 252        | AFN-λ |       38        |       13        |           8            |       274877906944       |
+| Lista 3 · Ejercicio 253        | AFN-λ |       44        |       22        |           17           |      17592186044416      |
+| Lista 3 · Ejercicio 260        | AFN   |        5        |        7        |           6            |            32            |
+| Lista 3 · Ejercicio 261        | AFN   |        5        |        5        |           3            |            32            |
+| Lista 3 · Ejercicio 263        | AFN   |        3        |        3        |           3            |            8             |
+
+Tamaño de los autómatas antes y después de convertir.

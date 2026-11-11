@@ -1,0 +1,59 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-142a",
+  "tipo": "AFD",
+  "alfabeto": [
+    "a",
+    "b"
+  ],
+  "estados": [
+    "(ab)*",
+    "…a",
+    "muerto"
+  ],
+  "inicial": "(ab)*",
+  "aceptacion": [
+    "(ab)*"
+  ],
+  "delta": {
+    "(ab)*": {
+      "a": [
+        "…a"
+      ],
+      "b": [
+        "muerto"
+      ]
+    },
+    "…a": {
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "(ab)*"
+      ]
+    },
+    "muerto": {
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "muerto"
+      ]
+    }
+  },
+  "posiciones": {
+    "(ab)*": [
+      100.0,
+      165.0
+    ],
+    "…a": [
+      270.0,
+      100.0
+    ],
+    "muerto": [
+      270.0,
+      230.0
+    ]
+  }
+}

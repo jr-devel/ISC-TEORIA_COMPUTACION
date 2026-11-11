@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-099" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="λ" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="0" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="00" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="001" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="0010" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="00100" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="001001" inicial="no" aceptacion="si" x="1120.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="λ">
+      <con simbolo="0">
+        <hacia>0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="0">
+      <con simbolo="0">
+        <hacia>00</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="00">
+      <con simbolo="0">
+        <hacia>00</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>001</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="001">
+      <con simbolo="0">
+        <hacia>0010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="0010">
+      <con simbolo="0">
+        <hacia>00100</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="00100">
+      <con simbolo="0">
+        <hacia>00</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>001001</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="001001">
+      <con simbolo="0">
+        <hacia>0010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

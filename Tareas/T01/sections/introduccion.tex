@@ -1,0 +1,43 @@
+% ============================================================
+% Introducción
+% ============================================================
+
+La Teoría de la Computación estudia qué problemas pueden resolverse de forma
+mecánica y con qué recursos. Para plantear estas preguntas con precisión es
+necesario contar primero con un lenguaje matemático que permita describir la
+información que procesa una máquina. Ese lenguaje se construye a partir de tres
+nociones elementales: el \textbf{alfabeto} $\Sigma$, un conjunto finito y no vacío de
+símbolos; la \textbf{cadena} o palabra, una secuencia finita de símbolos de
+$\Sigma$; y el \textbf{lenguaje}, cualquier conjunto de cadenas, es decir, cualquier
+subconjunto de $\Sigma^*$.
+
+La presente lista de problemas y ejercicios tiene como objetivo afianzar estas
+nociones y las operaciones que se definen sobre ellas, las cuales constituyen la
+base sobre la que más adelante se estudiarán los autómatas finitos, las
+expresiones regulares y las gramáticas formales. En particular, se trabaja con:
+
+\begin{itemize}
+    \item \textbf{Estructuras ordenadas:} los conjuntos $\Sigma^n$, $\Sigma^*$ y
+    $\Sigma^+$, la longitud y la concatenación de cadenas, y la pertenencia de
+    cadenas a lenguajes definidos por comprensión, junto con sus uniones e
+    intersecciones.
+    \item \textbf{Clausura de Kleene y clausura positiva:} demostración de las
+    propiedades de $A^*$ y $A^+$, como $A^+ = A^* A$, $(A^*)^* = A^*$ y
+    $(A \cup B)^* = (A^* B^*)^*$.
+    \item \textbf{Reflexión de un lenguaje:} la cadena inversa $u^R$, el lenguaje
+    inverso $A^R$ y propiedades como $(A \cdot B)^R = B^R A^R$ y
+    $(A^*)^R = (A^R)^*$.
+    \item \textbf{Longitud de cadenas y $n$-cadenas:} resultados de conteo como
+    $|w^{n+m}| = |w^n| + |w^m|$ y $|\Sigma^n| = |\Sigma|^n$.
+    \item \textbf{Prefijos, sufijos y potencias de un lenguaje:} descomposición de
+    una cadena y definición recursiva de $A^n$.
+    \item \textbf{Ejercicios de aplicación:} cálculo de concatenaciones, potencias,
+    cerraduras y reflexiones de lenguajes concretos, así como la
+    determinación del alfabeto sobre el que está definido un lenguaje.
+\end{itemize}
+
+La herramienta principal a lo largo del trabajo es la \textbf{demostración formal},
+en especial el \textbf{Principio de Inducción Matemática}, que resulta natural en
+este contexto porque las cadenas, su longitud, su concatenación y su reverso se
+definen de manera recursiva. Cada ejercicio incluye su enunciado y el
+procedimiento o razonamiento que justifica la respuesta.

@@ -1,0 +1,31 @@
+Si $w \in \Sigma^*$ y $n,m \in \mathbb{N}$, demuestre que $|w^{n+m}| = |w^n| + |w^m|$.
+
+$R: $
+
+Teniendo que $|w|$ es la magnitud o longitud de una cadena $w$, y tenemos que la potencia de una cadena equivale a la repetición de la misma; es decir, $w^n = \underbrace{w*w*\ldots*w}_{n\text{-veces}}$.
+
+Si continuamos con leyes de los exponentes, podemos notar que de $w^2 = w*w$ y $w^3 = w*w*w$, en su multiplicación se suman sus exponentes:
+\begin{center}
+    Con $|w| = 1$; $n=2$ y $m=3$:\\
+    $|w^2 * w^3| = |\underbrace{\underbrace{w*w}_{2\text{-veces}}*\underbrace{w*w*w}_{3\text{-veces}}}_{5\text{-veces}}|$\\
+    $\therefore |w^{n+m}| = |w^n| + |w^m| = 5, n=2, m=3$
+\end{center}
+
+Véase que tenemos que $w^n * w^m = w^{n+m}$. Si lo llevamos a términos de magnitud, tenemos que la magnitud de \(w^n\) equivale a la longitud de \(w\) multiplicada por el número de repeticiones. Desarrollando el lado derecho:
+
+\begin{center}
+    $|w^n| = |\underbrace{w*\ldots*w}_{n\text{-veces}}| \rightarrow |w^m| = |\underbrace{w*\ldots*w}_{m\text{-veces}}|$\\
+    $\therefore |w^n| + |w^m| = |\underbrace{w*\ldots*w}_{n\text{-veces}}| + |\underbrace{w*\ldots*w}_{m\text{-veces}}|$
+\end{center}
+
+A partir de esta última premisa y teniendo en cuenta el lado izquierdo de la igualdad ya desarrollado, podemos inferir que:
+\begin{center}
+    $|w^n| + |w^m| =_{\text{P.Exp.}} n|w| + m|w| =_{\text{distribución}} (n+m)|w|$\\
+    y\\
+    $|w^{n+m}| =_{\text{P.Exp.}} (n+m)|w| =_{\text{distribución}} n|w| + m|w|$\\
+\end{center}
+
+Por lo tanto, queda demostrado:
+\begin{center}
+    $\boxed{|w^{n+m}| = |w^n| + |w^m|}$
+\end{center}

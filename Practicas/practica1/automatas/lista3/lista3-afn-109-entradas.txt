@@ -1,0 +1,6 @@
+cbaabbcb
+acbaabbcb
+1acbaabbcba
+
+a
+1ac

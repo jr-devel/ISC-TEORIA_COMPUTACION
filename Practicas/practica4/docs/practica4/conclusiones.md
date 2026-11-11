@@ -1,0 +1,7 @@
+# Conclusiones
+
+La investigación dejó clara la frontera entre la expresión regular de la teoría y la de los lenguajes de programación: las clases y los cuantificadores sólo abrevian, pero una referencia hacia atrás como (a\*)b\1 describe {aⁿbaⁿ}, que el lema de bombeo prueba no regular. Esa frontera justifica validar con un autómata y no con un motor de retroceso.
+
+Con las dos direcciones del teorema de Kleene implementadas, el software cierra el ciclo: una expresión se convierte en AFN-λ por partes, se lleva hasta el AFD mínimo con los algoritmos de la Práctica 3 y de ahí regresa a una expresión por eliminación de estados o por el lema de Arden. Analizar con *shunting-yard* y conservar la posición de cada ficha permitió señalar los errores en el carácter exacto mientras se escribe, y registrar cada construcción como una etapa hizo que la interfaz mostrara la Parte I del teorema pieza por pieza sin código especial.
+
+Comparar las expresiones del software con las de JFLAP mostró que dos expresiones distintas en su escritura pueden describir el mismo lenguaje, y que la forma correcta de decidirlo es convertirlas en AFD mínimos; leer la igualdad a simple vista, como en 0\*1(1 + 00\*1)\* y (0 + 11\*0)\*11\*, es poco confiable. Los tres validadores, comparados con `re.fullmatch` sobre más de 600 palabras cada uno, coincidieron en todas, y la minimización redujo sus autómatas hasta en 70 %; el ejercicio también mostró que toda expresión para correos o URL es una aproximación consciente al estándar, con exclusiones que hay que documentar.

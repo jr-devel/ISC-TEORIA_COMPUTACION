@@ -1,0 +1,122 @@
+\hypertarget{ejercicio-1.-investigaciuxf3n-sobre-expresiones-regulares}{%
+\section{Ejercicio 1. Investigación sobre expresiones regulares}\label{ejercicio-1.-investigaciuxf3n-sobre-expresiones-regulares}}
+
+\hypertarget{lenguajes-regulares-y-expresiones-regulares}{%
+\subsection{Lenguajes regulares y expresiones regulares}\label{lenguajes-regulares-y-expresiones-regulares}}
+
+Sobre un alfabeto Σ, las \textbf{expresiones regulares} se definen por inducción \autocite[sec.~3.1.2]{hopcroft2007}: ∅, λ y cada símbolo a ∈ Σ son expresiones, con L(∅) = ∅, L(λ) = \{λ\} y L(a) = \{a\}; y si r y s son expresiones, también lo son r + s, rs, r* y (r), con
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{unión}: L(r + s) = L(r) ∪ L(s);
+\item
+  \textbf{concatenación}: L(rs) = L(r)L(s) = \{xy : x ∈ L(r), y ∈ L(s)\};
+\item
+  \textbf{cerradura de Kleene}: L(r*) = ⋃\_\{n≥0\} L(r)ⁿ, con L(r)⁰ = \{λ\}.
+\end{itemize}
+
+Un lenguaje es \textbf{regular} si lo describe alguna expresión regular; equivalentemente, si lo reconoce algún autómata finito. La distinción importa: la expresión es un objeto sintáctico (una cadena de símbolos con operadores) y el lenguaje es un conjunto, posiblemente infinito. Muchas expresiones distintas describen el mismo lenguaje, como (a + b)* y (a*b*)*, y decidir si dos lo hacen es justamente lo que permiten los autómatas mínimos. La precedencia es estrella, después concatenación y al final unión, de modo que ab* + c significa (a(b*)) + c.
+
+\hypertarget{lugar-en-la-jerarquuxeda-de-chomsky}{%
+\subsection{Lugar en la jerarquía de Chomsky}\label{lugar-en-la-jerarquuxeda-de-chomsky}}
+
+Los lenguajes regulares son el \textbf{tipo 3}, el nivel más bajo de la jerarquía \autocite{chomsky1956}: los generan las gramáticas lineales por la derecha (producciones A → aB o A → a, y S → λ) y los reconocen los autómatas finitos. Están contenidos estrictamente en los independientes del contexto (tipo 2): \{aⁿbⁿ : n ≥ 0\} lo genera S → aSb \textbar{} λ, pero ningún autómata finito lo reconoce. La razón es la memoria: un autómata finito sólo distingue un número fijo de situaciones, y contar n aes no acotadas exige una pila.
+
+\hypertarget{teorema-de-kleene}{%
+\subsection{Teorema de Kleene}\label{teorema-de-kleene}}
+
+\textbf{Teorema} \autocites{kleene1956}[sec.~3.2, teoremas 3.4 y 3.7]{hopcroft2007}[sec.~1.3, teorema 1.54]{sipser2013}. Un lenguaje es regular si y sólo si es reconocido por un autómata finito.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{De expresión a autómata} (Parte I en la notación del curso): por inducción sobre la expresión se construye un AFN-λ con un único estado inicial y un único final; hay un caso básico para ∅, λ y cada símbolo, y una construcción para cada operador. El Ejercicio 2 la implementa.
+\item
+  \textbf{De autómata a expresión} (Parte II): se obtiene la expresión de un AFD con las expresiones \(R_{ij}^{(k)}\), eliminando estados o resolviendo el sistema de ecuaciones con el lema de Arden. El Ejercicio 3 implementa la eliminación de estados y el lema de Arden.
+\end{itemize}
+
+\hypertarget{leyes-algebraicas-usadas-en-la-pruxe1ctica-3}{%
+\subsection{Leyes algebraicas usadas en la Práctica 3}\label{leyes-algebraicas-usadas-en-la-pruxe1ctica-3}}
+
+Para simplificar las expresiones del Ejercicio 1 de la Práctica 3 se usaron estas leyes \autocite[sec.~3.4]{hopcroft2007}:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\caption{Leyes algebraicas.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Ley
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Forma
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Ley
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Forma
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Conmutatividad y asociatividad de la unión & r + s = s + r; (r + s) + t = r + (s + t) \\
+Asociatividad de la concatenación & (rs)t = r(st) \\
+Idempotencia & r + r = r \\
+Neutros y absorbente & ∅ + r = r; λr = rλ = r; ∅r = r∅ = ∅ \\
+Distributividad & r(s + t) = rs + rt; (s + t)r = sr + tr \\
+Estrella & (r*)* = r*; ∅* = λ* = λ; λ + rr* = r* \\
+Desplazamiento & r(sr)* = (rs)*r \\
+Unión bajo estrella & (r + s)* = r*(sr*)* \\
+\end{longtable}
+
+\hypertarget{expresiones-de-la-teoruxeda-y-de-los-lenguajes-de-programaciuxf3n}{%
+\subsection{Expresiones de la teoría y de los lenguajes de programación}\label{expresiones-de-la-teoruxeda-y-de-los-lenguajes-de-programaciuxf3n}}
+
+Las expresiones de los lenguajes de programación (PCRE, el módulo \texttt{re} de Python, JavaScript) parten de las de la teoría pero añaden sintaxis cómoda que no cambia la potencia ---clases \texttt{{[}0-9{]}}, cuantificadores \texttt{+}, \texttt{?}, \texttt{\{m,n\}}, anclas \texttt{\^{}} y \texttt{\$}--- y operadores que \textbf{sí} la cambian, como las referencias hacia atrás \texttt{\textbackslash{}1}, que obligan a repetir exactamente el texto que capturó un grupo y con las que se describen lenguajes que no son regulares \autocite{campeanu2003}. Además, su significado práctico no es «¿pertenece la cadena al lenguaje?», sino «¿dónde está la primera coincidencia?», y muchos motores la buscan con retroceso, lo que puede tardar un tiempo exponencial \autocite{davis2018}.
+
+\textbf{El patrón (a*)b\textbackslash1 no es regular.} El grupo captura una sucesión de aes, después debe venir una b y al final la \emph{misma} sucesión. Con coincidencia completa describe L = \{aⁿbaⁿ : n ≥ 0\}.
+
+\emph{Demostración con el lema de bombeo} \autocite[sec.~4.1]{hopcroft2007}. Supongamos que L es regular y sea p su constante de bombeo. Tomamos ω = aᵖbaᵖ ∈ L, con \textbar ω\textbar{} ≥ p.~El lema garantiza una descomposición ω = xyz con \textbar xy\textbar{} ≤ p, \textbar y\textbar{} ≥ 1 y xyⁱz ∈ L para todo i ≥ 0. Como \textbar xy\textbar{} ≤ p, x y y están dentro del primer bloque de aes: y = aᵏ con k ≥ 1. Con i = 2, xy²z = aᵖ⁺ᵏbaᵖ, que tiene más aes antes de la b que después, así que no pertenece a L. Esto contradice el lema; por lo tanto L no es regular y ningún autómata finito, ni ninguna expresión regular de la teoría, lo describe.
+
+\hypertarget{cinco-aplicaciones}{%
+\subsection{Cinco aplicaciones}\label{cinco-aplicaciones}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6250}}@{}}
+\caption{Aplicaciones de las expresiones regulares.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Aplicación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Expresión concreta
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cómo funciona
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Aplicación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Expresión concreta
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cómo funciona
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Análisis léxico} en compiladores & \texttt{{[}A-Za-z\_{]}{[}A-Za-z0-9\_{]}*} para identificadores; \texttt{{[}0-9{]}+(\textbackslash{}.{[}0-9{]}+)?} para números & Un generador como \texttt{lex} convierte cada patrón en un AFN, los une, determiniza y produce un AFD que lee el código una sola vez y devuelve la ficha más larga que coincide \autocite[sec.~3.3.2]{hopcroft2007}. \\
+\textbf{Búsqueda de patrones en texto} & \texttt{grep\ -E\ \textquotesingle{}colou?r\textquotesingle{}} & \texttt{u?} equivale a (u + λ): encuentra «color» y «colour» en todas las líneas de un archivo. \\
+\textbf{Validación de datos} & \texttt{\^{}{[}0-9{]}\{5\}\$} para un código postal mexicano & Exige exactamente cinco dígitos y nada más; un formulario rechaza la entrada antes de enviarla. \\
+\textbf{Filtrado de registros} & \texttt{\^{}\textbackslash{}S+\ \textbackslash{}S+\ \textbackslash{}S+\ \textbackslash{}{[}{[}\^{}{]}{]}+\textbackslash{}{]}\ "GET\ {[}\^{}"{]}*"\ 404} & Sobre una bitácora de un servidor web en formato común, selecciona las peticiones GET que respondieron 404 (recurso no encontrado). \\
+\textbf{Automatización en el sistema operativo} & \texttt{sed\ -E\ \textquotesingle{}s/({[}0-9{]}\{4\})-({[}0-9{]}\{2\})-({[}0-9{]}\{2\})/\textbackslash{}3\textbackslash{}/\textbackslash{}2\textbackslash{}/\textbackslash{}1/\textquotesingle{}} & Reescribe fechas ISO 8601 (2026-11-06) al formato 06/11/2026 en todos los archivos de un lote; los grupos capturan año, mes y día. \\
+\end{longtable}
+
+En los cinco casos la parte que decide si un texto coincide es regular; la sustitución con \texttt{\textbackslash{}3/\textbackslash{}2/\textbackslash{}1} del último usa los grupos para \emph{escribir} la salida, no para reconocer, así que no sale de la clase regular. Los validadores del Ejercicio 4 aplican esta idea con autómatas propios.

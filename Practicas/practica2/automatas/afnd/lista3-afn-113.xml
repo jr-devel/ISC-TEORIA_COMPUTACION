@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-afn-113" tipo="AFN">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="i" inicial="si" aceptacion="no" x="100.0" y="165.0" />
+    <estado id="a1" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="a2" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="a3" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="b1" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="b2" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="b3" inicial="no" aceptacion="si" x="950.0" y="230.0" />
+    <estado id="o1" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="o2" inicial="no" aceptacion="no" x="440.0" y="230.0" />
+    <estado id="o3" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="o4" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+  </estados>
+  <delta>
+    <desde estado="i">
+      <con simbolo="0">
+        <hacia>i</hacia>
+        <hacia>a1</hacia>
+        <hacia>o1</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>i</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>i</hacia>
+      </con>
+    </desde>
+    <desde estado="a1">
+      <con simbolo="1">
+        <hacia>a2</hacia>
+      </con>
+    </desde>
+    <desde estado="a2">
+      <con simbolo="0">
+        <hacia>a3</hacia>
+      </con>
+    </desde>
+    <desde estado="a3">
+      <con simbolo="0">
+        <hacia>a3</hacia>
+        <hacia>b1</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>a3</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>a3</hacia>
+      </con>
+    </desde>
+    <desde estado="b1">
+      <con simbolo="1">
+        <hacia>b2</hacia>
+      </con>
+    </desde>
+    <desde estado="b2">
+      <con simbolo="0">
+        <hacia>b3</hacia>
+      </con>
+    </desde>
+    <desde estado="b3">
+      <con simbolo="0">
+        <hacia>b3</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>b3</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>b3</hacia>
+      </con>
+    </desde>
+    <desde estado="o1">
+      <con simbolo="1">
+        <hacia>o2</hacia>
+      </con>
+    </desde>
+    <desde estado="o2">
+      <con simbolo="0">
+        <hacia>o3</hacia>
+      </con>
+    </desde>
+    <desde estado="o3">
+      <con simbolo="1">
+        <hacia>o4</hacia>
+      </con>
+    </desde>
+    <desde estado="o4">
+      <con simbolo="0">
+        <hacia>b3</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

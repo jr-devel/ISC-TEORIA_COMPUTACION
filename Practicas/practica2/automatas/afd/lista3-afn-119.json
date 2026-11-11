@@ -1,0 +1,57 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista3-afn-119",
+  "tipo": "AFD",
+  "alfabeto": [
+    "a",
+    "b"
+  ],
+  "estados": [
+    "sin a",
+    "a",
+    "aa"
+  ],
+  "inicial": "sin a",
+  "aceptacion": [
+    "sin a",
+    "a"
+  ],
+  "delta": {
+    "sin a": {
+      "a": [
+        "a"
+      ],
+      "b": [
+        "sin a"
+      ]
+    },
+    "a": {
+      "a": [
+        "aa"
+      ],
+      "b": [
+        "sin a"
+      ]
+    },
+    "aa": {
+      "b": [
+        "sin a"
+      ]
+    }
+  },
+  "posiciones": {
+    "sin a": [
+      100.0,
+      100.0
+    ],
+    "a": [
+      270.0,
+      100.0
+    ],
+    "aa": [
+      440.0,
+      100.0
+    ]
+  }
+}

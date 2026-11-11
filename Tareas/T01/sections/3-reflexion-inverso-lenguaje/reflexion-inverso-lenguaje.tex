@@ -1,0 +1,74 @@
+Dado $A$, un lenguaje sobre $\Sigma$, se define $A^R$ de la siguiente forma:
+\begin{center}
+    $A^R = \{u^R : u \in A\}$,
+\end{center}
+donde:\\
+$u^R$ es la cadena inversa de $u$.\\
+$A^R$ se denomina la reflexión o el inverso de $A$.
+
+\textbf{Propiedades:} Sean $A$ y $B$ lenguajes sobre $\Sigma$ (es decir, $A,B \subseteq \Sigma^*$). Demostrar la propiedad 66 y 70.
+
+\begin{enumerate}
+    \setcounter{enumi}{65}
+    \item $(AB)^R = B^RA^R$.
+        \subitem Sea $A = \{a\}$ y $B = \{b\}$.
+        
+        Tenemos que la concatenación de $A$ y $B$ tendría la forma:
+        \begin{center}
+            $AB = \{ab\}$
+        \end{center}
+        
+        Cuya forma inversa sería:
+        \begin{center}
+            $(AB)^R = \{ba\}$
+        \end{center}
+        
+        Si ahora tomamos el lado derecho de la igualdad y lo desarrollamos, tenemos que:
+        \begin{center}
+            $B^R = \{b\}$\\
+            $A^R = \{a\}$
+        \end{center}
+        
+        Cuya concatenación es:
+        \begin{center}
+            $B^RA^R = \{ba\}$
+        \end{center}
+        
+        Que es igual a la concatenación del lado izquierdo de la igualdad.
+        
+        Por lo tanto:
+        \begin{center}
+            $\boxed{(AB)^R = B^R A^R}$
+        \end{center}
+    %
+    \setcounter{enumi}{69}
+    \newpage
+    \item $(A^*)^R = (A^R)^*$
+        \subitem Sea $A = {a}$.
+        
+        Tenemos:
+        \begin{center}
+            $A^* = \{\lambda,a,aa,aaa,aaaa,\ldots\}$
+        \end{center}
+        
+        Cuya forma inversa es:
+        \begin{center}
+            $(A^*)^R = \{a...a,\ldots,aaaa,aaa,aa,a,\lambda\}$
+        \end{center}
+        
+        Si validamos del lado derecho de la igualdad tenemos:
+        \begin{center}
+            $A^R = \{a\}$
+        \end{center}
+        
+        Cuya clausura de Kleene es:
+        \begin{center}
+            $(A^R)^* = \{a...a,\ldots,aaaa,aaa,aa,a,\lambda\}$
+        \end{center}
+        
+        Por lo tanto, podemos ver que la igualdad se conserva:
+        \begin{center}
+            $\boxed{(A^*)^R = (A^R)^*}$
+        \end{center}
+    %
+\end{enumerate}

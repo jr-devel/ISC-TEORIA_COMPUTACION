@@ -1,0 +1,9 @@
+# Cadenas para lista3-263 (palabras que terminan en 01)
+01
+1101
+0110
+001
+λ
+10
+0101010101
+012

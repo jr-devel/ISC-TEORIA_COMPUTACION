@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-afn-108" tipo="AFN">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+    <simbolo>c</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="i" inicial="si" aceptacion="no" x="100.0" y="165.0" />
+    <estado id="x1" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="x2" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="x3" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="x4" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="x5" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="Y1" inicial="no" aceptacion="no" x="1120.0" y="100.0" />
+    <estado id="Y2" inicial="no" aceptacion="no" x="1290.0" y="100.0" />
+    <estado id="Y3" inicial="no" aceptacion="no" x="1460.0" y="100.0" />
+    <estado id="Y4" inicial="no" aceptacion="no" x="1630.0" y="100.0" />
+    <estado id="Y5" inicial="no" aceptacion="no" x="1800.0" y="100.0" />
+    <estado id="Y6" inicial="no" aceptacion="si" x="1970.0" y="100.0" />
+    <estado id="y1" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="y2" inicial="no" aceptacion="no" x="440.0" y="230.0" />
+    <estado id="y3" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="y4" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+    <estado id="y5" inicial="no" aceptacion="no" x="950.0" y="230.0" />
+    <estado id="y6" inicial="no" aceptacion="no" x="1120.0" y="230.0" />
+    <estado id="X1" inicial="no" aceptacion="no" x="1290.0" y="230.0" />
+    <estado id="X2" inicial="no" aceptacion="no" x="1460.0" y="230.0" />
+    <estado id="X3" inicial="no" aceptacion="no" x="1630.0" y="230.0" />
+    <estado id="X4" inicial="no" aceptacion="no" x="1800.0" y="230.0" />
+    <estado id="X5" inicial="no" aceptacion="si" x="1970.0" y="230.0" />
+  </estados>
+  <delta>
+    <desde estado="i">
+      <con simbolo="0">
+        <hacia>i</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>i</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>i</hacia>
+        <hacia>x1</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>i</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>i</hacia>
+        <hacia>y1</hacia>
+      </con>
+    </desde>
+    <desde estado="x1">
+      <con simbolo="b">
+        <hacia>x2</hacia>
+      </con>
+    </desde>
+    <desde estado="x2">
+      <con simbolo="b">
+        <hacia>x3</hacia>
+      </con>
+    </desde>
+    <desde estado="x3">
+      <con simbolo="c">
+        <hacia>x4</hacia>
+      </con>
+    </desde>
+    <desde estado="x4">
+      <con simbolo="b">
+        <hacia>x5</hacia>
+      </con>
+    </desde>
+    <desde estado="x5">
+      <con simbolo="0">
+        <hacia>x5</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>x5</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>x5</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>x5</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>x5</hacia>
+        <hacia>Y1</hacia>
+      </con>
+    </desde>
+    <desde estado="Y1">
+      <con simbolo="b">
+        <hacia>Y2</hacia>
+      </con>
+    </desde>
+    <desde estado="Y2">
+      <con simbolo="a">
+        <hacia>Y3</hacia>
+      </con>
+    </desde>
+    <desde estado="Y3">
+      <con simbolo="a">
+        <hacia>Y4</hacia>
+      </con>
+    </desde>
+    <desde estado="Y4">
+      <con simbolo="b">
+        <hacia>Y5</hacia>
+      </con>
+    </desde>
+    <desde estado="Y5">
+      <con simbolo="b">
+        <hacia>Y6</hacia>
+      </con>
+    </desde>
+    <desde estado="Y6">
+      <con simbolo="0">
+        <hacia>Y6</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>Y6</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>Y6</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>Y6</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>Y6</hacia>
+      </con>
+    </desde>
+    <desde estado="y1">
+      <con simbolo="b">
+        <hacia>y2</hacia>
+      </con>
+    </desde>
+    <desde estado="y2">
+      <con simbolo="a">
+        <hacia>y3</hacia>
+      </con>
+    </desde>
+    <desde estado="y3">
+      <con simbolo="a">
+        <hacia>y4</hacia>
+      </con>
+    </desde>
+    <desde estado="y4">
+      <con simbolo="b">
+        <hacia>y5</hacia>
+      </con>
+    </desde>
+    <desde estado="y5">
+      <con simbolo="b">
+        <hacia>y6</hacia>
+      </con>
+    </desde>
+    <desde estado="y6">
+      <con simbolo="0">
+        <hacia>y6</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>y6</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>y6</hacia>
+        <hacia>X1</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>y6</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>y6</hacia>
+      </con>
+    </desde>
+    <desde estado="X1">
+      <con simbolo="b">
+        <hacia>X2</hacia>
+      </con>
+    </desde>
+    <desde estado="X2">
+      <con simbolo="b">
+        <hacia>X3</hacia>
+      </con>
+    </desde>
+    <desde estado="X3">
+      <con simbolo="c">
+        <hacia>X4</hacia>
+      </con>
+    </desde>
+    <desde estado="X4">
+      <con simbolo="b">
+        <hacia>X5</hacia>
+      </con>
+    </desde>
+    <desde estado="X5">
+      <con simbolo="0">
+        <hacia>X5</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>X5</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>X5</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>X5</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>X5</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

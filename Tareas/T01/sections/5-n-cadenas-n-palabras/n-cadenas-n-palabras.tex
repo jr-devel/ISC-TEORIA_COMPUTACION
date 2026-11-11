@@ -1,0 +1,98 @@
+% ============================================================
+% Sección 5: n-cadenas o n-palabras
+% ============================================================
+
+\noindent El siguiente teorema expresa el número de $n$-cadenas en función del
+número de elementos del alfabeto.
+
+\medskip
+\noindent\textbf{Teorema.} Sea $\Sigma$ un alfabeto. Para todo $n \geq 1$ se cumple que
+\[
+|\Sigma^n| = |\Sigma|^n .
+\]
+
+\subsection*{Ejercicio 72}
+
+\noindent\textit{Demuestre el teorema haciendo uso del Principio de Inducción Matemática.}
+
+\medskip
+\noindent\textbf{Solución.} Recordemos que $\Sigma^n$ es el conjunto de todas las
+cadenas de longitud exactamente $n$ formadas con símbolos de $\Sigma$, es decir,
+\[
+\Sigma^n = \{\, w \in \Sigma^* : |w| = n \,\}.
+\]
+Procedemos por inducción sobre $n \geq 1$.
+
+\medskip
+\noindent\textbf{1. Base de la inducción ($n = 1$).}
+Una cadena de longitud $1$ está formada por un único símbolo, por lo que
+\[
+\Sigma^1 = \{\, a : a \in \Sigma \,\}.
+\]
+Cada símbolo $a \in \Sigma$ determina exactamente una cadena de longitud $1$ (la
+cadena $a$) y cada cadena de longitud $1$ es un símbolo de $\Sigma$; así, existe una
+biyección entre $\Sigma$ y $\Sigma^1$. Por lo tanto
+\[
+|\Sigma^1| = |\Sigma| = |\Sigma|^1 ,
+\]
+y la igualdad se cumple para $n = 1$.
+
+\medskip
+\noindent\textbf{2. Hipótesis inductiva.}
+Supongamos que para un $k \geq 1$ arbitrario se cumple
+\[
+|\Sigma^k| = |\Sigma|^k .
+\]
+
+\medskip
+\noindent\textbf{3. Paso inductivo ($n = k+1$).}
+Debemos demostrar que $|\Sigma^{k+1}| = |\Sigma|^{k+1}$.
+
+Sea $w \in \Sigma^{k+1}$ una cadena arbitraria. Entonces $w = a_1 a_2 \cdots a_k a_{k+1}$
+con $a_i \in \Sigma$ para $1 \leq i \leq k+1$. Podemos expresar $w$ como la
+concatenación de dos cadenas más cortas:
+\[
+w = u\,a, \qquad \text{donde } u = a_1 a_2 \cdots a_k \in \Sigma^k
+\ \text{ y } \ a = a_{k+1} \in \Sigma .
+\]
+Definimos la función
+\[
+f : \Sigma^k \times \Sigma \longrightarrow \Sigma^{k+1}, \qquad f(u, a) = u\,a .
+\]
+
+\begin{itemize}
+    \item \textbf{$f$ está bien definida:} si $u \in \Sigma^k$ y $a \in \Sigma$, entonces
+    $|ua| = |u| + |a| = k + 1$, por lo que $ua \in \Sigma^{k+1}$.
+    \item \textbf{$f$ es inyectiva:} si $f(u,a) = f(u',a')$, entonces $ua = u'a'$. Ambas
+    cadenas tienen longitud $k+1$; comparando su último símbolo se obtiene
+    $a = a'$, y comparando sus primeros $k$ símbolos se obtiene $u = u'$. Luego
+    $(u,a) = (u',a')$.
+    \item \textbf{$f$ es suprayectiva:} por la descomposición anterior, toda
+    $w = a_1 \cdots a_{k+1} \in \Sigma^{k+1}$ satisface
+    $w = f(a_1 \cdots a_k,\ a_{k+1})$.
+\end{itemize}
+
+Así, $f$ es una biyección y los conjuntos $\Sigma^{k+1}$ y $\Sigma^k \times \Sigma$
+tienen la misma cardinalidad. Por el principio del producto
+(una cadena de $\Sigma^{k+1}$ se forma eligiendo primero $u \in \Sigma^k$, lo cual
+puede hacerse de $|\Sigma^k|$ maneras, y después $a \in \Sigma$, de $|\Sigma|$
+maneras), y usando la hipótesis inductiva:
+\[
+|\Sigma^{k+1}|
+= |\Sigma^k \times \Sigma|
+= |\Sigma^k| \cdot |\Sigma|
+\overset{\text{H.I.}}{=} |\Sigma|^k \cdot |\Sigma|
+= |\Sigma|^{k+1} .
+\]
+
+\medskip
+\noindent\textbf{Conclusión.} La igualdad se cumple para $n = 1$ y, si se cumple
+para $k$, también se cumple para $k+1$. Por el Principio de Inducción Matemática,
+\[
+|\Sigma^n| = |\Sigma|^n \qquad \text{para todo } n \geq 1. \qquad \blacksquare
+\]
+
+\medskip
+\noindent\textbf{Observación.} La fórmula también es válida para $n = 0$, pues
+$\Sigma^0 = \{\lambda\}$ y $|\Sigma^0| = 1 = |\Sigma|^0$. Por ejemplo, si
+$\Sigma = \{0, 1\}$, entonces $|\Sigma^3| = 2^3 = 8$.

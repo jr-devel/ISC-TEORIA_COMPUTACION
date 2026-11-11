@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+  <type>grammar</type>
+  <production>
+    <left>S</left>
+    <right>B</right>
+  </production>
+  <production>
+    <left>S</left>
+    <right>BaB</right>
+  </production>
+  <production>
+    <left>S</left>
+    <right>BaBaB</right>
+  </production>
+  <production>
+    <left>S</left>
+    <right>BaBaBaB</right>
+  </production>
+  <production>
+    <left>B</left>
+    <right>bB</right>
+  </production>
+  <production>
+    <left>B</left>
+    <right />
+  </production>
+</structure>

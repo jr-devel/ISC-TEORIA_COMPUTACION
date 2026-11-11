@@ -1,0 +1,65 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista3-afn-122",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1",
+    "2"
+  ],
+  "estados": [
+    "0 sin 0",
+    "1 sin 0",
+    "2 sin 0"
+  ],
+  "inicial": "0 sin 0",
+  "aceptacion": [
+    "0 sin 0",
+    "1 sin 0",
+    "2 sin 0"
+  ],
+  "delta": {
+    "0 sin 0": {
+      "0": [
+        "0 sin 0"
+      ],
+      "1": [
+        "1 sin 0"
+      ],
+      "2": [
+        "1 sin 0"
+      ]
+    },
+    "1 sin 0": {
+      "0": [
+        "0 sin 0"
+      ],
+      "1": [
+        "2 sin 0"
+      ],
+      "2": [
+        "2 sin 0"
+      ]
+    },
+    "2 sin 0": {
+      "0": [
+        "0 sin 0"
+      ]
+    }
+  },
+  "posiciones": {
+    "0 sin 0": [
+      100.0,
+      100.0
+    ],
+    "1 sin 0": [
+      270.0,
+      100.0
+    ],
+    "2 sin 0": [
+      440.0,
+      100.0
+    ]
+  }
+}

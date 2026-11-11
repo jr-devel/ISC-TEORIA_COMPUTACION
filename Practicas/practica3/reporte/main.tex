@@ -1,0 +1,38 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------------------
+%  Datos de la práctica
+% ---------------------------------------------------------------------
+\newcommand{\NumPractica}{3}
+\newcommand{\TituloPractica}{Uso de JFLAP para Convertir AFD a Expresiones Regulares y Extensión del Software con AFN, AFN-λ y Minimización}
+\newcommand{\PracticaCorta}{Práctica \NumPractica}
+\newcommand{\Alumno}{Rico Espluga Juan Diego}
+\newcommand{\Boleta}{2025630474}
+\newcommand{\Grupo}{4CV4}
+\newcommand{\Docente}{Gabriel Hurtado Avilés}
+\newcommand{\FechaEntrega}{4 de noviembre de 2026}
+
+\input{preambulo}
+\addbibresource{referencias.bib}
+
+
+\begin{document}
+\input{portada}
+
+\tableofcontents
+\clearpage
+
+\section{Objetivo}
+Relacionar los autómatas finitos con las expresiones regulares mediante JFLAP e incorporar al software propio los algoritmos que transforman un AFN con transiciones λ en un AFD mínimo.
+
+La práctica tiene tres ejercicios. El primero se resuelve en JFLAP y a mano; el segundo extiende el software de la Práctica 2 y el tercero documenta sus algoritmos. Los autómatas están en \texttt{automatas/practica3/} y el reporte en Markdown en \texttt{docs/practica3/}.
+
+\input{secciones/01-afd-a-er-jflap}
+\input{secciones/02-software}
+\input{secciones/03-algoritmos}
+\input{secciones/conclusiones}
+
+\clearpage
+\printbibliography[title={Referencias}]
+
+\end{document}

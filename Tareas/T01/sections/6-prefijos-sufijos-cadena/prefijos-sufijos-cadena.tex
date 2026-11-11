@@ -1,0 +1,71 @@
+% ============================================================
+% Sección 6: Prefijos y Sufijos de una Cadena
+% ============================================================
+
+\noindent Sean $\Sigma = \{a, b, c, d\}$ y $u = bcbaadb$.
+
+\medskip
+\noindent Recordemos que $x$ es \textbf{prefijo} de $u$ si existe $y \in \Sigma^*$ tal
+que $u = xy$, y que $y$ es \textbf{sufijo} de $u$ si existe $x \in \Sigma^*$ tal que
+$u = xy$. Como $|u| = 7$, la cadena $u$ tiene exactamente un prefijo y un sufijo de
+cada longitud $0, 1, \dots, 7$; es decir, $8$ prefijos y $8$ sufijos.
+
+\subsection*{Ejercicio 73}
+
+\noindent\textit{Enumere todos los prefijos de $u$.}
+
+\medskip
+\noindent\textbf{Solución.} Tomamos los primeros $i$ símbolos de $u$ para
+$i = 0, 1, \dots, 7$:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Longitud} & \textbf{Prefijo $x$} & \textbf{Resto $y$ ($u = xy$)} \\
+        \hline
+        0 & $\lambda$  & $bcbaadb$ \\
+        1 & $b$        & $cbaadb$ \\
+        2 & $bc$       & $baadb$ \\
+        3 & $bcb$      & $aadb$ \\
+        4 & $bcba$     & $adb$ \\
+        5 & $bcbaa$    & $db$ \\
+        6 & $bcbaad$   & $b$ \\
+        7 & $bcbaadb$  & $\lambda$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\[
+\text{Pref}(u) = \{\lambda,\ b,\ bc,\ bcb,\ bcba,\ bcbaa,\ bcbaad,\ bcbaadb\}.
+\]
+Los prefijos propios de $u$ son todos los anteriores excepto $u = bcbaadb$.
+
+\subsection*{Ejercicio 74}
+
+\noindent\textit{Enumere todos los sufijos de $u$.}
+
+\medskip
+\noindent\textbf{Solución.} Tomamos los últimos $i$ símbolos de $u$ para
+$i = 0, 1, \dots, 7$:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        \textbf{Longitud} & \textbf{Sufijo $y$} & \textbf{Inicio $x$ ($u = xy$)} \\
+        \hline
+        0 & $\lambda$  & $bcbaadb$ \\
+        1 & $b$        & $bcbaad$ \\
+        2 & $db$       & $bcbaa$ \\
+        3 & $adb$      & $bcba$ \\
+        4 & $aadb$     & $bcb$ \\
+        5 & $baadb$    & $bc$ \\
+        6 & $cbaadb$   & $b$ \\
+        7 & $bcbaadb$  & $\lambda$ \\
+        \hline
+    \end{tabular}
+\end{center}
+
+\[
+\text{Suf}(u) = \{\lambda,\ b,\ db,\ adb,\ aadb,\ baadb,\ cbaadb,\ bcbaadb\}.
+\]
+Los sufijos propios de $u$ son todos los anteriores excepto $u = bcbaadb$.

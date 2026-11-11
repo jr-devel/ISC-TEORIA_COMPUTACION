@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="ini">
+      <x>112.2</x>
+      <y>260.8</y>
+      <initial />
+    </state>
+    <state id="1" name="r0">
+      <x>290.8</x>
+      <y>194.8</y>
+      <final />
+    </state>
+    <state id="2" name="r1">
+      <x>469.2</x>
+      <y>211.2</y>
+    </state>
+    <state id="3" name="r2">
+      <x>647.8</x>
+      <y>211.2</y>
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>2</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>1</to>
+      <read>1</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>2</to>
+      <read>0</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>1</read>
+    </transition>
+  </automaton>
+</structure>

@@ -1,0 +1,180 @@
+\hypertarget{ejercicio-3.-simulador-de-autuxf3matas-con-interfaz-gruxe1fica}{%
+\section{Ejercicio 3. Simulador de autómatas con interfaz gráfica}\label{ejercicio-3.-simulador-de-autuxf3matas-con-interfaz-gruxe1fica}}
+
+\hypertarget{organizaciuxf3n-del-cuxf3digo}{%
+\subsection{Organización del código}\label{organizaciuxf3n-del-cuxf3digo}}
+
+El núcleo (\texttt{src/nucleo/}) no importa Flet; la interfaz (\texttt{src/interfaz/}) sólo lo invoca.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6250}}@{}}
+\caption{Módulos del núcleo.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Módulo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Clases
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Responsabilidad
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Módulo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Clases
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Responsabilidad
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{lenguajes.py} & \texttt{Alfabeto}, \texttt{Palabra}, \texttt{Lenguaje}, \texttt{Enumerador} & Práctica 1, sin cambios. \\
+\texttt{automata.py} & \texttt{Automata} → \texttt{AFNLambda} → \texttt{AFN} → \texttt{AFD} & Quíntupla, validación, cerradura λ, δ̂, tabla de transiciones. \\
+& \texttt{Arista}, \texttt{Paso}, \texttt{Recorrido}, \texttt{Simulacion} & Una transición; un símbolo leído; el resultado completo; la ejecución interactiva. \\
+& \texttt{Clasificador}, \texttt{Disposicion} & Deducir el tipo y explicarlo; coordenadas para dibujar y para JFLAP. \\
+\texttt{formatos.py} & \texttt{Serializador} → \texttt{SerializadorJFF}, \texttt{SerializadorJSON}, \texttt{SerializadorXML}; \texttt{Archivos} & Escribir y leer cada formato; elegir el formato por la extensión. \\
+\end{longtable}
+
+La jerarquía refleja la teoría: un AFD es un AFN en el que cada par tiene a lo sumo un destino, y un AFN es un AFN-λ sin transiciones λ. Cada subclase sólo \textbf{añade restricciones} en \texttt{\_validar} (un \texttt{AFD} rechaza dos destinos para el mismo par; un \texttt{AFN}, las transiciones λ) y atajos (\texttt{AFN.cierre} devuelve el mismo conjunto, \texttt{AFD.siguiente} el único destino). El tipo no se declara: \texttt{Automata.crear} construye la quíntupla general y \texttt{Clasificador.clase\_de} elige la clase más específica que la admite.
+
+\hypertarget{definiciuxf3n-interactiva}{%
+\subsection{Definición interactiva}\label{definiciuxf3n-interactiva}}
+
+La sección \textbf{Editor} se divide en tres tarjetas numeradas. En \emph{1 · Componentes} se escriben Σ y Q separados por comas, se elige q₀ en una lista y se marcan los estados de aceptación tocando sus pastillas; un interruptor agrega la columna λ. En \emph{2 · Función de transición} aparece una rejilla con una fila por estado y una columna por símbolo; cada celda recibe los destinos separados por comas y una celda vacía significa «sin transición». La rejilla se rehace sola cuando cambian Σ o Q y conserva lo que ya estaba escrito. En \emph{3 · Vista previa} se ven, mientras se escribe, el diagrama, la tabla completa y una etiqueta con el tipo deducido y su motivo («Hay elección: δ(q0, a) = \{q0, q1\}»); un error (un destino que no existe, un inicial fuera de Q) aparece en rojo en el mismo lugar. \emph{Editar el autómata activo} vuelve a llenar las tres tarjetas para corregir una definición.
+
+\evidencia[0.95]{../evidencias/app/01-editor.png}{Editor: AFN-λ de ejemplo con su tabla, su diagrama y el tipo deducido.}
+
+\hypertarget{importaciuxf3n-desde-archivos}{%
+\subsection{Importación desde archivos}\label{importaciuxf3n-desde-archivos}}
+
+La sección \textbf{Biblioteca} lista los archivos de \texttt{automatas/} con un buscador; al tocar uno se muestran su quíntupla (Q, Σ, q₀, F y número de transiciones), su diagrama y su tabla, sin cambiar el autómata activo hasta pulsar \emph{Usar}. También acepta una ruta cualquiera.
+
+\textbf{Esquemas.} El \texttt{.jff} es el de JFLAP 7.1. Para \texttt{.json} y \texttt{.xml} se definió un esquema propio que guarda la quíntupla completa, el tipo y las coordenadas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{\{}\DataTypeTok{"formato"}\FunctionTok{:} \StringTok{"automata{-}tc"}\FunctionTok{,} \DataTypeTok{"version"}\FunctionTok{:} \DecValTok{1}\FunctionTok{,} \DataTypeTok{"nombre"}\FunctionTok{:} \StringTok{"anexo3"}\FunctionTok{,} \DataTypeTok{"tipo"}\FunctionTok{:} \StringTok{"AFN{-}λ"}\FunctionTok{,}
+ \DataTypeTok{"alfabeto"}\FunctionTok{:} \OtherTok{[}\StringTok{"a"}\OtherTok{,} \StringTok{"b"}\OtherTok{]}\FunctionTok{,} \DataTypeTok{"estados"}\FunctionTok{:} \OtherTok{[}\StringTok{"q0"}\OtherTok{,} \StringTok{"q1"}\OtherTok{]}\FunctionTok{,} \DataTypeTok{"inicial"}\FunctionTok{:} \StringTok{"q0"}\FunctionTok{,} \DataTypeTok{"aceptacion"}\FunctionTok{:} \OtherTok{[}\StringTok{"q1"}\OtherTok{]}\FunctionTok{,}
+ \DataTypeTok{"delta"}\FunctionTok{:} \FunctionTok{\{}\DataTypeTok{"q0"}\FunctionTok{:} \FunctionTok{\{}\DataTypeTok{"a"}\FunctionTok{:} \OtherTok{[}\StringTok{"q1"}\OtherTok{]}\FunctionTok{,} \DataTypeTok{"b"}\FunctionTok{:} \OtherTok{[}\StringTok{"q0"}\OtherTok{]}\FunctionTok{,} \DataTypeTok{""}\FunctionTok{:} \OtherTok{[}\StringTok{"q1"}\OtherTok{]}\FunctionTok{\},} \DataTypeTok{"q1"}\FunctionTok{:} \FunctionTok{\{\}\},}
+ \DataTypeTok{"posiciones"}\FunctionTok{:} \FunctionTok{\{}\DataTypeTok{"q0"}\FunctionTok{:} \OtherTok{[}\FloatTok{100.0}\OtherTok{,} \FloatTok{100.0}\OtherTok{]}\FunctionTok{,} \DataTypeTok{"q1"}\FunctionTok{:} \OtherTok{[}\FloatTok{270.0}\OtherTok{,} \FloatTok{100.0}\OtherTok{]}\FunctionTok{\}\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{\textless{}}\KeywordTok{automata}\OtherTok{ formato=}\StringTok{"automata{-}tc"}\OtherTok{ version=}\StringTok{"1"}\OtherTok{ nombre=}\StringTok{"anexo3"}\OtherTok{ tipo=}\StringTok{"AFN{-}λ"}\NormalTok{\textgreater{}}
+\NormalTok{  \textless{}}\KeywordTok{alfabeto}\NormalTok{\textgreater{}\textless{}}\KeywordTok{simbolo}\NormalTok{\textgreater{}a\textless{}/}\KeywordTok{simbolo}\NormalTok{\textgreater{}\textless{}}\KeywordTok{simbolo}\NormalTok{\textgreater{}b\textless{}/}\KeywordTok{simbolo}\NormalTok{\textgreater{}\textless{}/}\KeywordTok{alfabeto}\NormalTok{\textgreater{}}
+\NormalTok{  \textless{}}\KeywordTok{estados}\NormalTok{\textgreater{}}
+\NormalTok{    \textless{}}\KeywordTok{estado}\OtherTok{ id=}\StringTok{"q0"}\OtherTok{ inicial=}\StringTok{"si"}\OtherTok{ aceptacion=}\StringTok{"no"}\OtherTok{ x=}\StringTok{"100.0"}\OtherTok{ y=}\StringTok{"100.0"}\NormalTok{ /\textgreater{}}
+\NormalTok{    \textless{}}\KeywordTok{estado}\OtherTok{ id=}\StringTok{"q1"}\OtherTok{ inicial=}\StringTok{"no"}\OtherTok{ aceptacion=}\StringTok{"si"}\OtherTok{ x=}\StringTok{"270.0"}\OtherTok{ y=}\StringTok{"100.0"}\NormalTok{ /\textgreater{}}
+\NormalTok{  \textless{}/}\KeywordTok{estados}\NormalTok{\textgreater{}}
+\NormalTok{  \textless{}}\KeywordTok{delta}\NormalTok{\textgreater{}}
+\NormalTok{    \textless{}}\KeywordTok{desde}\OtherTok{ estado=}\StringTok{"q0"}\NormalTok{\textgreater{}}
+\NormalTok{      \textless{}}\KeywordTok{con}\OtherTok{ simbolo=}\StringTok{"a"}\NormalTok{\textgreater{}\textless{}}\KeywordTok{hacia}\NormalTok{\textgreater{}q1\textless{}/}\KeywordTok{hacia}\NormalTok{\textgreater{}\textless{}/}\KeywordTok{con}\NormalTok{\textgreater{}}
+\NormalTok{      \textless{}}\KeywordTok{con}\OtherTok{ simbolo=}\StringTok{"b"}\NormalTok{\textgreater{}\textless{}}\KeywordTok{hacia}\NormalTok{\textgreater{}q0\textless{}/}\KeywordTok{hacia}\NormalTok{\textgreater{}\textless{}/}\KeywordTok{con}\NormalTok{\textgreater{}}
+\NormalTok{      \textless{}}\KeywordTok{con}\OtherTok{ simbolo=}\StringTok{""}\NormalTok{\textgreater{}\textless{}}\KeywordTok{hacia}\NormalTok{\textgreater{}q1\textless{}/}\KeywordTok{hacia}\NormalTok{\textgreater{}\textless{}/}\KeywordTok{con}\NormalTok{\textgreater{}}
+\NormalTok{    \textless{}/}\KeywordTok{desde}\NormalTok{\textgreater{}}
+\NormalTok{  \textless{}/}\KeywordTok{delta}\NormalTok{\textgreater{}}
+\NormalTok{\textless{}/}\KeywordTok{automata}\NormalTok{\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Ambos agrupan δ por estado y por símbolo, así que un par (q, a) aparece una sola vez con todos sus destinos. \textbf{Convención para λ}: en los tres formatos la transición λ se escribe con el símbolo vacío (\texttt{\textless{}read/\textgreater{}}, \texttt{""} y \texttt{simbolo=""}); al leer se aceptan también «λ», «ε», «lambda» y «eps». Para leer archivos de otras personas, los lectores aceptan además el esquema de ejemplo del Anexo 3 del enunciado (una lista de transiciones con \texttt{desde}, \texttt{lee} y \texttt{hacia}).
+
+\textbf{Interpretación de la quíntupla.} Al leer se verifica que Q no sea vacío ni tenga repetidos, que Σ no contenga λ, que el inicial y los finales estén en Q y que cada transición use estados de Q y símbolos de Σ. Un archivo que se declara \texttt{AFD} pero no es determinista se rechaza indicando los pares que fallan. El \texttt{.jff} no guarda Σ: se infiere de los símbolos de las transiciones.
+
+\hypertarget{simulaciuxf3n-y-validaciuxf3n}{%
+\subsection{Simulación y validación}\label{simulaciuxf3n-y-validaciuxf3n}}
+
+En \textbf{Simulador} se escribe la palabra (vacía o «λ» para la palabra vacía). \emph{Validar} la procesa completa; \emph{Paso a paso} prepara una cinta con un recuadro por símbolo y \emph{Siguiente} lee uno a la vez: el símbolo actual se resalta en la cinta, los estados activos en el diagrama y en la tabla, y las transiciones que se acaban de usar se dibujan en guinda. La traza numerada muestra, por paso, el conjunto de activos antes, el conjunto al que se llega y, si cambió, su cierre λ. Al terminar aparece un recuadro verde (ACEPTADA) o rojo (RECHAZADA) con el motivo: qué estado final quedó activo, o que no quedó ninguno.
+
+\textbf{Decisión de diseño: seguir todos los caminos.} Para los no deterministas se eligió simular el conjunto de estados activos en lugar de convertir a AFD. En cada paso se calcula S ← λ-cl(⋃\_\{q∈S\} δ(q, a)).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.2500}}@{}}
+\caption{Costo de las dos formas de simular un AFN.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Alternativa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Costo de preparación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Costo por palabra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ventaja
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Alternativa
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Costo de preparación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Costo por palabra
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ventaja
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Conjuntos de activos & Cerraduras: O(\textbar Q\textbar²) una vez & O(\textbar ω\textbar·\textbar Q\textbar²) & Muestra las bifurcaciones y la cerradura tal como las define la teoría. \\
+Convertir a AFD & Hasta 2\^{}\textbar Q\textbar{} estados y \textbar Σ\textbar·2\^{}\textbar Q\textbar{} transiciones & O(\textbar ω\textbar) & Conviene si el mismo autómata procesará muchísimas palabras. \\
+\end{longtable}
+
+Se eligió la primera porque el objetivo del simulador es mostrar el comportamiento del autómata que se diseñó, no el de otro equivalente, y porque nunca paga el costo exponencial; la conversión queda para la Práctica 3.
+
+\evidencia[0.95]{../evidencias/app/02-simulador-paso.png}{Simulador a mitad de una ejecución paso a paso: cinta, activos,
+transiciones usadas y traza.}
+
+\evidencia[0.95]{../evidencias/app/03-simulador-resultado.png}{Resultado de validar una palabra en un AFN-λ, con la cerradura λ de cada
+estado.}
+
+\hypertarget{exportaciuxf3n-y-operaciones-sobre-lenguajes}{%
+\subsection{Exportación y operaciones sobre lenguajes}\label{exportaciuxf3n-y-operaciones-sobre-lenguajes}}
+
+La tarjeta \emph{Guardar} de \textbf{Biblioteca} escribe el autómata activo en \texttt{.jff}, \texttt{.json}, \texttt{.xml} o en los tres a la vez, en la carpeta \texttt{salidas/}. Las operaciones de la Práctica 1 (subcadenas, prefijos, sufijos, Σ* y Σ⁺) siguen en las secciones \textbf{Palabras}, \textbf{Cerraduras} y \textbf{Lenguajes} de la misma ventana.
+
+\evidencia[0.95]{../evidencias/app/04-biblioteca.png}{Biblioteca: vista previa de un archivo y exportación a los tres
+formatos.}
+
+\hypertarget{pruebas}{%
+\subsection{Pruebas}\label{pruebas}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.5000}}@{}}
+\caption{Requisitos mínimos de la suite.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Requisito
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Prueba
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Requisito
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Prueba
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Exportar e importar en los tres formatos son operaciones inversas & \texttt{test\_ida\_y\_vuelta} (4 autómatas × 3 formatos): leer lo escrito da la misma quíntupla y volver a escribirlo da el mismo texto. \\
+Aceptación y rechazo en un AFD & \texttt{test\_afd\_acepta}, \texttt{test\_afd\_rechaza}, \texttt{test\_afd\_parcial\_y\_completado}. \\
+AFND-λ que requiere la cerradura & \texttt{test\_afn\_lambda\_requiere\_la\_cerradura}: en un AFN-λ para a*b*, «b» sólo se acepta porque q1 ∈ λ-cl(q0). \\
+\end{longtable}
+
+Las 404 pruebas se aprueban en los tres contenedores (\texttt{docker\ compose\ run\ -\/-rm\ py31x\ pytest\ -q}) y en GitHub Actions.

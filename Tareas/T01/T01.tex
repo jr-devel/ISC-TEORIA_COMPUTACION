@@ -1,0 +1,63 @@
+\documentclass[12pt]{article}
+\input{../Paquetes/paquetes.tex}
+
+\newcommand{\Titulo}{1er Lista de problemas y ejercicios}
+
+\begin{document}
+	\input{../Portada/PORTADA_TC.tex}
+	%
+    \pagenumbering{Roman}
+    %
+    \newpage
+    \thispagestyle{empty}
+    \setcounter{page}{1}
+    %\section*{Resumen}
+    \input{sections/resumen.tex}
+    \addcontentsline{toc}{section}{Resumen}
+    %
+    \newpage
+    %\thispagestyle{empty}
+    \tableofcontents
+    %%
+    %\newpage
+    %\thispagestyle{empty}
+    %\listoffigures
+    %\addcontentsline{toc}{section}{Índice de figuras}
+    %%
+    %\newpage
+    %\thispagestyle{empty}
+    %\listoftables
+    %\addcontentsline{toc}{section}{Índice de tablas}
+    %
+    \newpage
+    \thispagestyle{plain}
+    \pagenumbering{arabic}
+    \setcounter{page}{1}
+    \section*{Introducción}
+    \input{sections/introduccion.tex}
+    %
+	\newpage
+    \section{Problemas de Estructuras Ordenadas}
+        \input{sections/1-problemas-estructuras-ordenadas/problemas-estructuras-ordenadas.tex}
+    \newpage
+    \section{Propiedades de la Clausura de Kleene y Positiva}
+        \input{sections/2-propiedades-clausura-kleene-positiva/propiedades-clausura-kleene-positiva.tex}
+    \newpage
+    \section{Reflexión o Inverso de un Lenguaje}
+        \input{sections/3-reflexion-inverso-lenguaje/reflexion-inverso-lenguaje.tex}
+    \newpage
+    \section{Longitud de cadenas}
+        \input{sections/4-longitud-cadenas/longitud-cadenas.tex}
+    \newpage
+    \section{n-cadenas o n-palabras}
+        \input{sections/5-n-cadenas-n-palabras/n-cadenas-n-palabras.tex}
+    \newpage
+    \section{Prefijos y Sufijos de una Cadena}
+        \input{sections/6-prefijos-sufijos-cadena/prefijos-sufijos-cadena.tex}
+    \newpage
+    \section{Potencias de un Lenguaje}
+        \input{sections/7-potencias-lenguaje/potencias-lenguaje.tex}
+    \newpage
+    \section{Ejercicios}
+        \input{sections/8-ejercicios/ejercicios.tex}
+\end{document}

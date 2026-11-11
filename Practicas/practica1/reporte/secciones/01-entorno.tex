@@ -1,0 +1,166 @@
+\hypertarget{ejercicio-1.-entorno-de-trabajo-control-de-versiones-y-contenedores}{%
+\section{Ejercicio 1. Entorno de trabajo: control de versiones y contenedores}\label{ejercicio-1.-entorno-de-trabajo-control-de-versiones-y-contenedores}}
+
+\hypertarget{parte-a.-investigaciuxf3n}{%
+\subsection{Parte A. Investigación}\label{parte-a.-investigaciuxf3n}}
+
+\hypertarget{control-de-versiones}{%
+\subsubsection{Control de versiones}\label{control-de-versiones}}
+
+Un sistema de control de versiones registra cada estado de un conjunto de archivos junto con su autor, su fecha y una explicación del cambio, de modo que cualquier versión anterior puede recuperarse o compararse con la actual \autocite[cap. 1]{chacon2014}. En un equipo resuelve tres problemas que aparecen en cuanto dos personas tocan el mismo proyecto: saber quién cambió qué y por qué, trabajar en paralelo sin sobrescribir el trabajo ajeno y volver atrás cuando un cambio introduce un error. Git es \emph{distribuido}: cada copia del repositorio contiene la historia completa, por lo que se puede confirmar, crear ramas y consultar el historial sin conexión.
+
+\textbf{Git y GitHub.} Git es el programa que administra la historia en la computadora de cada persona. GitHub es un servicio en la nube que aloja repositorios Git y añade lo que Git no trae: Pull Requests con revisión, integración continua (GitHub Actions), control de acceso e incidencias. Se puede usar Git sin GitHub, pero GitHub no tiene sentido sin Git.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4444}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4444}}@{}}
+\caption{Términos de control de versiones.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Concepto
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definición
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ejemplo en esta práctica
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Concepto
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Definición
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ejemplo en esta práctica
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Repositorio & Carpeta cuya historia completa guarda Git en el subdirectorio oculto \texttt{.git}. & \texttt{practica1-tc}, con \texttt{src/}, \texttt{tests/}, \texttt{docs/} y \texttt{entorno/}. \\
+Confirmación (\emph{commit}) & Fotografía de los archivos preparados, con un mensaje y un identificador único (hash SHA-1). & \texttt{Agrega\ el\ enumerador\ de\ Σⁿ\ con\ límite\ de\ cadenas}. \\
+Rama (\emph{branch}) & Puntero móvil a una confirmación; permite desarrollar sin afectar la rama principal. & \texttt{feature/interfaz}, para la interfaz Flet. \\
+Fusión (\emph{merge}) & Integra en una rama los cambios de otra; si ambas avanzaron, crea una confirmación con dos padres. & \texttt{feature/interfaz} se fusionó en \texttt{main}. \\
+Conflicto de fusión & Ocurre cuando las dos ramas modificaron las mismas líneas; Git no elige y marca el archivo con \texttt{\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}\textless{}}, \texttt{=======} y \texttt{\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}\textgreater{}} para que una persona decida. & Dos versiones distintas del mensaje de error del límite en \texttt{lenguajes.py}. \\
+Pull Request & Solicitud en GitHub para fusionar una rama, con descripción, revisión, comentarios y resultado de las pruebas \autocite{githubpr2026}. & «Interfaz con menú lateral y ayuda por sección». \\
+\texttt{.gitignore} & Lista de patrones de archivos que Git no debe rastrear, normalmente porque se regeneran. & \texttt{venv/}, \texttt{\_\_pycache\_\_/}, \texttt{*.pyc}, \texttt{salidas/}. \\
+\texttt{README} & Documento de entrada del repositorio; GitHub lo muestra en la página principal. & Portada con datos del alumno, índice e instrucciones. \\
+\end{longtable}
+
+\hypertarget{contenedores}{%
+\subsubsection{Contenedores}\label{contenedores}}
+
+Un contenedor es un proceso aislado del sistema operativo anfitrión que ve su propio sistema de archivos, su propia red y sus propios procesos, pero \textbf{comparte el núcleo} del anfitrión. Una máquina virtual, en cambio, emula hardware completo y arranca su propio sistema operativo sobre un hipervisor. De ahí las tres diferencias que pide la práctica \autocite{felter2015}:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Arranque.} Un contenedor inicia en fracciones de segundo, porque sólo lanza un proceso; una máquina virtual tarda lo que tarda en arrancar un sistema operativo.
+\item
+  \textbf{Tamaño.} Una imagen de contenedor contiene únicamente la aplicación y sus bibliotecas (decenas o cientos de MB); una máquina virtual incluye un sistema operativo completo (varios GB).
+\item
+  \textbf{Aislamiento.} La máquina virtual aísla más, porque cada una tiene su propio núcleo; en el contenedor el aislamiento se logra con \emph{namespaces} y \emph{cgroups} del mismo núcleo, que es una frontera más delgada.
+\end{itemize}
+
+Los cuatro términos de Docker que se usan en el ejercicio son \autocite{dockerdocs2026}: la \textbf{imagen}, plantilla de sólo lectura formada por capas (por ejemplo, \texttt{python:3.12-slim} más las dependencias); el \textbf{contenedor}, una instancia en ejecución de una imagen, con una capa escribible propia; el \textbf{volumen}, almacenamiento que vive fuera del ciclo de vida del contenedor y que aquí monta la carpeta del proyecto en \texttt{/app} para que los cambios al código se vean sin reconstruir; y el \textbf{puerto publicado}, que conecta un puerto del equipo con uno del contenedor (\texttt{8550:8550}), necesario para abrir la interfaz desde el navegador.
+
+\textbf{Entorno virtual de Python.} Es una carpeta con su propio \texttt{site-packages} y enlaces al intérprete que lo creó; aísla las \emph{bibliotecas} de cada proyecto, no el intérprete \autocite{pythonvenv2026}. Por eso un entorno virtual no cambia la versión de Python: \texttt{python\ -m\ venv} con Python 3.12 siempre produce un entorno 3.12. Para probar tres versiones hacen falta tres intérpretes, y cada contenedor aporta el suyo.
+
+\textbf{Por qué fijar la imagen.} \texttt{python:latest} apunta a la versión más reciente en el momento de construir; un día es 3.13 y al siguiente 3.14, con lo que la misma receta produce entornos distintos y un fallo puede aparecer sin que nadie haya cambiado el código. \texttt{python:3.12-slim} fija la versión menor (y la variante ligera), de modo que la construcción es reproducible; las correcciones de la versión de parche siguen llegando.
+
+\hypertarget{parte-b.-repositorio}{%
+\subsection{Parte B. Repositorio}\label{parte-b.-repositorio}}
+
+El repositorio \texttt{practica1-tc} contiene \texttt{README.md} (portada con nombre, boleta, grupo, carrera, unidad de aprendizaje, profesor y fecha, índice enlazado e instrucciones), un \texttt{.gitignore} que excluye \texttt{venv/}, \texttt{.venv/}, \texttt{\_\_pycache\_\_/}, \texttt{*.pyc}, \texttt{.pytest\_cache/}, \texttt{salidas/} y los auxiliares de LaTeX, y que \textbf{no} excluye los \texttt{.jff}, y la historia de confirmaciones. Se hicieron más de cinco confirmaciones con mensajes en imperativo que dicen qué cambia; la interfaz se desarrolló en la rama \texttt{feature/interfaz} y entró a \texttt{main} mediante un Pull Request descrito y fusionado.
+
+\evidencia[0.95]{../evidencias/git/git-log-graph.png}{Salida de \texttt{git\ log\ -\/-oneline\ -\/-graph\ -\/-all}.}
+
+\evidencia[0.95]{../evidencias/git/pull-request.png}{Pull Request de \texttt{feature/interfaz} fusionado en \texttt{main}.}
+
+\hypertarget{parte-c.-los-tres-entornos-de-python}{%
+\subsection{Parte C. Los tres entornos de Python}\label{parte-c.-los-tres-entornos-de-python}}
+
+\hypertarget{archivos-versionados}{%
+\subsubsection{Archivos versionados}\label{archivos-versionados}}
+
+El \texttt{Dockerfile} (carpeta \texttt{entorno/}) es único y recibe la versión como argumento. La tabla explica cada instrucción.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.3462}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.6538}}@{}}
+\caption{Instrucciones del \texttt{Dockerfile}.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Instrucción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Función
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Instrucción
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Función
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{ARG\ PYTHON\_VERSION=3.12} & Declara el argumento de construcción; \texttt{compose.yml} le da 3.11, 3.12 o 3.13. El valor por omisión permite construir la imagen sin Compose. \\
+\texttt{FROM\ python:\$\{PYTHON\_VERSION\}-slim} & Imagen base oficial en su variante ligera, con la versión elegida. \\
+\texttt{RUN\ python\ -m\ venv\ /opt/venv} & Crea el entorno virtual fuera de \texttt{/app}, porque el volumen de Compose reemplaza \texttt{/app} con la carpeta del equipo y borraría un entorno creado ahí. \\
+\texttt{ENV\ PATH="/opt/venv/bin:\$PATH"} & Antepone el \texttt{bin/} del entorno al \texttt{PATH}; equivale a activarlo para todas las órdenes siguientes. \\
+\texttt{WORKDIR\ /app} & Carpeta de trabajo dentro del contenedor. \\
+\texttt{COPY\ requirements.txt\ .} & Copia sólo la lista de dependencias, para que la capa siguiente se reutilice mientras esa lista no cambie. \\
+\texttt{RUN\ pip\ install\ …\ -r\ requirements.txt} & Actualiza pip e instala las versiones fijadas; \texttt{-\/-no-cache-dir} evita guardar los paquetes descargados en la imagen. \\
+\texttt{COPY\ .\ .} & Copia el proyecto (útil si se ejecuta sin volumen). \\
+\texttt{ENV\ FLET\_FORCE\_WEB\_SERVER=true} y \texttt{FLET\_SERVER\_PORT=8550} & Sin escritorio, Flet se sirve como aplicación web en el puerto 8550. \\
+\texttt{CMD\ {[}"python",\ "src/app.py"{]}} & Orden por omisión: abrir la interfaz. \\
+\end{longtable}
+
+\texttt{compose.yml} declara los servicios \texttt{py311}, \texttt{py312} y \texttt{py313} con el mismo \texttt{Dockerfile} \autocite{composedocs2026} y distinto \texttt{PYTHON\_VERSION}; los tres montan la carpeta del proyecto en \texttt{/app}, \texttt{py311} y \texttt{py313} ejecutan \texttt{pytest\ -q} por omisión y sólo \texttt{py312} publica el puerto 8550 para la interfaz. \texttt{requirements.txt} fija \texttt{flet{[}web{]}==0.86.5}, \texttt{fastapi==0.115.12} y \texttt{pytest==8.3.4}. FastAPI se fija porque \texttt{flet-web} lo requiere sin acotar su versión y las publicaciones de FastAPI posteriores a la 0.115 eliminaron un parámetro que \texttt{flet-web} 0.86.5 todavía usa; sin esa línea la interfaz no arranca en un entorno nuevo.
+
+\hypertarget{justificaciuxf3n-de-las-versiones}{%
+\subsubsection{Justificación de las versiones}\label{justificaciuxf3n-de-las-versiones}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1579}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1579}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6842}}@{}}
+\caption{Elección de versiones.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Servicio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Versión
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Motivo
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Servicio
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Versión
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Motivo
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{py311} & 3.11 & Flet 0.86.5 exige Python ≥ 3.10 \autocite{fletpypi2026}, pero 3.10 llegó al fin de su soporte en octubre de 2026 \autocite{pythonversions2026}; 3.11 es la más antigua que conserva parches de seguridad (hasta octubre de 2027) y que Flet admite. \\
+\texttt{py312} & 3.12 & Versión de referencia del curso; recibe parches de seguridad hasta octubre de 2028. Sirve la interfaz. \\
+\texttt{py313} & 3.13 & Versión estable reciente (soporte hasta octubre de 2029); detecta dependencias de comportamientos que cambiaron. \\
+\end{longtable}
+
+\hypertarget{verificaciuxf3n}{%
+\subsubsection{Verificación}\label{verificaciuxf3n}}
+
+Cada contenedor se construye con \texttt{docker\ compose\ build} y se comprueba con \texttt{docker\ compose\ run\ -\/-rm\ py311\ python\ -\/-version} y sus equivalentes; las salidas son \texttt{Python\ 3.11.x}, \texttt{Python\ 3.12.x} y \texttt{Python\ 3.13.x}.
+
+\evidencia[0.95]{../evidencias/docker/python-version.png}{\texttt{python\ -\/-version} en los contenedores \texttt{py311},
+\texttt{py312} y \texttt{py313}.}

@@ -1,0 +1,192 @@
+% ======================================================================
+%  Preámbulo común de los reportes de Teoría de la Computación
+%  Compilar con XeLaTeX + Biber:  latexmk -xelatex main.tex
+% ======================================================================
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}
+  {\setmainfont{Times New Roman}}
+  {\setmainfont{TeX Gyre Termes}}
+\setmonofont{DejaVu Sans Mono}[Scale=0.82]
+\newfontfamily\simbolos{DejaVu Sans}[Scale=0.92]
+
+\usepackage[spanish,mexico,es-noshorthands]{babel}
+\usepackage{csquotes}
+
+\usepackage[letterpaper,margin=2.54cm,headheight=15pt]{geometry}
+\usepackage{setspace}
+\doublespacing
+
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{booktabs,longtable,array,calc,multirow}
+\usepackage{caption}
+\captionsetup{font={small,singlespacing},labelfont=bf,labelsep=period}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage[style=apa,backend=biber]{biblatex}
+\usepackage[hidelinks]{hyperref}
+
+% --- Símbolos Unicode que la fuente de texto no incluye ------------------
+\usepackage{newunicodechar}
+\newunicodechar{⁰}{\textsuperscript{0}}
+\newunicodechar{⁴}{\textsuperscript{4}}
+\newunicodechar{⁵}{\textsuperscript{5}}
+\newunicodechar{⁶}{\textsuperscript{6}}
+\newunicodechar{⁷}{\textsuperscript{7}}
+\newunicodechar{⁸}{\textsuperscript{8}}
+\newunicodechar{⁹}{\textsuperscript{9}}
+\newunicodechar{⁺}{\textsuperscript{+}}
+\newunicodechar{ⁿ}{\textsuperscript{\textit{n}}}
+\newunicodechar{ᵏ}{\textsuperscript{\textit{k}}}
+\newunicodechar{ᴿ}{\textsuperscript{\textit{R}}}
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{∉}{\ensuremath{\notin}}
+\newunicodechar{∣}{\ensuremath{\mid}}
+\newunicodechar{∩}{\ensuremath{\cap}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{⋃}{\ensuremath{\bigcup}}
+\newunicodechar{⋯}{\ensuremath{\cdots}}
+\newunicodechar{≤}{\ensuremath{\le}}
+\newunicodechar{≥}{\ensuremath{\ge}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{↦}{\ensuremath{\mapsto}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{𝒫}{\ensuremath{\mathcal{P}}}
+\newunicodechar{✓}{{\simbolos ✓}}
+\newunicodechar{✗}{{\simbolos ✗}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{∋}{\ensuremath{\ni}}
+\newunicodechar{⊥}{\ensuremath{\bot}}
+
+\newunicodechar{ᵐ}{\textsuperscript{\textit{m}}}
+\newunicodechar{ᵖ}{\textsuperscript{\textit{p}}}
+\newunicodechar{ᵢ}{\textsubscript{\textit{i}}}
+\newunicodechar{ⱼ}{\textsubscript{\textit{j}}}
+\newunicodechar{ₓ}{\textsubscript{\textit{x}}}
+\newunicodechar{⁻}{\textsuperscript{−}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{¹}{\textsuperscript{1}}
+\newunicodechar{ᵃ}{\textsuperscript{\textit{a}}}
+\newunicodechar{ᵇ}{\textsuperscript{\textit{b}}}
+\newunicodechar{ᶜ}{\textsuperscript{\textit{c}}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+
+\newunicodechar{ˣ}{\textsuperscript{\textit{x}}}
+\newunicodechar{ⁱ}{\textsuperscript{\textit{i}}}
+\newunicodechar{ₙ}{\textsubscript{\textit{n}}}
+\newunicodechar{⟶}{\ensuremath{\longrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+
+% --- Colores institucionales ------------------------------------------
+\definecolor{guinda}{HTML}{6C1D45}
+\definecolor{azulescom}{HTML}{006699}
+\definecolor{gristenue}{HTML}{F4F4F6}
+
+% --- Títulos ----------------------------------------------------------
+\titleformat{\section}{\normalfont\large\bfseries\color{guinda}}{\thesection.}{0.6em}{}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection.}{0.6em}{}
+\titleformat{\subsubsection}{\normalfont\normalsize\bfseries\itshape}{\thesubsubsection.}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.2em}{0.4em}
+\titlespacing*{\subsection}{0pt}{0.9em}{0.3em}
+\titlespacing*{\subsubsection}{0pt}{0.7em}{0.2em}
+
+% --- Encabezado y pie -------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textcolor{guinda}{Teoría de la Computación}}
+\fancyhead[R]{\small\PracticaCorta}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% --- Tablas y listas que genera pandoc --------------------------------
+\providecommand{\tightlist}{\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\providecommand{\passthrough}[1]{#1}
+\AtBeginEnvironment{longtable}{\singlespacing\small}
+\setlength{\LTpre}{0.6em}\setlength{\LTpost}{0.6em}
+\renewcommand{\arraystretch}{1.25}
+
+% --- Código (resaltado de pandoc, estilo tango) -----------------------
+\usepackage{fancyvrb}
+\usepackage{fvextra}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\},fontsize=\small,breaklines,breakanywhere}
+\usepackage{framed}
+\colorlet{shadecolor}{gristenue}
+\newenvironment{Shaded}{\begin{singlespace}\begin{snugshade}}{\end{snugshade}\end{singlespace}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{fontsize=\small,breaklines,breakanywhere}
+
+% --- Evidencias -------------------------------------------------------
+% \evidencia[ancho]{ruta}{leyenda}: inserta la captura si existe; si aún
+% no se ha agregado, dibuja un recuadro que indica la ruta esperada.
+\newcommand{\evidencia}[3][0.95]{%
+  \begin{figure}[htbp]\centering
+  \IfFileExists{#2}{%
+    \fbox{\includegraphics[width=#1\linewidth,height=0.42\textheight,keepaspectratio]{#2}}%
+  }{%
+    \fcolorbox{guinda}{guinda!6}{\parbox[c][3.2cm][c]{0.8\linewidth}{\centering\singlespacing
+      \textbf{\textcolor{guinda}{Captura pendiente}}\\[2pt]
+      \footnotesize\ttfamily\detokenize{#2}}}%
+  }
+  \caption{#3}
+  \end{figure}}
+% \evidenciaaqui: igual que \evidencia, pero sin flotar (se queda junto al texto que la explica).
+\newcommand{\evidenciaaqui}[3][0.95]{%
+  \par\begin{center}
+  \IfFileExists{#2}{%
+    \fbox{\includegraphics[width=#1\linewidth,height=0.4\textheight,keepaspectratio]{#2}}%
+  }{%
+    \fcolorbox{guinda}{guinda!6}{\parbox[c][3.2cm][c]{0.8\linewidth}{\centering\singlespacing
+      \textbf{\textcolor{guinda}{Captura pendiente}}\\[2pt]
+      \footnotesize\ttfamily\detokenize{#2}}}%
+  }
+  \captionof{figure}{#3}
+  \end{center}}

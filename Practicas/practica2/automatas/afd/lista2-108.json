@@ -1,0 +1,1112 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-108",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1",
+    "a",
+    "b",
+    "c"
+  ],
+  "estados": [
+    "[λ ; λ]",
+    "[a ; λ]",
+    "[λ ; c]",
+    "[ab ; λ]",
+    "[λ ; cb]",
+    "[abb ; λ]",
+    "[a ; cba]",
+    "[abbc ; c]",
+    "[a ; cbaa]",
+    "[abbcb|λ ; cb]",
+    "[ab ; cbaab]",
+    "[abbcb|λ ; cba]",
+    "[abbcb|λ ; λ]",
+    "[abbcb|c ; c]",
+    "[abb ; cbaabb|λ]",
+    "[abbcb|λ ; cbaa]",
+    "[abbcb|cb ; cb]",
+    "[a ; cbaabb|a]",
+    "[λ ; cbaabb|λ]",
+    "[abbc ; cbaabb|λ]",
+    "[abbcb|λ ; cbaab]",
+    "[abbcb|cba ; cba]",
+    "[ab ; cbaabb|ab]",
+    "[abbcb|λ ; cbaabb|λ]",
+    "[abbcb|cbaa ; cbaa]",
+    "[abb ; cbaabb|abb]",
+    "[abbcb|λ ; cbaabb|a]",
+    "[abbcb|c ; cbaabb|λ]",
+    "[abbcb|cbaab ; cbaab]",
+    "[abbc ; cbaabb|abbc]",
+    "[abbcb|λ ; cbaabb|ab]",
+    "[abbcb|cb ; cbaabb|λ]",
+    "[✓ ; cbaabb|λ]",
+    "[abbcb|λ ; ✓]",
+    "[abbcb|λ ; cbaabb|abb]",
+    "[abbcb|cba ; cbaabb|a]",
+    "[✓ ; cbaabb|a]",
+    "[abbcb|c ; ✓]",
+    "[abbcb|c ; cbaabb|abbc]",
+    "[abbcb|cbaa ; cbaabb|a]",
+    "[✓ ; cbaabb|ab]",
+    "[abbcb|cb ; ✓]",
+    "[abbcb|cbaab ; cbaabb|ab]",
+    "[✓ ; cbaabb|abb]",
+    "[abbcb|cba ; ✓]",
+    "[✓ ; cbaabb|abbc]",
+    "[abbcb|cbaa ; ✓]",
+    "[✓ ; ✓]",
+    "[abbcb|cbaab ; ✓]"
+  ],
+  "inicial": "[λ ; λ]",
+  "aceptacion": [
+    "[✓ ; cbaabb|λ]",
+    "[abbcb|λ ; ✓]",
+    "[✓ ; cbaabb|a]",
+    "[abbcb|c ; ✓]",
+    "[✓ ; cbaabb|ab]",
+    "[abbcb|cb ; ✓]",
+    "[✓ ; cbaabb|abb]",
+    "[abbcb|cba ; ✓]",
+    "[✓ ; cbaabb|abbc]",
+    "[abbcb|cbaa ; ✓]",
+    "[✓ ; ✓]",
+    "[abbcb|cbaab ; ✓]"
+  ],
+  "delta": {
+    "[λ ; λ]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[λ ; λ]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[a ; λ]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[ab ; λ]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[λ ; c]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[λ ; cb]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[ab ; λ]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[abb ; λ]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[λ ; cb]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; cba]"
+      ],
+      "b": [
+        "[λ ; λ]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[abb ; λ]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[λ ; λ]"
+      ],
+      "c": [
+        "[abbc ; c]"
+      ]
+    },
+    "[a ; cba]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; cbaa]"
+      ],
+      "b": [
+        "[ab ; λ]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[abbc ; c]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[abbcb|λ ; cb]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[a ; cbaa]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[ab ; cbaab]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[abbcb|λ ; cb]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cba]"
+      ],
+      "b": [
+        "[abbcb|λ ; λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[ab ; cbaab]": {
+      "0": [
+        "[λ ; λ]"
+      ],
+      "1": [
+        "[λ ; λ]"
+      ],
+      "a": [
+        "[a ; λ]"
+      ],
+      "b": [
+        "[abb ; cbaabb|λ]"
+      ],
+      "c": [
+        "[λ ; c]"
+      ]
+    },
+    "[abbcb|λ ; cba]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaa]"
+      ],
+      "b": [
+        "[abbcb|λ ; λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abbcb|λ ; λ]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; λ]"
+      ],
+      "b": [
+        "[abbcb|λ ; λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abbcb|c ; c]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; λ]"
+      ],
+      "b": [
+        "[abbcb|cb ; cb]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abb ; cbaabb|λ]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbc ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|λ ; cbaa]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; λ]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaab]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abbcb|cb ; cb]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|cba ; cba]"
+      ],
+      "b": [
+        "[abbcb|λ ; λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[a ; cbaabb|a]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[ab ; cbaabb|ab]"
+      ],
+      "c": [
+        "[λ ; cbaabb|λ]"
+      ]
+    },
+    "[λ ; cbaabb|λ]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[λ ; cbaabb|λ]"
+      ]
+    },
+    "[abbc ; cbaabb|λ]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[λ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|λ ; cbaab]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; λ]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abbcb|cba ; cba]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|cbaa ; cbaa]"
+      ],
+      "b": [
+        "[abbcb|λ ; λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[ab ; cbaabb|ab]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[abb ; cbaabb|abb]"
+      ],
+      "c": [
+        "[λ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|λ ; cbaabb|λ]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|cbaa ; cbaa]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; λ]"
+      ],
+      "b": [
+        "[abbcb|cbaab ; cbaab]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abb ; cbaabb|abb]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbc ; cbaabb|abbc]"
+      ]
+    },
+    "[abbcb|λ ; cbaabb|a]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|ab]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|c ; cbaabb|λ]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|cb ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|cbaab ; cbaab]": {
+      "0": [
+        "[abbcb|λ ; λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; λ]"
+      ],
+      "b": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbcb|c ; c]"
+      ]
+    },
+    "[abbc ; cbaabb|abbc]": {
+      "0": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[a ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "c": [
+        "[λ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|λ ; cbaabb|ab]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|abb]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|cb ; cbaabb|λ]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|cba ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[✓ ; cbaabb|λ]": {
+      "0": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[✓ ; cbaabb|a]"
+      ],
+      "b": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[✓ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|λ ; ✓]": {
+      "0": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "1": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "a": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "b": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; ✓]"
+      ]
+    },
+    "[abbcb|λ ; cbaabb|abb]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|abbc]"
+      ]
+    },
+    "[abbcb|cba ; cbaabb|a]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|cbaa ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|λ ; cbaabb|ab]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[✓ ; cbaabb|a]": {
+      "0": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[✓ ; cbaabb|a]"
+      ],
+      "b": [
+        "[✓ ; cbaabb|ab]"
+      ],
+      "c": [
+        "[✓ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|c ; ✓]": {
+      "0": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "1": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "a": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "b": [
+        "[abbcb|cb ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; ✓]"
+      ]
+    },
+    "[abbcb|c ; cbaabb|abbc]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|cb ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|cbaa ; cbaabb|a]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[abbcb|cbaab ; cbaabb|ab]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[✓ ; cbaabb|ab]": {
+      "0": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[✓ ; cbaabb|a]"
+      ],
+      "b": [
+        "[✓ ; cbaabb|abb]"
+      ],
+      "c": [
+        "[✓ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|cb ; ✓]": {
+      "0": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "1": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "a": [
+        "[abbcb|cba ; ✓]"
+      ],
+      "b": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; ✓]"
+      ]
+    },
+    "[abbcb|cbaab ; cbaabb|ab]": {
+      "0": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[abbcb|λ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[abbcb|λ ; cbaabb|a]"
+      ],
+      "b": [
+        "[✓ ; cbaabb|abb]"
+      ],
+      "c": [
+        "[abbcb|c ; cbaabb|λ]"
+      ]
+    },
+    "[✓ ; cbaabb|abb]": {
+      "0": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[✓ ; cbaabb|a]"
+      ],
+      "b": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "c": [
+        "[✓ ; cbaabb|abbc]"
+      ]
+    },
+    "[abbcb|cba ; ✓]": {
+      "0": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "1": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "a": [
+        "[abbcb|cbaa ; ✓]"
+      ],
+      "b": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; ✓]"
+      ]
+    },
+    "[✓ ; cbaabb|abbc]": {
+      "0": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "1": [
+        "[✓ ; cbaabb|λ]"
+      ],
+      "a": [
+        "[✓ ; cbaabb|a]"
+      ],
+      "b": [
+        "[✓ ; ✓]"
+      ],
+      "c": [
+        "[✓ ; cbaabb|λ]"
+      ]
+    },
+    "[abbcb|cbaa ; ✓]": {
+      "0": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "1": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "a": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "b": [
+        "[abbcb|cbaab ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; ✓]"
+      ]
+    },
+    "[✓ ; ✓]": {
+      "0": [
+        "[✓ ; ✓]"
+      ],
+      "1": [
+        "[✓ ; ✓]"
+      ],
+      "a": [
+        "[✓ ; ✓]"
+      ],
+      "b": [
+        "[✓ ; ✓]"
+      ],
+      "c": [
+        "[✓ ; ✓]"
+      ]
+    },
+    "[abbcb|cbaab ; ✓]": {
+      "0": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "1": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "a": [
+        "[abbcb|λ ; ✓]"
+      ],
+      "b": [
+        "[✓ ; ✓]"
+      ],
+      "c": [
+        "[abbcb|c ; ✓]"
+      ]
+    }
+  },
+  "posiciones": {
+    "[λ ; λ]": [
+      100.0,
+      360.0
+    ],
+    "[a ; λ]": [
+      270.0,
+      295.0
+    ],
+    "[λ ; c]": [
+      270.0,
+      425.0
+    ],
+    "[ab ; λ]": [
+      440.0,
+      295.0
+    ],
+    "[λ ; cb]": [
+      440.0,
+      425.0
+    ],
+    "[abb ; λ]": [
+      610.0,
+      295.0
+    ],
+    "[a ; cba]": [
+      610.0,
+      425.0
+    ],
+    "[abbc ; c]": [
+      780.0,
+      295.0
+    ],
+    "[a ; cbaa]": [
+      780.0,
+      425.0
+    ],
+    "[abbcb|λ ; cb]": [
+      950.0,
+      295.0
+    ],
+    "[ab ; cbaab]": [
+      950.0,
+      425.0
+    ],
+    "[abbcb|λ ; cba]": [
+      1120.0,
+      165.0
+    ],
+    "[abbcb|λ ; λ]": [
+      1120.0,
+      295.0
+    ],
+    "[abbcb|c ; c]": [
+      1120.0,
+      425.0
+    ],
+    "[abb ; cbaabb|λ]": [
+      1120.0,
+      555.0
+    ],
+    "[abbcb|λ ; cbaa]": [
+      1290.0,
+      100.0
+    ],
+    "[abbcb|cb ; cb]": [
+      1290.0,
+      230.0
+    ],
+    "[a ; cbaabb|a]": [
+      1290.0,
+      360.0
+    ],
+    "[λ ; cbaabb|λ]": [
+      1290.0,
+      490.0
+    ],
+    "[abbc ; cbaabb|λ]": [
+      1290.0,
+      620.0
+    ],
+    "[abbcb|λ ; cbaab]": [
+      1460.0,
+      165.0
+    ],
+    "[abbcb|cba ; cba]": [
+      1460.0,
+      295.0
+    ],
+    "[ab ; cbaabb|ab]": [
+      1460.0,
+      425.0
+    ],
+    "[abbcb|λ ; cbaabb|λ]": [
+      1460.0,
+      555.0
+    ],
+    "[abbcb|cbaa ; cbaa]": [
+      1630.0,
+      165.0
+    ],
+    "[abb ; cbaabb|abb]": [
+      1630.0,
+      295.0
+    ],
+    "[abbcb|λ ; cbaabb|a]": [
+      1630.0,
+      425.0
+    ],
+    "[abbcb|c ; cbaabb|λ]": [
+      1630.0,
+      555.0
+    ],
+    "[abbcb|cbaab ; cbaab]": [
+      1800.0,
+      165.0
+    ],
+    "[abbc ; cbaabb|abbc]": [
+      1800.0,
+      295.0
+    ],
+    "[abbcb|λ ; cbaabb|ab]": [
+      1800.0,
+      425.0
+    ],
+    "[abbcb|cb ; cbaabb|λ]": [
+      1800.0,
+      555.0
+    ],
+    "[✓ ; cbaabb|λ]": [
+      1970.0,
+      165.0
+    ],
+    "[abbcb|λ ; ✓]": [
+      1970.0,
+      295.0
+    ],
+    "[abbcb|λ ; cbaabb|abb]": [
+      1970.0,
+      425.0
+    ],
+    "[abbcb|cba ; cbaabb|a]": [
+      1970.0,
+      555.0
+    ],
+    "[✓ ; cbaabb|a]": [
+      2140.0,
+      165.0
+    ],
+    "[abbcb|c ; ✓]": [
+      2140.0,
+      295.0
+    ],
+    "[abbcb|c ; cbaabb|abbc]": [
+      2140.0,
+      425.0
+    ],
+    "[abbcb|cbaa ; cbaabb|a]": [
+      2140.0,
+      555.0
+    ],
+    "[✓ ; cbaabb|ab]": [
+      2310.0,
+      230.0
+    ],
+    "[abbcb|cb ; ✓]": [
+      2310.0,
+      360.0
+    ],
+    "[abbcb|cbaab ; cbaabb|ab]": [
+      2310.0,
+      490.0
+    ],
+    "[✓ ; cbaabb|abb]": [
+      2480.0,
+      295.0
+    ],
+    "[abbcb|cba ; ✓]": [
+      2480.0,
+      425.0
+    ],
+    "[✓ ; cbaabb|abbc]": [
+      2650.0,
+      295.0
+    ],
+    "[abbcb|cbaa ; ✓]": [
+      2650.0,
+      425.0
+    ],
+    "[✓ ; ✓]": [
+      2820.0,
+      295.0
+    ],
+    "[abbcb|cbaab ; ✓]": [
+      2820.0,
+      425.0
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<structure>
+  <type>grammar</type>
+  <production>
+    <left>S</left>
+    <right>Aa</right>
+  </production>
+  <production>
+    <left>A</left>
+    <right>B</right>
+  </production>
+  <production>
+    <left>B</left>
+    <right>Aa</right>
+  </production>
+</structure>

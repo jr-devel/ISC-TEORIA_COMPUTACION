@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="fantasma-pacman" tipo="AFD">
+  <alfabeto>
+    <simbolo>l</simbolo>
+    <simbolo>v</simbolo>
+    <simbolo>p</simbolo>
+    <simbolo>e</simbolo>
+    <simbolo>a</simbolo>
+    <simbolo>x</simbolo>
+    <simbolo>c</simbolo>
+    <simbolo>b</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="Casa" inicial="si" aceptacion="no" x="80.0" y="220.0" />
+    <estado id="Vagar" inicial="no" aceptacion="si" x="260.0" y="220.0" />
+    <estado id="Perseguir" inicial="no" aceptacion="si" x="440.0" y="90.0" />
+    <estado id="Huir" inicial="no" aceptacion="no" x="440.0" y="350.0" />
+    <estado id="Titilar" inicial="no" aceptacion="no" x="640.0" y="350.0" />
+    <estado id="Regresar" inicial="no" aceptacion="no" x="640.0" y="90.0" />
+  </estados>
+  <delta>
+    <desde estado="Casa">
+      <con simbolo="l">
+        <hacia>Vagar</hacia>
+      </con>
+      <con simbolo="e">
+        <hacia>Casa</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>Casa</hacia>
+      </con>
+      <con simbolo="x">
+        <hacia>Casa</hacia>
+      </con>
+    </desde>
+    <desde estado="Vagar">
+      <con simbolo="v">
+        <hacia>Perseguir</hacia>
+      </con>
+      <con simbolo="e">
+        <hacia>Huir</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>Vagar</hacia>
+      </con>
+      <con simbolo="x">
+        <hacia>Vagar</hacia>
+      </con>
+    </desde>
+    <desde estado="Perseguir">
+      <con simbolo="v">
+        <hacia>Perseguir</hacia>
+      </con>
+      <con simbolo="p">
+        <hacia>Vagar</hacia>
+      </con>
+      <con simbolo="e">
+        <hacia>Huir</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>Perseguir</hacia>
+      </con>
+      <con simbolo="x">
+        <hacia>Perseguir</hacia>
+      </con>
+    </desde>
+    <desde estado="Huir">
+      <con simbolo="v">
+        <hacia>Huir</hacia>
+      </con>
+      <con simbolo="p">
+        <hacia>Huir</hacia>
+      </con>
+      <con simbolo="e">
+        <hacia>Huir</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>Titilar</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>Regresar</hacia>
+      </con>
+    </desde>
+    <desde estado="Titilar">
+      <con simbolo="v">
+        <hacia>Titilar</hacia>
+      </con>
+      <con simbolo="p">
+        <hacia>Titilar</hacia>
+      </con>
+      <con simbolo="e">
+        <hacia>Huir</hacia>
+      </con>
+      <con simbolo="x">
+        <hacia>Vagar</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>Regresar</hacia>
+      </con>
+    </desde>
+    <desde estado="Regresar">
+      <con simbolo="v">
+        <hacia>Regresar</hacia>
+      </con>
+      <con simbolo="p">
+        <hacia>Regresar</hacia>
+      </con>
+      <con simbolo="e">
+        <hacia>Regresar</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>Regresar</hacia>
+      </con>
+      <con simbolo="x">
+        <hacia>Regresar</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>Casa</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

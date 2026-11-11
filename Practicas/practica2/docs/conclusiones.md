@@ -1,0 +1,9 @@
+# Conclusiones
+
+Trabajar con una rama por funcionalidad y con integración continua en tres versiones de Python hizo que cada parte del simulador entrara a `main` ya probada; reutilizar `lenguajes.py` sin tocarlo confirmó que la separación entre núcleo e interfaz de la Práctica 1 era la correcta.
+
+Clasificar los 140 autómatas de las listas por su función de transición mostró un patrón: el no determinismo aparece cuando el enunciado obliga a adivinar una posición o a elegir entre condiciones, y las transiciones λ cuando el lenguaje se arma con uniones, concatenaciones y cerraduras. En las 48 conversiones el AFD nunca pasó del 62.5 % de la cota 2ⁿ, y en el caso más grande se quedó en 32 de más de 67 millones de subconjuntos posibles; la cota es real, pero sólo la alcanzan familias construidas para ello.
+
+En el simulador, la jerarquía `Automata` → `AFNLambda` → `AFN` → `AFD` hizo explícito que cada clase restringe a la anterior y que el tipo se deduce de δ. Seguir el conjunto de estados activos permitió mostrar las bifurcaciones y la cerradura λ en cada paso sin pagar el costo exponencial de convertir, y las pruebas de ida y vuelta garantizan que los tres formatos guardan la misma quíntupla.
+
+La lectura de Rabin y Scott y de los dos trabajos de Microsoft mostró la misma idea en dos épocas: el no determinismo no reconoce más lenguajes, pero cambia el tamaño de las descripciones, y los motores modernos construyen sólo los estados que la entrada visita. El modelo del fantasma de Pac-Man dejó claro el alcance de la abstracción: un autómata finito captura con precisión el orden válido de los eventos, pero no el tiempo, el espacio ni las acciones del sistema real.

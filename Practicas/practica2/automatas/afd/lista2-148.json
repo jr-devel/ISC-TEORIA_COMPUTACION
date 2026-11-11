@@ -1,0 +1,269 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-148",
+  "tipo": "AFD",
+  "alfabeto": [
+    "A",
+    "N",
+    "P",
+    "S"
+  ],
+  "estados": [
+    "feb0",
+    "muerto",
+    "sep0",
+    "feb0?",
+    "dic0",
+    "sep0?",
+    "APROBADO",
+    "sep1",
+    "dic0?",
+    "dic1",
+    "sep1?",
+    "dic1?",
+    "dic2"
+  ],
+  "inicial": "feb0",
+  "aceptacion": [
+    "APROBADO"
+  ],
+  "delta": {
+    "feb0": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "sep0"
+      ],
+      "P": [
+        "feb0?"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "muerto": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "sep0": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "dic0"
+      ],
+      "P": [
+        "sep0?"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "feb0?": {
+      "A": [
+        "APROBADO"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "sep1"
+      ]
+    },
+    "dic0": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "feb0"
+      ],
+      "P": [
+        "dic0?"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "sep0?": {
+      "A": [
+        "APROBADO"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "dic1"
+      ]
+    },
+    "APROBADO": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "sep1": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "dic1"
+      ],
+      "P": [
+        "sep1?"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "dic0?": {
+      "A": [
+        "APROBADO"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "feb0"
+      ]
+    },
+    "dic1": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "feb0"
+      ],
+      "P": [
+        "dic1?"
+      ],
+      "S": [
+        "muerto"
+      ]
+    },
+    "sep1?": {
+      "A": [
+        "APROBADO"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "dic2"
+      ]
+    },
+    "dic1?": {
+      "A": [
+        "APROBADO"
+      ],
+      "N": [
+        "muerto"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "feb0"
+      ]
+    },
+    "dic2": {
+      "A": [
+        "muerto"
+      ],
+      "N": [
+        "feb0"
+      ],
+      "P": [
+        "muerto"
+      ],
+      "S": [
+        "muerto"
+      ]
+    }
+  },
+  "posiciones": {
+    "feb0": [
+      100.0,
+      295.0
+    ],
+    "muerto": [
+      270.0,
+      165.0
+    ],
+    "sep0": [
+      270.0,
+      295.0
+    ],
+    "feb0?": [
+      270.0,
+      425.0
+    ],
+    "dic0": [
+      440.0,
+      100.0
+    ],
+    "sep0?": [
+      440.0,
+      230.0
+    ],
+    "APROBADO": [
+      440.0,
+      360.0
+    ],
+    "sep1": [
+      440.0,
+      490.0
+    ],
+    "dic0?": [
+      610.0,
+      165.0
+    ],
+    "dic1": [
+      610.0,
+      295.0
+    ],
+    "sep1?": [
+      610.0,
+      425.0
+    ],
+    "dic1?": [
+      780.0,
+      230.0
+    ],
+    "dic2": [
+      780.0,
+      360.0
+    ]
+  }
+}

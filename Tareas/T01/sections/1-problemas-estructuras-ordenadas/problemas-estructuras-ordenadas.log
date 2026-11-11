@@ -1,0 +1,154 @@
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.12.8)  16 SEP 2026 12:42
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**problemas-estructuras-ordenadas.tex
+(./problemas-estructuras-ordenadas.tex
+LaTeX2e <2025-11-01>
+L3 programming layer <2025-11-14>
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.1 S
+     ea $\sigma = {0,1}$. En los problemas 1-4, encuentre una cadena $w \in ...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no S ("53) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 1.
+Missing character: There is no . ("2E) in font nullfont!
+Missing character: There is no E ("45) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no l ("6C) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no b ("62) in font nullfont!
+Missing character: There is no l ("6C) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no m ("6D) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no 1 ("31) in font nullfont!
+Missing character: There is no - ("2D) in font nullfont!
+Missing character: There is no 4 ("34) in font nullfont!
+Missing character: There is no , ("2C) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no u ("75) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no u ("75) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no d ("64) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no l ("6C) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no r ("72) in font nullfont!
+Missing character: There is no í ("ED) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no t ("74) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no d ("64) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no d ("64) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no , ("2C) in font nullfont!
+Missing character: There is no c ("63) in font nullfont!
+Missing character: There is no u ("75) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no n ("6E) in font nullfont!
+Missing character: There is no d ("64) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no a ("61) in font nullfont!
+Missing character: There is no p ("70) in font nullfont!
+Missing character: There is no o ("6F) in font nullfont!
+Missing character: There is no s ("73) in font nullfont!
+Missing character: There is no i ("69) in font nullfont!
+Missing character: There is no b ("62) in font nullfont!
+Missing character: There is no l ("6C) in font nullfont!
+Missing character: There is no e ("65) in font nullfont!
+Missing character: There is no . ("2E) in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 1--2
+[]
+ []
+
+
+Overfull \hbox (16.62842pt too wide) in paragraph at lines 1--2
+\OML/cmm/m/it/10 ^^[ \OT1/cmr/m/n/10 =
+ []
+
+
+Overfull \hbox (14.44444pt too wide) in paragraph at lines 1--2
+[]$
+ []
+
+
+Overfull \hbox (16.87265pt too wide) in paragraph at lines 1--2
+\OML/cmm/m/it/10 w \OMS/cmsy/m/n/10 2
+ []
+
+
+Overfull \hbox (7.50002pt too wide) in paragraph at lines 1--2
+\OML/cmm/m/it/10 A$
+ []
+
+)
+! Emergency stop.
+<*> problemas-estructuras-ordenadas.tex
+                                       
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 15 strings out of 468179
+ 382 string characters out of 5436884
+ 426385 words of memory out of 5000000
+ 28834 multiletter control sequences out of 15000+600000
+ 627721 words of font info for 40 fonts, out of 8000000 for 9000
+ 1348 hyphenation exceptions out of 8191
+ 18i,2n,20p,212b,59s stack positions out of 10000i,1000n,20000p,200000b,200000s
+No pages of output.

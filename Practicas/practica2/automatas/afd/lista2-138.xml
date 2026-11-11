@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-138" tipo="AFD">
+  <alfabeto>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="b≡0" inicial="si" aceptacion="si" x="100.0" y="100.0" />
+    <estado id="b≡1" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="b≡2" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="b≡0">
+      <con simbolo="a">
+        <hacia>b≡0</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>b≡1</hacia>
+      </con>
+    </desde>
+    <desde estado="b≡1">
+      <con simbolo="a">
+        <hacia>b≡1</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>b≡2</hacia>
+      </con>
+    </desde>
+    <desde estado="b≡2">
+      <con simbolo="a">
+        <hacia>b≡2</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>b≡0</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

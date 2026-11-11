@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-141" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="ok" inicial="si" aceptacion="si" x="100.0" y="100.0" />
+    <estado id="0?" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="muerto" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="ok">
+      <con simbolo="0">
+        <hacia>0?</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>ok</hacia>
+      </con>
+    </desde>
+    <desde estado="0?">
+      <con simbolo="0">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>ok</hacia>
+      </con>
+    </desde>
+    <desde estado="muerto">
+      <con simbolo="0">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

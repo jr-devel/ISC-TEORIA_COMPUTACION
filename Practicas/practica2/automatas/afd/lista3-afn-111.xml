@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-afn-111" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="0·λ" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="0·0" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="0·01" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="0·010" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="0·0100" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="1·λ" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="1·0" inicial="no" aceptacion="no" x="1120.0" y="100.0" />
+    <estado id="1·01" inicial="no" aceptacion="no" x="1290.0" y="100.0" />
+    <estado id="1·010" inicial="no" aceptacion="no" x="1460.0" y="100.0" />
+    <estado id="1·0100" inicial="no" aceptacion="no" x="1630.0" y="100.0" />
+    <estado id="2·λ" inicial="no" aceptacion="no" x="1800.0" y="100.0" />
+    <estado id="2·0" inicial="no" aceptacion="no" x="1970.0" y="100.0" />
+    <estado id="2·01" inicial="no" aceptacion="no" x="2140.0" y="100.0" />
+    <estado id="2·010" inicial="no" aceptacion="no" x="2310.0" y="100.0" />
+    <estado id="2·0100" inicial="no" aceptacion="no" x="2480.0" y="100.0" />
+    <estado id="3·λ" inicial="no" aceptacion="si" x="2650.0" y="100.0" />
+    <estado id="3·0" inicial="no" aceptacion="si" x="2820.0" y="100.0" />
+    <estado id="3·01" inicial="no" aceptacion="si" x="2990.0" y="100.0" />
+    <estado id="3·010" inicial="no" aceptacion="si" x="3160.0" y="100.0" />
+    <estado id="3·0100" inicial="no" aceptacion="si" x="3330.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="0·λ">
+      <con simbolo="0">
+        <hacia>0·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>0·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="0·0">
+      <con simbolo="0">
+        <hacia>0·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>0·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="0·01">
+      <con simbolo="0">
+        <hacia>0·010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>0·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="0·010">
+      <con simbolo="0">
+        <hacia>0·0100</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>0·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="0·0100">
+      <con simbolo="0">
+        <hacia>0·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1·λ">
+      <con simbolo="0">
+        <hacia>1·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1·0">
+      <con simbolo="0">
+        <hacia>1·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1·01">
+      <con simbolo="0">
+        <hacia>1·010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1·010">
+      <con simbolo="0">
+        <hacia>1·0100</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1·0100">
+      <con simbolo="0">
+        <hacia>1·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="2·λ">
+      <con simbolo="0">
+        <hacia>2·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="2·0">
+      <con simbolo="0">
+        <hacia>2·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="2·01">
+      <con simbolo="0">
+        <hacia>2·010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="2·010">
+      <con simbolo="0">
+        <hacia>2·0100</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="2·0100">
+      <con simbolo="0">
+        <hacia>2·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>3·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="3·λ">
+      <con simbolo="0">
+        <hacia>3·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>3·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>3·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="3·0">
+      <con simbolo="0">
+        <hacia>3·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>3·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>3·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="3·01">
+      <con simbolo="0">
+        <hacia>3·010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>3·λ</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>3·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="3·010">
+      <con simbolo="0">
+        <hacia>3·0100</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>3·01</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>3·λ</hacia>
+      </con>
+    </desde>
+    <desde estado="3·0100">
+      <con simbolo="0">
+        <hacia>3·0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>3·01</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

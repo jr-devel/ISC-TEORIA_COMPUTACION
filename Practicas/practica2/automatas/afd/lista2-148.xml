@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-148" tipo="AFD">
+  <alfabeto>
+    <simbolo>A</simbolo>
+    <simbolo>N</simbolo>
+    <simbolo>P</simbolo>
+    <simbolo>S</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="feb0" inicial="si" aceptacion="no" x="100.0" y="295.0" />
+    <estado id="muerto" inicial="no" aceptacion="no" x="270.0" y="165.0" />
+    <estado id="sep0" inicial="no" aceptacion="no" x="270.0" y="295.0" />
+    <estado id="feb0?" inicial="no" aceptacion="no" x="270.0" y="425.0" />
+    <estado id="dic0" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="sep0?" inicial="no" aceptacion="no" x="440.0" y="230.0" />
+    <estado id="APROBADO" inicial="no" aceptacion="si" x="440.0" y="360.0" />
+    <estado id="sep1" inicial="no" aceptacion="no" x="440.0" y="490.0" />
+    <estado id="dic0?" inicial="no" aceptacion="no" x="610.0" y="165.0" />
+    <estado id="dic1" inicial="no" aceptacion="no" x="610.0" y="295.0" />
+    <estado id="sep1?" inicial="no" aceptacion="no" x="610.0" y="425.0" />
+    <estado id="dic1?" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+    <estado id="dic2" inicial="no" aceptacion="no" x="780.0" y="360.0" />
+  </estados>
+  <delta>
+    <desde estado="feb0">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>sep0</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>feb0?</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="muerto">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="sep0">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>dic0</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>sep0?</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="feb0?">
+      <con simbolo="A">
+        <hacia>APROBADO</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>sep1</hacia>
+      </con>
+    </desde>
+    <desde estado="dic0">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>feb0</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>dic0?</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="sep0?">
+      <con simbolo="A">
+        <hacia>APROBADO</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>dic1</hacia>
+      </con>
+    </desde>
+    <desde estado="APROBADO">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="sep1">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>dic1</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>sep1?</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="dic0?">
+      <con simbolo="A">
+        <hacia>APROBADO</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>feb0</hacia>
+      </con>
+    </desde>
+    <desde estado="dic1">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>feb0</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>dic1?</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="sep1?">
+      <con simbolo="A">
+        <hacia>APROBADO</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>dic2</hacia>
+      </con>
+    </desde>
+    <desde estado="dic1?">
+      <con simbolo="A">
+        <hacia>APROBADO</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>feb0</hacia>
+      </con>
+    </desde>
+    <desde estado="dic2">
+      <con simbolo="A">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="N">
+        <hacia>feb0</hacia>
+      </con>
+      <con simbolo="P">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="S">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

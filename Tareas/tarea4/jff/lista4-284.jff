@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="$0">
+      <x>112.2</x>
+      <y>321.4</y>
+      <initial />
+    </state>
+    <state id="1" name="$5">
+      <x>301.6</x>
+      <y>346.6</y>
+    </state>
+    <state id="2" name="$10">
+      <x>264.8</x>
+      <y>192.5</y>
+    </state>
+    <state id="3" name="$15">
+      <x>389.6</x>
+      <y>112.2</y>
+      <final />
+    </state>
+    <state id="4" name="X">
+      <x>508.1</x>
+      <y>218.0</y>
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>2</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>2</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>3</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>4</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>4</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>4</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>d</read>
+    </transition>
+  </automaton>
+</structure>

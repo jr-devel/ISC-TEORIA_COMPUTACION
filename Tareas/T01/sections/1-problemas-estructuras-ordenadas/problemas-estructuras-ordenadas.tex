@@ -1,0 +1,210 @@
+Sea $\Sigma = {0,1}$. En los problemas 1-4, encuentre una cadena $w \in A$ con las características indicadas, cuando sea posible.
+
+\begin{enumerate}
+    \item $A = \Sigma^{*}, w : |w| = 5$
+        \subitem $R: $ Siendo que la cerradura de Kleene comprende todas las combinaciones posibles de cadenas en el alfabeto $(\Sigma)$, en este caso {$0,1$}. Tenemos que una longitud de la cadena $w$ que sea igual a $5$ puede ser vista como: $w = abcde$ con $a,b,c,d,e \in \Sigma$. Por lo tanto, también esto puede ser descrito como $w \in \Sigma^{5}$ contanto con $2^5 = 32$ cadenas posibles. Cadena tomada al azar: $10110$
+    %
+    \item $A = \Sigma^{+}, w : |w| = 0$
+        \subitem $R: $ Siendo que la cerradura positiva de un alfabeto excluye la cadena vacía; por tanto, este problema no tendría solución posible, ya que la indicación no es compatible con sus límites. $No$ $solution.$
+    %    
+    \item $A = \Sigma^{*}, w : |w| = 0$
+        \subitem $R: $ Con la notación de cerradura de Kleene podemos acceder a la cadena vacío $\lambda$ que permite la realización de este ejercicio. Donde si $w = \lambda \rightarrow |w| = 0$.
+    %
+    \item $A = \Sigma^{5}, w : w_0 = 0$
+        \subitem $R :$ Teniendo en cuenta la notación de un alfabeto restringido a 5 caracteres por cadena posible cuyo primer dígito sea 0, podemos proponer cualquier cadena tal que $w = abcde \in \Sigma^5, a = 0$. Y podemos proponer de forma aleatoria la cadena $00101$. Teniendo $2^4 = 16$ cadenas posibles, ya que el primer caracter estará fijado en 0.
+\end{enumerate}
+
+Sea $\Sigma = \{a,b\}; L_1 = \{w\in\Sigma^* : w_0 = a\}; L_2 = \{w\in\Sigma^* : w_n = b\}, n = |w|$. Dadas las cadenas $w=abbbaa; \pi = aaabb; \tau = baaba.$, realice los siguientes ejercicios.
+
+\begin{enumerate}
+    \setcounter{enumi}{4}
+    \item Determine $|\pi|$.
+        \subitem $R: $ La longitud de la cadena $\pi$ es igual a $5$, por ende, pertenece a $\Sigma^5$.
+    %
+    \item Encuentre $w\pi$.
+        \subitem $R: $ La concatenacion entre $w$ y $\pi$ en ese orden es $abbbaa aaabb$
+    %
+    \item Encuentre $\pi w$.
+        \subitem $R: $ La concatenacion entre $\pi$ y $w$ en ese orden es $aaabb abbbaa$
+    %
+    \newpage
+    \item Verifique si $(w\pi)\tau = w(\pi\tau)$.
+        \subitem $R: $ Demostrando la asociatividad de la concatenación de cadenas, tenemos como primera cadena:
+        \begin{center}
+            $(w\pi)\tau = (abbbaa aaabb) baaba = abbbaaaaabbbaaba$\\
+        \end{center}
+        Para el desarrollo del lado derecho de la igualdad:
+        \begin{center}
+            $w(\pi\tau) = abbbaa (aaabb baaba) = abbbaaaaabbbaaba$.\\
+        \end{center}
+        Por lo tanto se verifica la igualdad de ambas concatenaciones.\\
+    %
+    \item Proporcione una palabra en $\Sigma^7$.
+        \subitem $R: $ Se propone $abbabba$, que satisface la restricción de combinación de 7 índices.
+    %
+    \item Proporcione una palabra en $L_1 \cap \Sigma^5$.
+        \subitem $R: $ Se propone $ababa$ que satisface la restricción de $L_1$ (cuya primera letra debe ser $a$) y la restricción de $\Sigma^5$ (combinación de 5 índices).
+    %
+    \item Proporcione una palabra en $L_2 \cap \Sigma^4$.
+        \subitem $R: $ Se propone $babb$ que satisface la restricción de $L_2$ (cuya última letra debe ser $a$) y la restricción de $\Sigma^4$ (combinación de 5 índices). y la restricción de $\Sigma^4$ (combinación de 4 índices).
+    %
+    \item Proporcione una palabra en $L_1 \cap L_2$.
+        \subitem $R: $ Se propone $ab$ que satisface la restricción de $L_1$ (cuya primera letra debe ser $a$) y la restricción de $L_2$ (cuya última letra debe ser $b$).
+    %
+    \item Determine $L_1 \cap \Sigma^0$
+        \subitem $R: $ Se determina como $\emptyset$ la intersección entre $L_1$ y $\Sigma^0$, ya que $\Sigma^0 = \{\lambda\}$ y $L_1$ restringe a la existencia de algún caracter $\"a\"$ en su primer índice. Por lo tanto la operación no es posible. $No$ $Solution$.
+\end{enumerate}
+
+Sea $\Sigma = \{a,b,c,d\}$ y $w=abbca; \pi=abb; \tau=ca$. Consideremos los siguientes lenguajes:
+
+$L_1 = \{\rho \in \Sigma^* : |\rho| \leq 5\}$.\\
+$L_2 = \{a^n b^m : n < m\}$.\\
+$L_3 = \{\rho \in \Sigma^* : \rho$ tiene más letras $b$ que $a$ $\}$.\\
+
+Indique si las siguientes afirmaciones (ejercicios 14-46) son verdaderas o falsas:
+
+\begin{enumerate}
+    \setcounter{enumi}{13}
+    \item $|w| = 3$
+        \subitem $R: $ $Falso$
+    %
+    \item $|w| = 5$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $w = \tau\pi$
+    \subitem $R: $ $Falso$
+    %
+    \item $w = \pi\tau$
+    \subitem $R: $ $Falso$
+    %
+    \item $w(\pi\tau) = (w\pi)\tau$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $w(\tau\pi) = (w\pi)\tau$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $\lambda \in \Sigma^+$
+    \subitem $R: $ $Falso$
+    %
+    \item $\lambda \in \Sigma^*$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $w \in \Sigma^5$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $w \in \Sigma^3$
+    \subitem $R: $ $Falso$
+    %
+    \item $\pi\tau \in \Sigma^5$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $\pi\lambda \in \Sigma^3$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $a^8 w \in \Sigma^8$
+    \subitem $R: $ $Falso$
+    %
+    \item $a^3 w \in \Sigma^8$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $a^3 c^3 \in \Sigma^9$
+    \subitem $R: $ $Falso$
+    %
+    \item $|a○^2 b^3| = |c^6|$
+    \subitem $R: $ $Falso$
+    %
+    \item $|a^4 b^3 c| = |a^3 b^2 c^3|$
+    \subitem $R: $ $Falso$
+    %
+    \item $ab \in L_1$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $ab \in L_2$
+    \subitem $R: $ $Falso$
+    %
+    \item $ab \in L_3$
+    \subitem $R: $ $Falso$
+    %
+    \item $abab^2 \in L_1$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $abab^2 \in L_2$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $abab^2 \in L_3$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $abcad \in L_1$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $abcad \in L_2$
+    \subitem $R: $ $Falso$
+    %
+    \item $abcad \in L_3$
+    \subitem $R: $ $Falso$
+    %
+    \item $L_1 \subseteq L_2$
+    \subitem $R: $ $Falso$
+    %
+    \item $L_1 \subseteq L_3$
+    \subitem $R: $ $Falso$
+    %
+    \item $L_2 \subseteq L_3$
+    \subitem $R: $ $Verdadero$
+    %
+    \item $L_3 \subseteq L_2$
+    \subitem $R: $ $Verdadero$
+    %
+    \item Si $\alpha \in \Sigma^*$, entonces $\alpha\lambda = \lambda\alpha$
+    \subitem $R: $ $Verdadero$
+    %
+    \item Si $\alpha \in \Sigma^3$ y $\beta \in \Sigma^4$, entonces $|\alpha\beta| = 7$
+    \subitem $R: $ $Verdadero$
+    %
+    \item Si $\alpha \in \Sigma^3$ y $\beta \in \Sigma^4$, entonces $|\alpha\beta| = 7$
+    \subitem $R: $ $Falso$
+\end{enumerate}
+
+En caso de que sea posible, encuentre cinco palabtas de cada uno de los lenguajea que se definen en los problemas 4-56, usando el alfabeto $\Sigma = \{0,1,2,3,4,5,6\}$
+
+\begin{enumerate}
+    \setcounter{enumi}{46}
+    \item $L_1 = \{01^n : n \in \mathbb{N}\}$
+        \subitem $R: $ $0\underbrace{11\ldots1}_{n-\text{veces}}$
+    %
+    \item $L_2 = \{0^n 1^n 2^n : n \in \mathbb{N}\}$
+        \subitem $R: $ 
+            $\underbrace{0\ldots0}_{n-\text{veces}}$
+            $\underbrace{1\ldots1}_{n-\text{veces}}$
+            $\underbrace{2\ldots2}_{n-\text{veces}}$
+    %
+    \item $L_3 = \{w \in \Sigma^* : |w| = 6\}$
+        \subitem $R: $ $012345$ (cadena tomada al azar)
+    %
+    \item $L_4 = \{w \in \Sigma^* :$ la suma de los digitos de $w$ es igual a $6\}$
+        \subitem $R: $ $012012$. Donde $0+1+2+0+1+2 = 6$.
+    %
+    \item Determine $L_1 \cap L_2$.
+        \subitem $R: \emptyset$ No es posible ya que $L_2$ necesita el uso de la letra $2$, mientras que $L_1$ requiere un $0$ al inicio.
+        
+        \begin{center}
+            Let x: $0^0 1^0 2^0$; Let y: $01^0$\\
+            $x = \lambda$, mientras $y = 0$ \\
+            $\therefore$ $x \neq y$
+        \end{center}
+    %
+    \item Determine $L_1 \cap L_3$.
+        \subitem $R: $ $w = 011111$. Satisface las reglas de ambos lenguajes, donde $w_0 = 0$ y donde $|w| = 6$
+    %
+    \item Determine $L_1 \cap L_4$.
+        \subitem $R: $ $w = 0111111$. Satisface las reglas de ambos lenguajes, donde $w_0 = 0$ y donde $0+1+1+1+1+1+1 = 6$.
+    %
+    \item Determine $L_2 \cap L_3$.
+        \subitem $R: $ $w = 001122$. Satisface las reglas de ambos lenguajes, donde $\{0^a 1^b 2^c : a = b = c\}$ y con $|w| = 6$.
+    %
+    \item Determine $L_2 \cap L_4$.
+        \subitem $R: $ $w = 001122$. Satisface las reglas de ambos lenguajes, donde $0+0+1+1+2+2 = 6$ y con $\{0^a 1^b 2^c : a = b = c\}$
+    %
+    \item Determine $L_3 \cap L_4$.
+        \subitem $R: $ $w = 000501$. Satisface las reglas de ambos lenguajes, donde $0+0+0+5+0+1 = 6$ y donde $|w| = 6$.
+\end{enumerate}

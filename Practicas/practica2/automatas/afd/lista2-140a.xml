@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-140a" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="par" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="impar" inicial="no" aceptacion="si" x="270.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="par">
+      <con simbolo="0">
+        <hacia>impar</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>par</hacia>
+      </con>
+    </desde>
+    <desde estado="impar">
+      <con simbolo="0">
+        <hacia>par</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>impar</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-afn-100" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+    <simbolo>c</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="q0" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="q1" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="q2" inicial="no" aceptacion="si" x="440.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="q0">
+      <con simbolo="a">
+        <hacia>q1</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>q1</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>q1</hacia>
+      </con>
+    </desde>
+    <desde estado="q1">
+      <con simbolo="0">
+        <hacia>q2</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>q2</hacia>
+      </con>
+    </desde>
+    <desde estado="q2">
+      <con simbolo="0">
+        <hacia>q2</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>q2</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>q2</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>q2</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>q2</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

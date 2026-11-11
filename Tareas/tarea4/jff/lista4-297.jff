@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="I">
+      <x>112.2</x>
+      <y>375.5</y>
+      <initial />
+    </state>
+    <state id="1" name="N">
+      <x>466.2</x>
+      <y>218.0</y>
+      <final />
+    </state>
+    <state id="2" name="S">
+      <x>287.8</x>
+      <y>375.5</y>
+    </state>
+    <state id="3" name="X">
+      <x>1019.8</x>
+      <y>254.0</y>
+    </state>
+    <state id="4" name="P">
+      <x>644.8</x>
+      <y>218.0</y>
+    </state>
+    <state id="5" name="F">
+      <x>823.2</x>
+      <y>254.0</y>
+      <final />
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>2</to>
+      <read>s</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>3</to>
+      <read>p</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>3</to>
+      <read>s</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>4</to>
+      <read>p</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>1</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>s</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>p</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>s</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>p</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>5</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>3</to>
+      <read>s</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>3</to>
+      <read>p</read>
+    </transition>
+    <transition>
+      <from>5</from>
+      <to>5</to>
+      <read>d</read>
+    </transition>
+    <transition>
+      <from>5</from>
+      <to>3</to>
+      <read>s</read>
+    </transition>
+    <transition>
+      <from>5</from>
+      <to>3</to>
+      <read>p</read>
+    </transition>
+  </automaton>
+</structure>

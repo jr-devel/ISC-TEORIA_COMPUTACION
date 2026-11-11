@@ -1,0 +1,2738 @@
+\documentclass[11pt]{article}
+\newcommand{\NombreTarea}{Tarea 3}
+\input{preambulo}
+\begin{document}
+\thispagestyle{fancy}
+\begin{center}
+\includegraphics[height=1.6cm]{img/logo-ipn.png}\hfill
+\begin{minipage}[b]{0.62\linewidth}\centering
+{\large\bfseries Instituto Politécnico Nacional}\\
+{\bfseries Escuela Superior de Cómputo}\\[2pt]
+Ingeniería en Sistemas Computacionales · Teoría de la Computación\\
+Docente: Gabriel Hurtado Avilés
+\end{minipage}\hfill
+\includegraphics[height=1.6cm]{img/logo-escom.png}\\[6pt]
+{\color{guinda}\rule{\linewidth}{1.2pt}}\\[4pt]
+{\LARGE\bfseries\color{guinda} Tarea 3. Simplificación, AFN, AFN-λ y expresiones regulares}\\[4pt]
+{\large Rico Espluga Juan Diego \quad·\quad Boleta 2025630474 \quad·\quad Grupo 4CV4}\\[2pt]
+{\color{guinda}\rule{\linewidth}{1.2pt}}
+\end{center}
+
+\tableofcontents
+\textbf{Instrucciones.} Se resuelven todos los ejercicios de la Lista 3 (los obligatorios se señalan).
+Cada autómata, expresión y gramática tiene su archivo \texttt{.jff} en \texttt{jff/} y un espacio para la captura
+de JFLAP. Los cálculos (cerraduras, construcción de subconjuntos, minimización y eliminación de estados) se hicieron
+a mano y se verificaron con el software de las prácticas; cada autómata se comparó, además, con la definición de
+su lenguaje sobre todas las cadenas cortas.
+\seccion{Autómatas finitos y simplificación (151--157)}
+En 151--155 se pide el diagrama del autómata de cada tabla y simplificarlo eliminando los estados no accesibles; en 156--157, la tabla del autómata mostrado y su simplificación con una partición. Las tablas de 156 y 157 se transcribieron de los diagramas de la lista.
+
+\begin{ejercicio}{151}{*}
+Encuentre el diagrama de transiciones del autómata de la tabla 151 y simplifíquelo eliminando los estados que no son accesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{C} & \texttt{E} \\
+ \texttt{B} & \texttt{F} & \texttt{E} \\
+$*$ \texttt{C} & \texttt{A} & \texttt{G} \\
+ \texttt{D} & \texttt{C} & \texttt{E} \\
+$*$ \texttt{E} & \texttt{I} & \texttt{B} \\
+$*$ \texttt{F} & \texttt{D} & \texttt{H} \\
+ \texttt{G} & \texttt{F} & \texttt{I} \\
+ \texttt{H} & \texttt{C} & \texttt{J} \\
+ \texttt{I} & \texttt{J} & \texttt{E} \\
+ \texttt{J} & \texttt{I} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-151}{AFD 151 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{10}, \texttt{0101}, \texttt{10000}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Todos los estados son accesibles desde el inicial.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, C, E, G, I, B, F, J, D, H} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{·} & \texttt{} \\
+\texttt{J} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{·} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 16 pares. \{A, G\}: con «1» van a E y I, ya distinguibles; \{A, H\}: con «1» van a E y J, ya distinguibles; \{A, I\}: con «0» van a C y J, ya distinguibles; \{A, J\}: con «0» van a C y I, ya distinguibles; \{B, G\}: con «1» van a E y I, ya distinguibles; \{B, H\}: con «1» van a E y J, ya distinguibles; \{B, I\}: con «0» van a F y J, ya distinguibles; \{B, J\}: con «0» van a F y I, ya distinguibles; \{D, G\}: con «1» van a E y I, ya distinguibles; \{D, H\}: con «1» van a E y J, ya distinguibles; \{D, I\}: con «0» van a C y J, ya distinguibles; \{D, J\}: con «0» van a C y I, ya distinguibles; \{G, I\}: con «0» van a F y J, ya distinguibles; \{G, J\}: con «0» van a F y I, ya distinguibles; \{H, I\}: con «0» van a C y J, ya distinguibles; \{H, J\}: con «0» van a C y I, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{J} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} Se marcan 2 pares. \{C, E\}: con «0» van a A y I, ya distinguibles; \{E, F\}: con «0» van a I y D, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{J} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 3.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{J} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{\{A,B,D\}} & \texttt{A, B, D} & \texttt{no} \\
+\texttt{\{C,F\}} & \texttt{C, F} & \texttt{sí} \\
+\texttt{E} & \texttt{E} & \texttt{sí} \\
+\texttt{\{G,H\}} & \texttt{G, H} & \texttt{no} \\
+\texttt{\{I,J\}} & \texttt{I, J} & \texttt{no} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-151-minimo}{AFD mínimo de 151 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{10}, \texttt{0101}, \texttt{10000}.}}
+
+\resp 10 estados → 5 en 3 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{\{A,B,D\}} & \texttt{\{C,F\}} & \texttt{E} \\
+$*$ \texttt{\{C,F\}} & \texttt{\{A,B,D\}} & \texttt{\{G,H\}} \\
+$*$ \texttt{E} & \texttt{\{I,J\}} & \texttt{\{A,B,D\}} \\
+ \texttt{\{G,H\}} & \texttt{\{C,F\}} & \texttt{\{I,J\}} \\
+ \texttt{\{I,J\}} & \texttt{\{I,J\}} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\begin{ejercicio}{152}{*}
+Encuentre el diagrama de transiciones del autómata de la tabla 152 y simplifíquelo eliminando los estados que no son accesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{A} & \texttt{C} & \texttt{E} & \texttt{B} \\
+ \texttt{B} & \texttt{D} & \texttt{E} & \texttt{B} \\
+ \texttt{C} & \texttt{A} & \texttt{D} & \texttt{F} \\
+$*$ \texttt{D} & \texttt{F} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{E} & \texttt{F} & \texttt{B} & \texttt{A} \\
+$*$ \texttt{F} & \texttt{D} & \texttt{B} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-152}{AFD 152 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1110}, \texttt{111100}; rechazadas \texttt{0}, \texttt{1101}, \texttt{1111001}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Todos los estados son accesibles desde el inicial.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, C, E, B, D, F} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 3 pares. \{A, B\}: con «0» van a C y D, ya distinguibles; \{A, C\}: con «2» van a B y F, ya distinguibles; \{B, C\}: con «0» van a D y A, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} Se marcan 2 pares. \{D, E\}: con «2» van a C y A, ya distinguibles; \{E, F\}: con «2» van a A y C, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×2} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 3.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×2} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{A} & \texttt{A} & \texttt{no} \\
+\texttt{B} & \texttt{B} & \texttt{no} \\
+\texttt{C} & \texttt{C} & \texttt{no} \\
+\texttt{\{D,F\}} & \texttt{D, F} & \texttt{sí} \\
+\texttt{E} & \texttt{E} & \texttt{sí} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-152-minimo}{AFD mínimo de 152 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1110}, \texttt{111100}; rechazadas \texttt{0}, \texttt{1101}, \texttt{1111001}.}}
+
+\resp 6 estados → 5 en 3 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{A} & \texttt{C} & \texttt{E} & \texttt{B} \\
+ \texttt{B} & \texttt{\{D,F\}} & \texttt{E} & \texttt{B} \\
+ \texttt{C} & \texttt{A} & \texttt{\{D,F\}} & \texttt{\{D,F\}} \\
+$*$ \texttt{\{D,F\}} & \texttt{\{D,F\}} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{E} & \texttt{\{D,F\}} & \texttt{B} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\begin{ejercicio}{153}{*}
+Encuentre el diagrama de transiciones del autómata de la tabla 153 y simplifíquelo eliminando los estados que no son accesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{D} & \texttt{E} \\
+ \texttt{C} & \texttt{F} & \texttt{G} \\
+$*$ \texttt{D} & \texttt{D} & \texttt{E} \\
+ \texttt{E} & \texttt{F} & \texttt{G} \\
+$*$ \texttt{F} & \texttt{E} & \texttt{D} \\
+$*$ \texttt{G} & \texttt{F} & \texttt{G} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-153}{AFD 153 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{10}, \texttt{10001}, \texttt{1000001}; rechazadas \texttt{01}, \texttt{00001}, \texttt{0000001}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Todos los estados son accesibles desde el inicial.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, B, C, D, E, F, G} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{lllllll}\toprule
+ & A & B & C & D & E & F \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 8 pares. \{A, B\}: con «0» van a B y D, ya distinguibles; \{A, C\}: con «0» van a B y F, ya distinguibles; \{A, E\}: con «0» van a B y F, ya distinguibles; \{B, C\}: con «1» van a E y G, ya distinguibles; \{B, E\}: con «1» van a E y G, ya distinguibles; \{D, F\}: con «0» van a D y E, ya distinguibles; \{D, G\}: con «1» van a E y G, ya distinguibles; \{F, G\}: con «0» van a E y F, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{lllllll}\toprule
+ & A & B & C & D & E & F \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{lllllll}\toprule
+ & A & B & C & D & E & F \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{A} & \texttt{A} & \texttt{no} \\
+\texttt{B} & \texttt{B} & \texttt{no} \\
+\texttt{\{C,E\}} & \texttt{C, E} & \texttt{no} \\
+\texttt{D} & \texttt{D} & \texttt{sí} \\
+\texttt{F} & \texttt{F} & \texttt{sí} \\
+\texttt{G} & \texttt{G} & \texttt{sí} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-153-minimo}{AFD mínimo de 153 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{10}, \texttt{10001}, \texttt{1000001}; rechazadas \texttt{01}, \texttt{00001}, \texttt{0000001}.}}
+
+\resp 7 estados → 6 en 2 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{\{C,E\}} \\
+ \texttt{B} & \texttt{D} & \texttt{\{C,E\}} \\
+ \texttt{\{C,E\}} & \texttt{F} & \texttt{G} \\
+$*$ \texttt{D} & \texttt{D} & \texttt{\{C,E\}} \\
+$*$ \texttt{F} & \texttt{\{C,E\}} & \texttt{D} \\
+$*$ \texttt{G} & \texttt{F} & \texttt{G} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\begin{ejercicio}{154}{*}
+Encuentre el diagrama de transiciones del autómata de la tabla 154 y simplifíquelo eliminando los estados que no son accesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{D} & \texttt{K} \\
+ \texttt{B} & \texttt{H} & \texttt{K} \\
+ \texttt{C} & \texttt{I} & \texttt{E} \\
+ \texttt{D} & \texttt{C} & \texttt{G} \\
+$*$ \texttt{E} & \texttt{K} & \texttt{I} \\
+ \texttt{F} & \texttt{B} & \texttt{E} \\
+$*$ \texttt{G} & \texttt{C} & \texttt{I} \\
+$*$ \texttt{H} & \texttt{C} & \texttt{B} \\
+ \texttt{I} & \texttt{G} & \texttt{K} \\
+$*$ \texttt{J} & \texttt{F} & \texttt{B} \\
+ \texttt{K} & \texttt{C} & \texttt{F} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-154}{AFD 154 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{10110}, \texttt{1000000}; rechazadas \texttt{00}, \texttt{01110}, \texttt{100000}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Se eliminan J: no se alcanzan desde A.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, D, K, C, G, F, I, E, B, H} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×0} & \texttt{} \\
+\texttt{K} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{×0} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 16 pares. \{A, B\}: con «0» van a D y H, ya distinguibles; \{A, C\}: con «1» van a K y E, ya distinguibles; \{A, D\}: con «1» van a K y G, ya distinguibles; \{A, F\}: con «1» van a K y E, ya distinguibles; \{A, I\}: con «0» van a D y G, ya distinguibles; \{B, C\}: con «0» van a H y I, ya distinguibles; \{B, D\}: con «0» van a H y C, ya distinguibles; \{B, F\}: con «0» van a H y B, ya distinguibles; \{B, K\}: con «0» van a H y C, ya distinguibles; \{C, I\}: con «0» van a I y G, ya distinguibles; \{C, K\}: con «1» van a E y F, ya distinguibles; \{D, I\}: con «0» van a C y G, ya distinguibles; \{D, K\}: con «1» van a G y F, ya distinguibles; \{F, I\}: con «0» van a B y G, ya distinguibles; \{F, K\}: con «1» van a E y F, ya distinguibles; \{I, K\}: con «0» van a G y C, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{×1} & \texttt{·} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{} \\
+\texttt{K} & \texttt{·} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} Se marcan 5 pares. \{A, K\}: con «1» van a K y F, ya distinguibles; \{C, D\}: con «0» van a I y C, ya distinguibles; \{D, F\}: con «0» van a C y B, ya distinguibles; \{E, G\}: con «0» van a K y C, ya distinguibles; \{E, H\}: con «0» van a K y C, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{×1} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×2} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{×1} & \texttt{·} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{} \\
+\texttt{K} & \texttt{×2} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 3.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & I \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{×1} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×2} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×2} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{I} & \texttt{×1} & \texttt{·} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{} \\
+\texttt{K} & \texttt{×2} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×0} & \texttt{×1} & \texttt{×0} & \texttt{×0} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{A} & \texttt{A} & \texttt{no} \\
+\texttt{\{B,I\}} & \texttt{B, I} & \texttt{no} \\
+\texttt{\{C,F\}} & \texttt{C, F} & \texttt{no} \\
+\texttt{D} & \texttt{D} & \texttt{no} \\
+\texttt{E} & \texttt{E} & \texttt{sí} \\
+\texttt{\{G,H\}} & \texttt{G, H} & \texttt{sí} \\
+\texttt{K} & \texttt{K} & \texttt{no} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-154-minimo}{AFD mínimo de 154 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{10110}, \texttt{1000000}; rechazadas \texttt{00}, \texttt{01110}, \texttt{100000}.}}
+
+\resp 11 estados → 7 en 3 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{D} & \texttt{K} \\
+ \texttt{\{B,I\}} & \texttt{\{G,H\}} & \texttt{K} \\
+ \texttt{\{C,F\}} & \texttt{\{B,I\}} & \texttt{E} \\
+ \texttt{D} & \texttt{\{C,F\}} & \texttt{\{G,H\}} \\
+$*$ \texttt{E} & \texttt{K} & \texttt{\{B,I\}} \\
+$*$ \texttt{\{G,H\}} & \texttt{\{C,F\}} & \texttt{\{B,I\}} \\
+ \texttt{K} & \texttt{\{C,F\}} & \texttt{\{C,F\}} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\begin{ejercicio}{155}{*}
+Encuentre el diagrama de transiciones del autómata de la tabla 155 y simplifíquelo eliminando los estados que no son accesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{D} & \texttt{E} \\
+ \texttt{C} & \texttt{K} & \texttt{G} \\
+ \texttt{D} & \texttt{H} & \texttt{E} \\
+ \texttt{E} & \texttt{F} & \texttt{D} \\
+$*$ \texttt{F} & \texttt{J} & \texttt{G} \\
+ \texttt{G} & \texttt{E} & \texttt{G} \\
+ \texttt{H} & \texttt{B} & \texttt{K} \\
+ \texttt{I} & \texttt{C} & \texttt{A} \\
+ \texttt{J} & \texttt{D} & \texttt{G} \\
+ \texttt{K} & \texttt{F} & \texttt{D} \\
+ \texttt{L} & \texttt{C} & \texttt{J} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-155}{AFD 155 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{100}, \texttt{100100}, \texttt{10000010}; rechazadas \texttt{101}, \texttt{101000}, \texttt{1000001}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Se eliminan I, L: no se alcanzan desde A.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, B, C, D, E, K, G, H, F, J} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & J \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{J} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{·} & \texttt{} \\
+\texttt{K} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×0} & \texttt{·} & \texttt{·} & \texttt{·} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 14 pares. \{A, E\}: con «0» van a B y F, ya distinguibles; \{A, K\}: con «0» van a B y F, ya distinguibles; \{B, E\}: con «0» van a D y F, ya distinguibles; \{B, K\}: con «0» van a D y F, ya distinguibles; \{C, E\}: con «0» van a K y F, ya distinguibles; \{C, K\}: con «0» van a K y F, ya distinguibles; \{D, E\}: con «0» van a H y F, ya distinguibles; \{D, K\}: con «0» van a H y F, ya distinguibles; \{E, G\}: con «0» van a F y E, ya distinguibles; \{E, H\}: con «0» van a F y B, ya distinguibles; \{E, J\}: con «0» van a F y D, ya distinguibles; \{G, K\}: con «0» van a E y F, ya distinguibles; \{H, K\}: con «0» van a B y F, ya distinguibles; \{J, K\}: con «0» van a D y F, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & J \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×1} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×1} & \texttt{×0} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{J} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{×1} & \texttt{×0} & \texttt{·} & \texttt{·} & \texttt{} \\
+\texttt{K} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} Se marcan 16 pares. \{A, B\}: con «1» van a C y E, ya distinguibles; \{A, C\}: con «0» van a B y K, ya distinguibles; \{A, D\}: con «1» van a C y E, ya distinguibles; \{A, G\}: con «0» van a B y E, ya distinguibles; \{A, H\}: con «1» van a C y K, ya distinguibles; \{B, C\}: con «0» van a D y K, ya distinguibles; \{B, G\}: con «0» van a D y E, ya distinguibles; \{B, J\}: con «1» van a E y G, ya distinguibles; \{C, D\}: con «0» van a K y H, ya distinguibles; \{C, H\}: con «0» van a K y B, ya distinguibles; \{C, J\}: con «0» van a K y D, ya distinguibles; \{D, G\}: con «0» van a H y E, ya distinguibles; \{D, J\}: con «1» van a E y G, ya distinguibles; \{G, H\}: con «0» van a E y B, ya distinguibles; \{G, J\}: con «0» van a E y D, ya distinguibles; \{H, J\}: con «1» van a K y G, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & J \\\midrule
+\texttt{B} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×2} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×2} & \texttt{·} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×2} & \texttt{×2} & \texttt{·} & \texttt{×2} & \texttt{×1} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×2} & \texttt{·} & \texttt{×2} & \texttt{·} & \texttt{×1} & \texttt{×0} & \texttt{×2} & \texttt{} & \texttt{} \\
+\texttt{J} & \texttt{·} & \texttt{×2} & \texttt{×2} & \texttt{×2} & \texttt{×1} & \texttt{×0} & \texttt{×2} & \texttt{×2} & \texttt{} \\
+\texttt{K} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 3.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{llllllllll}\toprule
+ & A & B & C & D & E & F & G & H & J \\\midrule
+\texttt{B} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×2} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×2} & \texttt{·} & \texttt{×2} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{G} & \texttt{×2} & \texttt{×2} & \texttt{·} & \texttt{×2} & \texttt{×1} & \texttt{×0} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{H} & \texttt{×2} & \texttt{·} & \texttt{×2} & \texttt{·} & \texttt{×1} & \texttt{×0} & \texttt{×2} & \texttt{} & \texttt{} \\
+\texttt{J} & \texttt{·} & \texttt{×2} & \texttt{×2} & \texttt{×2} & \texttt{×1} & \texttt{×0} & \texttt{×2} & \texttt{×2} & \texttt{} \\
+\texttt{K} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{·} & \texttt{×0} & \texttt{×1} & \texttt{×1} & \texttt{×1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{\{A,J\}} & \texttt{A, J} & \texttt{no} \\
+\texttt{\{B,D,H\}} & \texttt{B, D, H} & \texttt{no} \\
+\texttt{\{C,G\}} & \texttt{C, G} & \texttt{no} \\
+\texttt{\{E,K\}} & \texttt{E, K} & \texttt{no} \\
+\texttt{F} & \texttt{F} & \texttt{sí} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-155-minimo}{AFD mínimo de 155 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{100}, \texttt{100100}, \texttt{10000010}; rechazadas \texttt{101}, \texttt{101000}, \texttt{1000001}.}}
+
+\resp 12 estados → 5 en 3 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{\{A,J\}} & \texttt{\{B,D,H\}} & \texttt{\{C,G\}} \\
+ \texttt{\{B,D,H\}} & \texttt{\{B,D,H\}} & \texttt{\{E,K\}} \\
+ \texttt{\{C,G\}} & \texttt{\{E,K\}} & \texttt{\{C,G\}} \\
+ \texttt{\{E,K\}} & \texttt{F} & \texttt{\{B,D,H\}} \\
+$*$ \texttt{F} & \texttt{\{A,J\}} & \texttt{\{C,G\}} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\begin{ejercicio}{156}{*}
+Encuentre la tabla de transiciones del autómata del diagrama 156 y simplifíquelo encontrando una partición y eliminando los estados inaccesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{C} & \texttt{E} \\
+ \texttt{C} & \texttt{D} & \texttt{C} \\
+ \texttt{D} & \texttt{C} & \texttt{E} \\
+$*$ \texttt{E} & \texttt{B} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-156}{AFD 156 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{10001}, \texttt{1000001}; rechazadas \texttt{00}, \texttt{01001}, \texttt{100000}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Todos los estados son accesibles desde el inicial.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, B, C, E, D} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & A & B & C & D \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 4 pares. \{A, B\}: con «1» van a C y E, ya distinguibles; \{A, D\}: con «1» van a C y E, ya distinguibles; \{B, C\}: con «1» van a E y C, ya distinguibles; \{C, D\}: con «1» van a C y E, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & A & B & C & D \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{×1} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{·} & \texttt{×1} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & A & B & C & D \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{×1} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{·} & \texttt{×1} & \texttt{} \\
+\texttt{E} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{\{A,C\}} & \texttt{A, C} & \texttt{no} \\
+\texttt{\{B,D\}} & \texttt{B, D} & \texttt{no} \\
+\texttt{E} & \texttt{E} & \texttt{sí} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-156-minimo}{AFD mínimo de 156 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{10001}, \texttt{1000001}; rechazadas \texttt{00}, \texttt{01001}, \texttt{100000}.}}
+
+\resp 5 estados → 3 en 2 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{\{A,C\}} & \texttt{\{B,D\}} & \texttt{\{A,C\}} \\
+ \texttt{\{B,D\}} & \texttt{\{A,C\}} & \texttt{E} \\
+$*$ \texttt{E} & \texttt{\{B,D\}} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\begin{ejercicio}{157}{*}
+Encuentre la tabla de transiciones del autómata del diagrama 157 y simplifíquelo encontrando una partición y eliminando los estados inaccesibles.
+\end{ejercicio}
+\proc Tabla del autómata dado:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{F} \\
+ \texttt{B} & \texttt{C} & \texttt{E} \\
+ \texttt{C} & \texttt{D} & \texttt{E} \\
+ \texttt{D} & \texttt{B} & \texttt{E} \\
+ \texttt{E} & \texttt{F} & \texttt{D} \\
+$*$ \texttt{F} & \texttt{F} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-157}{AFD 157 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{0}, \texttt{0000}, \texttt{000000}.}}
+Se aplica la minimización: primero se quitan los estados inaccesibles y después se marcan, ronda por ronda, los pares de estados distinguibles (×k = marcado en la ronda k; · = no distinguible). Los pares que nunca se marcan forman las clases del AFD mínimo.
+
+\textit{1. Estados inaccesibles.} Todos los estados son accesibles desde el inicial.
+\begin{center}\footnotesize\begin{tabular}{l}\toprule
+Accesibles (orden BFS) \\\midrule
+\texttt{A, B, F, C, E, D} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 7 pares. \{A, B\}: con «1» van a F y E, ya distinguibles; \{A, C\}: con «1» van a F y E, ya distinguibles; \{A, D\}: con «1» van a F y E, ya distinguibles; \{A, E\}: con «0» van a B y F, ya distinguibles; \{B, E\}: con «0» van a C y F, ya distinguibles; \{C, E\}: con «0» van a D y F, ya distinguibles; \{D, E\}: con «0» van a B y F, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{llllll}\toprule
+ & A & B & C & D & E \\\midrule
+\texttt{B} & \texttt{×1} & \texttt{} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{C} & \texttt{×1} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{D} & \texttt{×1} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{E} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{F} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{4. Clases de equivalencia.} Los pares que nunca se marcaron son indistinguibles y se fusionan.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+Clase & Estados & Final \\\midrule
+\texttt{A} & \texttt{A} & \texttt{no} \\
+\texttt{\{B,C,D\}} & \texttt{B, C, D} & \texttt{no} \\
+\texttt{E} & \texttt{E} & \texttt{no} \\
+\texttt{F} & \texttt{F} & \texttt{sí} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-157-minimo}{AFD mínimo de 157 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{0}, \texttt{0000}, \texttt{000000}.}}
+
+\resp 6 estados → 4 en 2 rondas. El AFD simplificado es:
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{\{B,C,D\}} & \texttt{F} \\
+ \texttt{\{B,C,D\}} & \texttt{\{B,C,D\}} & \texttt{E} \\
+ \texttt{E} & \texttt{F} & \texttt{\{B,C,D\}} \\
+$*$ \texttt{F} & \texttt{F} & \texttt{\{B,C,D\}} \\
+\bottomrule\end{tabular}\end{center}
+
+
+
+\seccion{Autómatas finitos no deterministas (158--190)}
+
+
+\begin{ejercicio}{158}{*}
+Describa lo que hace el autómata finito no determinista del diagrama 158 ($\Sigma = \{0, 1\}$).
+\end{ejercicio}
+\proc El autómata acepta únicamente la cadena 01: L = \{01\}. Las transiciones que faltan llevan a un rechazo implícito. Eliminando estados se obtiene la expresión \texttt{01}.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q1} & \texttt{q2} & \texttt{--} \\
+ \texttt{q2} & \texttt{--} & \texttt{q3} \\
+$*$ \texttt{q3} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-158}{Autómata 158 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}; rechazadas \texttt{00}, \texttt{1}, \texttt{1000}.}}
+
+\resp L = \{01\}. Aunque la lista lo presenta como AFN, cada estado tiene a lo sumo una transición por símbolo: es un AFD con función de transición parcial.
+
+
+\begin{ejercicio}{159}{*}
+Describa lo que hace el autómata finito no determinista del diagrama 159 ($\Sigma = \{0, 1\}$).
+\end{ejercicio}
+\proc El autómata acepta las cadenas formadas por unos seguidos de 01: L = 1*01. Las transiciones que faltan llevan a un rechazo implícito. Eliminando estados se obtiene la expresión \texttt{1*01}.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q1} & \texttt{q2} & \texttt{q1} \\
+ \texttt{q2} & \texttt{--} & \texttt{q3} \\
+$*$ \texttt{q3} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-159}{Autómata 159 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{11101}, \texttt{1111101}; rechazadas \texttt{00}, \texttt{11011}, \texttt{111110}.}}
+
+\resp L = 1*01. Aunque la lista lo presenta como AFN, cada estado tiene a lo sumo una transición por símbolo: es un AFD con función de transición parcial.
+
+
+\begin{ejercicio}{160}{*}
+Describa lo que hace el autómata finito no determinista del diagrama 160 ($\Sigma = \{0, 1\}$).
+\end{ejercicio}
+\proc El autómata acepta las cadenas que empiezan con 01: L = 01(0 + 1)*. Las transiciones que faltan llevan a un rechazo implícito. Eliminando estados se obtiene la expresión \texttt{01(0 + 1)*}.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q1} & \texttt{q2} & \texttt{--} \\
+ \texttt{q2} & \texttt{--} & \texttt{q3} \\
+$*$ \texttt{q3} & \texttt{q3} & \texttt{q3} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-160}{Autómata 160 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{01100}, \texttt{0110000}; rechazadas \texttt{00}, \texttt{10100}, \texttt{1110000}.}}
+
+\resp L = 01(0 + 1)*. Aunque la lista lo presenta como AFN, cada estado tiene a lo sumo una transición por símbolo: es un AFD con función de transición parcial.
+
+
+\begin{ejercicio}{161}{*}
+Describa lo que hace el autómata finito no determinista del diagrama 161 ($\Sigma = \{0, 1\}$).
+\end{ejercicio}
+\proc El autómata acepta las repeticiones del bloque 010, incluida λ: L = (010)*. Las transiciones que faltan llevan a un rechazo implícito. Eliminando estados se obtiene la expresión \texttt{(010)*}.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$$*$ \texttt{q1} & \texttt{q2} & \texttt{--} \\
+ \texttt{q2} & \texttt{--} & \texttt{q3} \\
+ \texttt{q3} & \texttt{q1} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-161}{Autómata 161 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010}, \texttt{010010}, \texttt{010010010}; rechazadas \texttt{011}, \texttt{100010}, \texttt{01001001}.}}
+
+\resp L = (010)*. Aunque la lista lo presenta como AFN, cada estado tiene a lo sumo una transición por símbolo: es un AFD con función de transición parcial.
+
+
+Los ejercicios 162--188 piden un AFN para cada problema 94--123 de la Tarea 2, más simple que el AFD cuando sea posible. Se numeran por el problema de la Tarea 2 al que corresponden.
+\begin{ejercicio}{162--188 (problema 94)}{}
+AFN para el problema 94 de la Tarea 2: Las palabras de $\Sigma_1$ que comienzan con 1 y terminan con 2.
+\end{ejercicio}
+\proc Tras el 1 inicial, el AFN adivina cuándo lee el último símbolo, que debe ser 2. El AFN tiene 3 estados; su AFD mínimo, 3.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{q0} & \texttt{∅} & \texttt{\{q1\}} & \texttt{∅} \\
+ \texttt{q1} & \texttt{\{q1\}} & \texttt{\{q1\}} & \texttt{\{q1, q2\}} \\
+$*$ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{12} ✓, \texttt{102} ✓, \texttt{11012} ✓, \texttt{1022012} ✓, \texttt{1021101222} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{212} ✗, \texttt{00012} ✗, \texttt{20021021} ✗.
+\jflap{lista3-afn-094}{AFN del problema 94 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{12}, \texttt{11112}, \texttt{1111112}; rechazadas \texttt{10}, \texttt{11121}, \texttt{111111}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 95)}{}
+AFN para el problema 95 de la Tarea 2: Las palabras de $\Sigma_1$ que tienen longitud 4.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 5 estados; su AFD mínimo, 5.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{L0} & \texttt{L1} & \texttt{L1} & \texttt{L1} \\
+ \texttt{L1} & \texttt{L2} & \texttt{L2} & \texttt{L2} \\
+ \texttt{L2} & \texttt{L3} & \texttt{L3} & \texttt{L3} \\
+ \texttt{L3} & \texttt{L4} & \texttt{L4} & \texttt{L4} \\
+$*$ \texttt{L4} & \texttt{--} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0100} ✓, \texttt{1102} ✓, \texttt{1111} ✓, \texttt{1112} ✓, \texttt{2122} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{221} ✗, \texttt{02020} ✗, \texttt{01010112} ✗.
+\jflap{lista3-afn-095}{AFN del problema 95 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0000}, \texttt{1111}, \texttt{2222}; rechazadas \texttt{000}, \texttt{111}, \texttt{222}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 96)}{}
+AFN para el problema 96 de la Tarea 2: Las palabras de $\Sigma_1$ con prefijo 20 y longitud 4.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 5 estados; su AFD mínimo, 5.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{L0} & \texttt{--} & \texttt{--} & \texttt{L1} \\
+ \texttt{L1} & \texttt{L2} & \texttt{--} & \texttt{--} \\
+ \texttt{L2} & \texttt{L3} & \texttt{L3} & \texttt{L3} \\
+ \texttt{L3} & \texttt{L4} & \texttt{L4} & \texttt{L4} \\
+$*$ \texttt{L4} & \texttt{--} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{2001} ✓, \texttt{2010} ✓, \texttt{2011} ✓, \texttt{2020} ✓, \texttt{2022} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{220} ✗, \texttt{02000} ✗, \texttt{11121222} ✗.
+\jflap{lista3-afn-096}{AFN del problema 96 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{2000}, \texttt{2011}, \texttt{2022}; rechazadas \texttt{0200}, \texttt{0211}, \texttt{202}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 97)}{*}
+AFN para el problema 97 de la Tarea 2: Las palabras de $\Sigma_1$ cuya longitud es un múltiplo de 3.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 3 estados; su AFD mínimo, 3.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$$*$ \texttt{r0} & \texttt{r1} & \texttt{r1} & \texttt{r1} \\
+ \texttt{r1} & \texttt{r2} & \texttt{r2} & \texttt{r2} \\
+ \texttt{r2} & \texttt{r0} & \texttt{r0} & \texttt{r0} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{120} ✓, \texttt{200} ✓, \texttt{100020} ✓, \texttt{121121201} ✓; \texttt{1} ✗, \texttt{21} ✗, \texttt{2102} ✗, \texttt{01102021} ✗, \texttt{12220210} ✗.
+\jflap{lista3-afn-097}{AFN del problema 97 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{111000}, \texttt{222222}; rechazadas \texttt{00}, \texttt{11100}, \texttt{22222}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 98)}{}
+AFN para el problema 98 de la Tarea 2: Las palabras de $\Sigma_1$ que terminan con la cadena 00102.
+\end{ejercicio}
+\proc Ciclo en c0 y una cadena de estados que adivina dónde empieza el sufijo 00102. El AFN tiene 6 estados; su AFD mínimo, 6.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{\{c2\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c2} & \texttt{∅} & \texttt{\{c3\}} & \texttt{∅} \\
+ \texttt{c3} & \texttt{\{c4\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c4} & \texttt{∅} & \texttt{∅} & \texttt{\{c5\}} \\
+$*$ \texttt{c5} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{00102} ✓, \texttt{100102} ✓, \texttt{20000102} ✓, \texttt{2100200102} ✓, \texttt{0221101000102} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{122} ✗, \texttt{11100} ✗, \texttt{22220002} ✗.
+\jflap{lista3-afn-098}{AFN del problema 98 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00102}, \texttt{1100102}, \texttt{111100102}; rechazadas \texttt{00100}, \texttt{1010102}, \texttt{11110010}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 99)}{*}
+AFN para el problema 99 de la Tarea 2: Las palabras de $\Sigma_1$ que terminan con la cadena 001001.
+\end{ejercicio}
+\proc Ciclo en c0 y una cadena que adivina dónde empieza el sufijo 001001. El AFN tiene 7 estados; su AFD mínimo, 7.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{\{c2\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c2} & \texttt{∅} & \texttt{\{c3\}} & \texttt{∅} \\
+ \texttt{c3} & \texttt{\{c4\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c4} & \texttt{\{c5\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c5} & \texttt{∅} & \texttt{\{c6\}} & \texttt{∅} \\
+$*$ \texttt{c6} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{001001} ✓, \texttt{1001001} ✓, \texttt{121001001} ✓, \texttt{10211001001} ✓, \texttt{00200202001001} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{120} ✗, \texttt{22202} ✗, \texttt{02211011} ✗.
+\jflap{lista3-afn-099}{AFN del problema 99 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{001001}, \texttt{11001001}, \texttt{111001001}; rechazadas \texttt{001000}, \texttt{10101001}, \texttt{11100100}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 100)}{}
+AFN para el problema 100 de la Tarea 2: Las palabras de $\Sigma_2$ tales que el primer símbolo de la cadena es una letra y el segundo es un dígito.
+\end{ejercicio}
+\proc Letra, dígito y cualquier continuación; sin estado muerto. El AFN tiene 3 estados; su AFD mínimo, 3.
+\begin{center}\small\begin{tabular}{lccccc}\toprule
+$\delta$ & 0 & 1 & a & b & c \\\midrule
+$\to$ \texttt{q0} & \texttt{--} & \texttt{--} & \texttt{q1} & \texttt{q1} & \texttt{q1} \\
+ \texttt{q1} & \texttt{q2} & \texttt{q2} & \texttt{--} & \texttt{--} & \texttt{--} \\
+$*$ \texttt{q2} & \texttt{q2} & \texttt{q2} & \texttt{q2} & \texttt{q2} & \texttt{q2} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{c1} ✓, \texttt{b01} ✓, \texttt{b0a0a} ✓, \texttt{c0ba100} ✓, \texttt{b1cca1a1ac} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{bcb} ✗, \texttt{0a0b0} ✗, \texttt{caab1cab} ✗.
+\jflap{lista3-afn-100}{AFN del problema 100 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b1}, \texttt{b100}, \texttt{b10000}; rechazadas \texttt{ba}, \texttt{1b00}, \texttt{010000}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 101)}{}
+AFN para el problema 101 de la Tarea 2: Las palabras de $\Sigma_3$ que contienen la cadena \texttt{aba}.
+\end{ejercicio}
+\proc El AFN adivina dónde empieza aba: ciclo inicial, el patrón y ciclo final. No necesita los retrocesos del autómata de Knuth-Morris-Pratt. El AFN tiene 4 estados; su AFD mínimo, 4.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{∅} & \texttt{\{c2\}} \\
+ \texttt{c2} & \texttt{\{c3\}} & \texttt{∅} \\
+$*$ \texttt{c3} & \texttt{\{c3\}} & \texttt{\{c3\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aba} ✓, \texttt{abab} ✓, \texttt{abaaab} ✓, \texttt{abbbabab} ✓, \texttt{baababbbaba} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{aaa} ✗, \texttt{babba} ✗, \texttt{aaaaabbb} ✗.
+\jflap{lista3-afn-101}{AFN del problema 101 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aba}, \texttt{ababba}, \texttt{abbabaaa}; rechazadas \texttt{abb}, \texttt{baabba}, \texttt{abbbaaaa}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 102)}{*}
+AFN para el problema 102 de la Tarea 2: Las palabras de $\Sigma_3$ que contienen la cadena \texttt{abbbab}.
+\end{ejercicio}
+\proc El AFN adivina dónde empieza abbbab: ciclo inicial, el patrón y ciclo final. No necesita los retrocesos del autómata de Knuth-Morris-Pratt. El AFN tiene 7 estados; su AFD mínimo, 7.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{∅} & \texttt{\{c2\}} \\
+ \texttt{c2} & \texttt{∅} & \texttt{\{c3\}} \\
+ \texttt{c3} & \texttt{∅} & \texttt{\{c4\}} \\
+ \texttt{c4} & \texttt{\{c5\}} & \texttt{∅} \\
+ \texttt{c5} & \texttt{∅} & \texttt{\{c6\}} \\
+$*$ \texttt{c6} & \texttt{\{c6\}} & \texttt{\{c6\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abbbab} ✓, \texttt{abbbabb} ✓, \texttt{abbbabaaa} ✓, \texttt{abbaabbbaba} ✓, \texttt{bbbabbbabbbbaa} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{baa} ✗, \texttt{bbbaa} ✗, \texttt{bbbbbaba} ✗.
+\jflap{lista3-afn-102}{AFN del problema 102 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abbbab}, \texttt{abbbabba}, \texttt{abbbabbaaa}; rechazadas \texttt{abbbaa}, \texttt{babbabba}, \texttt{bbbbabbaaa}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 103)}{*}
+AFN para el problema 103 de la Tarea 2: Las palabras de $\Sigma_3$ que contienen la cadena \texttt{aabbba}.
+\end{ejercicio}
+\proc El AFN adivina dónde empieza aabbba: ciclo inicial, el patrón y ciclo final. No necesita los retrocesos del autómata de Knuth-Morris-Pratt. El AFN tiene 7 estados; su AFD mínimo, 7.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{\{c2\}} & \texttt{∅} \\
+ \texttt{c2} & \texttt{∅} & \texttt{\{c3\}} \\
+ \texttt{c3} & \texttt{∅} & \texttt{\{c4\}} \\
+ \texttt{c4} & \texttt{∅} & \texttt{\{c5\}} \\
+ \texttt{c5} & \texttt{\{c6\}} & \texttt{∅} \\
+$*$ \texttt{c6} & \texttt{\{c6\}} & \texttt{\{c6\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aabbba} ✓, \texttt{baabbba} ✓, \texttt{babaabbba} ✓, \texttt{ababaabbbaa} ✓, \texttt{aaabbbaaaaabbb} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{aaa} ✗, \texttt{bbabb} ✗, \texttt{baabbaaa} ✗.
+\jflap{lista3-afn-103}{AFN del problema 103 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aabbba}, \texttt{aabbbabb}, \texttt{abaabbbaab}; rechazadas \texttt{aabbbb}, \texttt{ababbabb}, \texttt{aababbbaab}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 104)}{}
+AFN para el problema 104 de la Tarea 2: Las palabras de $\Sigma_3$ que inician con la cadena \texttt{abbab}.
+\end{ejercicio}
+\proc El prefijo abbab y un ciclo final; sin estado muerto. El AFN tiene 6 estados; su AFD mínimo, 6.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{c0} & \texttt{c1} & \texttt{--} \\
+ \texttt{c1} & \texttt{--} & \texttt{c2} \\
+ \texttt{c2} & \texttt{--} & \texttt{c3} \\
+ \texttt{c3} & \texttt{c4} & \texttt{--} \\
+ \texttt{c4} & \texttt{--} & \texttt{c5} \\
+$*$ \texttt{c5} & \texttt{c5} & \texttt{c5} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abbab} ✓, \texttt{abbaba} ✓, \texttt{abbabbba} ✓, \texttt{abbabbbabb} ✓, \texttt{abbabababaaaa} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{bba} ✗, \texttt{baabb} ✗, \texttt{aabbbaba} ✗.
+\jflap{lista3-afn-104}{AFN del problema 104 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abbab}, \texttt{abbabbaa}, \texttt{abbabbaaaa}; rechazadas \texttt{abbaa}, \texttt{bababbaa}, \texttt{bbbabbaaaa}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 105)}{}
+AFN para el problema 105 de la Tarea 2: Las palabras de $\Sigma_3$ que terminan con la cadena \texttt{abaa}.
+\end{ejercicio}
+\proc Ciclo inicial y el sufijo abaa. El AFN tiene 5 estados; su AFD mínimo, 5.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{∅} & \texttt{\{c2\}} \\
+ \texttt{c2} & \texttt{\{c3\}} & \texttt{∅} \\
+ \texttt{c3} & \texttt{\{c4\}} & \texttt{∅} \\
+$*$ \texttt{c4} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abaa} ✓, \texttt{babaa} ✓, \texttt{bababaa} ✓, \texttt{aaabaabaa} ✓, \texttt{bababaababaa} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{aaa} ✗, \texttt{bbaab} ✗, \texttt{bbbbaaba} ✗.
+\jflap{lista3-afn-105}{AFN del problema 105 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abaa}, \texttt{baaabaa}, \texttt{baaaaabaa}; rechazadas \texttt{abab}, \texttt{baabaaa}, \texttt{baaaaaba}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 106)}{*}
+AFN para el problema 106 de la Tarea 2: Las palabras de $\Sigma_1$ que incluyen la subcadena 1101001.
+\end{ejercicio}
+\proc El AFN adivina dónde empieza 1101001: ciclo inicial, el patrón y ciclo final. No necesita los retrocesos del autómata de Knuth-Morris-Pratt. El AFN tiene 8 estados; su AFD mínimo, 8.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{c0} & \texttt{\{c0\}} & \texttt{\{c0, c1\}} & \texttt{\{c0\}} \\
+ \texttt{c1} & \texttt{∅} & \texttt{\{c2\}} & \texttt{∅} \\
+ \texttt{c2} & \texttt{\{c3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c3} & \texttt{∅} & \texttt{\{c4\}} & \texttt{∅} \\
+ \texttt{c4} & \texttt{\{c5\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c5} & \texttt{\{c6\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c6} & \texttt{∅} & \texttt{\{c7\}} & \texttt{∅} \\
+$*$ \texttt{c7} & \texttt{\{c7\}} & \texttt{\{c7\}} & \texttt{\{c7\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1101001} ✓, \texttt{11010010} ✓, \texttt{1101001110} ✓, \texttt{212011010012} ✓, \texttt{20000110100120} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{210} ✗, \texttt{21220} ✗, \texttt{22110022} ✗.
+\jflap{lista3-afn-106}{AFN del problema 106 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1101001}, \texttt{11010012}, \texttt{110100120}; rechazadas \texttt{1101000}, \texttt{10110012}, \texttt{010100120}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 107)}{*}
+AFN para el problema 107 de la Tarea 2: Las palabras de $\Sigma_1$ que incluyen al menos una vez la subcadena 0101 y al menos una vez la subcadena 021.
+\end{ejercicio}
+\proc Intersección de los AFN de «contiene 0101» y «contiene 021» con la construcción de producto; cada estado es un par cᵢcⱼ. Como las dos apariciones pueden traslaparse, no basta con concatenar los patrones. El AFN tiene 16 estados; su AFD mínimo, 13.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{c0c0} & \texttt{\{c0c0, c0c1, c1c0, c1c1\}} & \texttt{\{c0c0\}} & \texttt{\{c0c0\}} \\
+ \texttt{c0c1} & \texttt{∅} & \texttt{∅} & \texttt{\{c0c2\}} \\
+ \texttt{c1c0} & \texttt{∅} & \texttt{\{c2c0\}} & \texttt{∅} \\
+ \texttt{c1c1} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c0c2} & \texttt{∅} & \texttt{\{c0c3\}} & \texttt{∅} \\
+ \texttt{c2c0} & \texttt{\{c3c0, c3c1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c0c3} & \texttt{\{c0c3, c1c3\}} & \texttt{\{c0c3\}} & \texttt{\{c0c3\}} \\
+ \texttt{c3c0} & \texttt{∅} & \texttt{\{c4c0\}} & \texttt{∅} \\
+ \texttt{c3c1} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c1c3} & \texttt{∅} & \texttt{\{c2c3\}} & \texttt{∅} \\
+ \texttt{c4c0} & \texttt{\{c4c0, c4c1\}} & \texttt{\{c4c0\}} & \texttt{\{c4c0\}} \\
+ \texttt{c2c3} & \texttt{\{c3c3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c4c1} & \texttt{∅} & \texttt{∅} & \texttt{\{c4c2\}} \\
+ \texttt{c3c3} & \texttt{∅} & \texttt{\{c4c3\}} & \texttt{∅} \\
+ \texttt{c4c2} & \texttt{∅} & \texttt{\{c4c3\}} & \texttt{∅} \\
+$*$ \texttt{c4c3} & \texttt{\{c4c3\}} & \texttt{\{c4c3\}} & \texttt{\{c4c3\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0101021} ✓, \texttt{20210101} ✓, \texttt{0212100101} ✓, \texttt{021112010101} ✓, \texttt{10202021010111} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{201} ✗, \texttt{21202} ✗, \texttt{20001211} ✗.
+\jflap{lista3-afn-107}{AFN del problema 107 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0210101}, \texttt{02101010}, \texttt{021010112}; rechazadas \texttt{0210100}, \texttt{20101010}, \texttt{121010112}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 108)}{}
+AFN para el problema 108 de la Tarea 2: Las palabras de $\Sigma_2$ que incluyen al menos una vez la subcadena \texttt{abbcb} y al menos una vez la subcadena \texttt{cbaabb}, asumiendo que no se pueden traslapar; así, cadenas similares a \texttt{abbcbaabb} no están en el lenguaje.
+\end{ejercicio}
+\proc Dos ramas desde el estado inicial: abbcb y después cbaabb, o cbaabb y después abbcb. El segundo patrón empieza después de que el primero terminó, lo que impide el traslape. El AFN tiene 23 estados; su AFD mínimo, 37.
+\begin{center}\small\begin{tabular}{lccccc}\toprule
+$\delta$ & 0 & 1 & a & b & c \\\midrule
+$\to$ \texttt{i} & \texttt{\{i\}} & \texttt{\{i\}} & \texttt{\{i, x1\}} & \texttt{\{i\}} & \texttt{\{i, y1\}} \\
+ \texttt{x1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{x2\}} & \texttt{∅} \\
+ \texttt{x2} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{x3\}} & \texttt{∅} \\
+ \texttt{x3} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{x4\}} \\
+ \texttt{x4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{x5\}} & \texttt{∅} \\
+ \texttt{x5} & \texttt{\{x5\}} & \texttt{\{x5\}} & \texttt{\{x5\}} & \texttt{\{x5\}} & \texttt{\{x5, Y1\}} \\
+ \texttt{Y1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{Y2\}} & \texttt{∅} \\
+ \texttt{Y2} & \texttt{∅} & \texttt{∅} & \texttt{\{Y3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{Y3} & \texttt{∅} & \texttt{∅} & \texttt{\{Y4\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{Y4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{Y5\}} & \texttt{∅} \\
+ \texttt{Y5} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{Y6\}} & \texttt{∅} \\
+$*$ \texttt{Y6} & \texttt{\{Y6\}} & \texttt{\{Y6\}} & \texttt{\{Y6\}} & \texttt{\{Y6\}} & \texttt{\{Y6\}} \\
+ \texttt{y1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{y2\}} & \texttt{∅} \\
+ \texttt{y2} & \texttt{∅} & \texttt{∅} & \texttt{\{y3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{y3} & \texttt{∅} & \texttt{∅} & \texttt{\{y4\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{y4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{y5\}} & \texttt{∅} \\
+ \texttt{y5} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{y6\}} & \texttt{∅} \\
+ \texttt{y6} & \texttt{\{y6\}} & \texttt{\{y6\}} & \texttt{\{y6, X1\}} & \texttt{\{y6\}} & \texttt{\{y6\}} \\
+ \texttt{X1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{X2\}} & \texttt{∅} \\
+ \texttt{X2} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{X3\}} & \texttt{∅} \\
+ \texttt{X3} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{X4\}} \\
+ \texttt{X4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{X5\}} & \texttt{∅} \\
+$*$ \texttt{X5} & \texttt{\{X5\}} & \texttt{\{X5\}} & \texttt{\{X5\}} & \texttt{\{X5\}} & \texttt{\{X5\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abbcbcbaabb} ✓, \texttt{cbaabb1abbcb} ✓, \texttt{a1abbcbcbaabba} ✓, \texttt{cbaabb1abbcb0010} ✓, \texttt{1bbccbaabb0abbcba} ✓; $\lambda$ ✗, \texttt{c} ✗, \texttt{1b0} ✗, \texttt{cac1b} ✗, \texttt{baa1a0aa} ✗.
+\jflap{lista3-afn-108}{AFN del problema 108 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abbcbcbaabb}, \texttt{abbcbcbaabb0}, \texttt{cbaabbabbcb0}; rechazadas \texttt{abbcbcbaab0}, \texttt{babcbcbaabb0}, \texttt{0baabbabbcb0}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 109)}{*}
+AFN para el problema 109 de la Tarea 2: Las palabras de $\Sigma_2$ que incluyen al menos una vez la subcadena \texttt{abbcb} y al menos una vez la subcadena \texttt{cbaabb}, asumiendo que sí se pueden traslapar.
+\end{ejercicio}
+\proc Intersección de los dos AFN «contiene» por la construcción de producto, que admite traslapes. El AFN tiene 26 estados; su AFD mínimo, 22.
+\begin{center}\small\begin{tabular}{lccccc}\toprule
+$\delta$ & 0 & 1 & a & b & c \\\midrule
+$\to$ \texttt{c0c0} & \texttt{\{c0c0\}} & \texttt{\{c0c0\}} & \texttt{\{c0c0, c1c0\}} & \texttt{\{c0c0\}} & \texttt{\{c0c0, c0c1\}} \\
+ \texttt{c1c0} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c2c0\}} & \texttt{∅} \\
+ \texttt{c0c1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c0c2\}} & \texttt{∅} \\
+ \texttt{c2c0} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c3c0\}} & \texttt{∅} \\
+ \texttt{c0c2} & \texttt{∅} & \texttt{∅} & \texttt{\{c0c3, c1c3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c3c0} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c4c0, c4c1\}} \\
+ \texttt{c0c3} & \texttt{∅} & \texttt{∅} & \texttt{\{c0c4, c1c4\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c1c3} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c4c0} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c0\}} & \texttt{∅} \\
+ \texttt{c4c1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c2\}} & \texttt{∅} \\
+ \texttt{c0c4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c0c5\}} & \texttt{∅} \\
+ \texttt{c1c4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c2c5\}} & \texttt{∅} \\
+ \texttt{c5c0} & \texttt{\{c5c0\}} & \texttt{\{c5c0\}} & \texttt{\{c5c0\}} & \texttt{\{c5c0\}} & \texttt{\{c5c0, c5c1\}} \\
+ \texttt{c5c2} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c0c5} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c0c6\}} & \texttt{∅} \\
+ \texttt{c2c5} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c3c6\}} & \texttt{∅} \\
+ \texttt{c5c1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c2\}} & \texttt{∅} \\
+ \texttt{c5c3} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c4\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c0c6} & \texttt{\{c0c6\}} & \texttt{\{c0c6\}} & \texttt{\{c0c6, c1c6\}} & \texttt{\{c0c6\}} & \texttt{\{c0c6\}} \\
+ \texttt{c3c6} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c4c6\}} \\
+ \texttt{c5c4} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c5\}} & \texttt{∅} \\
+ \texttt{c1c6} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c2c6\}} & \texttt{∅} \\
+ \texttt{c4c6} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c6\}} & \texttt{∅} \\
+ \texttt{c5c5} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c5c6\}} & \texttt{∅} \\
+ \texttt{c2c6} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{c3c6\}} & \texttt{∅} \\
+$*$ \texttt{c5c6} & \texttt{\{c5c6\}} & \texttt{\{c5c6\}} & \texttt{\{c5c6\}} & \texttt{\{c5c6\}} & \texttt{\{c5c6\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{cbaabbcb} ✓, \texttt{acbaabbcb} ✓, \texttt{1acbaabbcba} ✓, \texttt{011cbaabbcbbb} ✓, \texttt{1a0c0cbaabbcba} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{1ac} ✗, \texttt{1ab00} ✗, \texttt{cbaaac01} ✗.
+\jflap{lista3-afn-109}{AFN del problema 109 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{cbaabbcb}, \texttt{cbaabbcb1}, \texttt{0cbaabbcba}; rechazadas \texttt{cbaabbc0}, \texttt{bcaabbcb1}, \texttt{c0baabbcba}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 110)}{}
+AFN para el problema 110 de la Tarea 2: Las palabras de $\Sigma_1$ que contienen exactamente tres veces la subcadena 01.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 8 estados; su AFD mínimo, 8.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{0·λ} & \texttt{0·0} & \texttt{0·λ} & \texttt{0·λ} \\
+ \texttt{0·0} & \texttt{0·0} & \texttt{1·λ} & \texttt{0·λ} \\
+ \texttt{1·λ} & \texttt{1·0} & \texttt{1·λ} & \texttt{1·λ} \\
+ \texttt{1·0} & \texttt{1·0} & \texttt{2·λ} & \texttt{1·λ} \\
+ \texttt{2·λ} & \texttt{2·0} & \texttt{2·λ} & \texttt{2·λ} \\
+ \texttt{2·0} & \texttt{2·0} & \texttt{3·λ} & \texttt{2·λ} \\
+$*$ \texttt{3·λ} & \texttt{3·0} & \texttt{3·λ} & \texttt{3·λ} \\
+$*$ \texttt{3·0} & \texttt{3·0} & \texttt{--} & \texttt{3·λ} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{010101} ✓, \texttt{2010101} ✓, \texttt{010010120} ✓, \texttt{00120001001} ✓, \texttt{00001001201000} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{020} ✗, \texttt{20111} ✗, \texttt{11010012} ✗.
+\jflap{lista3-afn-110}{AFN del problema 110 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010101}, \texttt{01100101}, \texttt{011201012}; rechazadas \texttt{010100}, \texttt{01010101}, \texttt{111201012}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 111)}{*}
+AFN para el problema 111 de la Tarea 2: Las palabras de $\Sigma_1$ que contienen exactamente tres veces la subcadena 01002.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 20 estados; su AFD mínimo, 20.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{0·λ} & \texttt{0·0} & \texttt{0·λ} & \texttt{0·λ} \\
+ \texttt{0·0} & \texttt{0·0} & \texttt{0·01} & \texttt{0·λ} \\
+ \texttt{0·01} & \texttt{0·010} & \texttt{0·λ} & \texttt{0·λ} \\
+ \texttt{0·010} & \texttt{0·0100} & \texttt{0·01} & \texttt{0·λ} \\
+ \texttt{0·0100} & \texttt{0·0} & \texttt{0·01} & \texttt{1·λ} \\
+ \texttt{1·λ} & \texttt{1·0} & \texttt{1·λ} & \texttt{1·λ} \\
+ \texttt{1·0} & \texttt{1·0} & \texttt{1·01} & \texttt{1·λ} \\
+ \texttt{1·01} & \texttt{1·010} & \texttt{1·λ} & \texttt{1·λ} \\
+ \texttt{1·010} & \texttt{1·0100} & \texttt{1·01} & \texttt{1·λ} \\
+ \texttt{1·0100} & \texttt{1·0} & \texttt{1·01} & \texttt{2·λ} \\
+ \texttt{2·λ} & \texttt{2·0} & \texttt{2·λ} & \texttt{2·λ} \\
+ \texttt{2·0} & \texttt{2·0} & \texttt{2·01} & \texttt{2·λ} \\
+ \texttt{2·01} & \texttt{2·010} & \texttt{2·λ} & \texttt{2·λ} \\
+ \texttt{2·010} & \texttt{2·0100} & \texttt{2·01} & \texttt{2·λ} \\
+ \texttt{2·0100} & \texttt{2·0} & \texttt{2·01} & \texttt{3·λ} \\
+$*$ \texttt{3·λ} & \texttt{3·0} & \texttt{3·λ} & \texttt{3·λ} \\
+$*$ \texttt{3·0} & \texttt{3·0} & \texttt{3·01} & \texttt{3·λ} \\
+$*$ \texttt{3·01} & \texttt{3·010} & \texttt{3·λ} & \texttt{3·λ} \\
+$*$ \texttt{3·010} & \texttt{3·0100} & \texttt{3·01} & \texttt{3·λ} \\
+$*$ \texttt{3·0100} & \texttt{3·0} & \texttt{3·01} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{010020100201002} ✓, \texttt{0100200100201002} ✓, \texttt{010020201002010021} ✓, \texttt{12010022100100201002} ✓, \texttt{010022001220100201002} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{022} ✗, \texttt{12110} ✗, \texttt{20021000} ✗.
+\jflap{lista3-afn-111}{AFN del problema 111 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010020100201002}, \texttt{01002001002010020}, \texttt{0100200100201002010}; rechazadas \texttt{010020100201000}, \texttt{10002001002010020}, \texttt{1100200100201002010}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 112)}{*}
+AFN para el problema 112 de la Tarea 2: Las palabras de $\Sigma_1$ que contienen dos veces la subcadena 010, asumiendo que no se pueden traslapar; es decir, que 01010 no está en el lenguaje, mientras que 010010 sí pertenece.
+\end{ejercicio}
+\proc Σ*010Σ*010Σ*: dos copias de 010 separadas por un ciclo; la segunda empieza después de que termina la primera. El AFN tiene 7 estados; su AFD mínimo, 7.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{i} & \texttt{\{i, a1\}} & \texttt{\{i\}} & \texttt{\{i\}} \\
+ \texttt{a1} & \texttt{∅} & \texttt{\{a2\}} & \texttt{∅} \\
+ \texttt{a2} & \texttt{\{a3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{a3} & \texttt{\{a3, b1\}} & \texttt{\{a3\}} & \texttt{\{a3\}} \\
+ \texttt{b1} & \texttt{∅} & \texttt{\{b2\}} & \texttt{∅} \\
+ \texttt{b2} & \texttt{\{b3\}} & \texttt{∅} & \texttt{∅} \\
+$*$ \texttt{b3} & \texttt{\{b3\}} & \texttt{\{b3\}} & \texttt{\{b3\}} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{010010} ✓, \texttt{0100010} ✓, \texttt{100100100} ✓, \texttt{01022010022} ✓, \texttt{22120010010201} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{122} ✗, \texttt{02122} ✗, \texttt{22210211} ✗.
+\jflap{lista3-afn-112}{AFN del problema 112 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010010}, \texttt{01012010}, \texttt{010210101}; rechazadas \texttt{010011}, \texttt{10012010}, \texttt{110210101}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 113)}{*}
+AFN para el problema 113 de la Tarea 2: Las palabras de $\Sigma_1$ que contienen dos veces la subcadena 010, asumiendo que sí se pueden traslapar.
+\end{ejercicio}
+\proc Σ*(010Σ*010 + 01010)Σ*: dos apariciones disjuntas o una sola cadena 01010 en la que comparten el 0 central. El AFN tiene 11 estados; su AFD mínimo, 7.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{i} & \texttt{\{i, a1, o1\}} & \texttt{\{i\}} & \texttt{\{i\}} \\
+ \texttt{a1} & \texttt{∅} & \texttt{\{a2\}} & \texttt{∅} \\
+ \texttt{a2} & \texttt{\{a3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{a3} & \texttt{\{a3, b1\}} & \texttt{\{a3\}} & \texttt{\{a3\}} \\
+ \texttt{b1} & \texttt{∅} & \texttt{\{b2\}} & \texttt{∅} \\
+ \texttt{b2} & \texttt{\{b3\}} & \texttt{∅} & \texttt{∅} \\
+$*$ \texttt{b3} & \texttt{\{b3\}} & \texttt{\{b3\}} & \texttt{\{b3\}} \\
+ \texttt{o1} & \texttt{∅} & \texttt{\{o2\}} & \texttt{∅} \\
+ \texttt{o2} & \texttt{\{o3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{o3} & \texttt{∅} & \texttt{\{o4\}} & \texttt{∅} \\
+ \texttt{o4} & \texttt{\{b3\}} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{01010} ✓, \texttt{010101} ✓, \texttt{20101001} ✓, \texttt{0101020211} ✓, \texttt{2101022220102} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{222} ✗, \texttt{22201} ✗, \texttt{11210000} ✗.
+\jflap{lista3-afn-113}{AFN del problema 113 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01010}, \texttt{0101022}, \texttt{022201010}; rechazadas \texttt{01011}, \texttt{1001022}, \texttt{02220101}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 114)}{}
+AFN para el problema 114 de la Tarea 2: $L = \{w \in \Sigma_3^* : w = a^n b^m,\ m, n \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 2 estados; su AFD mínimo, 2.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$$*$ \texttt{a*} & \texttt{a*} & \texttt{a*b+} \\
+$*$ \texttt{a*b+} & \texttt{--} & \texttt{a*b+} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{b} ✓, \texttt{aaa} ✓, \texttt{aaabb} ✓, \texttt{aaaaaaab} ✓; \texttt{ba} ✗, \texttt{baa} ✗, \texttt{aabaa} ✗, \texttt{babbbbb} ✗, \texttt{abaabbbabb} ✗.
+\jflap{lista3-afn-114}{AFN del problema 114 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{ba}, \texttt{abab}, \texttt{baabbb}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 115)}{}
+AFN para el problema 115 de la Tarea 2: $L = \{w \in \Sigma_2^* : w = (abc)^n,\ n \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 3 estados; su AFD mínimo, 3.
+\begin{center}\small\begin{tabular}{lccccc}\toprule
+$\delta$ & 0 & 1 & a & b & c \\\midrule
+$\to$$*$ \texttt{(abc)*} & \texttt{--} & \texttt{--} & \texttt{…a} & \texttt{--} & \texttt{--} \\
+ \texttt{…a} & \texttt{--} & \texttt{--} & \texttt{--} & \texttt{…ab} & \texttt{--} \\
+ \texttt{…ab} & \texttt{--} & \texttt{--} & \texttt{--} & \texttt{--} & \texttt{(abc)*} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{abc} ✓, \texttt{abcabc} ✓, \texttt{abcabcabc} ✓, \texttt{abcabcabcabc} ✓; \texttt{0} ✗, \texttt{c1} ✗, \texttt{c01b} ✗, \texttt{0a010c} ✗, \texttt{cb010bc0a} ✗.
+\jflap{lista3-afn-115}{AFN del problema 115 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abc}, \texttt{abcabc}, \texttt{abcabcabc}; rechazadas \texttt{ab0}, \texttt{bacabc}, \texttt{abcabcab}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 116)}{*}
+AFN para el problema 116 de la Tarea 2: $L = \{w \in \Sigma_2^* : w = a^n b^m c^{n+1},\ m, n \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc No regular: no existe ningún autómata finito (véase el problema 116).
+\resp No existe AFN: el lenguaje no es regular (ver el problema 116 de la Tarea 2).
+
+
+\begin{ejercicio}{162--188 (problema 117)}{}
+AFN para el problema 117 de la Tarea 2: $L = \{w \in \Sigma_3^* : w = a^n b^m a^p b^q,\ m, n, p, q \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 4 estados; su AFD mínimo, 4.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$$*$ \texttt{f1:a*} & \texttt{f1:a*} & \texttt{f2:b*} \\
+$*$ \texttt{f2:b*} & \texttt{f3:a*} & \texttt{f2:b*} \\
+$*$ \texttt{f3:a*} & \texttt{f3:a*} & \texttt{f4:b*} \\
+$*$ \texttt{f4:b*} & \texttt{--} & \texttt{f4:b*} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{b} ✓, \texttt{aaa} ✓, \texttt{bbaab} ✓, \texttt{aaabbabb} ✓; \texttt{baba} ✗, \texttt{babba} ✗, \texttt{babbaaa} ✗, \texttt{babaababb} ✗, \texttt{babbabbbbbbb} ✗.
+\jflap{lista3-afn-117}{AFN del problema 117 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abbb}, \texttt{abbabb}; rechazadas \texttt{abbabba}, \texttt{baba}, \texttt{baabbba}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 118)}{*}
+AFN para el problema 118 de la Tarea 2: $L = \{w \in \Sigma_3^* : w = axabya,\ x, y \in \Sigma_3^*\}$.
+\end{ejercicio}
+\proc Sigue literalmente axabya: a, ciclo x, ab, ciclo y, a final. El AFN tiene 5 estados; su AFD mínimo, 5.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} \\
+ \texttt{q1} & \texttt{\{q1, q2\}} & \texttt{\{q1\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} \\
+ \texttt{q3} & \texttt{\{q3, q4\}} & \texttt{\{q3\}} \\
+$*$ \texttt{q4} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aaba} ✓, \texttt{aabba} ✓, \texttt{ababaaa} ✓, \texttt{ababbbbaa} ✓, \texttt{aababaaabaaa} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{baa} ✗, \texttt{abbaa} ✗, \texttt{abaabbab} ✗.
+\jflap{lista3-afn-118}{AFN del problema 118 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aaba}, \texttt{aabbbaa}, \texttt{aabbbbaba}; rechazadas \texttt{aabb}, \texttt{babbbaa}, \texttt{aabbbbab}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 119)}{}
+AFN para el problema 119 de la Tarea 2: Las palabras de $\Sigma_3$ tales que después de cada subcadena \texttt{aa} aparece una \texttt{b}.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 3 estados; su AFD mínimo, 3.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$$*$ \texttt{sin a} & \texttt{a} & \texttt{sin a} \\
+$*$ \texttt{a} & \texttt{aa} & \texttt{sin a} \\
+ \texttt{aa} & \texttt{--} & \texttt{sin a} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{b} ✓, \texttt{aba} ✓, \texttt{babba} ✓, \texttt{bbbabbbb} ✓; \texttt{aa} ✗, \texttt{aaa} ✗, \texttt{aabaa} ✗, \texttt{babbbaa} ✗, \texttt{aaaaaaaabb} ✗.
+\jflap{lista3-afn-119}{AFN del problema 119 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baabba}; rechazadas \texttt{baa}, \texttt{aaabba}, \texttt{aa}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 120)}{*}
+AFN para el problema 120 de la Tarea 2: Las palabras de $\Sigma_1$ tales que el primer carácter y el último son distintos.
+\end{ejercicio}
+\proc El estado sₓ recuerda el primer símbolo x; el AFN adivina el último símbolo, que debe ser distinto de x. El AFN tiene 5 estados; su AFD mínimo, 7.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{q0} & \texttt{\{s0\}} & \texttt{\{s1\}} & \texttt{\{s2\}} \\
+ \texttt{s0} & \texttt{\{s0\}} & \texttt{\{s0, f\}} & \texttt{\{s0, f\}} \\
+ \texttt{s1} & \texttt{\{s1, f\}} & \texttt{\{s1\}} & \texttt{\{s1, f\}} \\
+ \texttt{s2} & \texttt{\{s2, f\}} & \texttt{\{s2, f\}} & \texttt{\{s2\}} \\
+$*$ \texttt{f} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{12} ✓, \texttt{211} ✓, \texttt{12002} ✓, \texttt{1202000} ✓, \texttt{0121120211} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{222} ✗, \texttt{21012} ✗, \texttt{02120120} ✗.
+\jflap{lista3-afn-120}{AFN del problema 120 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{12}, \texttt{11112}, \texttt{1111112}; rechazadas \texttt{11}, \texttt{11121}, \texttt{111111}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 121)}{*}
+AFN para el problema 121 de la Tarea 2: Las palabras de $\Sigma_1$ con longitud $3n$ para algún $n \in \mathbb{N}$, tales que si se dividen en $n$ bloques de longitud 3, cada uno de éstos tiene al menos un 0. Por ejemplo, 000 011 110 101 es una palabra válida, mientras que 001 101 111 010 no lo es, pues el tercer bloque no tiene ningún 0.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 5 estados; su AFD mínimo, 5.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$$*$ \texttt{b0} & \texttt{b1+0} & \texttt{b1} & \texttt{b1} \\
+ \texttt{b1+0} & \texttt{b2+0} & \texttt{b2+0} & \texttt{b2+0} \\
+ \texttt{b1} & \texttt{b2+0} & \texttt{b2} & \texttt{b2} \\
+ \texttt{b2+0} & \texttt{b0} & \texttt{b0} & \texttt{b0} \\
+ \texttt{b2} & \texttt{b0} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{021} ✓, \texttt{020001} ✓, \texttt{120100} ✓, \texttt{021022022} ✓; \texttt{2} ✗, \texttt{01} ✗, \texttt{0022} ✗, \texttt{011222} ✗, \texttt{210110211} ✗.
+\jflap{lista3-afn-121}{AFN del problema 121 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{100000}, \texttt{220220}; rechazadas \texttt{00}, \texttt{10000}, \texttt{22022}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 122)}{*}
+AFN para el problema 122 de la Tarea 2: Las palabras de $\Sigma_1$ tales que cualquier cadena de tres símbolos consecutivos debe tener un 0. Note que la cadena 001110 sí está en el lenguaje del problema anterior, pero no en este, mientras que 00101 está en el lenguaje de este problema y no en el del anterior.
+\end{ejercicio}
+\proc No hay una versión no determinista más simple: el lenguaje depende de contar (longitud, apariciones o fases). Se presenta el AFD del problema sin el estado muerto; una función de transición parcial es un caso particular de AFN. El AFN tiene 3 estados; su AFD mínimo, 3.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$$*$ \texttt{0 sin 0} & \texttt{0 sin 0} & \texttt{1 sin 0} & \texttt{1 sin 0} \\
+$*$ \texttt{1 sin 0} & \texttt{0 sin 0} & \texttt{2 sin 0} & \texttt{2 sin 0} \\
+$*$ \texttt{2 sin 0} & \texttt{0 sin 0} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{1} ✓, \texttt{012} ✓, \texttt{20102} ✓, \texttt{10200220} ✓; \texttt{112} ✗, \texttt{1120} ✗, \texttt{202211} ✗, \texttt{01200211} ✗, \texttt{00221111212} ✗.
+\jflap{lista3-afn-122}{AFN del problema 122 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1012}, \texttt{101020}; rechazadas \texttt{0112}, \texttt{211}, \texttt{120121}.}}
+
+
+
+\begin{ejercicio}{162--188 (problema 123)}{*}
+AFN para el problema 123 de la Tarea 2: Las palabras de $\Sigma_3$ de la forma $wxw$ donde $w \in \Sigma_3^2$ y $x \in \Sigma_3^*$.
+\end{ejercicio}
+\proc Una rama por cada w ∈ Σ3²: se lee w, un ciclo para x y otra vez w. El AFN adivina cuándo empieza la copia final. El AFN tiene 14 estados; su AFD mínimo, 15.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{q0} & \texttt{\{aa1, ab1\}} & \texttt{\{ba1, bb1\}} \\
+ \texttt{aa1} & \texttt{\{aa2\}} & \texttt{∅} \\
+ \texttt{aa2} & \texttt{\{aa2, aa3\}} & \texttt{\{aa2\}} \\
+ \texttt{aa3} & \texttt{\{F\}} & \texttt{∅} \\
+ \texttt{ab1} & \texttt{∅} & \texttt{\{ab2\}} \\
+ \texttt{ab2} & \texttt{\{ab2, ab3\}} & \texttt{\{ab2\}} \\
+ \texttt{ab3} & \texttt{∅} & \texttt{\{F\}} \\
+ \texttt{ba1} & \texttt{\{ba2\}} & \texttt{∅} \\
+ \texttt{ba2} & \texttt{\{ba2\}} & \texttt{\{ba2, ba3\}} \\
+ \texttt{ba3} & \texttt{\{F\}} & \texttt{∅} \\
+ \texttt{bb1} & \texttt{∅} & \texttt{\{bb2\}} \\
+ \texttt{bb2} & \texttt{\{bb2\}} & \texttt{\{bb2, bb3\}} \\
+ \texttt{bb3} & \texttt{∅} & \texttt{\{F\}} \\
+$*$ \texttt{F} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abab} ✓, \texttt{aaaaa} ✓, \texttt{aababaa} ✓, \texttt{bbbabbabb} ✓, \texttt{bbaabbaababb} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{bba} ✗, \texttt{aabbb} ✗, \texttt{aaabbaba} ✗.
+\jflap{lista3-afn-123}{AFN del problema 123 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{baba}, \texttt{baaaaba}, \texttt{baaaaaaba}; rechazadas \texttt{babb}, \texttt{abaaaba}, \texttt{baaaaaab}.}}
+
+
+
+\begin{ejercicio}{189}{*}
+Encuentre un AFN con $\Sigma = \{0, 1\}$ que identifique las palabras que contienen la cadena 00101 o la cadena 00110. Realice el diagrama de transiciones de la palabra 1001011.
+\end{ejercicio}
+\proc Los dos patrones comparten el prefijo 001, así que se escribe una sola vez y se bifurca en 01 y 10.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{i} & \texttt{\{i, c1\}} & \texttt{\{i\}} \\
+ \texttt{c1} & \texttt{\{c2\}} & \texttt{∅} \\
+ \texttt{c2} & \texttt{∅} & \texttt{\{c3\}} \\
+ \texttt{c3} & \texttt{\{u4\}} & \texttt{\{d4\}} \\
+ \texttt{u4} & \texttt{∅} & \texttt{\{f\}} \\
+$*$ \texttt{f} & \texttt{\{f\}} & \texttt{\{f\}} \\
+ \texttt{d4} & \texttt{\{f\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{00110} ✓, \texttt{100110} ✓, \texttt{00101100} ✓, \texttt{0100101101} ✓, \texttt{1001101110001} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{101} ✗, \texttt{01101} ✗, \texttt{01100000} ✗.
+\jflap{lista3-189}{AFN 189 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00110}, \texttt{01000101}, \texttt{0101001100}; rechazadas \texttt{00111}, \texttt{01001001}, \texttt{0101010100}.}}
+Recorrido de \texttt{1001011} (todos los caminos a la vez):
+\begin{center}\footnotesize\begin{tabular}{rll}\toprule Paso & Lee & Estados activos \\\midrule
+0 & -- & \{i\} \\
+1 & \texttt{1} & \{i\} \\
+2 & \texttt{0} & \{i, c1\} \\
+3 & \texttt{0} & \{i, c1, c2\} \\
+4 & \texttt{1} & \{i, c3\} \\
+5 & \texttt{0} & \{i, c1, u4\} \\
+6 & \texttt{1} & \{i, f\} \\
+7 & \texttt{1} & \{i, f\} \\
+\bottomrule\end{tabular}\end{center}
+
+\resp La palabra \texttt{1001011} es aceptada: al final quedan activos \{i, f\}.
+
+
+\begin{ejercicio}{190}{*}
+Encuentre un AFN con $\Sigma = \{0, 1\}$ que identifique las palabras que contienen la cadena 11010 y la cadena 10100. Realice el diagrama de transiciones de la palabra 01101010100.
+\end{ejercicio}
+\proc Producto de los AFN «contiene 11010» y «contiene 10100»; los patrones pueden traslaparse (110100 contiene ambos), por eso no basta concatenarlos.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{c0c0} & \texttt{\{c0c0\}} & \texttt{\{c0c0, c0c1, c1c0, c1c1\}} \\
+ \texttt{c0c1} & \texttt{\{c0c2\}} & \texttt{∅} \\
+ \texttt{c1c0} & \texttt{∅} & \texttt{\{c2c0, c2c1\}} \\
+ \texttt{c1c1} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c0c2} & \texttt{∅} & \texttt{\{c0c3, c1c3\}} \\
+ \texttt{c2c0} & \texttt{\{c3c0\}} & \texttt{∅} \\
+ \texttt{c2c1} & \texttt{\{c3c2\}} & \texttt{∅} \\
+ \texttt{c0c3} & \texttt{\{c0c4\}} & \texttt{∅} \\
+ \texttt{c1c3} & \texttt{∅} & \texttt{∅} \\
+ \texttt{c3c0} & \texttt{∅} & \texttt{\{c4c0, c4c1\}} \\
+ \texttt{c3c2} & \texttt{∅} & \texttt{\{c4c3\}} \\
+ \texttt{c0c4} & \texttt{\{c0c5\}} & \texttt{∅} \\
+ \texttt{c4c0} & \texttt{\{c5c0\}} & \texttt{∅} \\
+ \texttt{c4c1} & \texttt{\{c5c2\}} & \texttt{∅} \\
+ \texttt{c4c3} & \texttt{\{c5c4\}} & \texttt{∅} \\
+ \texttt{c0c5} & \texttt{\{c0c5\}} & \texttt{\{c0c5, c1c5\}} \\
+ \texttt{c5c0} & \texttt{\{c5c0\}} & \texttt{\{c5c0, c5c1\}} \\
+ \texttt{c5c2} & \texttt{∅} & \texttt{\{c5c3\}} \\
+ \texttt{c5c4} & \texttt{\{c5c5\}} & \texttt{∅} \\
+ \texttt{c1c5} & \texttt{∅} & \texttt{\{c2c5\}} \\
+ \texttt{c5c1} & \texttt{\{c5c2\}} & \texttt{∅} \\
+ \texttt{c5c3} & \texttt{\{c5c4\}} & \texttt{∅} \\
+$*$ \texttt{c5c5} & \texttt{\{c5c5\}} & \texttt{\{c5c5\}} \\
+ \texttt{c2c5} & \texttt{\{c3c5\}} & \texttt{∅} \\
+ \texttt{c3c5} & \texttt{∅} & \texttt{\{c4c5\}} \\
+ \texttt{c4c5} & \texttt{\{c5c5\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{110100} ✓, \texttt{1101001} ✓, \texttt{110100010} ✓, \texttt{01110100001} ✓, \texttt{01100001110100} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{001} ✗, \texttt{01011} ✗, \texttt{01011001} ✗.
+\jflap{lista3-190}{AFN 190 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{110100}, \texttt{11010001}, \texttt{1011101000}; rechazadas \texttt{110101}, \texttt{10110001}, \texttt{1011011000}.}}
+Recorrido de \texttt{01101010100} (todos los caminos a la vez):
+\begin{center}\footnotesize\begin{tabular}{rll}\toprule Paso & Lee & Estados activos \\\midrule
+0 & -- & \{c0c0\} \\
+1 & \texttt{0} & \{c0c0\} \\
+2 & \texttt{1} & \{c0c0, c0c1, c1c0, c1c1\} \\
+3 & \texttt{1} & \{c0c0, c0c1, c1c0, c1c1, c2c0, c2c1\} \\
+4 & \texttt{0} & \{c0c0, c0c2, c3c0, c3c2\} \\
+5 & \texttt{1} & \{c0c0, c0c1, c1c0, c1c1, c0c3, c1c3, c4c0, c4c1, c4c3\} \\
+6 & \texttt{0} & \{c0c0, c0c2, c0c4, c5c0, c5c2, c5c4\} \\
+7 & \texttt{1} & \{c0c0, c0c1, c1c0, c1c1, c0c3, c1c3, c5c0, c5c1, c5c3\} \\
+8 & \texttt{0} & \{c0c0, c0c2, c0c4, c5c0, c5c2, c5c4\} \\
+9 & \texttt{1} & \{c0c0, c0c1, c1c0, c1c1, c0c3, c1c3, c5c0, c5c1, c5c3\} \\
+10 & \texttt{0} & \{c0c0, c0c2, c0c4, c5c0, c5c2, c5c4\} \\
+11 & \texttt{0} & \{c0c0, c0c5, c5c0, c5c5\} \\
+\bottomrule\end{tabular}\end{center}
+
+\resp La palabra \texttt{01101010100} es aceptada: al final quedan activos \{c0c0, c0c5, c5c0, c5c5\}.
+
+
+\seccion{Equivalencia entre AFN y AFD (191--195)}
+\textbf{191.} En 192--195 se considera el AFN $A = (Q, \Sigma, \delta, A_0, F)$ de cada tabla; se pide un AFD equivalente, $\hat\delta(Z, \omega)$ y $\hat\delta_D(Z, \omega)$, donde $\delta_D$ es la función del AFD asociado. Como el AFD asociado (construcción de subconjuntos completa) tiene un estado por cada subconjunto de $Q$, $\hat\delta_D(Z, \omega)$ es el estado que corresponde al subconjunto $\hat\delta(Z, \omega) = \bigcup_{q \in Z}\hat\delta(q, \omega)$; por eso ambos valores coinciden en cada inciso.
+
+\begin{ejercicio}{192}{*}
+AFN de la tabla 192: encuentre el AFD equivalente y los valores pedidos para Z = \{A\}, ω = 0111; Z = \{B, C\}, ω = 010111.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{\{B\}} & \texttt{\{B, C\}} \\
+ \texttt{B} & \texttt{\{A, B\}} & \texttt{∅} \\
+$*$ \texttt{C} & \texttt{\{A, C\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-192}{AFN 192 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{0}, \texttt{0100}, \texttt{000000}.}}
+\textbf{Construcción de subconjuntos.} Se procesa E = \{A,B,C\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} \\
+\texttt{} & \texttt{B = \{B\}} & \texttt{D} & \texttt{—} \\
+\texttt{*} & \texttt{C = \{B,C\}} & \texttt{E} & \texttt{—} \\
+\texttt{} & \texttt{D = \{A,B\}} & \texttt{D} & \texttt{C} \\
+\texttt{*} & \texttt{E = \{A,B,C\}} & \texttt{E} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{C\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{B,C\}} & \texttt{\{C\}} \\
+\texttt{E = \{A,B,C\}} & \texttt{\{C\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{D} & \texttt{--} \\
+$*$ \texttt{C} & \texttt{E} & \texttt{--} \\
+ \texttt{D} & \texttt{D} & \texttt{C} \\
+$*$ \texttt{E} & \texttt{E} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-192-afd}{AFD equivalente (lista3-192-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{0}, \texttt{0100}, \texttt{000000}.}}
+Los valores de $\hat\delta$ se calculan avanzando el conjunto $Z$ símbolo a símbolo.
+\resp a) $\hat\delta(\{A\}, 0111) = ∅ = \hat\delta_D(\{A\}, 0111)$; b) $\hat\delta(\{B, C\}, 010111) = ∅ = \hat\delta_D(\{B, C\}, 010111)$.
+
+
+\begin{ejercicio}{193}{*}
+AFN de la tabla 193: encuentre el AFD equivalente y los valores pedidos para Z = \{A\}, ω = 01101; Z = \{A, B\}, ω = 1101; Z = \{C\}, ω = 1101.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{∅} & \texttt{\{B, C\}} \\
+ \texttt{B} & \texttt{\{A, D\}} & \texttt{\{B, C, D\}} \\
+ \texttt{C} & \texttt{\{C\}} & \texttt{\{A, C\}} \\
+$*$ \texttt{D} & \texttt{\{C\}} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-193}{AFN 193 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{11}, \texttt{11011}, \texttt{1100111}; rechazadas \texttt{1}, \texttt{01011}, \texttt{110011}.}}
+\textbf{Construcción de subconjuntos.} Se procesa G = \{A,B,C\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{—} & \texttt{B} \\
+\texttt{} & \texttt{B = \{B,C\}} & \texttt{C} & \texttt{D} \\
+\texttt{*} & \texttt{C = \{A,C,D\}} & \texttt{E} & \texttt{D} \\
+\texttt{*} & \texttt{D = \{A,B,C,D\}} & \texttt{C} & \texttt{D} \\
+\texttt{} & \texttt{E = \{C\}} & \texttt{E} & \texttt{F} \\
+\texttt{} & \texttt{F = \{A,C\}} & \texttt{E} & \texttt{G} \\
+\texttt{} & \texttt{G = \{A,B,C\}} & \texttt{C} & \texttt{D} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{D\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{A,C,D\}} & \texttt{\{D\}} \\
+\texttt{D = \{A,B,C,D\}} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{--} & \texttt{B} \\
+ \texttt{B} & \texttt{C} & \texttt{D} \\
+$*$ \texttt{C} & \texttt{E} & \texttt{D} \\
+$*$ \texttt{D} & \texttt{C} & \texttt{D} \\
+ \texttt{E} & \texttt{E} & \texttt{F} \\
+ \texttt{F} & \texttt{E} & \texttt{G} \\
+ \texttt{G} & \texttt{C} & \texttt{D} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-193-afd}{AFD equivalente (lista3-193-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{11}, \texttt{11011}, \texttt{1100111}; rechazadas \texttt{1}, \texttt{01011}, \texttt{110011}.}}
+Los valores de $\hat\delta$ se calculan avanzando el conjunto $Z$ símbolo a símbolo.
+\resp a) $\hat\delta(\{A\}, 01101) = ∅ = \hat\delta_D(\{A\}, 01101)$; b) $\hat\delta(\{A, B\}, 1101) = \{A, B, C, D\} = \hat\delta_D(\{A, B\}, 1101)$; c) $\hat\delta(\{C\}, 1101) = \{A, B, C, D\} = \hat\delta_D(\{C\}, 1101)$.
+
+
+\begin{ejercicio}{194}{*}
+AFN de la tabla 194: encuentre el AFD equivalente y los valores pedidos para Z = \{A, C\}, ω = 0121; Z = \{B\}, ω = 20111; Z = \{C\}, ω = 02112; Z = \{A, B\}, ω = 0121.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{A} & \texttt{\{A, B\}} & \texttt{\{A, C\}} & \texttt{\{A\}} \\
+ \texttt{B} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+$*$ \texttt{C} & \texttt{\{A, B\}} & \texttt{\{A, B, C, D\}} & \texttt{∅} \\
+$*$ \texttt{D} & \texttt{\{B\}} & \texttt{\{A\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-194}{AFN 194 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1111}, \texttt{111111}; rechazadas \texttt{0}, \texttt{11110}, \texttt{1111110}.}}
+\textbf{Construcción de subconjuntos.} Se procesa D = \{A,B,C,D\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & Subconjunto & 0 & 1 & 2 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} & \texttt{A} \\
+\texttt{} & \texttt{B = \{A,B\}} & \texttt{B} & \texttt{C} & \texttt{A} \\
+\texttt{*} & \texttt{C = \{A,C\}} & \texttt{B} & \texttt{D} & \texttt{A} \\
+\texttt{*} & \texttt{D = \{A,B,C,D\}} & \texttt{B} & \texttt{D} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{C, D\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{A,C\}} & \texttt{\{C\}} \\
+\texttt{D = \{A,B,C,D\}} & \texttt{\{C, D\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} & \texttt{A} \\
+ \texttt{B} & \texttt{B} & \texttt{C} & \texttt{A} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{D} & \texttt{A} \\
+$*$ \texttt{D} & \texttt{B} & \texttt{D} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-194-afd}{AFD equivalente (lista3-194-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1111}, \texttt{111111}; rechazadas \texttt{0}, \texttt{11110}, \texttt{1111110}.}}
+Los valores de $\hat\delta$ se calculan avanzando el conjunto $Z$ símbolo a símbolo.
+\resp a) $\hat\delta(\{A, C\}, 0121) = \{A, C\} = \hat\delta_D(\{A, C\}, 0121)$; b) $\hat\delta(\{B\}, 20111) = ∅ = \hat\delta_D(\{B\}, 20111)$; c) $\hat\delta(\{C\}, 02112) = \{A\} = \hat\delta_D(\{C\}, 02112)$; d) $\hat\delta(\{A, B\}, 0121) = \{A, C\} = \hat\delta_D(\{A, B\}, 0121)$.
+
+
+\begin{ejercicio}{195}{*}
+AFN de la tabla 195: encuentre el AFD equivalente y los valores pedidos para Z = \{A\}, ω = 10010; Z = \{A, D\}, ω = 0110; Z = \{B, E\}, ω = 0100; Z = \{B, C, D\}, ω = 10100.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{\{A, B\}} & \texttt{\{A\}} \\
+ \texttt{B} & \texttt{\{A\}} & \texttt{\{C\}} \\
+$*$ \texttt{C} & \texttt{\{A\}} & \texttt{\{D\}} \\
+ \texttt{D} & \texttt{\{D\}} & \texttt{\{E\}} \\
+$*$ \texttt{E} & \texttt{\{E\}} & \texttt{\{C, D\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-195}{AFN 195 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{01111}, \texttt{0111011}; rechazadas \texttt{00}, \texttt{11111}, \texttt{1111011}.}}
+\textbf{Construcción de subconjuntos.} Se procesa L = \{A,C,D,E\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{A} \\
+\texttt{} & \texttt{B = \{A,B\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{C = \{A,C\}} & \texttt{B} & \texttt{D} \\
+\texttt{} & \texttt{D = \{A,D\}} & \texttt{E} & \texttt{F} \\
+\texttt{} & \texttt{E = \{A,B,D\}} & \texttt{E} & \texttt{G} \\
+\texttt{*} & \texttt{F = \{A,E\}} & \texttt{H} & \texttt{I} \\
+\texttt{*} & \texttt{G = \{A,C,E\}} & \texttt{H} & \texttt{I} \\
+\texttt{*} & \texttt{H = \{A,B,E\}} & \texttt{H} & \texttt{I} \\
+\texttt{*} & \texttt{I = \{A,C,D\}} & \texttt{E} & \texttt{J} \\
+\texttt{*} & \texttt{J = \{A,D,E\}} & \texttt{K} & \texttt{L} \\
+\texttt{*} & \texttt{K = \{A,B,D,E\}} & \texttt{K} & \texttt{L} \\
+\texttt{*} & \texttt{L = \{A,C,D,E\}} & \texttt{K} & \texttt{L} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{C, E\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{A,C\}} & \texttt{\{C\}} \\
+\texttt{F = \{A,E\}} & \texttt{\{E\}} \\
+\texttt{G = \{A,C,E\}} & \texttt{\{C, E\}} \\
+\texttt{H = \{A,B,E\}} & \texttt{\{E\}} \\
+\texttt{I = \{A,C,D\}} & \texttt{\{C\}} \\
+\texttt{J = \{A,D,E\}} & \texttt{\{E\}} \\
+\texttt{K = \{A,B,D,E\}} & \texttt{\{E\}} \\
+\texttt{L = \{A,C,D,E\}} & \texttt{\{C, E\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{A} \\
+ \texttt{B} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{D} \\
+ \texttt{D} & \texttt{E} & \texttt{F} \\
+ \texttt{E} & \texttt{E} & \texttt{G} \\
+$*$ \texttt{F} & \texttt{H} & \texttt{I} \\
+$*$ \texttt{G} & \texttt{H} & \texttt{I} \\
+$*$ \texttt{H} & \texttt{H} & \texttt{I} \\
+$*$ \texttt{I} & \texttt{E} & \texttt{J} \\
+$*$ \texttt{J} & \texttt{K} & \texttt{L} \\
+$*$ \texttt{K} & \texttt{K} & \texttt{L} \\
+$*$ \texttt{L} & \texttt{K} & \texttt{L} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-195-afd}{AFD equivalente (lista3-195-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{01111}, \texttt{0111011}; rechazadas \texttt{00}, \texttt{11111}, \texttt{1111011}.}}
+Los valores de $\hat\delta$ se calculan avanzando el conjunto $Z$ símbolo a símbolo.
+\resp a) $\hat\delta(\{A\}, 10010) = \{A, B\} = \hat\delta_D(\{A\}, 10010)$; b) $\hat\delta(\{A, D\}, 0110) = \{A, B, D\} = \hat\delta_D(\{A, D\}, 0110)$; c) $\hat\delta(\{B, E\}, 0100) = \{A, B, D\} = \hat\delta_D(\{B, E\}, 0100)$; d) $\hat\delta(\{B, C, D\}, 10100) = \{A, B, D, E\} = \hat\delta_D(\{B, C, D\}, 10100)$.
+
+
+\seccion{AFN con transiciones λ (196--200)}
+Para cada autómata se dibuja el diagrama, se encuentra un AFD equivalente (tabla y diagrama) y se responden los incisos. Cl(S) denota la cerradura λ de S.
+
+\begin{ejercicio}{196}{}
+AFN-λ de la tabla 196: dibuje el diagrama, encuentre un AFD equivalente y halle: a) $\hat\delta$(A, 110); b) Cl(\{A\}); c) Cl(\{B\}); d) Cl(\{A, B\}); e) $\delta$(A, 0).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{A} & \texttt{\{A\}} & \texttt{∅} & \texttt{\{B\}} \\
+ \texttt{B} & \texttt{\{A, B\}} & \texttt{\{C\}} & \texttt{∅} \\
+$*$ \texttt{C} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-196}{AFN-λ 196 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{0001}, \texttt{000001}; rechazadas \texttt{0}, \texttt{0010}, \texttt{00000}.}}
+Cerraduras: Cl(A) = \{A, B\}, Cl(B) = \{B\}, Cl(C) = \{C\}.
+
+\textbf{Eliminación de λ.} \textit{1. Cerradura λ de cada estado.} λ-cl(q) reúne los estados a los que se llega desde q sin leer símbolos (q incluido).
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+q & λ-cl(q) \\\midrule
+\texttt{A} & \texttt{\{A, B\}} \\
+\texttt{B} & \texttt{\{B\}} \\
+\texttt{C} & \texttt{\{C\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Nuevas transiciones Δ'(q, a) = λ-cl(δ(λ-cl(q), a)).} Entre paréntesis, los destinos que no estaban en δ(q, a) y que se añaden.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & Δ'(q, 0) & Δ'(q, 1) \\\midrule
+\texttt{A} & \texttt{\{A, B\}  (+B)} & \texttt{\{C\}  (+C)} \\
+\texttt{B} & \texttt{\{A, B\}} & \texttt{\{C\}} \\
+\texttt{C} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Estados de aceptación F' = \{q : λ-cl(q) ∩ F ≠ ∅\}.} Ningún estado nuevo pasa a ser de aceptación.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & λ-cl(q) ∩ F &  \\\midrule
+\texttt{C} & \texttt{\{C\}} & \texttt{ya era final} \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Construcción de subconjuntos.} Se procesa C = \{C\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} \\
+\texttt{} & \texttt{B = \{A,B\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{C = \{C\}} & \texttt{—} & \texttt{—} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{C\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{C\}} & \texttt{\{C\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-196-afd}{AFD equivalente (lista3-196-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{0001}, \texttt{000001}; rechazadas \texttt{0}, \texttt{0010}, \texttt{00000}.}}
+$\hat\delta(q, \omega)$ se calcula como $\lambda$-cl después de cada símbolo, empezando en $\lambda$-cl$(q)$.
+\resp a) $\hat\delta(A, 110)$ = ∅; b) Cl($\{A\}$) = \{A, B\}; c) Cl($\{B\}$) = \{B\}; d) Cl($\{A, B\}$) = \{A, B\}; e) $\delta(A, 0)$ = \{A\} (la tabla, sin cerradura).
+
+
+\begin{ejercicio}{197}{}
+AFN-λ de la tabla 197: dibuje el diagrama, encuentre un AFD equivalente y halle: a) Cl(\{A\}); b) Cl(\{B, D\}); c) Cl(\{A, B, C\}); d) $\delta$(A, 0); e) $\hat\delta$(A, 010).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{A} & \texttt{\{B, D\}} & \texttt{∅} & \texttt{\{C\}} \\
+ \texttt{B} & \texttt{\{A, C\}} & \texttt{\{D\}} & \texttt{\{D\}} \\
+ \texttt{C} & \texttt{∅} & \texttt{\{A, C\}} & \texttt{\{B\}} \\
+$*$ \texttt{D} & \texttt{∅} & \texttt{\{D\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-197}{AFN-λ 197 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas ninguna.}}
+Cerraduras: Cl(A) = \{A, B, C, D\}, Cl(B) = \{B, D\}, Cl(C) = \{B, C, D\}, Cl(D) = \{D\}.
+
+\textbf{Eliminación de λ.} \textit{1. Cerradura λ de cada estado.} λ-cl(q) reúne los estados a los que se llega desde q sin leer símbolos (q incluido).
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+q & λ-cl(q) \\\midrule
+\texttt{A} & \texttt{\{A, B, C, D\}} \\
+\texttt{B} & \texttt{\{B, D\}} \\
+\texttt{C} & \texttt{\{B, C, D\}} \\
+\texttt{D} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Nuevas transiciones Δ'(q, a) = λ-cl(δ(λ-cl(q), a)).} Entre paréntesis, los destinos que no estaban en δ(q, a) y que se añaden.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & Δ'(q, 0) & Δ'(q, 1) \\\midrule
+\texttt{A} & \texttt{\{A, B, C, D\}  (+A, C)} & \texttt{\{A, B, C, D\}  (+A, B, C, D)} \\
+\texttt{B} & \texttt{\{A, B, C, D\}  (+B, D)} & \texttt{\{D\}} \\
+\texttt{C} & \texttt{\{A, B, C, D\}  (+A, B, C, D)} & \texttt{\{A, B, C, D\}  (+B, D)} \\
+\texttt{D} & \texttt{∅} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Estados de aceptación F' = \{q : λ-cl(q) ∩ F ≠ ∅\}.} Pasan a ser de aceptación: A, B, C.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & λ-cl(q) ∩ F &  \\\midrule
+\texttt{A} & \texttt{\{D\}} & \texttt{nuevo} \\
+\texttt{B} & \texttt{\{D\}} & \texttt{nuevo} \\
+\texttt{C} & \texttt{\{D\}} & \texttt{nuevo} \\
+\texttt{D} & \texttt{\{D\}} & \texttt{ya era final} \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Construcción de subconjuntos.} Se procesa B = \{A,B,C,D\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→*} & \texttt{A = \{A\}} & \texttt{B} & \texttt{B} \\
+\texttt{*} & \texttt{B = \{A,B,C,D\}} & \texttt{B} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{A, B, C, D\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{A = \{A\}} & \texttt{\{A\}} \\
+\texttt{B = \{A,B,C,D\}} & \texttt{\{A, B, C, D\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$$*$ \texttt{A} & \texttt{B} & \texttt{B} \\
+$*$ \texttt{B} & \texttt{B} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-197-afd}{AFD equivalente (lista3-197-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas ninguna.}}
+$\hat\delta(q, \omega)$ se calcula como $\lambda$-cl después de cada símbolo, empezando en $\lambda$-cl$(q)$.
+\resp a) Cl($\{A\}$) = \{A, B, C, D\}; b) Cl($\{B, D\}$) = \{B, D\}; c) Cl($\{A, B, C\}$) = \{A, B, C, D\}; d) $\delta(A, 0)$ = \{B, D\} (la tabla, sin cerradura); e) $\hat\delta(A, 010)$ = \{A, B, C, D\}.
+
+
+\begin{ejercicio}{198}{}
+AFN-λ de la tabla 198: dibuje el diagrama, encuentre un AFD equivalente y halle: a) Cl(\{A\}); b) Cl(\{C, D\}); c) Cl(\{A, C, D\}); d) $\hat\delta$(B, 0111).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{A} & \texttt{\{B\}} & \texttt{∅} & \texttt{\{C\}} \\
+ \texttt{B} & \texttt{\{C\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{C} & \texttt{∅} & \texttt{\{C, D\}} & \texttt{\{B\}} \\
+$*$ \texttt{D} & \texttt{∅} & \texttt{\{B\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-198}{AFN-λ 198 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+Cerraduras: Cl(A) = \{A, B, C\}, Cl(B) = \{B\}, Cl(C) = \{B, C\}, Cl(D) = \{D\}.
+
+\textbf{Eliminación de λ.} \textit{1. Cerradura λ de cada estado.} λ-cl(q) reúne los estados a los que se llega desde q sin leer símbolos (q incluido).
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+q & λ-cl(q) \\\midrule
+\texttt{A} & \texttt{\{A, B, C\}} \\
+\texttt{B} & \texttt{\{B\}} \\
+\texttt{C} & \texttt{\{B, C\}} \\
+\texttt{D} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Nuevas transiciones Δ'(q, a) = λ-cl(δ(λ-cl(q), a)).} Entre paréntesis, los destinos que no estaban en δ(q, a) y que se añaden.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & Δ'(q, 0) & Δ'(q, 1) \\\midrule
+\texttt{A} & \texttt{\{B, C\}  (+C)} & \texttt{\{B, C, D\}  (+B, C, D)} \\
+\texttt{B} & \texttt{\{B, C\}  (+B)} & \texttt{∅} \\
+\texttt{C} & \texttt{\{B, C\}  (+B, C)} & \texttt{\{B, C, D\}  (+B)} \\
+\texttt{D} & \texttt{∅} & \texttt{\{B\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Estados de aceptación F' = \{q : λ-cl(q) ∩ F ≠ ∅\}.} Ningún estado nuevo pasa a ser de aceptación.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & λ-cl(q) ∩ F &  \\\midrule
+\texttt{D} & \texttt{\{D\}} & \texttt{ya era final} \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Construcción de subconjuntos.} Se procesa C = \{B,C,D\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} \\
+\texttt{} & \texttt{B = \{B,C\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{C = \{B,C,D\}} & \texttt{B} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{D\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{B,C,D\}} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-198-afd}{AFD equivalente (lista3-198-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+$\hat\delta(q, \omega)$ se calcula como $\lambda$-cl después de cada símbolo, empezando en $\lambda$-cl$(q)$.
+\resp a) Cl($\{A\}$) = \{A, B, C\}; b) Cl($\{C, D\}$) = \{B, C, D\}; c) Cl($\{A, C, D\}$) = \{A, B, C, D\}; d) $\hat\delta(B, 0111)$ = \{B, C, D\}.
+
+
+\begin{ejercicio}{199}{}
+AFN-λ de la tabla 199: dibuje el diagrama, encuentre un AFD equivalente y halle: a) Cl(\{A\}); b) Cl(\{C\}); c) $\hat\delta$(A, 011).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{A} & \texttt{\{E\}} & \texttt{∅} & \texttt{\{B, C\}} \\
+ \texttt{B} & \texttt{\{E\}} & \texttt{\{B\}} & \texttt{∅} \\
+ \texttt{C} & \texttt{∅} & \texttt{\{A, C\}} & \texttt{\{E\}} \\
+$*$ \texttt{D} & \texttt{∅} & \texttt{\{D\}} & \texttt{∅} \\
+$*$ \texttt{E} & \texttt{∅} & \texttt{\{D\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-199}{AFN-λ 199 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1101}, \texttt{111011}; rechazadas \texttt{0101}, \texttt{011011}, \texttt{00}.}}
+Cerraduras: Cl(A) = \{A, B, C, E\}, Cl(B) = \{B\}, Cl(C) = \{C, E\}, Cl(D) = \{D\}, Cl(E) = \{E\}.
+
+\textbf{Eliminación de λ.} \textit{1. Cerradura λ de cada estado.} λ-cl(q) reúne los estados a los que se llega desde q sin leer símbolos (q incluido).
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+q & λ-cl(q) \\\midrule
+\texttt{A} & \texttt{\{A, B, C, E\}} \\
+\texttt{B} & \texttt{\{B\}} \\
+\texttt{C} & \texttt{\{C, E\}} \\
+\texttt{D} & \texttt{\{D\}} \\
+\texttt{E} & \texttt{\{E\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Nuevas transiciones Δ'(q, a) = λ-cl(δ(λ-cl(q), a)).} Entre paréntesis, los destinos que no estaban en δ(q, a) y que se añaden.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & Δ'(q, 0) & Δ'(q, 1) \\\midrule
+\texttt{A} & \texttt{\{E\}} & \texttt{\{A, B, C, D, E\}  (+A, B, C, D, E)} \\
+\texttt{B} & \texttt{\{E\}} & \texttt{\{B\}} \\
+\texttt{C} & \texttt{∅} & \texttt{\{A, B, C, D, E\}  (+B, D, E)} \\
+\texttt{D} & \texttt{∅} & \texttt{\{D\}} \\
+\texttt{E} & \texttt{∅} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Estados de aceptación F' = \{q : λ-cl(q) ∩ F ≠ ∅\}.} Pasan a ser de aceptación: A, C.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & λ-cl(q) ∩ F &  \\\midrule
+\texttt{A} & \texttt{\{E\}} & \texttt{nuevo} \\
+\texttt{C} & \texttt{\{E\}} & \texttt{nuevo} \\
+\texttt{D} & \texttt{\{D\}} & \texttt{ya era final} \\
+\texttt{E} & \texttt{\{E\}} & \texttt{ya era final} \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Construcción de subconjuntos.} Se procesa D = \{D\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→*} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{B = \{E\}} & \texttt{—} & \texttt{D} \\
+\texttt{*} & \texttt{C = \{A,B,C,D,E\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{D = \{D\}} & \texttt{—} & \texttt{D} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{A, C, D, E\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{A = \{A\}} & \texttt{\{A\}} \\
+\texttt{B = \{E\}} & \texttt{\{E\}} \\
+\texttt{C = \{A,B,C,D,E\}} & \texttt{\{A, C, D, E\}} \\
+\texttt{D = \{D\}} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$$*$ \texttt{A} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{B} & \texttt{--} & \texttt{D} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{D} & \texttt{--} & \texttt{D} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-199-afd}{AFD equivalente (lista3-199-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1101}, \texttt{111011}; rechazadas \texttt{0101}, \texttt{011011}, \texttt{00}.}}
+$\hat\delta(q, \omega)$ se calcula como $\lambda$-cl después de cada símbolo, empezando en $\lambda$-cl$(q)$.
+\resp a) Cl($\{A\}$) = \{A, B, C, E\}; b) Cl($\{C\}$) = \{C, E\}; c) $\hat\delta(A, 011)$ = \{D\}.
+
+
+\begin{ejercicio}{200}{}
+AFN-λ de la tabla 200: dibuje el diagrama, encuentre un AFD equivalente y halle: a) Cl(\{A\}); b) Cl(\{C, D\}); c) $\hat\delta$(C, 1011).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{A} & \texttt{\{F\}} & \texttt{\{A, C, F\}} & \texttt{\{B\}} \\
+ \texttt{B} & \texttt{\{C, D\}} & \texttt{\{B, E\}} & \texttt{∅} \\
+ \texttt{C} & \texttt{∅} & \texttt{\{A, C\}} & \texttt{\{E\}} \\
+$*$ \texttt{D} & \texttt{\{A, C\}} & \texttt{\{B, E\}} & \texttt{\{E, F\}} \\
+$*$ \texttt{E} & \texttt{∅} & \texttt{\{D\}} & \texttt{∅} \\
+ \texttt{F} & \texttt{\{B, E\}} & \texttt{∅} & \texttt{\{E\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-200}{AFN-λ 200 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas $\lambda$.}}
+Cerraduras: Cl(A) = \{A, B\}, Cl(B) = \{B\}, Cl(C) = \{C, E\}, Cl(D) = \{D, E, F\}, Cl(E) = \{E\}, Cl(F) = \{E, F\}.
+
+\textbf{Eliminación de λ.} \textit{1. Cerradura λ de cada estado.} λ-cl(q) reúne los estados a los que se llega desde q sin leer símbolos (q incluido).
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+q & λ-cl(q) \\\midrule
+\texttt{A} & \texttt{\{A, B\}} \\
+\texttt{B} & \texttt{\{B\}} \\
+\texttt{C} & \texttt{\{C, E\}} \\
+\texttt{D} & \texttt{\{D, E, F\}} \\
+\texttt{E} & \texttt{\{E\}} \\
+\texttt{F} & \texttt{\{E, F\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Nuevas transiciones Δ'(q, a) = λ-cl(δ(λ-cl(q), a)).} Entre paréntesis, los destinos que no estaban en δ(q, a) y que se añaden.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & Δ'(q, 0) & Δ'(q, 1) \\\midrule
+\texttt{A} & \texttt{\{C, D, E, F\}  (+C, D, E)} & \texttt{\{A, B, C, E, F\}  (+B, E)} \\
+\texttt{B} & \texttt{\{C, D, E, F\}  (+E, F)} & \texttt{\{B, E\}} \\
+\texttt{C} & \texttt{∅} & \texttt{\{A, B, C, D, E, F\}  (+B, D, E, F)} \\
+\texttt{D} & \texttt{\{A, B, C, E\}  (+B, E)} & \texttt{\{B, D, E, F\}  (+D, F)} \\
+\texttt{E} & \texttt{∅} & \texttt{\{D, E, F\}  (+E, F)} \\
+\texttt{F} & \texttt{\{B, E\}} & \texttt{\{D, E, F\}  (+D, E, F)} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Estados de aceptación F' = \{q : λ-cl(q) ∩ F ≠ ∅\}.} Pasan a ser de aceptación: C, F.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & λ-cl(q) ∩ F &  \\\midrule
+\texttt{C} & \texttt{\{E\}} & \texttt{nuevo} \\
+\texttt{D} & \texttt{\{D, E\}} & \texttt{ya era final} \\
+\texttt{E} & \texttt{\{E\}} & \texttt{ya era final} \\
+\texttt{F} & \texttt{\{E\}} & \texttt{nuevo} \\
+\bottomrule\end{tabular}\end{center}
+\textbf{Construcción de subconjuntos.} Se procesa F = \{B,C,D,E,F\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{B = \{C,D,E,F\}} & \texttt{D} & \texttt{E} \\
+\texttt{*} & \texttt{C = \{A,B,C,E,F\}} & \texttt{F} & \texttt{E} \\
+\texttt{*} & \texttt{D = \{A,B,C,E\}} & \texttt{B} & \texttt{E} \\
+\texttt{*} & \texttt{E = \{A,B,C,D,E,F\}} & \texttt{E} & \texttt{E} \\
+\texttt{*} & \texttt{F = \{B,C,D,E,F\}} & \texttt{E} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{C, D, E, F\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{B = \{C,D,E,F\}} & \texttt{\{C, D, E, F\}} \\
+\texttt{C = \{A,B,C,E,F\}} & \texttt{\{C, E, F\}} \\
+\texttt{D = \{A,B,C,E\}} & \texttt{\{C, E\}} \\
+\texttt{E = \{A,B,C,D,E,F\}} & \texttt{\{C, D, E, F\}} \\
+\texttt{F = \{B,C,D,E,F\}} & \texttt{\{C, D, E, F\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{B} & \texttt{D} & \texttt{E} \\
+$*$ \texttt{C} & \texttt{F} & \texttt{E} \\
+$*$ \texttt{D} & \texttt{B} & \texttt{E} \\
+$*$ \texttt{E} & \texttt{E} & \texttt{E} \\
+$*$ \texttt{F} & \texttt{E} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-200-afd}{AFD equivalente (lista3-200-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas $\lambda$.}}
+$\hat\delta(q, \omega)$ se calcula como $\lambda$-cl después de cada símbolo, empezando en $\lambda$-cl$(q)$.
+\resp a) Cl($\{A\}$) = \{A, B\}; b) Cl($\{C, D\}$) = \{C, D, E, F\}; c) $\hat\delta(C, 1011)$ = \{A, B, C, D, E, F\}.
+
+
+\seccion{Expresiones regulares (201--253)}
+
+
+\begin{ejercicio}{201--235}{*}
+Indique si las afirmaciones son verdaderas (V) o falsas (F): «$\omega \in L(r)$» para cada palabra y expresión de la tabla.
+\end{ejercicio}
+\proc Cada afirmación se decide buscando una forma de generar la palabra con la expresión (o mostrando que no existe); se comprobó, además, simulando la palabra en el AFN-λ de la expresión.
+\begin{center}\small\begin{longtable}{clllp{0.42\linewidth}}\toprule Núm. & Palabra & Expresión & & Justificación \\\midrule\endhead
+201 & $\texttt{a}$ & $a + b$ & \textbf{V} & se elige la rama $a$ \\
+202 & $\texttt{a}$ & $ab$ & \textbf{F} & toda palabra de $L(ab)$ tiene longitud 2 \\
+203 & $\texttt{a}$ & $a* + b*$ & \textbf{V} & $a \in L(a^*)$ \\
+204 & $\texttt{a}$ & $ab*$ & \textbf{V} & $a = a\,b^0$ \\
+205 & $\texttt{a}$ & $a*b$ & \textbf{F} & toda palabra termina en $b$ \\
+206 & $\texttt{ab}$ & $a + b$ & \textbf{F} & sólo contiene palabras de longitud 1 \\
+207 & $\texttt{ab}$ & $ab$ & \textbf{V} & es la única palabra del lenguaje \\
+208 & $\texttt{ab}$ & $\lambda a*b$ & \textbf{V} & $\lambda a^1 b = ab$ \\
+209 & $\texttt{ab}$ & $\varnothing a*b$ & \textbf{F} & $\varnothing$ anula la concatenación \\
+210 & $\texttt{ab}$ & $(a + b)*$ & \textbf{V} & contiene todas las palabras sobre $\{a,b\}$ \\
+211 & $\texttt{ab}$ & $abc*$ & \textbf{V} & $ab\,c^0$ \\
+212 & $\texttt{ab}$ & $ab*c$ & \textbf{F} & toda palabra termina en $c$ \\
+213 & $\texttt{ab}$ & $ab*c*$ & \textbf{V} & $a\,b^1 c^0$ \\
+214 & $\texttt{ab}$ & $(a + b + c)*$ & \textbf{V} & $ab$ usa sólo $a$ y $b$ \\
+215 & $\texttt{ab}$ & $(abc)*$ & \textbf{F} & las palabras no vacías contienen $c$ \\
+216 & $\texttt{ab}$ & $(ab)*c$ & \textbf{F} & toda palabra termina en $c$ \\
+217 & $\texttt{ab}$ & $a(bc)*$ & \textbf{F} & después de $a$ sólo vienen bloques $bc$ \\
+218 & $\texttt{ab}$ & $a(b + c)*$ & \textbf{V} & $a$ seguida de un bloque $b$ \\
+219 & $\texttt{ab}$ & $(a + b)*c$ & \textbf{F} & toda palabra termina en $c$ \\
+220 & $\texttt{ab}$ & $(a + b)*c*$ & \textbf{V} & $(a+b)^2 c^0$ \\
+221 & $\texttt{aa}$ & $a + b$ & \textbf{F} & sólo hay palabras de longitud 1 \\
+222 & $\texttt{aa}$ & $a* + b*$ & \textbf{V} & $aa \in L(a^*)$ \\
+223 & $\texttt{aa}$ & $a*b*$ & \textbf{V} & $a^2 b^0$ \\
+224 & $\texttt{aa}$ & $(a + b)*$ & \textbf{V} & contiene $\{a,b\}^*$ \\
+225 & $\texttt{aa}$ & $a(a + b)*$ & \textbf{V} & $a$ seguida de $a$ \\
+226 & $\lambda$ & $a$ & \textbf{F} & la única palabra es $a$ \\
+227 & $\lambda$ & $(a + b)*$ & \textbf{V} & $(a+b)^0 = \lambda$ \\
+228 & $\lambda$ & $(a + b)* + a$ & \textbf{V} & por la rama $(a+b)^*$ \\
+229 & $\lambda$ & $\varnothing $ & \textbf{F} & $L(\varnothing)$ no tiene palabras \\
+230 & $\lambda$ & $\lambda $ & \textbf{V} & $L(\lambda) = \{\lambda\}$ \\
+231 & $\lambda$ & $\lambda  + a$ & \textbf{V} & por la rama $\lambda$ \\
+232 & $\lambda$ & $\lambda a$ & \textbf{F} & $\lambda a = a$, de longitud 1 \\
+233 & $\lambda$ & $ab*$ & \textbf{F} & toda palabra empieza con $a$ \\
+234 & $\lambda$ & $(ab)*$ & \textbf{V} & $(ab)^0 = \lambda$ \\
+235 & $\varnothing$ & $\varnothing$ & \textbf{F} & $\varnothing$ es un lenguaje, no una palabra; además $L(\varnothing)$ no tiene elementos \\
+\bottomrule\end{longtable}\end{center}
+
+
+
+\begin{ejercicio}{236}{*}
+Con $\Sigma = \{0, 1\}$, encuentre una expresión regular cuyo lenguaje sea: $L = \{x001y : x, y \in \Sigma^*\}$.
+\end{ejercicio}
+\proc Se razona sobre la forma de las palabras y la expresión se convierte en AFN-λ con la construcción de Thompson y se verifica contra la definición del lenguaje. El AFN-λ de Thompson tiene 22 estados y el AFD mínimo 4; ambos coinciden con la definición del lenguaje.
+\jflap{lista3-236-er}{Expresión 236 en JFLAP (Regular Expression).}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{\{A,C\}} & \texttt{B} & \texttt{\{A,C\}} \\
+ \texttt{B} & \texttt{D} & \texttt{\{A,C\}} \\
+ \texttt{D} & \texttt{D} & \texttt{\{E,F,G,H,I\}} \\
+$*$ \texttt{\{E,F,G,H,I\}} & \texttt{\{E,F,G,H,I\}} & \texttt{\{E,F,G,H,I\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-236-afd}{AFD mínimo de la expresión 236.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{001}, \texttt{010001}, \texttt{01100011}; rechazadas \texttt{000}, \texttt{01000}, \texttt{1}.}}
+
+\resp \texttt{(0 + 1)*001(0 + 1)*}
+
+
+\begin{ejercicio}{237}{*}
+Con $\Sigma = \{0, 1\}$, encuentre una expresión regular cuyo lenguaje sea: $L = \{x010 : x \in \Sigma^*\}$.
+\end{ejercicio}
+\proc Se razona sobre la forma de las palabras y la expresión se convierte en AFN-λ con la construcción de Thompson y se verifica contra la definición del lenguaje. El AFN-λ de Thompson tiene 14 estados y el AFD mínimo 4; ambos coinciden con la definición del lenguaje.
+\jflap{lista3-237-er}{Expresión 237 en JFLAP (Regular Expression).}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{\{A,C\}} & \texttt{B} & \texttt{\{A,C\}} \\
+ \texttt{B} & \texttt{B} & \texttt{D} \\
+ \texttt{D} & \texttt{E} & \texttt{\{A,C\}} \\
+$*$ \texttt{E} & \texttt{B} & \texttt{D} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-237-afd}{AFD mínimo de la expresión 237.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010}, \texttt{100010}, \texttt{10000010}; rechazadas \texttt{011}, \texttt{100100}, \texttt{1000001}.}}
+
+\resp \texttt{(0 + 1)*010}
+
+
+\begin{ejercicio}{238}{*}
+Con $\Sigma = \{0, 1\}$, encuentre una expresión regular cuyo lenguaje sea: $L = \Sigma^3 \cup \Sigma^5$.
+\end{ejercicio}
+\proc Se razona sobre la forma de las palabras y la expresión se convierte en AFN-λ con la construcción de Thompson y se verifica contra la definición del lenguaje. El AFN-λ de Thompson tiene 34 estados y el AFD mínimo 6; ambos coinciden con la definición del lenguaje.
+\jflap{lista3-238-er}{Expresión 238 en JFLAP (Regular Expression).}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{\{B,C\}} & \texttt{\{B,C\}} \\
+ \texttt{\{B,C\}} & \texttt{\{D,E\}} & \texttt{\{D,E\}} \\
+ \texttt{\{D,E\}} & \texttt{\{F,G\}} & \texttt{\{F,G\}} \\
+$*$ \texttt{\{F,G\}} & \texttt{\{H,I\}} & \texttt{\{H,I\}} \\
+ \texttt{\{H,I\}} & \texttt{\{J,K\}} & \texttt{\{J,K\}} \\
+$*$ \texttt{\{J,K\}} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-238-afd}{AFD mínimo de la expresión 238.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{01100}, \texttt{11111}; rechazadas \texttt{00}, \texttt{0110}, \texttt{1111}.}}
+
+\resp \texttt{(0 + 1)(0 + 1)(0 + 1)(λ + (0 + 1)(0 + 1))}
+
+
+\begin{ejercicio}{239}{*}
+Con $\Sigma = \{0, 1\}$, encuentre una expresión regular cuyo lenguaje sea: $L$ es el lenguaje de las cadenas que comienzan con 01 o que terminan con 10.
+\end{ejercicio}
+\proc Se razona sobre la forma de las palabras y la expresión se convierte en AFN-λ con la construcción de Thompson y se verifica contra la definición del lenguaje. El AFN-λ de Thompson tiene 26 estados y el AFD mínimo 6; ambos coinciden con la definición del lenguaje.
+\jflap{lista3-239-er}{Expresión 239 en JFLAP (Regular Expression).}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{D} & \texttt{\{E,G,H,I\}} \\
+ \texttt{C} & \texttt{F} & \texttt{C} \\
+ \texttt{D} & \texttt{D} & \texttt{C} \\
+$*$ \texttt{\{E,G,H,I\}} & \texttt{\{E,G,H,I\}} & \texttt{\{E,G,H,I\}} \\
+$*$ \texttt{F} & \texttt{D} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-239-afd}{AFD mínimo de la expresión 239.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{10}, \texttt{01101}, \texttt{0110100}; rechazadas \texttt{11}, \texttt{10101}, \texttt{1110100}.}}
+
+\resp \texttt{01(0 + 1)* + (0 + 1)*10}
+
+
+\begin{ejercicio}{240}{*}
+Con $\Sigma = \{0, 1\}$, encuentre una expresión regular cuyo lenguaje sea: $L$ es el lenguaje de las cadenas que tienen longitud par y que contienen la subcadena 01.
+\end{ejercicio}
+\proc Se razona sobre la forma de las palabras y la expresión se convierte en AFN-λ con la construcción de Thompson y se verifica contra la definición del lenguaje. El AFN-λ de Thompson tiene 78 estados y el AFD mínimo 6; ambos coinciden con la definición del lenguaje.
+\jflap{lista3-240-er}{Expresión 240 en JFLAP (Regular Expression).}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{\{A,F\}} & \texttt{\{B,G\}} & \texttt{\{C,K\}} \\
+ \texttt{\{B,G\}} & \texttt{D} & \texttt{\{E,L,M,N,O,P,U,V,W,A1\}} \\
+ \texttt{\{C,K\}} & \texttt{D} & \texttt{\{A,F\}} \\
+ \texttt{D} & \texttt{\{B,G\}} & \texttt{\{H,I,J,Q,R,S,T,X,Y,Z\}} \\
+$*$ \texttt{\{E,L,M,N,O,P,U,V,W,A1\}} & \texttt{\{H,I,J,Q,R,S,T,X,Y,Z\}} & \texttt{\{H,I,J,Q,R,S,T,X,Y,Z\}} \\
+ \texttt{\{H,I,J,Q,R,S,T,X,Y,Z\}} & \texttt{\{E,L,M,N,O,P,U,V,W,A1\}} & \texttt{\{E,L,M,N,O,P,U,V,W,A1\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-240-afd}{AFD mínimo de la expresión 240.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{0110}, \texttt{011101}; rechazadas \texttt{00}, \texttt{011}, \texttt{01110}.}}
+
+\resp \texttt{((0 + 1)(0 + 1))*01((0 + 1)(0 + 1))* + (0 + 1)((0 + 1)(0 + 1))*01((0 + 1)(0 + 1))*(0 + 1)}
+
+
+\begin{ejercicio}{241}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{0 + 1}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 1; Unión: 0 + 1.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+$\to$ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q2\}} \\
+$*$ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-241}{AFN-λ de 241 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1}; rechazadas \texttt{00}, \texttt{10}, \texttt{11}.}}
+\jflap{lista3-241-er}{Expresión 241 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 6 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{242}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{0* + 1}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Estrella: 0*; Caso básico: 1; Unión: 0* + 1.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q4\}} \\
+$*$ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-242}{AFN-λ de 242 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{0000}, \texttt{000000}; rechazadas \texttt{10}, \texttt{1000}, \texttt{100000}.}}
+\jflap{lista3-242-er}{Expresión 242 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 8 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{243}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(0 + 1)*}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 1; Unión: 0 + 1; Estrella: (0 + 1)*.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q2\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+$*$ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-243}{AFN-λ de 243 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas ninguna.}}
+\jflap{lista3-243-er}{Expresión 243 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 8 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{244}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{0(0 + 1)}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 0; Caso básico: 1; Unión: 0 + 1; Concatenación: 0(0 + 1).
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q6\}} \\
+ \texttt{q2} & \texttt{\{q3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q4\}} \\
+$*$ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-244}{AFN-λ de 244 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00}, \texttt{01}; rechazadas \texttt{0}, \texttt{10}, \texttt{1}.}}
+\jflap{lista3-244-er}{Expresión 244 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 8 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{245}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{0(0 + 1)*}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 0; Caso básico: 1; Unión: 0 + 1; Estrella: (0 + 1)*; Concatenación: 0(0 + 1)*.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q2} & \texttt{\{q3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q4\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q9\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q9\}} \\
+$*$ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-245}{AFN-λ de 245 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{0100}, \texttt{010000}; rechazadas \texttt{1}, \texttt{1000}, \texttt{110000}.}}
+\jflap{lista3-245-er}{Expresión 245 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 10 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{246}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{0*(0 + 1)}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Estrella: 0*; Caso básico: 0; Caso básico: 1; Unión: 0 + 1; Concatenación: 0*(0 + 1).
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+$\to$ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q4} & \texttt{\{q5\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q9\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{\{q7\}} & \texttt{∅} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q9\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q6\}} \\
+$*$ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-246}{AFN-λ de 246 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{0001}, \texttt{000001}; rechazadas \texttt{10}, \texttt{0010}, \texttt{100001}.}}
+\jflap{lista3-246-er}{Expresión 246 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 10 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{247}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(01)* + 1*}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 1; Concatenación: 01; Estrella: (01)*; Caso básico: 1; Estrella: 1*; Unión: (01)* + 1*.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q2\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q5\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{\{q7\}} & \texttt{∅} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q9\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q9\}} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+$\to$ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q8\}} \\
+$*$ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-247}{AFN-λ de 247 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1111}, \texttt{111111}; rechazadas \texttt{0}, \texttt{0111}, \texttt{011111}.}}
+\jflap{lista3-247-er}{Expresión 247 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 12 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{248}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(0* + 1)0}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Estrella: 0*; Caso básico: 1; Unión: 0* + 1; Caso básico: 0; Concatenación: (0* + 1)0.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q4\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} \\
+$*$ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-248}{AFN-λ de 248 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{0000}, \texttt{000000}; rechazadas \texttt{1}, \texttt{1000}, \texttt{100000}.}}
+\jflap{lista3-248-er}{Expresión 248 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 10 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{249}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(0* + 1)0*}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Estrella: 0*; Caso básico: 1; Unión: 0* + 1; Caso básico: 0; Estrella: 0*; Concatenación: (0* + 1)0*.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q4\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q10\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q8, q11\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q8, q11\}} \\
+$*$ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-249}{AFN-λ de 249 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{11}, \texttt{0100}, \texttt{1000001}.}}
+\jflap{lista3-249-er}{Expresión 249 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 12 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{250}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{0*1* + 1*0}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Estrella: 0*; Caso básico: 1; Estrella: 1*; Concatenación: 0*1*; Caso básico: 1; Estrella: 1*; Caso básico: 0; Concatenación: 1*0; Unión: 0*1* + 1*0.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q3\}} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q6\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q15\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{\{q9\}} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q8, q11\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q8, q11\}} \\
+ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{\{q12\}} \\
+ \texttt{q12} & \texttt{\{q13\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q13} & \texttt{∅} & \texttt{∅} & \texttt{\{q15\}} \\
+$\to$ \texttt{q14} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q10\}} \\
+$*$ \texttt{q15} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-250}{AFN-λ de 250 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{0111}, \texttt{001111}; rechazadas \texttt{1011}, \texttt{101111}, \texttt{100}.}}
+\jflap{lista3-250-er}{Expresión 250 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 16 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{251}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(0 + 1*)0 + 1*1}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 1; Estrella: 1*; Unión: 0 + 1*; Caso básico: 0; Concatenación: (0 + 1*)0; Caso básico: 1; Estrella: 1*; Caso básico: 1; Concatenación: 1*1; Unión: (0 + 1*)0 + 1*1.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q5\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q4\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q17\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{\{q11\}} & \texttt{∅} \\
+ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{\{q10, q13\}} \\
+ \texttt{q12} & \texttt{∅} & \texttt{∅} & \texttt{\{q10, q13\}} \\
+ \texttt{q13} & \texttt{∅} & \texttt{∅} & \texttt{\{q14\}} \\
+ \texttt{q14} & \texttt{∅} & \texttt{\{q15\}} & \texttt{∅} \\
+ \texttt{q15} & \texttt{∅} & \texttt{∅} & \texttt{\{q17\}} \\
+$\to$ \texttt{q16} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q12\}} \\
+$*$ \texttt{q17} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-251}{AFN-λ de 251 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1111}, \texttt{111111}; rechazadas \texttt{01}, \texttt{0111}, \texttt{011111}.}}
+\jflap{lista3-251-er}{Expresión 251 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 18 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{252}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(0 + 1)*(00 + 11) + (00 + 11)(0 + 1)*}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 1; Unión: 0 + 1; Estrella: (0 + 1)*; Caso básico: 0; Caso básico: 0; Concatenación: 00; Caso básico: 1; Caso básico: 1; Concatenación: 11; Unión: 00 + 11; Concatenación: (0 + 1)*(00 + 11); Caso básico: 0; Caso básico: 0; Concatenación: 00; Caso básico: 1; Caso básico: 1; Concatenación: 11; Unión: 00 + 11; Caso básico: 0; Caso básico: 1; Unión: 0 + 1; Estrella: (0 + 1)*; Concatenación: (00 + 11)(0 + 1)*; Unión: (0 + 1)*(00 + 11) + (00 + 11)(0 + 1)*.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q2\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q16\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q10\}} \\
+ \texttt{q10} & \texttt{\{q11\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{\{q17\}} \\
+ \texttt{q12} & \texttt{∅} & \texttt{\{q13\}} & \texttt{∅} \\
+ \texttt{q13} & \texttt{∅} & \texttt{∅} & \texttt{\{q14\}} \\
+ \texttt{q14} & \texttt{∅} & \texttt{\{q15\}} & \texttt{∅} \\
+ \texttt{q15} & \texttt{∅} & \texttt{∅} & \texttt{\{q17\}} \\
+ \texttt{q16} & \texttt{∅} & \texttt{∅} & \texttt{\{q8, q12\}} \\
+ \texttt{q17} & \texttt{∅} & \texttt{∅} & \texttt{\{q37\}} \\
+ \texttt{q18} & \texttt{\{q19\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q19} & \texttt{∅} & \texttt{∅} & \texttt{\{q20\}} \\
+ \texttt{q20} & \texttt{\{q21\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q21} & \texttt{∅} & \texttt{∅} & \texttt{\{q27\}} \\
+ \texttt{q22} & \texttt{∅} & \texttt{\{q23\}} & \texttt{∅} \\
+ \texttt{q23} & \texttt{∅} & \texttt{∅} & \texttt{\{q24\}} \\
+ \texttt{q24} & \texttt{∅} & \texttt{\{q25\}} & \texttt{∅} \\
+ \texttt{q25} & \texttt{∅} & \texttt{∅} & \texttt{\{q27\}} \\
+ \texttt{q26} & \texttt{∅} & \texttt{∅} & \texttt{\{q18, q22\}} \\
+ \texttt{q27} & \texttt{∅} & \texttt{∅} & \texttt{\{q34\}} \\
+ \texttt{q28} & \texttt{\{q29\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q29} & \texttt{∅} & \texttt{∅} & \texttt{\{q33\}} \\
+ \texttt{q30} & \texttt{∅} & \texttt{\{q31\}} & \texttt{∅} \\
+ \texttt{q31} & \texttt{∅} & \texttt{∅} & \texttt{\{q33\}} \\
+ \texttt{q32} & \texttt{∅} & \texttt{∅} & \texttt{\{q28, q30\}} \\
+ \texttt{q33} & \texttt{∅} & \texttt{∅} & \texttt{\{q32, q35\}} \\
+ \texttt{q34} & \texttt{∅} & \texttt{∅} & \texttt{\{q32, q35\}} \\
+ \texttt{q35} & \texttt{∅} & \texttt{∅} & \texttt{\{q37\}} \\
+$\to$ \texttt{q36} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q26\}} \\
+$*$ \texttt{q37} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-252}{AFN-λ de 252 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{11}, \texttt{10000}, \texttt{1000000}; rechazadas \texttt{10}, \texttt{100001}, \texttt{10000001}.}}
+\jflap{lista3-252-er}{Expresión 252 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 38 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{253}{}
+Encuentre un AFN-λ equivalente a la expresión regular \texttt{(0 + (11 + 00)*)(11 + 10 + 01)*(λ + 110)}.
+\end{ejercicio}
+\proc Se aplica la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella) en posorden sobre la expresión: Caso básico: 0; Caso básico: 1; Caso básico: 1; Concatenación: 11; Caso básico: 0; Caso básico: 0; Concatenación: 00; Unión: 11 + 00; Estrella: (11 + 00)*; Unión: 0 + (11 + 00)*; Caso básico: 1; Caso básico: 1; Concatenación: 11; Caso básico: 1; Caso básico: 0; Concatenación: 10; Unión: 11 + 10; Caso básico: 0; Caso básico: 1; Concatenación: 01; Unión: 11 + 10 + 01; Estrella: (11 + 10 + 01)*; Concatenación: (0 + (11 + 00)*)(11 + 10 + 01)*; Caso básico: λ; Caso básico: 1; Caso básico: 1; Concatenación: 11; Caso básico: 0; Concatenación: 110; Unión: λ + 110; Concatenación: (0 + (11 + 00)*)(11 + 10 + 01)*(λ + 110).
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q15\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q4\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+ \texttt{q6} & \texttt{\{q7\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q6\}} \\
+ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{\{q10, q13\}} \\
+ \texttt{q12} & \texttt{∅} & \texttt{∅} & \texttt{\{q10, q13\}} \\
+ \texttt{q13} & \texttt{∅} & \texttt{∅} & \texttt{\{q15\}} \\
+$\to$ \texttt{q14} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q12\}} \\
+ \texttt{q15} & \texttt{∅} & \texttt{∅} & \texttt{\{q32\}} \\
+ \texttt{q16} & \texttt{∅} & \texttt{\{q17\}} & \texttt{∅} \\
+ \texttt{q17} & \texttt{∅} & \texttt{∅} & \texttt{\{q18\}} \\
+ \texttt{q18} & \texttt{∅} & \texttt{\{q19\}} & \texttt{∅} \\
+ \texttt{q19} & \texttt{∅} & \texttt{∅} & \texttt{\{q25\}} \\
+ \texttt{q20} & \texttt{∅} & \texttt{\{q21\}} & \texttt{∅} \\
+ \texttt{q21} & \texttt{∅} & \texttt{∅} & \texttt{\{q22\}} \\
+ \texttt{q22} & \texttt{\{q23\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q23} & \texttt{∅} & \texttt{∅} & \texttt{\{q25\}} \\
+ \texttt{q24} & \texttt{∅} & \texttt{∅} & \texttt{\{q16, q20\}} \\
+ \texttt{q25} & \texttt{∅} & \texttt{∅} & \texttt{\{q31\}} \\
+ \texttt{q26} & \texttt{\{q27\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q27} & \texttt{∅} & \texttt{∅} & \texttt{\{q28\}} \\
+ \texttt{q28} & \texttt{∅} & \texttt{\{q29\}} & \texttt{∅} \\
+ \texttt{q29} & \texttt{∅} & \texttt{∅} & \texttt{\{q31\}} \\
+ \texttt{q30} & \texttt{∅} & \texttt{∅} & \texttt{\{q24, q26\}} \\
+ \texttt{q31} & \texttt{∅} & \texttt{∅} & \texttt{\{q30, q33\}} \\
+ \texttt{q32} & \texttt{∅} & \texttt{∅} & \texttt{\{q30, q33\}} \\
+ \texttt{q33} & \texttt{∅} & \texttt{∅} & \texttt{\{q42\}} \\
+ \texttt{q34} & \texttt{∅} & \texttt{∅} & \texttt{\{q35\}} \\
+ \texttt{q35} & \texttt{∅} & \texttt{∅} & \texttt{\{q43\}} \\
+ \texttt{q36} & \texttt{∅} & \texttt{\{q37\}} & \texttt{∅} \\
+ \texttt{q37} & \texttt{∅} & \texttt{∅} & \texttt{\{q38\}} \\
+ \texttt{q38} & \texttt{∅} & \texttt{\{q39\}} & \texttt{∅} \\
+ \texttt{q39} & \texttt{∅} & \texttt{∅} & \texttt{\{q40\}} \\
+ \texttt{q40} & \texttt{\{q41\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q41} & \texttt{∅} & \texttt{∅} & \texttt{\{q43\}} \\
+ \texttt{q42} & \texttt{∅} & \texttt{∅} & \texttt{\{q34, q36\}} \\
+$*$ \texttt{q43} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-253}{AFN-λ de 253 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1001}, \texttt{100101}; rechazadas \texttt{1}, \texttt{100}, \texttt{10010}.}}
+\jflap{lista3-253-er}{Expresión 253 en JFLAP; con Convert to NFA se obtiene un autómata equivalente.}
+
+\resp AFN-λ de 44 estados (tabla y diagrama anteriores).
+
+
+\seccion{De autómata a expresión regular (254--259)}
+
+
+\begin{ejercicio}{254}{*}
+Encuentre una expresión regular que represente el autómata de la tabla 254.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{A} & \texttt{B} \\
+$*$ \texttt{B} & \texttt{A} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-254}{Autómata 254 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+Eliminación de estados (se agregan I y T):
+\textit{0. Autómata generalizado.} Se agregan I →λ A y λ desde cada final hacia T; las transiciones paralelas se unen con +.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{A} & \texttt{0} \\
+\texttt{A} & \texttt{B} & \texttt{1} \\
+\texttt{B} & \texttt{A} & \texttt{0} \\
+\texttt{B} & \texttt{B} & \texttt{1} \\
+\texttt{B} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{1. Eliminar A.} Se elimina A (lazo: 0). R(I,B) = ∅ + (λ)(0)*(1) = 0*1; R(B,B) = 1 + (0)(0)*(1) = 1 + 00*1
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{B} & \texttt{0*1} \\
+\texttt{B} & \texttt{B} & \texttt{1 + 00*1} \\
+\texttt{B} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Eliminar B.} Se elimina B (lazo: 1 + 00*1). R(I,T) = ∅ + (0*1)(1 + 00*1)*(λ) = 0*1(1 + 00*1)*
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{T} & \texttt{0*1(1 + 00*1)*} \\
+\bottomrule\end{tabular}\end{center}
+Comprobación con el lema de Arden: \texttt{(0 + 11*0)*11*}, equivalente según la comparación de AFD mínimos.
+\jflap{lista3-254-er}{Expresión de 254 en JFLAP.}
+
+\resp \texttt{0*1(1 + 00*1)*}
+
+
+\begin{ejercicio}{255}{*}
+Encuentre una expresión regular que represente el autómata de la tabla 255.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$$*$ \texttt{A} & \texttt{B} & \texttt{B} \\
+ \texttt{B} & \texttt{A} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-255}{Autómata 255 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{10}, \texttt{10010}, \texttt{1000010}; rechazadas \texttt{11}, \texttt{10100}, \texttt{100001}.}}
+Eliminación de estados (se agregan I y T):
+\textit{0. Autómata generalizado.} Se agregan I →λ A y λ desde cada final hacia T; las transiciones paralelas se unen con +.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{B} & \texttt{0 + 1} \\
+\texttt{A} & \texttt{T} & \texttt{λ} \\
+\texttt{B} & \texttt{A} & \texttt{0} \\
+\texttt{B} & \texttt{B} & \texttt{1} \\
+\bottomrule\end{tabular}\end{center}
+\textit{1. Eliminar B.} Se elimina B (lazo: 1). R(A,A) = ∅ + (0 + 1)(1)*(0) = (0 + 1)1*0
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{A} & \texttt{(0 + 1)1*0} \\
+\texttt{A} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Eliminar A.} Se elimina A (lazo: (0 + 1)1*0). R(I,T) = ∅ + (λ)((0 + 1)1*0)*(λ) = ((0 + 1)1*0)*
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{T} & \texttt{((0 + 1)1*0)*} \\
+\bottomrule\end{tabular}\end{center}
+Comprobación con el lema de Arden: \texttt{((0 + 1)1*0)*}, equivalente según la comparación de AFD mínimos.
+\jflap{lista3-255-er}{Expresión de 255 en JFLAP.}
+
+\resp \texttt{((0 + 1)1*0)*}
+
+
+\begin{ejercicio}{256}{*}
+Encuentre una expresión regular que represente el autómata de la tabla 256.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & 2 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{A} & \texttt{A} \\
+$*$ \texttt{B} & \texttt{B} & \texttt{B} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-256}{Autómata 256 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1101}, \texttt{111100}; rechazadas \texttt{1}, \texttt{11012}, \texttt{1111002}.}}
+Eliminación de estados (se agregan I y T):
+\textit{0. Autómata generalizado.} Se agregan I →λ A y λ desde cada final hacia T; las transiciones paralelas se unen con +.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{A} & \texttt{1 + 2} \\
+\texttt{A} & \texttt{B} & \texttt{0} \\
+\texttt{B} & \texttt{A} & \texttt{2} \\
+\texttt{B} & \texttt{B} & \texttt{0 + 1} \\
+\texttt{B} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{1. Eliminar A.} Se elimina A (lazo: 1 + 2). R(I,B) = ∅ + (λ)(1 + 2)*(0) = (1 + 2)*0; R(B,B) = 0 + 1 + (2)(1 + 2)*(0) = 0 + 1 + 2(1 + 2)*0
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{B} & \texttt{(1 + 2)*0} \\
+\texttt{B} & \texttt{B} & \texttt{0 + 1 + 2(1 + 2)*0} \\
+\texttt{B} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Eliminar B.} Se elimina B (lazo: 0 + 1 + 2(1 + 2)*0). R(I,T) = ∅ + ((1 + 2)*0)(0 + 1 + 2(1 + 2)*0)*(λ) = (1 + 2)*0(0 + 1 + 2(1 + 2)*0)*
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{T} & \texttt{(1 + 2)*0(0 + 1 + 2(1 + 2)*0)*} \\
+\bottomrule\end{tabular}\end{center}
+Comprobación con el lema de Arden: \texttt{(1 + 2 + 0(0 + 1)*2)*0(0 + 1)*}, equivalente según la comparación de AFD mínimos.
+\jflap{lista3-256-er}{Expresión de 256 en JFLAP.}
+
+\resp \texttt{(1 + 2)*0(0 + 1 + 2(1 + 2)*0)*}
+
+
+\begin{ejercicio}{257}{*}
+Encuentre una expresión regular que represente el autómata de la tabla 257.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{B} & \texttt{C} & \texttt{B} \\
+$*$ \texttt{C} & \texttt{A} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-257}{Autómata 257 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{0111}, \texttt{011111}; rechazadas \texttt{10}, \texttt{1011}, \texttt{111111}.}}
+Eliminación de estados (se agregan I y T):
+\textit{0. Autómata generalizado.} Se agregan I →λ A y λ desde cada final hacia T; las transiciones paralelas se unen con +.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{B} & \texttt{0} \\
+\texttt{A} & \texttt{C} & \texttt{1} \\
+\texttt{B} & \texttt{B} & \texttt{1} \\
+\texttt{B} & \texttt{C} & \texttt{0} \\
+\texttt{B} & \texttt{T} & \texttt{λ} \\
+\texttt{C} & \texttt{A} & \texttt{0 + 1} \\
+\texttt{C} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{1. Eliminar B.} Se elimina B (lazo: 1). R(A,T) = ∅ + (0)(1)*(λ) = 01*; R(A,C) = 1 + (0)(1)*(0) = 1 + 01*0
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{C} & \texttt{1 + 01*0} \\
+\texttt{A} & \texttt{T} & \texttt{01*} \\
+\texttt{C} & \texttt{A} & \texttt{0 + 1} \\
+\texttt{C} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Eliminar C.} Se elimina C (lazo: ∅). R(A,T) = 01* + (1 + 01*0)(∅)*(λ) = 01* + 1 + 01*0; R(A,A) = ∅ + (1 + 01*0)(∅)*(0 + 1) = (1 + 01*0)(0 + 1)
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{A} & \texttt{(1 + 01*0)(0 + 1)} \\
+\texttt{A} & \texttt{T} & \texttt{01* + 1 + 01*0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Eliminar A.} Se elimina A (lazo: (1 + 01*0)(0 + 1)). R(I,T) = ∅ + (λ)((1 + 01*0)(0 + 1))*(01* + 1 + 01*0) = ((1 + 01*0)(0 + 1))*(01* + 1 + 01*0)
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{T} & \texttt{((1 + 01*0)(0 + 1))*(01* + 1 + 01*0)} \\
+\bottomrule\end{tabular}\end{center}
+Comprobación con el lema de Arden: \texttt{(1(0 + 1) + 01*0(0 + 1))*(1 + 01*(λ + 0))}, equivalente según la comparación de AFD mínimos.
+\jflap{lista3-257-er}{Expresión de 257 en JFLAP.}
+
+\resp \texttt{((1 + 01*0)(0 + 1))*(01* + 1 + 01*0)}
+
+
+\begin{ejercicio}{258}{*}
+Encuentre una expresión regular que represente el autómata de la tabla 258.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{C} & \texttt{C} \\
+ \texttt{B} & \texttt{A} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-258}{Autómata 258 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100001}; rechazadas \texttt{10}, \texttt{0100}, \texttt{10000}.}}
+Eliminación de estados (se agregan I y T):
+\textit{0. Autómata generalizado.} Se agregan I →λ A y λ desde cada final hacia T; las transiciones paralelas se unen con +.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{C} & \texttt{0 + 1} \\
+\texttt{B} & \texttt{A} & \texttt{0} \\
+\texttt{B} & \texttt{C} & \texttt{1} \\
+\texttt{C} & \texttt{A} & \texttt{1} \\
+\texttt{C} & \texttt{B} & \texttt{0} \\
+\texttt{C} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{1. Eliminar B.} Se elimina B (lazo: ∅). R(C,A) = 1 + (0)(∅)*(0) = 1 + 00; R(C,C) = ∅ + (0)(∅)*(1) = 01
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{A} & \texttt{λ} \\
+\texttt{A} & \texttt{C} & \texttt{0 + 1} \\
+\texttt{C} & \texttt{A} & \texttt{1 + 00} \\
+\texttt{C} & \texttt{C} & \texttt{01} \\
+\texttt{C} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Eliminar A.} Se elimina A (lazo: ∅). R(I,C) = ∅ + (λ)(∅)*(0 + 1) = 0 + 1; R(C,C) = 01 + (1 + 00)(∅)*(0 + 1) = 01 + (1 + 00)(0 + 1)
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{C} & \texttt{0 + 1} \\
+\texttt{C} & \texttt{C} & \texttt{01 + (1 + 00)(0 + 1)} \\
+\texttt{C} & \texttt{T} & \texttt{λ} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Eliminar C.} Se elimina C (lazo: 01 + (1 + 00)(0 + 1)). R(I,T) = ∅ + (0 + 1)(01 + (1 + 00)(0 + 1))*(λ) = (0 + 1)(01 + (1 + 00)(0 + 1))*
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+De & A & Expresión \\\midrule
+\texttt{I} & \texttt{T} & \texttt{(0 + 1)(01 + (1 + 00)(0 + 1))*} \\
+\bottomrule\end{tabular}\end{center}
+Comprobación con el lema de Arden: \texttt{((0 + 1)1 + (0 + 1)0(10)*(0 + 11))*(0 + 1 + (0 + 1)0(10)*1)}, equivalente según la comparación de AFD mínimos.
+\jflap{lista3-258-er}{Expresión de 258 en JFLAP.}
+
+\resp \texttt{(0 + 1)(01 + (1 + 00)(0 + 1))*}
+
+
+\begin{ejercicio}{259}{}
+Para el autómata de la tabla 259, ¿qué valores $R_{ij}^{(k)}$, $k = 0, \ldots, 4$, son necesarios para encontrar $R_{14}^{(4)}$? Encuentre una expresión regular equivalente al autómata.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{1} & \texttt{3} & \texttt{2} \\
+ \texttt{2} & \texttt{1} & \texttt{3} \\
+ \texttt{3} & \texttt{2} & \texttt{3} \\
+$*$ \texttt{4} & \texttt{1} & \texttt{4} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-259}{Autómata 259 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas ninguna; rechazadas \texttt{b}, \texttt{baaa}, \texttt{baaaaa}.}}
+Por la recurrencia $R_{ij}^{(k)} = R_{ij}^{(k-1)} + R_{ik}^{(k-1)}(R_{kk}^{(k-1)})^*R_{kj}^{(k-1)}$, cada expresión del nivel $k$ requiere cuatro del nivel $k-1$. Partiendo de $R_{14}^{(4)}$ hacia abajo, las necesarias en cada nivel son:
+
+$k = 4$: $R_{14}^{(4)}$ \\
+$k = 3$: $R_{14}^{(3)}$, $R_{44}^{(3)}$ \\
+$k = 2$: $R_{13}^{(2)}$, $R_{14}^{(2)}$, $R_{33}^{(2)}$, $R_{34}^{(2)}$, $R_{43}^{(2)}$, $R_{44}^{(2)}$ \\
+$k = 1$: $R_{12}^{(1)}$, $R_{13}^{(1)}$, $R_{14}^{(1)}$, $R_{22}^{(1)}$, $R_{23}^{(1)}$, $R_{24}^{(1)}$, $R_{32}^{(1)}$, $R_{33}^{(1)}$, $R_{34}^{(1)}$, $R_{42}^{(1)}$, $R_{43}^{(1)}$, $R_{44}^{(1)}$ \\
+$k = 0$: $R_{11}^{(0)}$, $R_{12}^{(0)}$, $R_{13}^{(0)}$, $R_{14}^{(0)}$, $R_{21}^{(0)}$, $R_{22}^{(0)}$, $R_{23}^{(0)}$, $R_{24}^{(0)}$, $R_{31}^{(0)}$, $R_{32}^{(0)}$, $R_{33}^{(0)}$, $R_{34}^{(0)}$, $R_{41}^{(0)}$, $R_{42}^{(0)}$, $R_{43}^{(0)}$, $R_{44}^{(0)}$
+
+
+\resp Expresión (eliminación de estados): \texttt{∅}.
+
+
+\seccion{Equivalencia de autómatas deterministas y no deterministas (260--263)}
+
+
+\begin{ejercicio}{260}{*}
+Encuentre un AFD equivalente al AFN de la tabla 260 y describa a detalle cómo lo obtuvo.
+\end{ejercicio}
+\proc Construcción de subconjuntos: se parte de \{q0\} y, para cada subconjunto nuevo y cada símbolo, se reúnen los destinos; sólo se crean subconjuntos alcanzables.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{∅} & \texttt{\{B, C\}} \\
+ \texttt{B} & \texttt{\{A, B, D\}} & \texttt{\{C, D\}} \\
+ \texttt{C} & \texttt{\{A, C\}} & \texttt{\{A, E\}} \\
+$*$ \texttt{D} & \texttt{∅} & \texttt{\{D, E\}} \\
+ \texttt{E} & \texttt{\{A, E\}} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-260}{Autómata 260 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{11}, \texttt{10111}, \texttt{1011111}; rechazadas \texttt{1}, \texttt{01111}, \texttt{0011111}.}}
+\textbf{Construcción de subconjuntos.} Se procesa G = \{A,B,C,E\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{—} & \texttt{B} \\
+\texttt{} & \texttt{B = \{B,C\}} & \texttt{C} & \texttt{D} \\
+\texttt{*} & \texttt{C = \{A,B,C,D\}} & \texttt{C} & \texttt{E} \\
+\texttt{*} & \texttt{D = \{A,C,D,E\}} & \texttt{F} & \texttt{E} \\
+\texttt{*} & \texttt{E = \{A,B,C,D,E\}} & \texttt{E} & \texttt{E} \\
+\texttt{} & \texttt{F = \{A,C,E\}} & \texttt{F} & \texttt{G} \\
+\texttt{} & \texttt{G = \{A,B,C,E\}} & \texttt{E} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{D\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{A,B,C,D\}} & \texttt{\{D\}} \\
+\texttt{D = \{A,C,D,E\}} & \texttt{\{D\}} \\
+\texttt{E = \{A,B,C,D,E\}} & \texttt{\{D\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{--} & \texttt{B} \\
+ \texttt{B} & \texttt{C} & \texttt{D} \\
+$*$ \texttt{C} & \texttt{C} & \texttt{E} \\
+$*$ \texttt{D} & \texttt{F} & \texttt{E} \\
+$*$ \texttt{E} & \texttt{E} & \texttt{E} \\
+ \texttt{F} & \texttt{F} & \texttt{G} \\
+ \texttt{G} & \texttt{E} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-260-afd}{AFD equivalente (lista3-260-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{11}, \texttt{10111}, \texttt{1011111}; rechazadas \texttt{1}, \texttt{01111}, \texttt{0011111}.}}
+
+\resp AFD de 7 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{261}{*}
+Dado el AFN de la figura 261, determine el AFD equivalente.
+\end{ejercicio}
+\proc Construcción de subconjuntos: se parte de \{q0\} y, para cada subconjunto nuevo y cada símbolo, se reúnen los destinos; sólo se crean subconjuntos alcanzables.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q0} & \texttt{\{q0, q1\}} & \texttt{\{q0, q3\}} \\
+ \texttt{q1} & \texttt{\{q2\}} & \texttt{∅} \\
+$*$ \texttt{q2} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{\{q4\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-261}{Autómata 261 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00}, \texttt{10000}, \texttt{1000000}; rechazadas \texttt{01}, \texttt{100001}, \texttt{10000001}.}}
+\textbf{Construcción de subconjuntos.} Se procesa E = \{q0,q3,q4\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{q0\}} & \texttt{B} & \texttt{C} \\
+\texttt{} & \texttt{B = \{q0,q1\}} & \texttt{D} & \texttt{C} \\
+\texttt{} & \texttt{C = \{q0,q3\}} & \texttt{B} & \texttt{E} \\
+\texttt{*} & \texttt{D = \{q0,q1,q2\}} & \texttt{D} & \texttt{C} \\
+\texttt{} & \texttt{E = \{q0,q3,q4\}} & \texttt{B} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{q2\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{D = \{q0,q1,q2\}} & \texttt{\{q2\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{D} & \texttt{C} \\
+ \texttt{C} & \texttt{B} & \texttt{E} \\
+$*$ \texttt{D} & \texttt{D} & \texttt{C} \\
+ \texttt{E} & \texttt{B} & \texttt{E} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-261-afd}{AFD equivalente (lista3-261-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00}, \texttt{10000}, \texttt{1000000}; rechazadas \texttt{01}, \texttt{100001}, \texttt{10000001}.}}
+
+\resp AFD de 5 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{262}{*}
+Diseñe un AFN que acepte el conjunto $\{ab, ba\}$ y utilícelo para encontrar un AFD que lo acepte.
+\end{ejercicio}
+\proc Construcción de subconjuntos: se parte de \{q0\} y, para cada subconjunto nuevo y cada símbolo, se reúnen los destinos; sólo se crean subconjuntos alcanzables. El AFN tiene dos ramas desde q0, una por palabra.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{q0} & \texttt{q1} & \texttt{q3} \\
+ \texttt{q1} & \texttt{--} & \texttt{q2} \\
+$*$ \texttt{q2} & \texttt{--} & \texttt{--} \\
+ \texttt{q3} & \texttt{q4} & \texttt{--} \\
+$*$ \texttt{q4} & \texttt{--} & \texttt{--} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-262}{Autómata 262 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{ba}; rechazadas \texttt{aa}, \texttt{b}, \texttt{a}.}}
+El diseño ya es determinista (cada par tiene a lo sumo un destino).
+
+\resp AFD de 5 estados (tabla y diagrama anteriores).
+
+
+\begin{ejercicio}{263}{*}
+Dado el AFN de la figura 263, determine el AFD equivalente.
+\end{ejercicio}
+\proc Construcción de subconjuntos: se parte de \{q0\} y, para cada subconjunto nuevo y cada símbolo, se reúnen los destinos; sólo se crean subconjuntos alcanzables.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q0} & \texttt{\{q0, q1\}} & \texttt{\{q0\}} \\
+ \texttt{q1} & \texttt{∅} & \texttt{\{q2\}} \\
+$*$ \texttt{q2} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-263}{Autómata 263 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{10001}, \texttt{1000001}; rechazadas \texttt{00}, \texttt{10010}, \texttt{100000}.}}
+\textbf{Construcción de subconjuntos.} Se procesa C = \{q0,q2\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{q0\}} & \texttt{B} & \texttt{A} \\
+\texttt{} & \texttt{B = \{q0,q1\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{C = \{q0,q2\}} & \texttt{B} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Subconjuntos de aceptación.} Un subconjunto es de aceptación si contiene algún estado de F = \{q2\}.
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+Subconjunto & Estados de F que contiene \\\midrule
+\texttt{C = \{q0,q2\}} & \texttt{\{q2\}} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{A} \\
+ \texttt{B} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista3-263-afd}{AFD equivalente (lista3-263-afd.jff).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01}, \texttt{10001}, \texttt{1000001}; rechazadas \texttt{00}, \texttt{10010}, \texttt{100000}.}}
+
+\resp AFD de 3 estados (tabla y diagrama anteriores).
+
+
+\end{document}

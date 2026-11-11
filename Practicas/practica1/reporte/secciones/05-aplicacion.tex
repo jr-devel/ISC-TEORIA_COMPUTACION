@@ -1,0 +1,125 @@
+\hypertarget{ejercicio-5.-aplicaciuxf3n-con-interfaz-gruxe1fica}{%
+\section{Ejercicio 5. Aplicación con interfaz gráfica}\label{ejercicio-5.-aplicaciuxf3n-con-interfaz-gruxe1fica}}
+
+\hypertarget{arquitectura}{%
+\subsection{Arquitectura}\label{arquitectura}}
+
+La aplicación separa el \textbf{núcleo}, que no importa Flet, de la \textbf{interfaz}, que sólo traduce clics en llamadas al núcleo. Así las pruebas ejercitan toda la lógica sin abrir una ventana.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{src/}
+\NormalTok{├── app.py                  \# punto de entrada: lista de secciones y arranque}
+\NormalTok{├── nucleo/}
+\NormalTok{│   ├── errores.py          \# ErrorTC y sus subclases (mensajes para el usuario)}
+\NormalTok{│   └── lenguajes.py        \# Alfabeto, Palabra, Lenguaje, Enumerador, Informe}
+\NormalTok{└── interfaz/}
+\NormalTok{    ├── aplicacion.py       \# ventana: menú lateral, barra superior, área de trabajo}
+\NormalTok{    ├── componentes.py      \# tarjetas, avisos, pastillas, métricas, ayuda numerada}
+\NormalTok{    ├── tema.py · sesion.py \# paleta institucional y estado compartido}
+\NormalTok{    └── vistas/             \# Inicio, Palabras, Cerraduras, Lenguajes}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8000}}@{}}
+\caption{Clases principales.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Clase
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Responsabilidad
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Clase
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Responsabilidad
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{Alfabeto} & Conjunto finito y no vacío de símbolos de un carácter; rechaza λ, comas, llaves y espacios. Responde si una palabra está en Σ\emph{, cuenta Σⁿ sin generarlo y construye Σⁿ, Σ} y Σ⁺ acotados. \\
+\texttt{Palabra} & Cadena inmutable: longitud, concatenación (\texttt{+}), potencia, reflexión, prefijos, sufijos y subcadenas. \\
+\texttt{Lenguaje} & Conjunto finito de palabras con \texttt{\textbar{}}, \texttt{\&}, \texttt{-}, concatenación, potencia, reflexión y cerraduras acotadas. \\
+\texttt{Enumerador} & Recorre Σᵐⁱⁿ ∪ \ldots{} ∪ Σᵐᵃˣ en orden canónico y verifica el límite \emph{antes} de generar. \\
+\texttt{Informe} & Texto exportable con encabezado, datos de la operación, total y resultados. \\
+\texttt{Vista} (interfaz) & Base de cada sección: encabezado, ayuda «¿Cómo se usa?», avisos y manejo uniforme de errores. \\
+\end{longtable}
+
+Todas las operaciones del núcleo devuelven objetos nuevos; ninguna modifica sus argumentos. Los errores de dominio (símbolo inválido, palabra fuera de Σ, límite excedido) son subclases de \texttt{ErrorTC} y la interfaz los muestra en una franja roja con el mensaje, sin interrumpir el programa.
+
+\hypertarget{diseuxf1o-de-la-interfaz}{%
+\subsection{Diseño de la interfaz}\label{diseuxf1o-de-la-interfaz}}
+
+La ventana tiene un menú lateral con las secciones y un área de trabajo. Cada sección empieza con un encabezado que dice qué hace y un botón \textbf{¿Cómo se usa?} que despliega los pasos numerados. Los resultados se calculan \textbf{mientras se escribe}: no hay que pulsar un botón para ver los prefijos de una palabra, y un símbolo que no pertenece a Σ se señala en el propio campo. Los resultados se muestran como pastillas (la palabra vacía, resaltada) acompañadas de métricas: la longitud, el número de resultados y el máximo teórico.
+
+\hypertarget{operaciuxf3n-1.-prefijos-sufijos-y-subcadenas}{%
+\subsection{Operación 1. Prefijos, sufijos y subcadenas}\label{operaciuxf3n-1.-prefijos-sufijos-y-subcadenas}}
+
+\texttt{Palabra.prefijos()} devuelve \texttt{{[}ω{[}:0{]},\ ω{[}:1{]},\ …,\ ω{[}:n{]}{]}}; \texttt{sufijos()}, los n + 1 finales; y \texttt{subcadenas()} recorre todas las longitudes y posiciones y conserva cada subcadena la primera vez que aparece. La sección \textbf{Palabras} permite además la reflexión y la potencia, y guarda cualquier resultado en \texttt{salidas/palabras-\textless{}operación\textgreater{}.txt}.
+
+\textbf{Conteos.} Una palabra de longitud n tiene exactamente \textbf{n + 1 prefijos} (uno por cada punto de corte, de 0 a n) y n + 1 sufijos. Las subcadenas no vacías se determinan por un par de posiciones 0 ≤ i \textless{} j ≤ n, de modo que hay a lo sumo n(n + 1)/2; con λ, el máximo es \textbf{n(n + 1)/2 + 1}, y se alcanza sólo cuando todos los símbolos son distintos. Para \texttt{abcb} hay 5 prefijos y 10 subcadenas distintas, una menos que la cota 11 porque \texttt{b} se repite.
+
+\textbf{Convención sobre λ.} El programa incluye λ y la propia palabra entre los prefijos y los sufijos. Se sigue la definición: x es prefijo de ω si existe y tal que xy = ω; con y = ω se obtiene x = λ, y con y = λ, x = ω. Excluirlas haría que una palabra de longitud n tuviera n − 1 prefijos \emph{propios}, que es otro concepto; el núcleo ofrece esa variante con \texttt{prefijos(propios=True)}.
+
+\hypertarget{operaciuxf3n-2.-cerradura-de-kleene-y-cerradura-positiva}{%
+\subsection{Operación 2. Cerradura de Kleene y cerradura positiva}\label{operaciuxf3n-2.-cerradura-de-kleene-y-cerradura-positiva}}
+
+La sección \textbf{Cerraduras} genera Σ*, Σ⁺ o Σⁿ hasta la longitud que el usuario elige con un control deslizante. Antes de generar, \texttt{Alfabeto.cuantas} calcula el total con la fórmula
+
+\[|\Sigma^0 \cup \Sigma^1 \cup \dots \cup \Sigma^n| = \sum_{i=0}^{n} |\Sigma|^i = \frac{|\Sigma|^{n+1} - 1}{|\Sigma| - 1} \quad (|\Sigma| > 1),\]
+
+y la interfaz muestra ese número y una barra respecto del límite \textbf{mientras se mueve el control}. Si el total supera 200 000, el botón \emph{Generar} se desactiva y el mensaje indica la longitud máxima permitida para ese alfabeto; el núcleo repite la verificación y lanza \texttt{LimiteExcedido} aunque se le llame desde otro programa.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\VariableTok{self}\NormalTok{.total }\OperatorTok{=}\NormalTok{ alfabeto.cuantas(maximo, minimo)}
+\ControlFlowTok{if} \VariableTok{self}\NormalTok{.total }\OperatorTok{\textgreater{}}\NormalTok{ limite:}
+    \ControlFlowTok{raise}\NormalTok{ LimiteExcedido(}\SpecialStringTok{f"... produce }\SpecialCharTok{\{}\VariableTok{self}\SpecialCharTok{.}\NormalTok{total}\SpecialCharTok{\}}\SpecialStringTok{ cadenas; el límite es }\SpecialCharTok{\{}\NormalTok{limite}\SpecialCharTok{\}}\SpecialStringTok{."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Relación con la unidad.} Σ* es infinito para todo alfabeto, así que ningún programa puede «calcularlo»; lo que se genera es un truncamiento finito. Cada nivel tiene \textbar Σⁿ\textbar{} = \textbar Σ\textbar ⁿ cadenas, de modo que el truncamiento crece exponencialmente en la longitud: con \textbar Σ\textbar{} = 2 se llega a n = 16 (131 071 cadenas), pero con \textbar Σ\textbar{} = 10 sólo a n = 5. El límite convierte esa propiedad teórica en una regla que el usuario ve antes de esperar. Σ⁺ con longitud 0 es vacío: la única cadena de longitud 0 es λ, y Σ⁺ la excluye.
+
+\evidencia[0.95]{../evidencias/app/01-palabras.png}{Sección Palabras: subcadenas de \texttt{abcb} con las métricas y la cota
+teórica.}
+
+\evidencia[0.95]{../evidencias/app/02-cerraduras.png}{Sección Cerraduras: Σ* con Σ = \{a, b\} y n = 3, agrupada por longitud.}
+
+\evidencia[0.95]{../evidencias/app/03-limite.png}{Con Σ = \{0, 1\} y n = 17 el contador supera 200 000 y el botón Generar
+se desactiva.}
+
+\hypertarget{pruebas-automatizadas}{%
+\subsection{Pruebas automatizadas}\label{pruebas-automatizadas}}
+
+\texttt{tests/test\_lenguajes.py} (34 pruebas) cubre lo que pide el enunciado y algo más: la palabra vacía (λ = «» = «ε», sus prefijos, sufijos y subcadenas), un alfabeto de un solo símbolo, los prefijos y sufijos de una palabra de longitud 1, la diferencia Σ* − Σ⁺ = \{λ\} y Σ⁺ = ∅ para longitud 0, los conteos n + 1 y n(n + 1)/2 + 1, el orden canónico, el límite exacto (n = 16 se permite y n = 17 no, con \textbar Σ\textbar{} = 2) y las operaciones entre lenguajes. \texttt{tests/test\_interfaz.py} construye cada sección sin ventana y ejecuta sus acciones principales, por ejemplo escribir una palabra con un símbolo ajeno y comprobar que el campo muestra el error.
+
+\begin{longtable}[]{@{}lll@{}}
+\caption{Resultados de la suite en los tres entornos.}\tabularnewline
+\toprule\noalign{}
+Servicio & Intérprete & Resultado de \texttt{pytest\ -q} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Servicio & Intérprete & Resultado de \texttt{pytest\ -q} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{py311} & Python 3.11 & 41 aprobadas, 3 omitidas \\
+\texttt{py312} & Python 3.12 & 41 aprobadas, 3 omitidas \\
+\texttt{py313} & Python 3.13 & 41 aprobadas, 3 omitidas \\
+\end{longtable}
+
+Las tres pruebas omitidas pertenecen a secciones de prácticas posteriores (editor, algoritmos y expresiones) y se saltan porque esta práctica no incluye esos módulos. No se observaron diferencias de comportamiento entre versiones.
+
+\evidencia[0.95]{../evidencias/docker/pytest-tres-versiones.png}{\texttt{docker\ compose\ run\ -\/-rm\ py311\ pytest\ -q} y sus
+equivalentes en 3.12 y 3.13.}
+
+\evidencia[0.95]{../evidencias/app/04-contenedor.png}{Interfaz servida por el contenedor \texttt{py312} en
+http://localhost:8550.}

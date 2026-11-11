@@ -1,0 +1,156 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "fantasma-pacman",
+  "tipo": "AFD",
+  "alfabeto": [
+    "l",
+    "v",
+    "p",
+    "e",
+    "a",
+    "x",
+    "c",
+    "b"
+  ],
+  "estados": [
+    "Casa",
+    "Vagar",
+    "Perseguir",
+    "Huir",
+    "Titilar",
+    "Regresar"
+  ],
+  "inicial": "Casa",
+  "aceptacion": [
+    "Vagar",
+    "Perseguir"
+  ],
+  "delta": {
+    "Casa": {
+      "l": [
+        "Vagar"
+      ],
+      "e": [
+        "Casa"
+      ],
+      "a": [
+        "Casa"
+      ],
+      "x": [
+        "Casa"
+      ]
+    },
+    "Vagar": {
+      "v": [
+        "Perseguir"
+      ],
+      "e": [
+        "Huir"
+      ],
+      "a": [
+        "Vagar"
+      ],
+      "x": [
+        "Vagar"
+      ]
+    },
+    "Perseguir": {
+      "v": [
+        "Perseguir"
+      ],
+      "p": [
+        "Vagar"
+      ],
+      "e": [
+        "Huir"
+      ],
+      "a": [
+        "Perseguir"
+      ],
+      "x": [
+        "Perseguir"
+      ]
+    },
+    "Huir": {
+      "v": [
+        "Huir"
+      ],
+      "p": [
+        "Huir"
+      ],
+      "e": [
+        "Huir"
+      ],
+      "a": [
+        "Titilar"
+      ],
+      "c": [
+        "Regresar"
+      ]
+    },
+    "Titilar": {
+      "v": [
+        "Titilar"
+      ],
+      "p": [
+        "Titilar"
+      ],
+      "e": [
+        "Huir"
+      ],
+      "x": [
+        "Vagar"
+      ],
+      "c": [
+        "Regresar"
+      ]
+    },
+    "Regresar": {
+      "v": [
+        "Regresar"
+      ],
+      "p": [
+        "Regresar"
+      ],
+      "e": [
+        "Regresar"
+      ],
+      "a": [
+        "Regresar"
+      ],
+      "x": [
+        "Regresar"
+      ],
+      "b": [
+        "Casa"
+      ]
+    }
+  },
+  "posiciones": {
+    "Casa": [
+      80,
+      220
+    ],
+    "Vagar": [
+      260,
+      220
+    ],
+    "Perseguir": [
+      440,
+      90
+    ],
+    "Huir": [
+      440,
+      350
+    ],
+    "Titilar": [
+      640,
+      350
+    ],
+    "Regresar": [
+      640,
+      90
+    ]
+  }
+}

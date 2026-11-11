@@ -1,0 +1,6 @@
+cbaabbabbcb
+1cbaabbabbcb
+1abbcbcbaabba
+cbaabbabbc0
+c1baabbabbcb
+a1bbcbcbaabba

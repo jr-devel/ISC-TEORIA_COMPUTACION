@@ -1,0 +1,8 @@
+\hypertarget{conclusiones}{%
+\section{Conclusiones}\label{conclusiones}}
+
+Convertir los cinco AFD a expresiones mostró que la eliminación de estados es correcta en cualquier orden pero no igual de útil: eliminar primero el sumidero y los estados con menos conexiones produjo expresiones de entre 5 y poco más de 50 caracteres, mientras que el orden de Q llevó la de 140b a 234. Comparar los tres métodos sobre 142a y 138 dejó ver que la eliminación de estados y el lema de Arden son el mismo cálculo escrito como grafo o como sistema de ecuaciones, y que las expresiones \(R_{ij}^{(k)}\), uniformes y por eso útiles para demostrar el teorema de Kleene, son las más largas de aplicar a mano.
+
+En el software, dar a todos los algoritmos la misma forma ---una clase con \texttt{resolver()} que devuelve el resultado y sus etapas--- permitió que la interfaz los mostrara paso a paso con un único visor y que cada uno se probara sin abrirla. La tabla de pares distinguibles resultó la forma más clara de explicar la minimización ronda por ronda, y nombrar los subconjuntos con letras sin ocultar su contenido mantuvo legibles los AFD resultantes.
+
+Las pruebas no se conformaron con muestrear: al comparar las cuatro versiones de cada caso sobre todas las palabras hasta la longitud n₁ + n₂ − 2 que da el teorema de Moore, la comprobación exhaustiva es también una demostración de equivalencia, y recorrer las palabras como un árbol la mantuvo por debajo de tres segundos en las tres versiones de Python.

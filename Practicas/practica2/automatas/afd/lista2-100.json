@@ -1,0 +1,111 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-100",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1",
+    "a",
+    "b",
+    "c"
+  ],
+  "estados": [
+    "ini",
+    "letra",
+    "muerto",
+    "ok"
+  ],
+  "inicial": "ini",
+  "aceptacion": [
+    "ok"
+  ],
+  "delta": {
+    "ini": {
+      "0": [
+        "muerto"
+      ],
+      "1": [
+        "muerto"
+      ],
+      "a": [
+        "letra"
+      ],
+      "b": [
+        "letra"
+      ],
+      "c": [
+        "letra"
+      ]
+    },
+    "letra": {
+      "0": [
+        "ok"
+      ],
+      "1": [
+        "ok"
+      ],
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "muerto"
+      ],
+      "c": [
+        "muerto"
+      ]
+    },
+    "muerto": {
+      "0": [
+        "muerto"
+      ],
+      "1": [
+        "muerto"
+      ],
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "muerto"
+      ],
+      "c": [
+        "muerto"
+      ]
+    },
+    "ok": {
+      "0": [
+        "ok"
+      ],
+      "1": [
+        "ok"
+      ],
+      "a": [
+        "ok"
+      ],
+      "b": [
+        "ok"
+      ],
+      "c": [
+        "ok"
+      ]
+    }
+  },
+  "posiciones": {
+    "ini": [
+      100.0,
+      165.0
+    ],
+    "letra": [
+      270.0,
+      100.0
+    ],
+    "muerto": [
+      270.0,
+      230.0
+    ],
+    "ok": [
+      440.0,
+      165.0
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+# Ejercicio 5: una secuencia de eventos por línea (λ = secuencia vacía)
+λ
+l
+lv
+lvp
+lve
+lveax
+lvec
+lvecb
+lvecbl
+lveae
+lveaeax
+lp
+lc
+lvex
+v

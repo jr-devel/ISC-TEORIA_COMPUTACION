@@ -1,0 +1,50 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------------------
+%  Datos de la práctica
+% ---------------------------------------------------------------------
+\newcommand{\NumPractica}{1}
+\newcommand{\TituloPractica}{Operaciones Básicas sobre Lenguajes}
+\newcommand{\PracticaCorta}{Práctica \NumPractica}
+\newcommand{\Alumno}{Rico Espluga Juan Diego}
+\newcommand{\Boleta}{2025630474}
+\newcommand{\Grupo}{4CV4}
+\newcommand{\Docente}{Gabriel Hurtado Avilés}
+\newcommand{\FechaEntrega}{22 de septiembre de 2026}
+
+\input{preambulo}
+\addbibresource{referencias.bib}
+\nocite{gribkoff2013,lunabenoso2022,turing1936,mavridou2018,davis2019}
+
+\begin{document}
+\input{portada}
+
+\tableofcontents
+\clearpage
+
+\section{Objetivo}
+Aplicar los conceptos de la Unidad Temática I al diseño de autómatas finitos en JFLAP y al desarrollo de una aplicación con interfaz gráfica que implemente las operaciones básicas sobre cadenas y lenguajes, y construir el entorno de trabajo, con control de versiones y contenedores, que se usará el resto del curso.
+
+La práctica tiene cinco ejercicios: el primero prepara el entorno; el segundo y el tercero dan el sustento conceptual, y el cuarto y el quinto lo aplican. El código completo está en \texttt{src/} y \texttt{tests/}, los autómatas en \texttt{automatas/} y la versión en Markdown de este reporte en \texttt{docs/}.
+
+\input{secciones/01-entorno}
+\input{secciones/02-investigacion}
+\input{secciones/03-estado-del-arte}
+\input{secciones/04-jflap}
+\input{secciones/05-aplicacion}
+\input{secciones/conclusiones}
+
+\clearpage
+\printbibliography[title={Referencias}]
+
+\clearpage
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\renewcommand{\thesection}{\Alph{section}}
+\begingroup
+\singlespacing\small
+\setlength{\LTpre}{0.3em}\setlength{\LTpost}{0.3em}
+\input{secciones/anexo-a}
+\endgroup
+
+\end{document}

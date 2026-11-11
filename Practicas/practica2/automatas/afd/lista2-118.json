@@ -1,0 +1,98 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-118",
+  "tipo": "AFD",
+  "alfabeto": [
+    "a",
+    "b"
+  ],
+  "estados": [
+    "ini",
+    "a",
+    "muerto",
+    "a·a",
+    "ab",
+    "ab·a"
+  ],
+  "inicial": "ini",
+  "aceptacion": [
+    "ab·a"
+  ],
+  "delta": {
+    "ini": {
+      "a": [
+        "a"
+      ],
+      "b": [
+        "muerto"
+      ]
+    },
+    "a": {
+      "a": [
+        "a·a"
+      ],
+      "b": [
+        "a"
+      ]
+    },
+    "muerto": {
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "muerto"
+      ]
+    },
+    "a·a": {
+      "a": [
+        "a·a"
+      ],
+      "b": [
+        "ab"
+      ]
+    },
+    "ab": {
+      "a": [
+        "ab·a"
+      ],
+      "b": [
+        "ab"
+      ]
+    },
+    "ab·a": {
+      "a": [
+        "ab·a"
+      ],
+      "b": [
+        "ab"
+      ]
+    }
+  },
+  "posiciones": {
+    "ini": [
+      100.0,
+      165.0
+    ],
+    "a": [
+      270.0,
+      100.0
+    ],
+    "muerto": [
+      270.0,
+      230.0
+    ],
+    "a·a": [
+      440.0,
+      165.0
+    ],
+    "ab": [
+      610.0,
+      165.0
+    ],
+    "ab·a": [
+      780.0,
+      165.0
+    ]
+  }
+}

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-190" tipo="AFN">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="c0c0" inicial="si" aceptacion="no" x="100.0" y="295.0" />
+    <estado id="c0c1" inicial="no" aceptacion="no" x="270.0" y="165.0" />
+    <estado id="c1c0" inicial="no" aceptacion="no" x="270.0" y="295.0" />
+    <estado id="c1c1" inicial="no" aceptacion="no" x="270.0" y="425.0" />
+    <estado id="c0c2" inicial="no" aceptacion="no" x="440.0" y="165.0" />
+    <estado id="c2c0" inicial="no" aceptacion="no" x="440.0" y="295.0" />
+    <estado id="c2c1" inicial="no" aceptacion="no" x="440.0" y="425.0" />
+    <estado id="c0c3" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="c1c3" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="c3c0" inicial="no" aceptacion="no" x="610.0" y="360.0" />
+    <estado id="c3c2" inicial="no" aceptacion="no" x="610.0" y="490.0" />
+    <estado id="c0c4" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="c4c0" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+    <estado id="c4c1" inicial="no" aceptacion="no" x="780.0" y="360.0" />
+    <estado id="c4c3" inicial="no" aceptacion="no" x="780.0" y="490.0" />
+    <estado id="c0c5" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="c5c0" inicial="no" aceptacion="no" x="950.0" y="230.0" />
+    <estado id="c5c2" inicial="no" aceptacion="no" x="950.0" y="360.0" />
+    <estado id="c5c4" inicial="no" aceptacion="no" x="950.0" y="490.0" />
+    <estado id="c1c5" inicial="no" aceptacion="no" x="1120.0" y="100.0" />
+    <estado id="c5c1" inicial="no" aceptacion="no" x="1120.0" y="230.0" />
+    <estado id="c5c3" inicial="no" aceptacion="no" x="1120.0" y="360.0" />
+    <estado id="c5c5" inicial="no" aceptacion="si" x="1120.0" y="490.0" />
+    <estado id="c2c5" inicial="no" aceptacion="no" x="1290.0" y="295.0" />
+    <estado id="c3c5" inicial="no" aceptacion="no" x="1460.0" y="295.0" />
+    <estado id="c4c5" inicial="no" aceptacion="no" x="1630.0" y="295.0" />
+  </estados>
+  <delta>
+    <desde estado="c0c0">
+      <con simbolo="0">
+        <hacia>c0c0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>c0c0</hacia>
+        <hacia>c0c1</hacia>
+        <hacia>c1c0</hacia>
+        <hacia>c1c1</hacia>
+      </con>
+    </desde>
+    <desde estado="c0c1">
+      <con simbolo="0">
+        <hacia>c0c2</hacia>
+      </con>
+    </desde>
+    <desde estado="c1c0">
+      <con simbolo="1">
+        <hacia>c2c0</hacia>
+        <hacia>c2c1</hacia>
+      </con>
+    </desde>
+    <desde estado="c0c2">
+      <con simbolo="1">
+        <hacia>c0c3</hacia>
+        <hacia>c1c3</hacia>
+      </con>
+    </desde>
+    <desde estado="c2c0">
+      <con simbolo="0">
+        <hacia>c3c0</hacia>
+      </con>
+    </desde>
+    <desde estado="c2c1">
+      <con simbolo="0">
+        <hacia>c3c2</hacia>
+      </con>
+    </desde>
+    <desde estado="c0c3">
+      <con simbolo="0">
+        <hacia>c0c4</hacia>
+      </con>
+    </desde>
+    <desde estado="c3c0">
+      <con simbolo="1">
+        <hacia>c4c0</hacia>
+        <hacia>c4c1</hacia>
+      </con>
+    </desde>
+    <desde estado="c3c2">
+      <con simbolo="1">
+        <hacia>c4c3</hacia>
+      </con>
+    </desde>
+    <desde estado="c0c4">
+      <con simbolo="0">
+        <hacia>c0c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c4c0">
+      <con simbolo="0">
+        <hacia>c5c0</hacia>
+      </con>
+    </desde>
+    <desde estado="c4c1">
+      <con simbolo="0">
+        <hacia>c5c2</hacia>
+      </con>
+    </desde>
+    <desde estado="c4c3">
+      <con simbolo="0">
+        <hacia>c5c4</hacia>
+      </con>
+    </desde>
+    <desde estado="c0c5">
+      <con simbolo="0">
+        <hacia>c0c5</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>c0c5</hacia>
+        <hacia>c1c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c5c0">
+      <con simbolo="0">
+        <hacia>c5c0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>c5c0</hacia>
+        <hacia>c5c1</hacia>
+      </con>
+    </desde>
+    <desde estado="c5c2">
+      <con simbolo="1">
+        <hacia>c5c3</hacia>
+      </con>
+    </desde>
+    <desde estado="c5c4">
+      <con simbolo="0">
+        <hacia>c5c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c1c5">
+      <con simbolo="1">
+        <hacia>c2c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c5c1">
+      <con simbolo="0">
+        <hacia>c5c2</hacia>
+      </con>
+    </desde>
+    <desde estado="c5c3">
+      <con simbolo="0">
+        <hacia>c5c4</hacia>
+      </con>
+    </desde>
+    <desde estado="c5c5">
+      <con simbolo="0">
+        <hacia>c5c5</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>c5c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c2c5">
+      <con simbolo="0">
+        <hacia>c3c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c3c5">
+      <con simbolo="1">
+        <hacia>c4c5</hacia>
+      </con>
+    </desde>
+    <desde estado="c4c5">
+      <con simbolo="0">
+        <hacia>c5c5</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

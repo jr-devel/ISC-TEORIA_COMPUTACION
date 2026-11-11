@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-189" tipo="AFN">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="i" inicial="si" aceptacion="no" x="100.0" y="165.0" />
+    <estado id="c1" inicial="no" aceptacion="no" x="270.0" y="165.0" />
+    <estado id="c2" inicial="no" aceptacion="no" x="440.0" y="165.0" />
+    <estado id="c3" inicial="no" aceptacion="no" x="610.0" y="165.0" />
+    <estado id="u4" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="f" inicial="no" aceptacion="si" x="950.0" y="165.0" />
+    <estado id="d4" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+  </estados>
+  <delta>
+    <desde estado="i">
+      <con simbolo="0">
+        <hacia>i</hacia>
+        <hacia>c1</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>i</hacia>
+      </con>
+    </desde>
+    <desde estado="c1">
+      <con simbolo="0">
+        <hacia>c2</hacia>
+      </con>
+    </desde>
+    <desde estado="c2">
+      <con simbolo="1">
+        <hacia>c3</hacia>
+      </con>
+    </desde>
+    <desde estado="c3">
+      <con simbolo="0">
+        <hacia>u4</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>d4</hacia>
+      </con>
+    </desde>
+    <desde estado="u4">
+      <con simbolo="1">
+        <hacia>f</hacia>
+      </con>
+    </desde>
+    <desde estado="f">
+      <con simbolo="0">
+        <hacia>f</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>f</hacia>
+      </con>
+    </desde>
+    <desde estado="d4">
+      <con simbolo="0">
+        <hacia>f</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

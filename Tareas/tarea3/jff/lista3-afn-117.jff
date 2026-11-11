@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="f1:a*">
+      <x>112.2</x>
+      <y>194.8</y>
+      <initial />
+      <final />
+    </state>
+    <state id="1" name="f2:b*">
+      <x>290.8</x>
+      <y>194.8</y>
+      <final />
+    </state>
+    <state id="2" name="f3:a*">
+      <x>467.8</x>
+      <y>194.8</y>
+      <final />
+    </state>
+    <state id="3" name="f4:b*">
+      <x>646.2</x>
+      <y>194.8</y>
+      <final />
+    </state>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>2</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>2</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>b</read>
+    </transition>
+  </automaton>
+</structure>

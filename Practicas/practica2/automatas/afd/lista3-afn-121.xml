@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-afn-121" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="b0" inicial="si" aceptacion="si" x="100.0" y="165.0" />
+    <estado id="b1+0" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="b1" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="b2+0" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="b2" inicial="no" aceptacion="no" x="440.0" y="230.0" />
+  </estados>
+  <delta>
+    <desde estado="b0">
+      <con simbolo="0">
+        <hacia>b1+0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>b1</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>b1</hacia>
+      </con>
+    </desde>
+    <desde estado="b1+0">
+      <con simbolo="0">
+        <hacia>b2+0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>b2+0</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>b2+0</hacia>
+      </con>
+    </desde>
+    <desde estado="b1">
+      <con simbolo="0">
+        <hacia>b2+0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>b2</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>b2</hacia>
+      </con>
+    </desde>
+    <desde estado="b2+0">
+      <con simbolo="0">
+        <hacia>b0</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>b0</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>b0</hacia>
+      </con>
+    </desde>
+    <desde estado="b2">
+      <con simbolo="0">
+        <hacia>b0</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

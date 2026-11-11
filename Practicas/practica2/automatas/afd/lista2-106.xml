@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-106" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="λ" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="1" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="11" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="110" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="1101" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="11010" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="110100" inicial="no" aceptacion="no" x="1120.0" y="100.0" />
+    <estado id="1101001" inicial="no" aceptacion="si" x="1290.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="λ">
+      <con simbolo="0">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1">
+      <con simbolo="0">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>11</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="11">
+      <con simbolo="0">
+        <hacia>110</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>11</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="110">
+      <con simbolo="0">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1101</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1101">
+      <con simbolo="0">
+        <hacia>11010</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>11</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="11010">
+      <con simbolo="0">
+        <hacia>110100</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="110100">
+      <con simbolo="0">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1101001</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="1101001">
+      <con simbolo="0">
+        <hacia>1101001</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1101001</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1101001</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

@@ -1,0 +1,194 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-124",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1"
+  ],
+  "estados": [
+    "III",
+    "DIIa",
+    "IDDa",
+    "IIDa",
+    "DDDa",
+    "IIDr",
+    "DIDa",
+    "IDIr",
+    "DIDr",
+    "IIIr",
+    "DDIr",
+    "DDIa",
+    "DIIr"
+  ],
+  "inicial": "III",
+  "aceptacion": [
+    "DIIa",
+    "IDDa",
+    "IIDa",
+    "DDDa",
+    "DIDa",
+    "DDIa"
+  ],
+  "delta": {
+    "III": {
+      "0": [
+        "DIIa"
+      ],
+      "1": [
+        "IDDa"
+      ]
+    },
+    "DIIa": {
+      "0": [
+        "IIDa"
+      ],
+      "1": [
+        "DDDa"
+      ]
+    },
+    "IDDa": {
+      "0": [
+        "DDDa"
+      ],
+      "1": [
+        "IIDr"
+      ]
+    },
+    "IIDa": {
+      "0": [
+        "DIDa"
+      ],
+      "1": [
+        "IDIr"
+      ]
+    },
+    "DDDa": {
+      "0": [
+        "IDIr"
+      ],
+      "1": [
+        "DIDr"
+      ]
+    },
+    "IIDr": {
+      "0": [
+        "DIDa"
+      ],
+      "1": [
+        "IDIr"
+      ]
+    },
+    "DIDa": {
+      "0": [
+        "IIIr"
+      ],
+      "1": [
+        "DDIr"
+      ]
+    },
+    "IDIr": {
+      "0": [
+        "DDIa"
+      ],
+      "1": [
+        "IIIr"
+      ]
+    },
+    "DIDr": {
+      "0": [
+        "IIIr"
+      ],
+      "1": [
+        "DDIr"
+      ]
+    },
+    "IIIr": {
+      "0": [
+        "DIIa"
+      ],
+      "1": [
+        "IDDa"
+      ]
+    },
+    "DDIr": {
+      "0": [
+        "IDDa"
+      ],
+      "1": [
+        "DIIr"
+      ]
+    },
+    "DDIa": {
+      "0": [
+        "IDDa"
+      ],
+      "1": [
+        "DIIr"
+      ]
+    },
+    "DIIr": {
+      "0": [
+        "IIDa"
+      ],
+      "1": [
+        "DDDa"
+      ]
+    }
+  },
+  "posiciones": {
+    "III": [
+      100.0,
+      230.0
+    ],
+    "DIIa": [
+      270.0,
+      165.0
+    ],
+    "IDDa": [
+      270.0,
+      295.0
+    ],
+    "IIDa": [
+      440.0,
+      100.0
+    ],
+    "DDDa": [
+      440.0,
+      230.0
+    ],
+    "IIDr": [
+      440.0,
+      360.0
+    ],
+    "DIDa": [
+      610.0,
+      100.0
+    ],
+    "IDIr": [
+      610.0,
+      230.0
+    ],
+    "DIDr": [
+      610.0,
+      360.0
+    ],
+    "IIIr": [
+      780.0,
+      100.0
+    ],
+    "DDIr": [
+      780.0,
+      230.0
+    ],
+    "DDIa": [
+      780.0,
+      360.0
+    ],
+    "DIIr": [
+      950.0,
+      230.0
+    ]
+  }
+}

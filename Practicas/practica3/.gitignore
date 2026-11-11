@@ -1,0 +1,32 @@
+# Entornos virtuales
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Salidas que el programa vuelve a generar
+salidas/
+
+# Archivos auxiliares de LaTeX (el PDF sí se versiona)
+reporte/*.aux
+reporte/*.bbl
+reporte/*.bcf
+reporte/*.blg
+reporte/*.log
+reporte/*.out
+reporte/*.run.xml
+reporte/*.toc
+reporte/*.lof
+reporte/*.lot
+reporte/*.fls
+reporte/*.fdb_latexmk
+reporte/*.xdv
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Importante: los .jff NO se excluyen; son parte del entregable.

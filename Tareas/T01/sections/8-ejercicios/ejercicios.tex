@@ -1,0 +1,560 @@
+% ============================================================
+% Sección 8: Ejercicios (76 - 93)
+% ============================================================
+
+\noindent A lo largo de esta sección usamos las siguientes definiciones recursivas,
+válidas para todo $w \in \Sigma^*$ y $a \in \Sigma$:
+\[
+\begin{aligned}
+    &\text{Longitud:}      && |\lambda| = 0, && |wa| = |w| + 1, \\
+    &\text{Concatenación:} && u\lambda = u,  && u(wa) = (uw)a .
+\end{aligned}
+\]
+Toda cadena no vacía $v$ puede escribirse de forma única como $v = wa$ con
+$w \in \Sigma^*$ y $a \in \Sigma$; esto permite hacer inducción sobre la longitud.
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 76}
+
+\noindent\textit{Sea $\Sigma = \{0, 1\}$. Exhiba $\Sigma^n$ para $n = 2, 3, 4$.}
+
+\medskip
+\noindent\textbf{Solución.} $\Sigma^n$ contiene todas las cadenas binarias de
+longitud $n$. Las listamos en orden lexicográfico; por el teorema de la
+Sección 5 deben ser $2^n$ cadenas.
+
+\begin{align*}
+    \Sigma^2 &= \{00,\ 01,\ 10,\ 11\}, && |\Sigma^2| = 2^2 = 4, \\[4pt]
+    \Sigma^3 &= \{000,\ 001,\ 010,\ 011,\ 100,\ 101,\ 110,\ 111\}, && |\Sigma^3| = 2^3 = 8, \\[4pt]
+    \Sigma^4 &= \{0000,\ 0001,\ 0010,\ 0011,\ 0100,\ 0101,\ 0110,\ 0111, && \\
+    &\phantom{= \{} 1000,\ 1001,\ 1010,\ 1011,\ 1100,\ 1101,\ 1110,\ 1111\}, && |\Sigma^4| = 2^4 = 16.
+\end{align*}
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 77}
+
+\noindent\textit{Demuestra que $|uv| = |u| + |v|$ para cualesquiera dos cadenas $u$ y $v$.}
+
+\medskip
+\noindent\textbf{Demostración.} Fijamos $u \in \Sigma^*$ arbitraria y hacemos
+inducción sobre la longitud de $v$.
+
+\medskip
+\noindent\textbf{Base ($|v| = 0$, es decir $v = \lambda$).}
+\[
+|u\lambda| = |u| = |u| + 0 = |u| + |\lambda| .
+\]
+
+\noindent\textbf{Hipótesis inductiva.} Supongamos que $|uw| = |u| + |w|$ para toda
+cadena $w$ con $|w| = k$.
+
+\medskip
+\noindent\textbf{Paso inductivo.} Sea $v$ con $|v| = k + 1$. Entonces $v = wa$ con
+$|w| = k$ y $a \in \Sigma$. Usando las definiciones recursivas:
+\[
+|uv| = |u(wa)| = |(uw)a| = |uw| + 1
+\overset{\text{H.I.}}{=} |u| + |w| + 1
+= |u| + |wa| = |u| + |v| .
+\]
+Por el Principio de Inducción Matemática, $|uv| = |u| + |v|$ para todas
+$u, v \in \Sigma^*$. $\blacksquare$
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 78}
+
+\noindent\textit{Utiliza inducción para demostrar que $|u^n| = n|u|$ para cualquier
+    cadena $u$ y cualquier número natural $n$.}
+
+\medskip
+\noindent\textbf{Demostración.} La potencia de una cadena se define recursivamente
+como $u^0 = \lambda$ y $u^{n+1} = u^n u$. Hacemos inducción sobre $n$.
+
+\medskip
+\noindent\textbf{Base ($n = 0$).} $|u^0| = |\lambda| = 0 = 0 \cdot |u|$.
+
+\medskip
+\noindent\textbf{Hipótesis inductiva.} Supongamos que $|u^k| = k|u|$ para algún
+$k \geq 0$.
+
+\medskip
+\noindent\textbf{Paso inductivo.} Usando el Ejercicio 77:
+\[
+|u^{k+1}| = |u^k u| \overset{(77)}{=} |u^k| + |u|
+\overset{\text{H.I.}}{=} k|u| + |u| = (k+1)|u| .
+\]
+Por el Principio de Inducción Matemática, $|u^n| = n|u|$ para todo
+$n \in \mathbb{N}$. $\blacksquare$
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 79}
+
+\noindent\textit{El reverso de una cadena se define recursivamente como $a^R = a$ y
+    $(wa)^R = a\,w^R$ para todo $a \in \Sigma$ y $w \in \Sigma^*$. Utilizando esta
+    definición, demuestra que $(uv)^R = v^R u^R$ para todo $u, v \in \Sigma^*$.}
+
+\medskip
+\noindent\textbf{Demostración.} Completamos la definición con $\lambda^R = \lambda$
+(que es consistente con la dada: tomando $w = \lambda$ se tiene
+$a^R = (\lambda a)^R = a\lambda^R = a$). Fijamos $u \in \Sigma^*$ y hacemos
+inducción sobre $|v|$.
+
+\medskip
+\noindent\textbf{Base ($v = \lambda$).}
+\[
+(u\lambda)^R = u^R = \lambda\, u^R = \lambda^R u^R .
+\]
+
+\noindent\textbf{Hipótesis inductiva.} Supongamos que $(uw)^R = w^R u^R$ para toda
+$w$ con $|w| = k$.
+
+\medskip
+\noindent\textbf{Paso inductivo.} Sea $v = wa$ con $|w| = k$ y $a \in \Sigma$.
+Usando la definición de concatenación, la definición de reverso, la hipótesis
+inductiva y la asociatividad de la concatenación:
+\[
+(uv)^R = (u(wa))^R = ((uw)a)^R
+= a\,(uw)^R
+\overset{\text{H.I.}}{=} a\,(w^R u^R)
+= (a\,w^R)\,u^R
+= (wa)^R u^R
+= v^R u^R .
+\]
+Por el Principio de Inducción Matemática, $(uv)^R = v^R u^R$ para todas
+$u, v \in \Sigma^*$. $\blacksquare$
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 80}
+
+\noindent\textit{Dado el alfabeto $\Sigma = \{a, b\}$, determina $\Sigma^*$.}
+
+\medskip
+\noindent\textbf{Solución.} $\Sigma^*$ es el conjunto de todas las cadenas finitas
+sobre $\Sigma$, incluida la cadena vacía:
+\[
+\Sigma^* = \bigcup_{n \geq 0} \Sigma^n
+= \{\lambda,\ a,\ b,\ aa,\ ab,\ ba,\ bb,\ aaa,\ aab,\ aba,\ abb,\ baa,\ \dots\}.
+\]
+Es un conjunto infinito (numerable), aunque cada una de sus cadenas es finita.
+
+\medskip
+\noindent\textit{(a) Da un ejemplo de un lenguaje finito sobre $\Sigma$.}
+
+\medskip
+\noindent\textbf{Solución.} Cualquier subconjunto finito de $\Sigma^*$, por ejemplo
+\[
+L = \{a,\ ab,\ bba\} \subseteq \Sigma^*, \qquad |L| = 3 .
+\]
+
+\medskip
+\noindent\textit{(b) Dado el lenguaje $L = \{a^n b^n : n \geq 0\}$, determina si las
+    cadenas $aabb$, $aaaabbbb$ y $abb$ pertenecen a $L$.}
+
+\medskip
+\noindent\textbf{Solución.} Una cadena pertenece a $L$ si y sólo si es un bloque de
+$a$'s seguido de un bloque de $b$'s con la misma cantidad de símbolos.
+\begin{itemize}
+    \item $aabb = a^2 b^2$: $n = 2$. \quad $aabb \in L$.
+    \item $aaaabbbb = a^4 b^4$: $n = 4$. \quad $aaaabbbb \in L$.
+    \item $abb = a^1 b^2$: tiene una $a$ y dos $b$; como $1 \neq 2$, no es de la
+    forma $a^n b^n$. \quad $abb \notin L$.
+\end{itemize}
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 81}
+
+\noindent\textit{Dado el lenguaje $L = \{a^n b^n : n \geq 0\}$, calcula: (a) $L^2$,
+    (b) $L^R$.}
+
+\medskip
+\noindent\textbf{(a)} $L^2 = L \cdot L$ se forma concatenando dos cadenas de $L$,
+cuyos exponentes son independientes:
+\[
+L^2 = \{\, a^n b^n a^m b^m : n, m \geq 0 \,\}
+= \{\lambda,\ ab,\ aabb,\ abab,\ aaabbb,\ abaabb,\ aabbab,\ \dots\}.
+\]
+Nótese que $L \subseteq L^2$ (tomando $m = 0$), pues $\lambda \in L$; pero
+$L^2 \neq L$, ya que $abab \in L^2$ y $abab \notin L$.
+
+\medskip
+\noindent\textbf{(b)} Para cada $n$, $(a^n b^n)^R = b^n a^n$ (al invertir, el bloque
+de $b$'s queda al principio). Entonces
+\[
+L^R = \{\, b^n a^n : n \geq 0 \,\} = \{\lambda,\ ba,\ bbaa,\ bbbaaa,\ \dots\}.
+\]
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 82}
+
+\noindent\textit{Sea $L = \{ab, aa, baa\}$. ¿Cuáles de las siguientes cadenas
+    pertenecen a $L^*$?}
+
+\medskip
+\noindent\textbf{Solución.} Una cadena pertenece a $L^*$ si puede partirse en
+bloques, cada uno igual a $ab$, $aa$ o $baa$. Observemos que la descomposición
+está forzada: si el siguiente símbolo es $b$, el bloque sólo puede ser $baa$; si
+empieza con $a$, el bloque es $ab$ o $aa$ según el segundo símbolo.
+
+\begin{enumerate}
+    \item[(a)] $abaabaaabaa$:
+    \[
+    abaabaaabaa = (ab)(aa)(baa)(ab)(aa) \in L^* .
+    \]
+    \item[(b)] $aaaabaaaa$:
+    \[
+    aaaabaaaa = (aa)(aa)(baa)(aa) \in L^* .
+    \]
+    \item[(c)] $baaaaabaaaab$: aplicando la descomposición forzada,
+    \[
+    baaaaabaaaab = (baa)(aa)(ab)(aa)(aa)\ \underbrace{b}_{\notin L^*}
+    \]
+    Con detalle: el primer bloque debe ser $baa$, quedando $aaabaaaab$;
+    luego $aa$, quedando $abaaaab$; luego $ab$, quedando $aaaab$; luego $aa$,
+    quedando $aab$; luego $aa$, quedando $b$. La cadena $b$ no es
+    concatenación de palabras de $L$ (todas tienen longitud $\geq 2$). Como en
+    cada paso la elección era única, no existe ninguna descomposición válida:
+    \[
+    baaaaabaaaab \notin L^* .
+    \]
+    \item[(d)] $baaaaabaa$:
+    \[
+    baaaaabaa = (baa)(aa)(ab)(aa) \in L^* .
+    \]
+\end{enumerate}
+
+\noindent\textbf{Respuesta:} pertenecen a $L^*$ las cadenas (a), (b) y (d).
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 83}
+
+\noindent\textit{Dado el lenguaje $L = \{a^n b^{n+1} : n \geq 0\}$, ¿es cierto que
+    $L^* = L$ para este lenguaje en particular?}
+
+\medskip
+\noindent\textbf{Solución.} No. Tenemos
+$L = \{b,\ abb,\ aabbb,\ aaabbbb,\ \dots\}$. Basta un contraejemplo:
+\begin{itemize}
+    \item $\lambda \in L^*$ por definición ($L^0 = \{\lambda\}$), pero
+    $\lambda \notin L$, pues toda palabra de $L$ tiene al menos una $b$
+    (longitud $2n + 1 \geq 1$).
+    \item Incluso sin considerar $\lambda$: $bb = b \cdot b \in L^2 \subseteq L^*$,
+    pero $bb \notin L$, porque $bb = a^0 b^2$ y en $L$ el exponente $0$ de $a$
+    obliga a exactamente $0 + 1 = 1$ letra $b$.
+\end{itemize}
+Por lo tanto $L^* \neq L$ (se cumple $L \subsetneq L^*$).
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 84}
+
+\noindent\textit{Dadas las cadenas $u = a^2 b a^3 b^2$ y $v = b a b^2$, calcula lo
+    siguiente.}
+
+\medskip
+\noindent\textbf{Solución.} Escritas símbolo por símbolo: $u = aabaaabb$ y
+$v = babb$.
+
+\begin{enumerate}
+    \item[(a)] $uv = aabaaabb \cdot babb = aabaaabbbabb = a^2 b a^3 b^3 a b^2$.
+    \item[(b)] $vu = babb \cdot aabaaabb = babbaabaaabb = b a b^2 a^2 b a^3 b^2$.
+    \item[(c)] $v^2 = babb \cdot babb = babbbabb = b a b^3 a b^2$.
+    \item[(d)] $u^2 = aabaaabb \cdot aabaaabb = aabaaabbaabaaabb
+    = a^2 b a^3 b^2 a^2 b a^3 b^2$.
+    \item[(e)] $|u| = 2 + 1 + 3 + 2 = 8$.
+    \item[(f)] $|v| = 1 + 1 + 2 = 4$.
+    \item[(g)] $|uv| = |u| + |v| = 8 + 4 = 12$.
+    \item[(h)] $|vu| = |v| + |u| = 4 + 8 = 12$.
+    \item[(i)] $|v^2| = 2|v| = 2 \cdot 4 = 8$.
+    \item[(j)] $|u^2| = 2|u| = 2 \cdot 8 = 16$.
+\end{enumerate}
+
+\noindent Obsérvese que $uv \neq vu$, aunque $|uv| = |vu|$.
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 85}
+
+\noindent\textit{Demuestra que para cualquier par de cadenas $u$ y $v$ se cumple
+    que: (a) $|uv| = |u| + |v|$, \ (b) $|uv| = |vu|$.}
+
+\medskip
+\noindent\textbf{(a)} Sean $u = a_1 a_2 \cdots a_n$ y $v = b_1 b_2 \cdots b_m$ con
+$a_i, b_j \in \Sigma$, de modo que $|u| = n$ y $|v| = m$ (si $n = 0$ o $m = 0$ la
+cadena correspondiente es $\lambda$). Por definición de concatenación,
+\[
+uv = a_1 a_2 \cdots a_n\, b_1 b_2 \cdots b_m ,
+\]
+que tiene exactamente $n + m$ símbolos. Luego $|uv| = n + m = |u| + |v|$.
+(Una demostración formal por inducción sobre $|v|$ se dio en el
+Ejercicio 77.) $\blacksquare$
+
+\medskip
+\noindent\textbf{(b)} Aplicando el inciso (a) dos veces y la conmutatividad de la
+suma en $\mathbb{N}$:
+\[
+|uv| \overset{(a)}{=} |u| + |v| = |v| + |u| \overset{(a)}{=} |vu| . \qquad \blacksquare
+\]
+Nótese que la concatenación no es conmutativa ($uv \neq vu$ en general, como en el
+Ejercicio 84), pero la longitud sí lo es.
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 86}
+
+\noindent\textit{Dado el alfabeto $A = \{a, b, c\}$, encuentra $L^*$ para:}
+
+\medskip
+\noindent\textbf{(a)} $L = \{b^2\}$. Como $L^n = \{(b^2)^n\} = \{b^{2n}\}$,
+\[
+L^* = \bigcup_{n \geq 0} L^n = \{\, b^{2n} : n \geq 0 \,\}
+= \{\lambda,\ bb,\ bbbb,\ bbbbbb,\ \dots\},
+\]
+es decir, las cadenas formadas sólo por $b$'s con longitud par.
+
+\medskip
+\noindent\textbf{(b)} $L = \{a, b\}$. Toda cadena sobre $\{a,b\}$ es concatenación
+de sus símbolos, cada uno en $L$; por lo tanto
+\[
+L^* = \{a, b\}^* = \{\lambda,\ a,\ b,\ aa,\ ab,\ ba,\ bb,\ aaa,\ \dots\},
+\]
+todas las cadenas sobre $A$ que no contienen $c$.
+
+\medskip
+\noindent\textbf{(c)} $L = \{a, b, c^3\}$. Las palabras de $L^*$ se forman
+concatenando $a$, $b$ y $ccc$ en cualquier orden y cantidad; por ello las $c$
+siempre aparecen en grupos de tres consecutivos:
+\[
+L^* = \{\, w \in A^* : \text{cada bloque maximal de } c\text{'s en } w
+\text{ tiene longitud múltiplo de } 3 \,\}.
+\]
+Por ejemplo, $\lambda,\ a,\ b,\ ccc,\ abccc,\ cccccca \in L^*$, mientras que
+$cc,\ acb \notin L^*$.
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 87}
+
+\noindent\textit{Para el lenguaje $L = \{ab, c\}$ sobre el alfabeto
+    $A = \{a, b, c\}$, calcula: (a) $L^3$, (b) $L^{-2}$, (c) $L^0$.}
+
+\medskip
+\noindent\textbf{(a)} $L^3 = L \cdot L \cdot L$. Hay $2^3 = 8$ elecciones posibles
+(todas producen cadenas distintas):
+\[
+\begin{aligned}
+    L^3 = \{\, & ababab,\ ababc,\ abcab,\ abcc,\\
+    & cabab,\ cabc,\ ccab,\ ccc \,\}.
+\end{aligned}
+\]
+
+\medskip
+\noindent\textbf{(b)} La potencia negativa se interpreta con el lenguaje inverso
+(reflexión): $L^{-1} = L^R$ y $L^{-n} = (L^{-1})^n = (L^R)^n$. Como
+$L^R = \{ba, c\}$:
+\[
+L^{-2} = (L^R)^2 = \{ba, c\} \cdot \{ba, c\} = \{baba,\ bac,\ cba,\ cc\}.
+\]
+Comprobación con la propiedad $(A \cdot B)^R = B^R A^R$: $L^2 = \{abab,\ abc,\ cab,\ cc\}$
+y $(L^2)^R = \{baba,\ cba,\ bac,\ cc\}$, que coincide con $L^{-2}$.
+
+\medskip
+\noindent\textbf{(c)} Por definición, para cualquier lenguaje,
+\[
+L^0 = \{\lambda\}.
+\]
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 88}
+
+\noindent\textit{Dados los lenguajes $L_1 = \{a, ab, a^2\}$ y $L_2 = \{b^2, aba\}$
+    sobre el alfabeto $A = \{a, b\}$, determina: (a) $L_1L_2$, (b) $L_2L_2$.}
+
+\medskip
+\noindent\textbf{(a)} Concatenamos cada palabra de $L_1$ con cada palabra de $L_2$:
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\cdot$ & $bb$ & $aba$ \\
+        \hline
+        $a$  & $abb$  & $aaba$  \\
+        $ab$ & $abbb$ & $ababa$ \\
+        $aa$ & $aabb$ & $aaaba$ \\
+        \hline
+    \end{tabular}
+\end{center}
+\[
+L_1 L_2 = \{abb,\ aaba,\ abbb,\ ababa,\ aabb,\ aaaba\}
+= \{ab^2,\ a^2ba,\ ab^3,\ ababa,\ a^2b^2,\ a^3ba\}.
+\]
+
+\medskip
+\noindent\textbf{(b)}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|}
+        \hline
+        $\cdot$ & $bb$ & $aba$ \\
+        \hline
+        $bb$  & $bbbb$  & $bbaba$  \\
+        $aba$ & $ababb$ & $abaaba$ \\
+        \hline
+    \end{tabular}
+\end{center}
+\[
+L_2 L_2 = \{bbbb,\ bbaba,\ ababb,\ abaaba\}
+= \{b^4,\ b^2aba,\ abab^2,\ aba^2ba\}.
+\]
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 89}
+
+\noindent\textit{Dados $u = a^2 b$ y $v = b^3 a b$, encuentra: (a) $uvu$, (b)
+    $\lambda u$, $u\lambda$, $u\lambda v$.}
+
+\medskip
+\noindent\textbf{Solución.} $u = aab$ y $v = bbbab$.
+
+\medskip
+\noindent\textbf{(a)}
+\[
+uvu = aab \cdot bbbab \cdot aab = aabbbbabaab = a^2 b^4 a b a^2 b,
+\qquad |uvu| = 3 + 5 + 3 = 11 .
+\]
+
+\noindent\textbf{(b)} Como $\lambda$ es el elemento neutro de la concatenación:
+\[
+\lambda u = aab = a^2 b, \qquad
+u\lambda = aab = a^2 b, \qquad
+u\lambda v = uv = aab \cdot bbbab = aabbbbab = a^2 b^4 a b .
+\]
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 90}
+
+\noindent\textit{Dado el alfabeto $A = \{a, b, c\}$, determina si $L_1$, $L_2$, $L_3$
+    y $L_4$ son lenguajes sobre $A$, donde:}
+\[
+L_1 = \{a, aa, ab, ac, abc, cab\}, \quad
+L_2 = \{aba, aabaa\}, \quad
+L_3 = \{\ \}, \quad
+L_4 = \{a^i c b^i : i \geq 1\}.
+\]
+
+\medskip
+\noindent\textbf{Solución.} $L$ es un lenguaje sobre $A$ si y sólo si
+$L \subseteq A^*$, es decir, si todas sus palabras usan únicamente símbolos de $A$.
+\begin{itemize}
+    \item $L_1$: sus palabras sólo usan $a$, $b$ y $c$. \quad \textbf{Sí} es lenguaje
+    sobre $A$.
+    \item $L_2$: sus palabras sólo usan $a$ y $b$. \quad \textbf{Sí} es lenguaje sobre $A$.
+    \item $L_3 = \varnothing$: el conjunto vacío es subconjunto de cualquier conjunto,
+    en particular $\varnothing \subseteq A^*$. \quad \textbf{Sí} es lenguaje sobre
+    $A$ (el lenguaje vacío; no confundir con $\{\lambda\}$).
+    \item $L_4 = \{acb,\ aacbb,\ aaacbbb,\ \dots\}$: sus palabras sólo usan $a$, $b$ y
+    $c$. \quad \textbf{Sí} es lenguaje sobre $A$ (infinito).
+\end{itemize}
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 91}
+
+\noindent\textit{(a) Dados $L_1 = \{a^i b^j : i > j \geq 1\}$ y
+    $L_2 = \{a^i b^j : 1 \leq i < j\}$, encuentra $L_1 \cup L_2$.}
+
+\medskip
+\noindent\textbf{Solución.} Ambos lenguajes contienen cadenas $a^i b^j$ con
+$i, j \geq 1$; en $L_1$ hay más $a$'s que $b$'s y en $L_2$ hay más $b$'s que $a$'s.
+Para $i, j \geq 1$, se cumple $i > j$ o $i < j$ exactamente cuando $i \neq j$. Por lo
+tanto
+\[
+L_1 \cup L_2 = \{\, a^i b^j : i, j \geq 1,\ i \neq j \,\}.
+\]
+Por ejemplo, $aab,\ abb \in L_1 \cup L_2$, pero $ab,\ aabb \notin L_1 \cup L_2$.
+
+\medskip
+\noindent\textit{(b) Dados $L_3 = \{a^i b^i c^j : i, j \geq 1\}$ y
+    $L_4 = \{a^i b^j c^j : i, j \geq 1\}$, encuentra $L_3 \cap L_4$.}
+
+\medskip
+\noindent\textbf{Solución.} Sea $w \in L_3 \cap L_4$. Entonces
+$w = a^i b^i c^j = a^p b^q c^q$ con $i, j, p, q \geq 1$. Como la cadena es un bloque
+de $a$'s, seguido de uno de $b$'s y uno de $c$'s, las longitudes de los bloques
+coinciden: $i = p$, $i = q$ y $j = q$. Así $i = j$ y $w = a^n b^n c^n$ con
+$n \geq 1$. Recíprocamente, toda $a^n b^n c^n$ con $n \geq 1$ está en $L_3$
+($i = j = n$) y en $L_4$. Por lo tanto
+\[
+L_3 \cap L_4 = \{\, a^n b^n c^n : n \geq 1 \,\} = \{abc,\ aabbcc,\ aaabbbccc,\ \dots\}.
+\]
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 92}
+
+\noindent\textit{Dados $L_1$ como el lenguaje del inglés y $L_2$ como el lenguaje del
+    francés, ¿qué significan (a) $L_1 \cup L_2$ y (b) $L_1 \cap L_2$?}
+
+\medskip
+\noindent\textbf{Solución.} Considerando cada idioma como el conjunto de sus
+palabras válidas:
+\begin{enumerate}
+    \item[(a)] $L_1 \cup L_2$ es el conjunto de todas las palabras que son válidas en
+    inglés \emph{o} en francés (o en ambos). Por ejemplo, \textit{house},
+    \textit{maison} y \textit{table} pertenecen a la unión.
+    \item[(b)] $L_1 \cap L_2$ es el conjunto de las palabras que son válidas tanto en
+    inglés \emph{como} en francés, por ejemplo palabras prestadas o
+    compartidas como \textit{restaurant}, \textit{ballet}, \textit{menu},
+    \textit{table} o \textit{question}. En cambio, \textit{house} y
+    \textit{maison} no pertenecen a la intersección.
+\end{enumerate}
+
+% ------------------------------------------------------------
+\subsection*{Ejercicio 93}
+
+\noindent\textit{Sea $A = \{a, b\}$ y $B = \{b, c, d\}$. Definimos los lenguajes}
+\[
+\begin{aligned}
+    L_1 &= \{a^i b^j \mid i \geq 1,\ j \geq 1\}, &
+    L_2 &= \{b^i c^j \mid i \geq j \geq 1\}, \\
+    L_3 &= \{a^i b^j c^i d^j \mid i \geq 1,\ j \geq 1\}, &
+    L_4 &= \{(ad)^i a^j d^j \mid i \geq 2,\ j \geq 1\}.
+\end{aligned}
+\]
+\noindent\textit{Determine si las afirmaciones son verdaderas o falsas.}
+
+\medskip
+\noindent\textbf{Solución.} Primero calculamos los alfabetos involucrados:
+\[
+A \cup B = \{a, b, c, d\}, \quad
+A \cap B = \{b\}, \quad
+A \oplus B = \{a, c, d\}, \quad
+A - B = \{a\}, \quad
+B - A = \{c, d\}.
+\]
+Los símbolos que efectivamente aparecen en cada lenguaje son:
+\[
+L_1: \{a, b\}, \qquad L_2: \{b, c\}, \qquad L_3: \{a, b, c, d\}, \qquad L_4: \{a, d\}.
+\]
+Un lenguaje $L$ es lenguaje sobre $\Gamma$ si $L \subseteq \Gamma^*$, es decir, si todos
+los símbolos que aparecen en $L$ pertenecen a $\Gamma$. Además, toda palabra de
+$L_1$ comienza con $a$ y toda palabra de $L_2$ comienza con $b$, por lo que
+$L_1 \cap L_2 = \varnothing$; y el lenguaje vacío es lenguaje sobre cualquier
+alfabeto.
+
+\begin{center}
+    \renewcommand{\arraystretch}{1.25}
+    \begin{tabular}{|c|l|c|l|}
+        \hline
+        \textbf{Inciso} & \textbf{Afirmación} & \textbf{Valor} & \textbf{Justificación} \\
+        \hline
+        (a) & $L_1$ sobre $A$ & V & $\{a,b\} \subseteq A$ \\
+        (b) & $L_1$ sobre $B$ & F & $a \notin B$ (p.\ ej.\ $ab \in L_1$) \\
+        (c) & $L_2$ sobre $A \cup B$ & V & $\{b,c\} \subseteq \{a,b,c,d\}$ \\
+        (d) & $L_2$ sobre $A \cap B$ & F & $c \notin \{b\}$ (p.\ ej.\ $bc \in L_2$) \\
+        (e) & $L_3$ sobre $A \cup B$ & V & $\{a,b,c,d\} \subseteq A \cup B$ \\
+        (f) & $L_3$ sobre $A \cap B$ & F & $a, c, d \notin \{b\}$ \\
+        (g) & $L_4$ sobre $A \oplus B$ & V & $\{a,d\} \subseteq \{a,c,d\}$ \\
+        (h) & $L_1$ sobre $A - B$ & F & $b \notin \{a\}$ \\
+        (i) & $L_1$ sobre $B - A$ & F & $a, b \notin \{c,d\}$ \\
+        (j) & $L_1 \cup L_2$ sobre $A$ & F & $c \notin A$ (p.\ ej.\ $bc \in L_2$) \\
+        (k) & $L_1 \cup L_2$ sobre $A \cup B$ & V & $\{a,b,c\} \subseteq A \cup B$ \\
+        (l) & $L_1 \cup L_2$ sobre $A \cap B$ & F & $a, c \notin \{b\}$ \\
+        (m) & $L_1 \cap L_2$ sobre $B$ & V & $L_1 \cap L_2 = \varnothing \subseteq B^*$ \\
+        (n) & $L_1 \cap L_2$ sobre $A \cup B$ & V & $\varnothing \subseteq (A \cup B)^*$ \\
+        (o) & $L_1 \cap L_2$ sobre $A \cap B$ & V & $\varnothing \subseteq \{b\}^*$ \\
+        \hline
+    \end{tabular}
+\end{center}

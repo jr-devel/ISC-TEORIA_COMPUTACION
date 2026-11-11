@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-134" tipo="AFD">
+  <alfabeto>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+    <simbolo>c</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="λ" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="a" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="ab" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="aba" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="abac" inicial="no" aceptacion="si" x="780.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="λ">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="a">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="ab">
+      <con simbolo="a">
+        <hacia>aba</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>λ</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="aba">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>abac</hacia>
+      </con>
+    </desde>
+    <desde estado="abac">
+      <con simbolo="a">
+        <hacia>abac</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abac</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>abac</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-144d" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+    <simbolo>3</simbolo>
+    <simbolo>4</simbolo>
+    <simbolo>5</simbolo>
+    <simbolo>6</simbolo>
+    <simbolo>7</simbolo>
+    <simbolo>8</simbolo>
+    <simbolo>9</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="ini" inicial="si" aceptacion="no" x="100.0" y="165.0" />
+    <estado id="cero" inicial="no" aceptacion="si" x="270.0" y="100.0" />
+    <estado id="ok" inicial="no" aceptacion="si" x="270.0" y="230.0" />
+    <estado id="muerto" inicial="no" aceptacion="no" x="440.0" y="165.0" />
+  </estados>
+  <delta>
+    <desde estado="ini">
+      <con simbolo="0">
+        <hacia>cero</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="3">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="4">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="5">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="6">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="7">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="8">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="9">
+        <hacia>ok</hacia>
+      </con>
+    </desde>
+    <desde estado="cero">
+      <con simbolo="0">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="3">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="4">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="5">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="6">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="7">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="8">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="9">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="ok">
+      <con simbolo="0">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="3">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="4">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="5">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="6">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="7">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="8">
+        <hacia>ok</hacia>
+      </con>
+      <con simbolo="9">
+        <hacia>ok</hacia>
+      </con>
+    </desde>
+    <desde estado="muerto">
+      <con simbolo="0">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="3">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="4">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="5">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="6">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="7">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="8">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="9">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

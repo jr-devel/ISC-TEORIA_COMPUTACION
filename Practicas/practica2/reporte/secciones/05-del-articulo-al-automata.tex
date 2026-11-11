@@ -1,0 +1,208 @@
+\hypertarget{ejercicio-5.-del-artuxedculo-al-autuxf3mata}{%
+\section{Ejercicio 5. Del artículo al autómata}\label{ejercicio-5.-del-artuxedculo-al-autuxf3mata}}
+
+\hypertarget{la-aplicaciuxf3n-elegida}{%
+\subsection{La aplicación elegida}\label{la-aplicaciuxf3n-elegida}}
+
+Se eligió el comportamiento de los fantasmas de Pac-Man de \textcite[sec.~4, fig.~3]{gribkoff2013}. El documento lo describe como un AFD de cuatro estados ---\emph{Wander the Maze}, \emph{Chase Pac-Man}, \emph{Flee Pac-Man} y \emph{Return to Base}--- cuyas transiciones dependen de lo que pasa en el juego: ver o perder a Pac-Man, que Pac-Man coma una píldora de poder, que el poder expire, que el fantasma sea comido y que sus ojos lleguen a la base. \textcite[cap. 9]{bourg2004} usa el mismo ejemplo para introducir las máquinas de estados finitos en videojuegos. El enunciado pide ampliarlo con al menos dos estados y dos eventos.
+
+\textbf{Ampliación.} El modelo original omite dos fases que cualquier jugador observa: el fantasma \emph{empieza dentro de la casa central} y sale cuando un temporizador lo libera, y cuando el poder está por terminar el fantasma asustado \emph{parpadea} como advertencia antes de volver a ser peligroso. Se agregan los estados \textbf{Casa} y \textbf{Titilar} y los eventos \textbf{l} (liberación) y \textbf{a} (aviso). Con ello cambian dos transiciones del original: los ojos ya no vuelven directamente a vagar, sino a la casa, de donde salen al ser liberados; y el miedo ya no termina de golpe, sino pasando por Titilar.
+
+\hypertarget{definiciuxf3n-formal}{%
+\subsection{Definición formal}\label{definiciuxf3n-formal}}
+
+M = (Q, Σ, δ, Casa, F) con:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8000}}@{}}
+\caption{Estados del modelo.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Estado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Qué representa
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Estado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Qué representa
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Casa} (inicial) & Espera dentro de la casa central; no persigue ni puede ser comido. \emph{Nuevo.} \\
+\textbf{Vagar} & Recorre el laberinto sin haber visto a Pac-Man (\emph{Wander the Maze}). \\
+\textbf{Perseguir} & Ve a Pac-Man y lo sigue (\emph{Chase Pac-Man}). \\
+\textbf{Huir} & Está asustado: Pac-Man comió una píldora de poder (\emph{Flee Pac-Man}). \\
+\textbf{Titilar} & Sigue asustado, pero el poder está por terminar; parpadea. \emph{Nuevo.} \\
+\textbf{Regresar} & Pac-Man se lo comió; sólo los ojos vuelven a la casa (\emph{Return to Base}). \\
+\end{longtable}
+
+\textbf{Alfabeto.} Antes de dibujar hay que decidir qué es un símbolo. Aquí cada símbolo es un \textbf{evento del juego} que el fantasma percibe, no una tecla ni un instante de tiempo; una cadena es la bitácora de eventos de una partida, en orden.
+
+\begin{longtable}[]{@{}cl@{}}
+\caption{Alfabeto Σ = \{l, v, p, e, a, x, c, b\}.}\tabularnewline
+\toprule\noalign{}
+Símbolo & Evento \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+Símbolo & Evento \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+l & El temporizador libera al fantasma de la casa. \emph{Nuevo.} \\
+v & El fantasma ve a Pac-Man. \\
+p & El fantasma pierde de vista a Pac-Man. \\
+e & Pac-Man come una píldora de poder. \\
+a & Aviso: al poder le quedan pocos segundos. \emph{Nuevo.} \\
+x & El poder expira. \\
+c & Pac-Man se come al fantasma. \\
+b & Los ojos llegan a la casa. \\
+\end{longtable}
+
+\textbf{Función de transición.} Un evento que no altera el comportamiento en un estado deja al fantasma donde está (por ejemplo, ver a Pac-Man mientras huye). Un evento que \textbf{no puede ocurrir} en un estado no tiene transición: no se puede perder de vista a quien no se ha visto (p en Vagar), comer a un fantasma que no está asustado (c en Vagar o Perseguir) ni que el poder expire sin el aviso previo (x en Huir).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1111}}@{}}
+\caption{Función de transición (--- = el evento no puede ocurrir en ese estado).}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+δ
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+l
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+v
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+e
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+a
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+x
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+c
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+b
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+δ
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+l
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+v
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+p
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+e
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+a
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+x
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+c
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+b
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+→ Casa & Vagar & --- & --- & Casa & Casa & Casa & --- & --- \\
+* Vagar & --- & Perseguir & --- & Huir & Vagar & Vagar & --- & --- \\
+* Perseguir & --- & Perseguir & Vagar & Huir & Perseguir & Perseguir & --- & --- \\
+Huir & --- & Huir & Huir & Huir & Titilar & --- & Regresar & --- \\
+Titilar & --- & Titilar & Titilar & Huir & --- & Vagar & Regresar & --- \\
+Regresar & --- & Regresar & Regresar & Regresar & Regresar & Regresar & --- & Casa \\
+\end{longtable}
+
+\textbf{Aceptación.} F = \{Vagar, Perseguir\}: se aceptan las bitácoras que dejan al fantasma \textbf{peligroso para Pac-Man}. Es un AFD con δ parcial; una bitácora imposible deja vacío el conjunto de estados activos y se rechaza.
+
+El modelo está en \texttt{automatas/aplicacion/fantasma-pacman.jff} (y \texttt{.json}, \texttt{.xml}); se cargó en la Biblioteca y se validó en el Simulador.
+
+\evidencia[0.95]{../evidencias/jflap/fantasma-pacman.png}{El autómata del fantasma en JFLAP.}
+
+\evidencia[0.95]{../evidencias/app/05-fantasma-simulador.png}{El mismo autómata en el simulador propio, validando \texttt{lveax} paso
+a paso.}
+
+\hypertarget{cadenas-de-prueba}{%
+\subsection{Cadenas de prueba}\label{cadenas-de-prueba}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.5000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1250}}@{}}
+\caption{Quince cadenas de prueba (\texttt{automatas/aplicacion/pruebas.txt}, verificadas en \texttt{tests/test\_aplicacion.py}).}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Bitácora
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Esperado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Obtenido
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Estado final
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Bitácora
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Significado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Esperado
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Obtenido
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Estado final
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+λ & Nada ha ocurrido: el fantasma sigue en la casa & rechaza & rechaza & Casa \\
+\texttt{l} & Sale de la casa & acepta & acepta & Vagar \\
+\texttt{lv} & Ve a Pac-Man & acepta & acepta & Perseguir \\
+\texttt{lvp} & Lo pierde & acepta & acepta & Vagar \\
+\texttt{lve} & Pac-Man come una píldora & rechaza & rechaza & Huir \\
+\texttt{lveax} & Aviso y fin del poder & acepta & acepta & Vagar \\
+\texttt{lvec} & Pac-Man se lo come & rechaza & rechaza & Regresar \\
+\texttt{lvecb} & Los ojos llegan a la casa & rechaza & rechaza & Casa \\
+\texttt{lvecbl} & Se regenera y sale de nuevo & acepta & acepta & Vagar \\
+\texttt{lveae} & Otra píldora mientras titila & rechaza & rechaza & Huir \\
+\texttt{lveaeax} & La segunda píldora también expira & acepta & acepta & Vagar \\
+\texttt{lp} & Perder a quien no ha visto & rechaza (imposible) & rechaza & ∅ \\
+\texttt{lc} & Comer a un fantasma no asustado & rechaza (imposible) & rechaza & ∅ \\
+\texttt{lvex} & El poder expira sin aviso & rechaza (imposible) & rechaza & ∅ \\
+\texttt{v} & Ver a Pac-Man desde la casa & rechaza (imposible) & rechaza & ∅ \\
+\end{longtable}
+
+\hypertarget{la-abstracciuxf3n}{%
+\subsection{La abstracción}\label{la-abstracciuxf3n}}
+
+El modelo captura con exactitud \textbf{el orden en que pueden ocurrir los cambios de comportamiento} del fantasma y, con ello, una propiedad útil para el diseño del juego: después de cualquier bitácora, sabemos si el fantasma puede dañar a Pac-Man, y sabemos qué secuencias de eventos son incoherentes (un fantasma comido sin haber estado asustado delataría un error en el motor del juego). También muestra por qué el original necesitaba ampliarse: con cuatro estados, un fantasma recién comido volvía a vagar sin pasar por la casa, algo que no ocurre en el juego.
+
+Deja fuera casi todo lo que hace interesante al juego. No hay \textbf{posiciones} ni laberinto: «ver a Pac-Man» es un evento atómico, cuando en el juego depende de la geometría. No hay \textbf{tiempo}: el aviso y la expiración son eventos, no cuentas regresivas, y el modelo no puede expresar «el poder dura seis segundos» sin un estado por cada tic. No distingue entre los \textbf{cuatro fantasmas}, que en el juego tienen estrategias de persecución distintas, ni modela la \textbf{dispersión} periódica en la que los fantasmas se retiran a las esquinas. Tampoco hay \textbf{salidas}: un AFD sólo acepta o rechaza, de modo que la acción del fantasma (hacia dónde moverse) tendría que modelarse con una máquina de Mealy o de Moore. Esos límites no son defectos del diseño sino del modelo: un autómata finito tiene memoria acotada y sin salida, y cualquier cosa que dependa de cantidades no acotadas o de producir respuestas exige otro modelo.

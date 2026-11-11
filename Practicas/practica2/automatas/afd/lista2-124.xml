@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-124" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="III" inicial="si" aceptacion="no" x="100.0" y="230.0" />
+    <estado id="DIIa" inicial="no" aceptacion="si" x="270.0" y="165.0" />
+    <estado id="IDDa" inicial="no" aceptacion="si" x="270.0" y="295.0" />
+    <estado id="IIDa" inicial="no" aceptacion="si" x="440.0" y="100.0" />
+    <estado id="DDDa" inicial="no" aceptacion="si" x="440.0" y="230.0" />
+    <estado id="IIDr" inicial="no" aceptacion="no" x="440.0" y="360.0" />
+    <estado id="DIDa" inicial="no" aceptacion="si" x="610.0" y="100.0" />
+    <estado id="IDIr" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="DIDr" inicial="no" aceptacion="no" x="610.0" y="360.0" />
+    <estado id="IIIr" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="DDIr" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+    <estado id="DDIa" inicial="no" aceptacion="si" x="780.0" y="360.0" />
+    <estado id="DIIr" inicial="no" aceptacion="no" x="950.0" y="230.0" />
+  </estados>
+  <delta>
+    <desde estado="III">
+      <con simbolo="0">
+        <hacia>DIIa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>IDDa</hacia>
+      </con>
+    </desde>
+    <desde estado="DIIa">
+      <con simbolo="0">
+        <hacia>IIDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DDDa</hacia>
+      </con>
+    </desde>
+    <desde estado="IDDa">
+      <con simbolo="0">
+        <hacia>DDDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>IIDr</hacia>
+      </con>
+    </desde>
+    <desde estado="IIDa">
+      <con simbolo="0">
+        <hacia>DIDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>IDIr</hacia>
+      </con>
+    </desde>
+    <desde estado="DDDa">
+      <con simbolo="0">
+        <hacia>IDIr</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DIDr</hacia>
+      </con>
+    </desde>
+    <desde estado="IIDr">
+      <con simbolo="0">
+        <hacia>DIDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>IDIr</hacia>
+      </con>
+    </desde>
+    <desde estado="DIDa">
+      <con simbolo="0">
+        <hacia>IIIr</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DDIr</hacia>
+      </con>
+    </desde>
+    <desde estado="IDIr">
+      <con simbolo="0">
+        <hacia>DDIa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>IIIr</hacia>
+      </con>
+    </desde>
+    <desde estado="DIDr">
+      <con simbolo="0">
+        <hacia>IIIr</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DDIr</hacia>
+      </con>
+    </desde>
+    <desde estado="IIIr">
+      <con simbolo="0">
+        <hacia>DIIa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>IDDa</hacia>
+      </con>
+    </desde>
+    <desde estado="DDIr">
+      <con simbolo="0">
+        <hacia>IDDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DIIr</hacia>
+      </con>
+    </desde>
+    <desde estado="DDIa">
+      <con simbolo="0">
+        <hacia>IDDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DIIr</hacia>
+      </con>
+    </desde>
+    <desde estado="DIIr">
+      <con simbolo="0">
+        <hacia>IIDa</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>DDDa</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

@@ -1,0 +1,51 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------------------
+%  Datos de la práctica
+% ---------------------------------------------------------------------
+\newcommand{\NumPractica}{2}
+\newcommand{\TituloPractica}{Autómatas Finitos No Deterministas (AFND) y Simulación de AFD con Interfaz Gráfica}
+\newcommand{\PracticaCorta}{Práctica \NumPractica}
+\newcommand{\Alumno}{Rico Espluga Juan Diego}
+\newcommand{\Boleta}{2025630474}
+\newcommand{\Grupo}{4CV4}
+\newcommand{\Docente}{Gabriel Hurtado Avilés}
+\newcommand{\FechaEntrega}{6 de octubre de 2026}
+
+\input{preambulo}
+\addbibresource{referencias.bib}
+
+
+\begin{document}
+\input{portada}
+
+\tableofcontents
+\clearpage
+
+\section{Objetivo}
+Profundizar en los autómatas finitos no deterministas y sus conversiones mediante JFLAP, desarrollar una aplicación gráfica que defina, importe y simule autómatas en varios formatos, y trasladar a un modelo formal propio una aplicación descrita en la literatura.
+
+La práctica tiene cinco ejercicios y continúa la forma de trabajo de la Práctica 1. Las fichas completas de los 140 autómatas y el recorrido de cada cadena de prueba están en \texttt{docs/fichas.md} y \texttt{docs/recorridos/}; este documento incluye la clasificación, las cerraduras λ y las conversiones como anexos.
+
+\input{secciones/01-entorno}
+\input{secciones/02-jflap}
+\input{secciones/03-simulador}
+\input{secciones/04-investigacion}
+\input{secciones/05-del-articulo-al-automata}
+\input{secciones/propuesta}
+\input{secciones/conclusiones}
+
+\clearpage
+\printbibliography[title={Referencias}]
+
+\clearpage
+\appendix
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\renewcommand{\thesection}{\Alph{section}}
+\begingroup
+\singlespacing\small
+\setlength{\LTpre}{0.3em}\setlength{\LTpost}{0.3em}
+\input{secciones/anexos}
+\endgroup
+
+\end{document}

@@ -1,0 +1,92 @@
+\hypertarget{ejercicio-1.-entorno-de-trabajo-y-flujo-de-ramas}{%
+\section{Ejercicio 1. Entorno de trabajo y flujo de ramas}\label{ejercicio-1.-entorno-de-trabajo-y-flujo-de-ramas}}
+
+\hypertarget{lo-que-se-reutiliza}{%
+\subsection{Lo que se reutiliza}\label{lo-que-se-reutiliza}}
+
+El repositorio \texttt{practica2-tc} parte de la Práctica 1: la carpeta \texttt{entorno/} (el \texttt{Dockerfile} parametrizado y el \texttt{compose.yml} con los servicios \texttt{py311}, \texttt{py312} y \texttt{py313}), \texttt{requirements.txt} y \texttt{pytest.ini}. Sólo cambian los nombres de los contenedores (\texttt{tc\_p2\_py311}, \ldots) para que puedan convivir con los de la práctica anterior.
+
+El módulo \texttt{src/nucleo/lenguajes.py}, junto con \texttt{errores.py} y sus pruebas (\texttt{tests/test\_lenguajes.py}), se copió \textbf{sin modificaciones} de la Práctica 1, como pide el enunciado; el \texttt{README} lo indica y enlaza el repositorio \texttt{practica1-tc}. La interfaz conserva las secciones \emph{Palabras}, \emph{Cerraduras} y \emph{Lenguajes} y agrega las de esta práctica.
+
+\hypertarget{una-rama-por-funcionalidad}{%
+\subsection{Una rama por funcionalidad}\label{una-rama-por-funcionalidad}}
+
+Ninguna confirmación se hizo directamente sobre \texttt{main}: cada funcionalidad se desarrolló en su rama y se integró con un Pull Request que describe el cambio y muestra el resultado de las pruebas. La rama \texttt{main} se protegió en \emph{Settings → Branches} para que GitHub rechace los \texttt{push} directos.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8000}}@{}}
+\caption{Ramas fusionadas.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Rama
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Qué integra
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Rama
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Qué integra
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{feature/entorno-ci} & Entorno copiado de la Práctica 1 y flujo de GitHub Actions. \\
+\texttt{feature/nucleo-automatas} & \texttt{automata.py}: \texttt{Automata}, \texttt{AFNLambda}, \texttt{AFN}, \texttt{AFD}, \texttt{Simulacion} y \texttt{Recorrido}, con sus pruebas. \\
+\texttt{feature/formatos} & \texttt{formatos.py}: serializadores \texttt{.jff}, \texttt{.json} y \texttt{.xml} y pruebas de ida y vuelta. \\
+\texttt{feature/editor} & Sección \emph{Editor}: quíntupla, tabla de transiciones y vista previa. \\
+\texttt{feature/biblioteca-simulador} & Secciones \emph{Biblioteca} y \emph{Simulador}, con la ejecución paso a paso. \\
+\texttt{feature/fantasma-pacman} & Ejercicio 5: el modelo del fantasma, sus archivos y sus pruebas. \\
+\texttt{feature/automatas-listas} & Los 140 autómatas de las Listas 2 y 3 en tres formatos y su prueba. \\
+\end{longtable}
+
+\hypertarget{integraciuxf3n-continua}{%
+\subsection{Integración continua}\label{integraciuxf3n-continua}}
+
+\texttt{.github/workflows/pruebas.yml} es el flujo del Anexo 2: en cada \texttt{push} y en cada Pull Request, la matriz crea tres trabajos independientes, uno por versión de Python, y \texttt{fail-fast:\ false} evita que el fallo de una versión cancele las otras \autocite{githubactions2026}. La suite tiene 404 pruebas aprobadas y 2 omitidas (las de secciones de prácticas posteriores):
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1875}}
+  >{\centering\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.6250}}@{}}
+\caption{Composición de la suite.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Archivo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Pruebas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Qué comprueba
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Archivo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+Pruebas
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Qué comprueba
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\texttt{test\_lenguajes.py} & 34 & Operaciones de la Práctica 1 (sin cambios). \\
+\texttt{test\_automata.py} & 34 & Clasificación, AFD, AFN, cerradura λ, simulación paso a paso y validación de la quíntupla. \\
+\texttt{test\_formatos.py} & 24 & Ida y vuelta en los tres formatos, lectura del esquema del Anexo 3 y archivos dañados. \\
+\texttt{test\_listas.py} & 281 & Cada autómata de las listas acepta sus válidas, rechaza sus inválidas y se lee igual en los tres formatos. \\
+\texttt{test\_aplicacion.py} & 20 & Modelo del Ejercicio 5 y sus quince cadenas. \\
+\texttt{test\_interfaz.py} & 13 & Cada sección se construye y responde sin abrir una ventana. \\
+\end{longtable}
+
+\evidencia[0.95]{../evidencias/git/git-log-graph.png}{\texttt{git\ log\ -\/-oneline\ -\/-graph\ -\/-all} con las fusiones de
+las ramas.}
+
+\evidencia[0.95]{../evidencias/git/pull-requests.png}{Pull Requests cerrados.}
+
+\evidencia[0.95]{../evidencias/ci/actions.png}{GitHub Actions: los tres trabajos de la matriz aprobados.}

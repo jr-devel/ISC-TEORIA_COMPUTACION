@@ -1,0 +1,647 @@
+%================================================================
+%  PREÁMBULO — REPORTES ESCOM · IPN
+%  Motor: XeLaTeX (o LuaLaTeX) + Biber
+%  Uso:   \input{preambulo} tras \documentclass[12pt]{article}
+%         y define \primertitulo / \segundotitulo para el encabezado.
+%================================================================
+
+%----------------------------------------------------------------
+% 1. COLORES (xcolor se carga primero para evitar choques)
+%----------------------------------------------------------------
+\usepackage[table,svgnames]{xcolor}
+
+% Identidad institucional
+\definecolor{ipnguinda}{RGB}{111,17,53}
+\definecolor{ipnguindaclaro}{RGB}{155,60,95}
+\definecolor{ipngray}{RGB}{90,90,90}
+\definecolor{ipngrisclaro}{RGB}{225,225,228}
+\definecolor{accent}{RGB}{0,90,160}
+\definecolor{ipnverde}{RGB}{30,120,70}
+\definecolor{ipnambar}{RGB}{190,120,0}
+
+% Código (tema claro)
+\definecolor{codebg}{RGB}{248,248,250}
+\definecolor{codefg}{RGB}{40,40,40}
+\definecolor{codeframe}{RGB}{218,218,224}
+\definecolor{codenum}{RGB}{160,160,168}
+\definecolor{codekw}{RGB}{0,92,197}
+\definecolor{codetype}{RGB}{111,66,193}
+\definecolor{codestr}{RGB}{34,134,58}
+\definecolor{codecom}{RGB}{120,128,138}
+\definecolor{codegray}{rgb}{0.95,0.95,0.95}
+
+% Terminal (tema oscuro)
+\definecolor{termbg}{RGB}{28,28,34}
+\definecolor{termbar}{RGB}{48,48,56}
+\definecolor{termtitle}{RGB}{170,170,180}
+\definecolor{termcmd}{RGB}{255,160,70}
+\definecolor{termout}{RGB}{125,220,145}
+\definecolor{bg-dark}{rgb}{0.2,0.2,0.2}
+\definecolor{fg-white}{rgb}{1,1,1}
+
+%----------------------------------------------------------------
+% 2. TIPOGRAFÍA
+%----------------------------------------------------------------
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+\IfFontExistsTF{Times New Roman}
+{\setmainfont{Times New Roman}}
+{\setmainfont{TeX Gyre Termes}}          % respaldo métrico idéntico
+\IfFontExistsTF{Consolas}
+{\setmonofont{Consolas}[Scale=MatchLowercase]}
+{\setmonofont{DejaVu Sans Mono}[Scale=MatchLowercase]}
+
+\usepackage{microtype}
+
+%----------------------------------------------------------------
+% 3. IDIOMA
+%----------------------------------------------------------------
+\usepackage[spanish, es-tabla, es-noshorthands]{babel}
+\usepackage{csquotes}
+
+%----------------------------------------------------------------
+% 4. PÁGINA Y ESPACIADO
+%----------------------------------------------------------------
+\usepackage{geometry}
+\geometry{
+    letterpaper,
+    left=2.5cm,
+    right=2.5cm,
+    top=2cm,
+    bottom=2cm,
+    includehead,
+    includefoot,
+    headheight=15pt,
+    headsep=14pt,
+    footskip=30pt
+}
+
+\usepackage{setspace}
+\onehalfspacing
+\usepackage[skip=0.6\baselineskip plus 2pt]{parskip}
+
+% Evita líneas viudas/huérfanas
+\clubpenalty=10000
+\widowpenalty=10000
+\displaywidowpenalty=10000
+\raggedbottom
+
+%----------------------------------------------------------------
+% 5. MATEMÁTICAS Y UNIDADES
+%----------------------------------------------------------------
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{amssymb}
+\usepackage{siunitx}
+\sisetup{
+    output-decimal-marker = {.},
+    group-separator       = {\,},
+    group-minimum-digits  = 4,
+    group-digits          = integer,
+    range-phrase          = { a },
+    list-final-separator  = { y },
+    list-pair-separator   = { y },
+    detect-all
+}
+
+%----------------------------------------------------------------
+% 6. FIGURAS Y TABLAS
+%----------------------------------------------------------------
+\usepackage{graphicx}
+\graphicspath{{./}{Imagenes/}{imagenes/}{img/}{figuras/}}
+\usepackage{float}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{caption}
+\usepackage{subcaption}
+
+% Leyendas estilo APA 7: etiqueta en negritas, título en cursiva abajo
+\captionsetup{
+    format=plain,
+    font={small,stretch=1.1},
+    labelfont={bf,color=ipnguinda},
+    textfont=it,
+    labelsep=newline,
+    justification=raggedright,
+    singlelinecheck=false,
+    skip=6pt
+}
+\captionsetup[table]{position=top}
+\captionsetup[sub]{labelsep=space, labelfont={bf}, textfont=normal, justification=centering}
+
+% Tablas más aireadas y con reglas en tono institucional
+\renewcommand{\arraystretch}{1.3}
+\setlength{\tabcolsep}{7pt}
+\setlength{\aboverulesep}{0pt}
+\setlength{\belowrulesep}{0pt}
+\setlength{\heavyrulewidth}{1pt}
+\setlength{\lightrulewidth}{0.5pt}
+
+% Columnas con ancho fijo y alineación: L{3cm}, C{2cm}, R{2cm}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+% Para tabularx: Y (izquierda) y Z (centrada) flexibles
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{Z}{>{\centering\arraybackslash}X}
+
+% Encabezado de tabla:  \encabezado \enc{Col 1} & \enc{Col 2} \\
+\newcommand{\encabezado}{\rowcolor{ipnguinda}}
+\newcommand{\enc}[1]{\textcolor{white}{\bfseries #1}}
+% Filas zebra: \zebra antes del tabular (usa \rowcolors de xcolor)
+\newcommand{\zebra}{\rowcolors{2}{white}{ipnguinda!5}}
+
+%----------------------------------------------------------------
+% 7. LISTAS
+%----------------------------------------------------------------
+\usepackage{enumitem}
+\setlist{itemsep=2pt, topsep=4pt, parsep=0pt, leftmargin=*}
+\setlist[itemize,1]{label=\textcolor{ipnguinda}{\small$\bullet$}}
+\setlist[itemize,2]{label=\textcolor{ipnguindaclaro}{\scriptsize$\blacktriangleright$}}
+\setlist[itemize,3]{label=\textcolor{ipngray}{\footnotesize$\circ$}}
+\setlist[enumerate,1]{label=\textcolor{ipnguinda}{\bfseries\arabic*.}}
+\setlist[enumerate,2]{label=\textcolor{ipnguindaclaro}{\bfseries\alph*)}}
+\setlist[enumerate,3]{label=\textcolor{ipngray}{\roman*.}}
+\setlist[description]{font=\color{ipnguinda}\bfseries, leftmargin=1.5em, labelindent=0pt, style=unboxed}
+
+%----------------------------------------------------------------
+% 8. CÓDIGO: listings + tcolorbox
+%----------------------------------------------------------------
+\usepackage{listings}
+\usepackage{appendix}
+\usepackage[most]{tcolorbox}
+\usepackage{mdframed}
+
+% --- Caracteres Unicode > U+00FF dentro de listings (XeLaTeX) ---
+% listings solo procesa los códigos 0–255; sin esto, los caracteres de
+% árboles (├ │ └ ─), flechas, comillas tipográficas, etc. salen desordenados.
+\makeatletter
+\newcommand\lstunicodechar[1]{%
+    \begingroup\lccode`\~="#1\relax
+    \lowercase{\endgroup\def~}{\lst@ProcessOther{\char"#1\relax}}%
+    \catcode"#1=\active
+}
+\newcommand\lstunicodelist{%
+    251C,2502,2514,2500,250C,2510,2518,252C,2534,253C,2524,% ├│└─┌┐┘┬┴┼┤
+    2550,2551,2554,2557,255A,255D,2560,2563,%                ═║╔╗╚╝╠╣
+    2190,2191,2192,2193,21D2,%                                ←↑→↓⇒
+    2026,201C,201D,2018,2019,2022,2013,2014,%                 …“”‘’•–—
+    2264,2265,2260%                                           ≤≥≠
+}
+\lst@AddToHook{SelectCharTable}{%
+    \@for\lstuni@item:=\lstunicodelist\do{\expandafter\lstunicodechar\expandafter{\lstuni@item}}%
+}
+\makeatother
+
+% --- Soporte UTF-8 (acentos, ñ, ¿¡) -----------------------------
+\lstdefinestyle{estilo_utf8}{
+    extendedchars=true,
+    keepspaces=true,
+    columns=fullflexible,
+    showstringspaces=false,
+    literate=
+    {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+    {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+    {ñ}{{\~n}}1 {Ñ}{{\~N}}1 {ü}{{\"u}}1 {Ü}{{\"U}}1
+    {¿}{{?`}}1  {¡}{{!`}}1  {°}{{\textdegree}}1
+}
+
+% --- Estilo base (tema claro) -----------------------------------
+\lstdefinestyle{estilo_base}{
+    style=estilo_utf8,
+    basicstyle=\ttfamily\small\color{codefg}\linespread{1.05}\selectfont,
+    keywordstyle=\color{codekw}\bfseries,
+    keywordstyle=[2]\color{codetype},
+    commentstyle=\color{codecom}\itshape,
+    stringstyle=\color{codestr},
+    identifierstyle=,
+    numbers=left,
+    numberstyle=\tiny\ttfamily\color{codenum},
+    stepnumber=1,
+    numbersep=9pt,
+    tabsize=4,
+    breaklines=true,
+    breakatwhitespace=true,
+    postbreak=\mbox{\textcolor{ipnguindaclaro}{$\hookrightarrow$}\space},
+    backgroundcolor=\color{codebg},
+    frame=single,
+    framerule=0.6pt,
+    rulecolor=\color{codeframe},
+    framesep=6pt,
+    xleftmargin=22pt,
+    xrightmargin=4pt,
+    aboveskip=10pt,
+    belowskip=10pt,
+    captionpos=b
+}
+
+% --- Estilos por lenguaje (mismos nombres de siempre) -----------
+\lstdefinestyle{cstyle}{
+    style=estilo_base,
+    language=C,
+    morekeywords=[2]{size_t,ssize_t,pid_t,uint8_t,uint16_t,uint32_t,uint64_t,
+        int8_t,int16_t,int32_t,int64_t,FILE,bool,pthread_t,sem_t,key_t,mqd_t},
+    morecomment=[l][\color{ipnguindaclaro}]{\#}
+}
+\lstdefinestyle{estilo_c}{style=cstyle}
+
+\lstdefinestyle{estilo_bash}{
+    style=estilo_base,
+    language=bash,
+    numbers=none,
+    xleftmargin=6pt,
+    morekeywords={sudo,apt,make,gcc,git,cd,ls,mkdir,rm,cp,mv,chmod,cat,grep,pip,python,python3}
+}
+
+\lstdefinestyle{estilo_make}{
+    style=estilo_base,
+    language=make,
+    tabsize=8
+}
+
+\lstdefinestyle{estilo_tree}{
+    style=estilo_base,
+    language={},
+    numbers=none,
+    xleftmargin=6pt,
+    basicstyle=\ttfamily\small\color{codefg}\linespread{1.0}\selectfont
+}
+
+% Estilos adicionales frecuentes
+\lstdefinestyle{estilo_python}{style=estilo_base, language=Python}
+\lstdefinestyle{estilo_sql}{style=estilo_base, language=SQL, morekeywords={REFERENCES,SERIAL,VARCHAR,BOOLEAN,TIMESTAMP}}
+\lstdefinelanguage{JavaScript}{
+    keywords={break,case,catch,class,const,continue,default,do,else,export,
+        extends,finally,for,from,function,if,import,in,instanceof,let,new,
+        return,switch,this,throw,try,typeof,var,while,async,await,of,null,
+        true,false,undefined},
+    sensitive=true,
+    comment=[l]{//},
+    morecomment=[s]{/*}{*/},
+    morestring=[b]', morestring=[b]", morestring=[b]`
+}
+\lstdefinestyle{estilo_js}{style=estilo_base, language=JavaScript}
+\lstdefinelanguage{HTML5}[]{HTML}{
+    morekeywords={header,nav,main,section,article,footer,aside,figure,
+        template,canvas,video,audio,source,svg,button,input,label},
+    sensitive=false
+}
+\lstdefinestyle{estilo_html}{style=estilo_base, language=HTML5}
+
+\lstset{style=estilo_base}
+
+% --- Estilo "limpio" para listings dentro de tcolorbox ------------
+\lstdefinestyle{estilo_terminal}{
+    style=estilo_utf8,
+    language=bash,
+    numbers=none,
+    frame=none,
+    backgroundcolor={},
+    xleftmargin=0pt,
+    xrightmargin=0pt,
+    aboveskip=0pt,
+    belowskip=0pt,
+    keywordstyle={},
+    commentstyle={},
+    stringstyle={},
+    identifierstyle={},
+    breaklines=true,
+    breakatwhitespace=false,
+    postbreak=\mbox{\textcolor{termtitle}{$\hookrightarrow$}\space},
+    showtabs=false
+}
+
+% --- Terminal estilo ventana (con botones) ----------------------
+\tcbset{
+    ventana/.style={
+        enhanced,
+        breakable,
+        listing only,
+        colback=termbg,
+        colframe=termbar,
+        colbacktitle=termbar,
+        coltitle=termtitle,
+        fonttitle=\ttfamily\footnotesize,
+        halign title=center,
+        toptitle=2pt,
+        bottomtitle=2pt,
+        titlerule=0pt,
+        boxrule=0.4pt,
+        arc=6pt,
+        left=10pt,
+        right=10pt,
+        top=6pt,
+        bottom=6pt,
+        before skip=10pt,
+        after skip=10pt,
+        overlay unbroken and first={
+            \foreach \col/\dx in {red!75!orange/10pt, orange!85!yellow/20pt, green!65!black/30pt}
+            \fill[\col] ([xshift=\dx]title.west) circle (2.7pt);
+        }
+    }
+}
+
+\newtcblisting{terminal}[1][Terminal]{
+    ventana,
+    title={#1},
+    listing options={
+        style=estilo_terminal,
+        basicstyle=\ttfamily\small\color{termcmd}
+    }
+}
+
+\newtcblisting{terminalresponse}[1][Salida]{
+    ventana,
+    title={#1},
+    listing options={
+        style=estilo_terminal,
+        language={},
+        basicstyle=\ttfamily\small\color{termout}
+    }
+}
+
+% --- Bloque de código con pestaña de archivo --------------------
+%  \begin{codigo}[main.c]{estilo_c} ... \end{codigo}
+%  \codigoarchivo[main.c]{estilo_c}{src/main.c}
+\tcbset{
+    hojacodigo/.style={
+        enhanced,
+        breakable,
+        listing only,
+        colback=codebg,
+        colframe=codeframe,
+        boxrule=0.6pt,
+        arc=4pt,
+        left=24pt,
+        right=6pt,
+        top=4pt,
+        bottom=4pt,
+        before skip=10pt,
+        after skip=10pt,
+        attach boxed title to top left={xshift=10pt, yshift=-\tcboxedtitleheight/2},
+        boxed title style={colback=ipnguinda, colframe=ipnguinda, arc=2pt, boxrule=0pt,
+            left=5pt, right=5pt, top=1pt, bottom=1pt},
+        fonttitle=\ttfamily\footnotesize\bfseries,
+        coltitle=white,
+        top=\tcboxedtitleheight/2+4pt
+    }
+}
+
+\newtcblisting{codigo}[2][]{
+    hojacodigo,
+    title={#1},
+    listing options={style=#2, frame=none, backgroundcolor={}, xleftmargin=0pt,
+        xrightmargin=0pt, aboveskip=0pt, belowskip=0pt}
+}
+
+\newtcbinputlisting{\codigoarchivo}[3][]{
+    hojacodigo,
+    title={#1},
+    listing file={#3},
+    listing options={style=#2, frame=none, backgroundcolor={}, xleftmargin=0pt,
+        xrightmargin=0pt, aboveskip=0pt, belowskip=0pt}
+}
+
+% Código en línea:  \code{printf()}
+\newcommand{\code}[1]{%
+    \tcbox[on line, colback=codebg, colframe=codeframe, boxrule=0.4pt, arc=2pt,
+    boxsep=0pt, left=2pt, right=2pt, top=1.5pt, bottom=1.5pt,
+    fontupper=\ttfamily\small]{\detokenize{#1}}%
+}
+
+%----------------------------------------------------------------
+% 9. CAJAS DE ÉNFASIS
+%----------------------------------------------------------------
+%  \begin{nota}[Título opcional] ... \end{nota}
+\tcbset{
+    cajabase/.style={
+        enhanced,
+        breakable,
+        sharp corners,
+        boxrule=0pt,
+        leftrule=3pt,
+        left=10pt,
+        right=10pt,
+        top=6pt,
+        bottom=6pt,
+        before skip=10pt,
+        after skip=10pt,
+        parbox=false
+    }
+}
+
+\newcommand{\definircaja}[3]{%  entorno, color, título por defecto
+    \newtcolorbox{#1}[1][#3]{
+        cajabase,
+        colframe=#2,
+        colback=#2!6,
+        fontupper=\setstretch{1.25}\setlength{\parskip}{4pt},
+        before upper={{\bfseries\color{#2}##1}\par}
+    }%
+}
+
+\definircaja{nota}{accent}{Nota}
+\definircaja{importante}{ipnguinda}{Importante}
+\definircaja{advertencia}{ipnambar}{Advertencia}
+\definircaja{exito}{ipnverde}{Resultado}
+
+% Definiciones numeradas: \begin{definicion}{Proceso} ... \end{definicion}
+\newtcbtheorem[number within=section]{definicion}{Definición}{
+    enhanced,
+    breakable,
+    colback=white,
+    colframe=ipnguinda,
+    colbacktitle=ipnguinda,
+    fonttitle=\bfseries,
+    separator sign={.},
+    boxrule=0.6pt,
+    arc=3pt,
+    before skip=10pt,
+    after skip=10pt
+}{def}
+
+%----------------------------------------------------------------
+% 10. DIAGRAMAS
+%----------------------------------------------------------------
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows.meta, shapes.geometric, shapes.misc, fit, calc, shadows, babel}
+
+\tikzset{
+    caja/.style={draw=ipnguinda, fill=ipnguinda!6, rounded corners=3pt,
+        thick, minimum height=8mm, minimum width=24mm, align=center, font=\small},
+    decision/.style={diamond, draw=accent, fill=accent!6, thick, aspect=2,
+        align=center, font=\small, inner sep=1pt},
+    inicio/.style={rounded rectangle, draw=ipngray, fill=ipngrisclaro, thick,
+        minimum height=8mm, minimum width=22mm, font=\small},
+    flecha/.style={-{Stealth[length=2.5mm]}, thick, color=ipngray}
+}
+
+%----------------------------------------------------------------
+% 11. TÍTULOS DE SECCIÓN (16 / 14 / 12 pt)
+%----------------------------------------------------------------
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\setcounter{tocdepth}{4}
+
+% Sección: número en recuadro guinda + filete inferior
+\titleformat{\section}[hang]
+{\fontsize{16}{19}\selectfont\bfseries\color{ipnguinda}}
+{\colorbox{ipnguinda}{\makebox[1.2em]{\color{white}\thesection}}}
+{0.6em}
+{}
+[\vspace{-4pt}{\color{ipnguinda!35}\titlerule[0.8pt]}]
+\titleformat{name=\section, numberless}[hang]
+{\fontsize{16}{19}\selectfont\bfseries\color{ipnguinda}}
+{}{0pt}{}
+[\vspace{-4pt}{\color{ipnguinda!35}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{18pt}{10pt}
+
+% Subsección
+\titleformat{\subsection}[hang]
+{\fontsize{14}{17}\selectfont\bfseries}
+{\textcolor{ipnguinda}{\thesubsection}}
+{0.7em}
+{}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+
+% Subsubsección
+\titleformat{\subsubsection}[hang]
+{\fontsize{12}{14.5}\selectfont\bfseries}
+{\textcolor{ipnguindaclaro}{\thesubsubsection}}
+{0.7em}
+{}
+\titlespacing*{\subsubsection}{0pt}{12pt}{4pt}
+
+% Cuarto nivel
+\titleformat{\paragraph}[hang]
+{\normalfont\normalsize\bfseries\itshape}
+{\textcolor{ipngray}{\theparagraph}}
+{0.7em}
+{}
+\titlespacing*{\paragraph}{0pt}{10pt}{2pt}
+
+%----------------------------------------------------------------
+% 12. ÍNDICE
+%----------------------------------------------------------------
+\usepackage{titletoc}
+
+\titlecontents{section}[2em]
+{\addvspace{8pt}\bfseries}
+{\contentslabel[\textcolor{ipnguinda}{\thecontentslabel}]{2em}}
+{\hspace*{-2em}}
+{\hfill\textcolor{ipnguinda}{\contentspage}}
+
+\titlecontents{subsection}[4.8em]
+{\addvspace{1pt}}
+{\contentslabel{2.8em}}
+{\hspace*{-2.8em}}
+{\titlerule*[0.7pc]{\textcolor{ipngray}{.}}\contentspage}
+
+\titlecontents{subsubsection}[8.4em]
+{\small}
+{\contentslabel{3.6em}}
+{\hspace*{-3.6em}}
+{\titlerule*[0.7pc]{\textcolor{ipngray}{.}}\contentspage}
+
+\titlecontents{paragraph}[12.8em]
+{\small\itshape}
+{\contentslabel{4.4em}}
+{\hspace*{-4.4em}}
+{\titlerule*[0.7pc]{\textcolor{ipngray}{.}}\contentspage}
+
+\titlecontents{figure}[3.2em]
+{\addvspace{2pt}}
+{\contentslabel{3.2em}}
+{\hspace*{-3.2em}}
+{\titlerule*[0.7pc]{\textcolor{ipngray}{.}}\contentspage}
+\titlecontents{table}[3.2em]
+{\addvspace{2pt}}
+{\contentslabel{3.2em}}
+{\hspace*{-3.2em}}
+{\titlerule*[0.7pc]{\textcolor{ipngray}{.}}\contentspage}
+
+%----------------------------------------------------------------
+% 13. ENCABEZADO Y PIE DE PÁGINA
+%----------------------------------------------------------------
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+
+\renewcommand{\sectionmark}[1]{\markboth{\thesection.\ #1}{}}
+\renewcommand{\subsectionmark}[1]{\markright{\thesubsection.\ #1}}
+
+% Estilo de texto de encabezado/pie
+\newcommand{\hdrfont}{\footnotesize\color{ipngray}}
+
+\newcommand{\numpagina}{\colorbox{ipnguinda}{\makebox[1.4em]{\color{white}\bfseries\thepage}}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\hdrfont\textcolor{ipnguinda}{\bfseries ESCOM}\,\textperiodcentered\,IPN}
+\fancyhead[C]{\hdrfont\ifdefined\segundotitulo\segundotitulo\fi}
+\fancyhead[R]{\hdrfont\itshape\ifdefined\primertitulo\primertitulo\fi}
+\fancyfoot[L]{\hdrfont\nouppercase{\leftmark}}
+\fancyfoot[R]{\hdrfont\numpagina}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrule}{{\color{ipnguinda}\hrule height \headrulewidth width \headwidth \vskip-\headrulewidth}}
+\renewcommand{\footrule}{{\color{ipngrisclaro}\hrule height \footrulewidth width \headwidth \vskip-\footrulewidth}}
+
+% Páginas "plain" (p. ej. \maketitle) con solo el número
+\fancypagestyle{plain}{%
+    \fancyhf{}%
+    \fancyfoot[R]{\hdrfont\numpagina}%
+    \renewcommand{\headrulewidth}{0pt}%
+    \renewcommand{\footrulewidth}{0pt}%
+}
+
+%----------------------------------------------------------------
+% 14. NOTAS AL PIE
+%----------------------------------------------------------------
+\usepackage[hang, flushmargin]{footmisc}
+\renewcommand{\footnoterule}{\kern-3pt{\color{ipnguinda!40}\hrule width 0.3\columnwidth height 0.5pt}\kern 2.5pt}
+
+%----------------------------------------------------------------
+% 15. BIBLIOGRAFÍA APA 7
+%----------------------------------------------------------------
+\usepackage[
+backend=biber,
+style=apa,
+language=spanish
+]{biblatex}
+\IfFileExists{spanish-apa.lbx}{\DeclareLanguageMapping{spanish}{spanish-apa}}{}
+\addbibresource{Referencias/referencias.bib}
+%\addbibresource{Referencias/references.bib}
+%\addbibresource{References/referenciasdieguito.bib}
+
+\setlength{\bibhang}{1.27cm}              % sangría francesa APA
+\setlength{\bibitemsep}{0.4\baselineskip}
+\renewcommand*{\bibfont}{\normalsize\setstretch{1.15}}
+
+%----------------------------------------------------------------
+% 16. HIPERVÍNCULOS (al final)
+%----------------------------------------------------------------
+\usepackage{xurl}
+\usepackage[
+colorlinks=true,
+linkcolor=ipnguinda,
+urlcolor=accent,
+citecolor=ipnguinda,
+filecolor=accent,
+bookmarksnumbered=true,
+bookmarksopen=true,
+pdfpagemode=UseOutlines,
+pdfstartview=FitH
+]{hyperref}
+\usepackage{bookmark}
+
+\AtBeginDocument{%
+    \renewcommand{\lstlistingname}{Código}%
+    \renewcommand{\lstlistlistingname}{Índice de códigos}%
+    \hypersetup{
+        pdfcreator={XeLaTeX},
+        pdfsubject={ESCOM -- IPN}
+    }%
+    \ifdefined\primertitulo\hypersetup{pdftitle={\primertitulo}}\fi
+}

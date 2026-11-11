@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-120" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>2</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="ini" inicial="si" aceptacion="no" x="100.0" y="230.0" />
+    <estado id="0…=" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="1…=" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="2…=" inicial="no" aceptacion="no" x="270.0" y="360.0" />
+    <estado id="0…≠" inicial="no" aceptacion="si" x="440.0" y="100.0" />
+    <estado id="1…≠" inicial="no" aceptacion="si" x="440.0" y="230.0" />
+    <estado id="2…≠" inicial="no" aceptacion="si" x="440.0" y="360.0" />
+  </estados>
+  <delta>
+    <desde estado="ini">
+      <con simbolo="0">
+        <hacia>0…=</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1…=</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2…=</hacia>
+      </con>
+    </desde>
+    <desde estado="0…=">
+      <con simbolo="0">
+        <hacia>0…=</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0…≠</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>0…≠</hacia>
+      </con>
+    </desde>
+    <desde estado="1…=">
+      <con simbolo="0">
+        <hacia>1…≠</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1…=</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1…≠</hacia>
+      </con>
+    </desde>
+    <desde estado="2…=">
+      <con simbolo="0">
+        <hacia>2…≠</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2…≠</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2…=</hacia>
+      </con>
+    </desde>
+    <desde estado="0…≠">
+      <con simbolo="0">
+        <hacia>0…=</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0…≠</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>0…≠</hacia>
+      </con>
+    </desde>
+    <desde estado="1…≠">
+      <con simbolo="0">
+        <hacia>1…≠</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>1…=</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>1…≠</hacia>
+      </con>
+    </desde>
+    <desde estado="2…≠">
+      <con simbolo="0">
+        <hacia>2…≠</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>2…≠</hacia>
+      </con>
+      <con simbolo="2">
+        <hacia>2…=</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

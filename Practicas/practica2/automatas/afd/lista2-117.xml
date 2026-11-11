@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-117" tipo="AFD">
+  <alfabeto>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="f1:a*" inicial="si" aceptacion="si" x="100.0" y="100.0" />
+    <estado id="f2:b*" inicial="no" aceptacion="si" x="270.0" y="100.0" />
+    <estado id="f3:a*" inicial="no" aceptacion="si" x="440.0" y="100.0" />
+    <estado id="f4:b*" inicial="no" aceptacion="si" x="610.0" y="100.0" />
+    <estado id="muerto" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="f1:a*">
+      <con simbolo="a">
+        <hacia>f1:a*</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>f2:b*</hacia>
+      </con>
+    </desde>
+    <desde estado="f2:b*">
+      <con simbolo="a">
+        <hacia>f3:a*</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>f2:b*</hacia>
+      </con>
+    </desde>
+    <desde estado="f3:a*">
+      <con simbolo="a">
+        <hacia>f3:a*</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>f4:b*</hacia>
+      </con>
+    </desde>
+    <desde estado="f4:b*">
+      <con simbolo="a">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>f4:b*</hacia>
+      </con>
+    </desde>
+    <desde estado="muerto">
+      <con simbolo="a">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

@@ -1,0 +1,11 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{Resumen}{I}{Doc-Start}%
+\contentsline {section}{\numberline {1}Problemas de Estructuras Ordenadas}{2}{section.1}%
+\contentsline {section}{\numberline {2}Propiedades de la Clausura de Kleene y Positiva}{7}{section.2}%
+\contentsline {section}{\numberline {3}Reflexión o Inverso de un Lenguaje}{12}{section.3}%
+\contentsline {section}{\numberline {4}Longitud de cadenas}{14}{section.4}%
+\contentsline {section}{\numberline {5}n-cadenas o n-palabras}{15}{section.5}%
+\contentsline {section}{\numberline {6}Prefijos y Sufijos de una Cadena}{17}{section.6}%
+\contentsline {section}{\numberline {7}Potencias de un Lenguaje}{19}{section.7}%
+\contentsline {section}{\numberline {8}Ejercicios}{21}{section.8}%
+\contentsfinish 

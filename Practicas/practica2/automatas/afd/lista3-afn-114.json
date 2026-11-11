@@ -1,0 +1,44 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista3-afn-114",
+  "tipo": "AFD",
+  "alfabeto": [
+    "a",
+    "b"
+  ],
+  "estados": [
+    "a*",
+    "a*b+"
+  ],
+  "inicial": "a*",
+  "aceptacion": [
+    "a*",
+    "a*b+"
+  ],
+  "delta": {
+    "a*": {
+      "a": [
+        "a*"
+      ],
+      "b": [
+        "a*b+"
+      ]
+    },
+    "a*b+": {
+      "b": [
+        "a*b+"
+      ]
+    }
+  },
+  "posiciones": {
+    "a*": [
+      100.0,
+      100.0
+    ],
+    "a*b+": [
+      270.0,
+      100.0
+    ]
+  }
+}

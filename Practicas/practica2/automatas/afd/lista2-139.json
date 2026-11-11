@@ -1,0 +1,46 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-139",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1"
+  ],
+  "estados": [
+    "par",
+    "impar"
+  ],
+  "inicial": "par",
+  "aceptacion": [
+    "par"
+  ],
+  "delta": {
+    "par": {
+      "0": [
+        "impar"
+      ],
+      "1": [
+        "par"
+      ]
+    },
+    "impar": {
+      "0": [
+        "par"
+      ],
+      "1": [
+        "impar"
+      ]
+    }
+  },
+  "posiciones": {
+    "par": [
+      100.0,
+      100.0
+    ],
+    "impar": [
+      270.0,
+      100.0
+    ]
+  }
+}

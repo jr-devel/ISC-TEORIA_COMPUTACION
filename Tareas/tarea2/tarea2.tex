@@ -1,0 +1,1195 @@
+\documentclass[11pt]{article}
+\newcommand{\NombreTarea}{Tarea 2}
+\input{preambulo}
+\begin{document}
+\thispagestyle{fancy}
+\begin{center}
+\includegraphics[height=1.6cm]{img/logo-ipn.png}\hfill
+\begin{minipage}[b]{0.62\linewidth}\centering
+{\large\bfseries Instituto Politécnico Nacional}\\
+{\bfseries Escuela Superior de Cómputo}\\[2pt]
+Ingeniería en Sistemas Computacionales · Teoría de la Computación\\
+Docente: Gabriel Hurtado Avilés
+\end{minipage}\hfill
+\includegraphics[height=1.6cm]{img/logo-escom.png}\\[6pt]
+{\color{guinda}\rule{\linewidth}{1.2pt}}\\[4pt]
+{\LARGE\bfseries\color{guinda} Tarea 2. Autómatas finitos deterministas}\\[4pt]
+{\large Rico Espluga Juan Diego \quad·\quad Boleta 2025630474 \quad·\quad Grupo 4CV4}\\[2pt]
+{\color{guinda}\rule{\linewidth}{1.2pt}}
+\end{center}
+
+\tableofcontents
+\textbf{Instrucciones.} En los problemas 94--123 se pide un autómata finito determinista que distinga las
+palabras del lenguaje descrito, representado con su diagrama de transiciones (captura de JFLAP) y su tabla de
+transiciones. Alfabetos: $\Sigma_1 = \{0, 1, 2\}$, $\Sigma_2 = \{a, b, c, 0, 1\}$ y $\Sigma_3 = \{a, b\}$.
+Se resuelven todos los ejercicios (los marcados como obligatorios llevan asterisco en la lista). Cada respuesta
+incluye el razonamiento, la tabla, cadenas de prueba verificadas y el archivo \texttt{.jff} en la carpeta
+\texttt{jff/}. Todos los autómatas se comprobaron, además, contra la definición del lenguaje sobre todas las
+cadenas de longitud $\le 14$ (de longitud $\le 9$ con tres símbolos y $\le 6$ con cinco).
+
+\seccion{Autómatas finitos deterministas (94--150)}
+
+
+\begin{ejercicio}{94}{}
+Las palabras de $\Sigma_1$ que comienzan con 1 y terminan con 2.
+\end{ejercicio}
+\proc El primer símbolo decide si la cadena puede pertenecer; después sólo importa si el último símbolo es 2. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{muerto} & \texttt{1·} & \texttt{muerto} & no se ha leído nada \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & no empezó con 1 \\
+ \texttt{1·} & \texttt{1·} & \texttt{1·} & \texttt{1·2} & empezó con 1 y el último símbolo no es 2 \\
+$*$ \texttt{1·2} & \texttt{1·} & \texttt{1·} & \texttt{1·2} & empezó con 1 y el último símbolo es 2 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{12} ✓, \texttt{102} ✓, \texttt{10022} ✓, \texttt{1220222} ✓, \texttt{1212021222} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{020} ✗, \texttt{22202} ✗, \texttt{10012011} ✗.
+\jflap{lista2-094}{Diagrama de transiciones en JFLAP (\texttt{lista2-094.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{12}, \texttt{11112}, \texttt{1111112}; rechazadas \texttt{10}, \texttt{11121}, \texttt{111111}.}}
+
+
+
+\begin{ejercicio}{95}{}
+Las palabras de $\Sigma_1$ que tienen longitud 4.
+\end{ejercicio}
+\proc Un contador de longitud saturado en 5. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{L0} & \texttt{L1} & \texttt{L1} & \texttt{L1} & se han leído 0 símbolos \\
+ \texttt{L1} & \texttt{L2} & \texttt{L2} & \texttt{L2} & se han leído 1 símbolos \\
+ \texttt{L2} & \texttt{L3} & \texttt{L3} & \texttt{L3} & se han leído 2 símbolos \\
+ \texttt{L3} & \texttt{L4} & \texttt{L4} & \texttt{L4} & se han leído 3 símbolos \\
+$*$ \texttt{L4} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & se han leído 4 símbolos \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & la longitud ya pasó de 4 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0201} ✓, \texttt{1202} ✓, \texttt{1220} ✓, \texttt{2200} ✓, \texttt{2221} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{101} ✗, \texttt{22002} ✗, \texttt{00021210} ✗.
+\jflap{lista2-095}{Diagrama de transiciones en JFLAP (\texttt{lista2-095.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0000}, \texttt{1111}, \texttt{2222}; rechazadas \texttt{000}, \texttt{111}, \texttt{222}.}}
+
+
+
+\begin{ejercicio}{96}{}
+Las palabras de $\Sigma_1$ con prefijo 20 y longitud 4.
+\end{ejercicio}
+\proc Los dos primeros estados verifican el prefijo 20 y los dos siguientes cuentan la longitud. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{L0} & \texttt{muerto} & \texttt{muerto} & \texttt{L1} & se han leído 0 símbolos y el prefijo es compatible con 20 \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & prefijo distinto de 20 o longitud mayor que 4 \\
+ \texttt{L1} & \texttt{L2} & \texttt{muerto} & \texttt{muerto} & se han leído 1 símbolos y el prefijo es compatible con 20 \\
+ \texttt{L2} & \texttt{L3} & \texttt{L3} & \texttt{L3} & se han leído 2 símbolos y el prefijo es compatible con 20 \\
+ \texttt{L3} & \texttt{L4} & \texttt{L4} & \texttt{L4} & se han leído 3 símbolos y el prefijo es compatible con 20 \\
+$*$ \texttt{L4} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & se han leído 4 símbolos y el prefijo es compatible con 20 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{2000} ✓, \texttt{2001} ✓, \texttt{2002} ✓, \texttt{2011} ✓, \texttt{2021} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{101} ✗, \texttt{20100} ✗, \texttt{20122121} ✗.
+\jflap{lista2-096}{Diagrama de transiciones en JFLAP (\texttt{lista2-096.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{2000}, \texttt{2011}, \texttt{2022}; rechazadas \texttt{0200}, \texttt{0211}, \texttt{202}.}}
+
+
+
+\begin{ejercicio}{97}{*}
+Las palabras de $\Sigma_1$ cuya longitud es un múltiplo de 3.
+\end{ejercicio}
+\proc Basta recordar la longitud módulo 3; λ tiene longitud 0, que es múltiplo de 3. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{r0} & \texttt{r1} & \texttt{r1} & \texttt{r1} & la longitud leída es ≡ 0 (mod 3) \\
+ \texttt{r1} & \texttt{r2} & \texttt{r2} & \texttt{r2} & la longitud leída es ≡ 1 (mod 3) \\
+ \texttt{r2} & \texttt{r0} & \texttt{r0} & \texttt{r0} & la longitud leída es ≡ 2 (mod 3) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{212200} ✓, \texttt{100022002} ✓, \texttt{120000112} ✓, \texttt{222022020} ✓; \texttt{1} ✗, \texttt{20} ✗, \texttt{0100} ✗, \texttt{0102} ✗, \texttt{00110} ✗.
+\jflap{lista2-097}{Diagrama de transiciones en JFLAP (\texttt{lista2-097.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{111000}, \texttt{222222}; rechazadas \texttt{00}, \texttt{11100}, \texttt{22222}.}}
+
+
+
+\begin{ejercicio}{98}{}
+Las palabras de $\Sigma_1$ que terminan con la cadena 00102.
+\end{ejercicio}
+\proc Autómata de búsqueda de patrones (Knuth-Morris-Pratt): cada estado guarda el sufijo más largo leído que es prefijo de 00102; se acepta cuando ese sufijo es el patrón completo. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{0} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 00102 es λ \\
+ \texttt{0} & \texttt{00} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 00102 es 0 \\
+ \texttt{00} & \texttt{00} & \texttt{001} & \texttt{λ} & el sufijo más largo leído que es prefijo de 00102 es 00 \\
+ \texttt{001} & \texttt{0010} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 00102 es 001 \\
+ \texttt{0010} & \texttt{00} & \texttt{λ} & \texttt{00102} & el sufijo más largo leído que es prefijo de 00102 es 0010 \\
+$*$ \texttt{00102} & \texttt{0} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 00102 es 00102 (la cadena termina en el patrón) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{00102} ✓, \texttt{000102} ✓, \texttt{00000102} ✓, \texttt{0101000102} ✓, \texttt{2220001100102} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{202} ✗, \texttt{11021} ✗, \texttt{12222012} ✗.
+\jflap{lista2-098}{Diagrama de transiciones en JFLAP (\texttt{lista2-098.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00102}, \texttt{1100102}, \texttt{111100102}; rechazadas \texttt{00100}, \texttt{1010102}, \texttt{11110010}.}}
+
+
+
+\begin{ejercicio}{99}{*}
+Las palabras de $\Sigma_1$ que terminan con la cadena 001001.
+\end{ejercicio}
+\proc Autómata de búsqueda de patrones (Knuth-Morris-Pratt): cada estado guarda el sufijo más largo leído que es prefijo de 001001; se acepta cuando ese sufijo es el patrón completo. Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{0} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es λ \\
+ \texttt{0} & \texttt{00} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es 0 \\
+ \texttt{00} & \texttt{00} & \texttt{001} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es 00 \\
+ \texttt{001} & \texttt{0010} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es 001 \\
+ \texttt{0010} & \texttt{00100} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es 0010 \\
+ \texttt{00100} & \texttt{00} & \texttt{001001} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es 00100 \\
+$*$ \texttt{001001} & \texttt{0010} & \texttt{λ} & \texttt{λ} & el sufijo más largo leído que es prefijo de 001001 es 001001 (la cadena termina en el patrón) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{001001} ✓, \texttt{1001001} ✓, \texttt{120001001} ✓, \texttt{10212001001} ✓, \texttt{22102001001001} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{002} ✗, \texttt{11011} ✗, \texttt{21012122} ✗.
+\jflap{lista2-099}{Diagrama de transiciones en JFLAP (\texttt{lista2-099.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{001001}, \texttt{11001001}, \texttt{111001001}; rechazadas \texttt{001000}, \texttt{10101001}, \texttt{11100100}.}}
+
+
+
+\begin{ejercicio}{100}{}
+Las palabras de $\Sigma_2$ tales que el primer símbolo de la cadena es una letra y el segundo es un dígito.
+\end{ejercicio}
+\proc Sólo importan los dos primeros símbolos; después el autómata se queda en el estado de aceptación. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1, a, b, c\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & a & b & c & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{muerto} & \texttt{muerto} & \texttt{letra} & \texttt{letra} & \texttt{letra} & no se ha leído nada \\
+ \texttt{letra} & \texttt{ok} & \texttt{ok} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & el primer símbolo es una letra \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & los dos primeros no cumplen \\
+$*$ \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & los dos primeros símbolos son letra y dígito \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{a1} ✓, \texttt{b1b} ✓, \texttt{c0aa0} ✓, \texttt{b00c1ac} ✓, \texttt{b1bb11cbb0} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{0a0} ✗, \texttt{1ac0a} ✗, \texttt{0ca00ba0} ✗.
+\jflap{lista2-100}{Diagrama de transiciones en JFLAP (\texttt{lista2-100.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b1}, \texttt{b100}, \texttt{b10000}; rechazadas \texttt{ba}, \texttt{1b00}, \texttt{010000}.}}
+
+
+
+\begin{ejercicio}{101}{}
+Las palabras de $\Sigma_3$ que contienen la cadena \texttt{aba}.
+\end{ejercicio}
+\proc Búsqueda de aba con el autómata de Knuth-Morris-Pratt; al completar el patrón el estado es absorbente. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{λ} & aún no aparece aba; el sufijo más largo leído que es prefijo de aba es λ \\
+ \texttt{a} & \texttt{a} & \texttt{ab} & aún no aparece aba; el sufijo más largo leído que es prefijo de aba es a \\
+ \texttt{ab} & \texttt{aba} & \texttt{λ} & aún no aparece aba; el sufijo más largo leído que es prefijo de aba es ab \\
+$*$ \texttt{aba} & \texttt{aba} & \texttt{aba} & ya apareció aba \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aba} ✓, \texttt{aaba} ✓, \texttt{bbabaa} ✓, \texttt{bababbaa} ✓, \texttt{aaababaaaab} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{aaa} ✗, \texttt{bbbbb} ✗, \texttt{bbaabbaa} ✗.
+\jflap{lista2-101}{Diagrama de transiciones en JFLAP (\texttt{lista2-101.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aba}, \texttt{ababba}, \texttt{abbabaaa}; rechazadas \texttt{abb}, \texttt{baabba}, \texttt{abbbaaaa}.}}
+
+
+
+\begin{ejercicio}{102}{*}
+Las palabras de $\Sigma_3$ que contienen la cadena \texttt{abbbab}.
+\end{ejercicio}
+\proc Búsqueda de abbbab con el autómata de Knuth-Morris-Pratt; al completar el patrón el estado es absorbente. Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{λ} & aún no aparece abbbab; el sufijo más largo leído que es prefijo de abbbab es λ \\
+ \texttt{a} & \texttt{a} & \texttt{ab} & aún no aparece abbbab; el sufijo más largo leído que es prefijo de abbbab es a \\
+ \texttt{ab} & \texttt{a} & \texttt{abb} & aún no aparece abbbab; el sufijo más largo leído que es prefijo de abbbab es ab \\
+ \texttt{abb} & \texttt{a} & \texttt{abbb} & aún no aparece abbbab; el sufijo más largo leído que es prefijo de abbbab es abb \\
+ \texttt{abbb} & \texttt{abbba} & \texttt{λ} & aún no aparece abbbab; el sufijo más largo leído que es prefijo de abbbab es abbb \\
+ \texttt{abbba} & \texttt{a} & \texttt{abbbab} & aún no aparece abbbab; el sufijo más largo leído que es prefijo de abbbab es abbba \\
+$*$ \texttt{abbbab} & \texttt{abbbab} & \texttt{abbbab} & ya apareció abbbab \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abbbab} ✓, \texttt{abbbaba} ✓, \texttt{aabbbabab} ✓, \texttt{babaaabbbab} ✓, \texttt{babbbababbbabb} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{aab} ✗, \texttt{bbbaa} ✗, \texttt{aabaabaa} ✗.
+\jflap{lista2-102}{Diagrama de transiciones en JFLAP (\texttt{lista2-102.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abbbab}, \texttt{abbbabba}, \texttt{abbbabbaaa}; rechazadas \texttt{abbbaa}, \texttt{babbabba}, \texttt{bbbbabbaaa}.}}
+
+
+
+\begin{ejercicio}{103}{*}
+Las palabras de $\Sigma_3$ que contienen la cadena \texttt{aabbba}.
+\end{ejercicio}
+\proc Búsqueda de aabbba con el autómata de Knuth-Morris-Pratt; al completar el patrón el estado es absorbente. Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{λ} & aún no aparece aabbba; el sufijo más largo leído que es prefijo de aabbba es λ \\
+ \texttt{a} & \texttt{aa} & \texttt{λ} & aún no aparece aabbba; el sufijo más largo leído que es prefijo de aabbba es a \\
+ \texttt{aa} & \texttt{aa} & \texttt{aab} & aún no aparece aabbba; el sufijo más largo leído que es prefijo de aabbba es aa \\
+ \texttt{aab} & \texttt{a} & \texttt{aabb} & aún no aparece aabbba; el sufijo más largo leído que es prefijo de aabbba es aab \\
+ \texttt{aabb} & \texttt{a} & \texttt{aabbb} & aún no aparece aabbba; el sufijo más largo leído que es prefijo de aabbba es aabb \\
+ \texttt{aabbb} & \texttt{aabbba} & \texttt{λ} & aún no aparece aabbba; el sufijo más largo leído que es prefijo de aabbba es aabbb \\
+$*$ \texttt{aabbba} & \texttt{aabbba} & \texttt{aabbba} & ya apareció aabbba \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aabbba} ✓, \texttt{aabbbab} ✓, \texttt{aaaabbbab} ✓, \texttt{ababbaabbba} ✓, \texttt{aaabbaabaabbba} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{aab} ✗, \texttt{aaaaa} ✗, \texttt{baaaaabb} ✗.
+\jflap{lista2-103}{Diagrama de transiciones en JFLAP (\texttt{lista2-103.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aabbba}, \texttt{aabbbabb}, \texttt{abaabbbaab}; rechazadas \texttt{aabbbb}, \texttt{ababbabb}, \texttt{aababbbaab}.}}
+
+
+
+\begin{ejercicio}{104}{}
+Las palabras de $\Sigma_3$ que inician con la cadena \texttt{abbab}.
+\end{ejercicio}
+\proc Una cadena de estados verifica el prefijo; cualquier discrepancia lleva a muerto. Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{muerto} & se han leído los primeros 0 símbolos de abbab \\
+ \texttt{a} & \texttt{muerto} & \texttt{ab} & se han leído los primeros 1 símbolos de abbab \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & el prefijo leído no coincide con abbab \\
+ \texttt{ab} & \texttt{muerto} & \texttt{abb} & se han leído los primeros 2 símbolos de abbab \\
+ \texttt{abb} & \texttt{abba} & \texttt{muerto} & se han leído los primeros 3 símbolos de abbab \\
+ \texttt{abba} & \texttt{muerto} & \texttt{abbab} & se han leído los primeros 4 símbolos de abbab \\
+$*$ \texttt{abbab} & \texttt{abbab} & \texttt{abbab} & ya se leyó el prefijo abbab \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abbab} ✓, \texttt{abbaba} ✓, \texttt{abbabaab} ✓, \texttt{abbabbabbb} ✓, \texttt{abbabbaaaabba} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{bab} ✗, \texttt{bbbba} ✗, \texttt{aabbbaba} ✗.
+\jflap{lista2-104}{Diagrama de transiciones en JFLAP (\texttt{lista2-104.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abbab}, \texttt{abbabbaa}, \texttt{abbabbaaaa}; rechazadas \texttt{abbaa}, \texttt{bababbaa}, \texttt{bbbabbaaaa}.}}
+
+
+
+\begin{ejercicio}{105}{}
+Las palabras de $\Sigma_3$ que terminan con la cadena \texttt{abaa}.
+\end{ejercicio}
+\proc Autómata de Knuth-Morris-Pratt sin estado absorbente. Se construye un AFD con $|Q| = 5$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{λ} & el sufijo más largo leído que es prefijo de abaa es λ \\
+ \texttt{a} & \texttt{a} & \texttt{ab} & el sufijo más largo leído que es prefijo de abaa es a \\
+ \texttt{ab} & \texttt{aba} & \texttt{λ} & el sufijo más largo leído que es prefijo de abaa es ab \\
+ \texttt{aba} & \texttt{abaa} & \texttt{ab} & el sufijo más largo leído que es prefijo de abaa es aba \\
+$*$ \texttt{abaa} & \texttt{a} & \texttt{ab} & el sufijo más largo leído que es prefijo de abaa es abaa (la cadena termina en el patrón) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abaa} ✓, \texttt{aabaa} ✓, \texttt{bbaabaa} ✓, \texttt{aabababaa} ✓, \texttt{babbabbbabaa} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{abb} ✗, \texttt{baaaa} ✗, \texttt{bababbaa} ✗.
+\jflap{lista2-105}{Diagrama de transiciones en JFLAP (\texttt{lista2-105.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abaa}, \texttt{baaabaa}, \texttt{baaaaabaa}; rechazadas \texttt{abab}, \texttt{baabaaa}, \texttt{baaaaaba}.}}
+
+
+
+\begin{ejercicio}{106}{*}
+Las palabras de $\Sigma_1$ que incluyen la subcadena 1101001.
+\end{ejercicio}
+\proc Búsqueda de 1101001 con el autómata de Knuth-Morris-Pratt; al completar el patrón el estado es absorbente. Se construye un AFD con $|Q| = 8$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{λ} & \texttt{1} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es λ \\
+ \texttt{1} & \texttt{λ} & \texttt{11} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es 1 \\
+ \texttt{11} & \texttt{110} & \texttt{11} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es 11 \\
+ \texttt{110} & \texttt{λ} & \texttt{1101} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es 110 \\
+ \texttt{1101} & \texttt{11010} & \texttt{11} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es 1101 \\
+ \texttt{11010} & \texttt{110100} & \texttt{1} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es 11010 \\
+ \texttt{110100} & \texttt{λ} & \texttt{1101001} & \texttt{λ} & aún no aparece 1101001; el sufijo más largo leído que es prefijo de 1101001 es 110100 \\
+$*$ \texttt{1101001} & \texttt{1101001} & \texttt{1101001} & \texttt{1101001} & ya apareció 1101001 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1101001} ✓, \texttt{11010010} ✓, \texttt{0021101001} ✓, \texttt{111101001110} ✓, \texttt{11010012101111} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{122} ✗, \texttt{10110} ✗, \texttt{22012221} ✗.
+\jflap{lista2-106}{Diagrama de transiciones en JFLAP (\texttt{lista2-106.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1101001}, \texttt{11010012}, \texttt{110100120}; rechazadas \texttt{1101000}, \texttt{10110012}, \texttt{010100120}.}}
+
+
+
+\begin{ejercicio}{107}{*}
+Las palabras de $\Sigma_1$ que incluyen al menos una vez la subcadena 0101 y al menos una vez la subcadena 021.
+\end{ejercicio}
+\proc Producto de los autómatas que buscan 0101 y 021: cada estado es un par (avance en 0101, avance en 021). Se construye un AFD con $|Q| = 13$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{(λ, λ)} & \texttt{(0, 0)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & en el primer autómata λ, en el segundo λ \\
+ \texttt{(0, 0)} & \texttt{(0, 0)} & \texttt{(01, λ)} & \texttt{(λ, 02)} & en el primer autómata 0, en el segundo 0 \\
+ \texttt{(01, λ)} & \texttt{(010, 0)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & en el primer autómata 01, en el segundo λ \\
+ \texttt{(λ, 02)} & \texttt{(0, 0)} & \texttt{(λ, 021)} & \texttt{(λ, λ)} & en el primer autómata λ, en el segundo 02 \\
+ \texttt{(010, 0)} & \texttt{(0, 0)} & \texttt{(0101, λ)} & \texttt{(λ, 02)} & en el primer autómata 010, en el segundo 0 \\
+ \texttt{(λ, 021)} & \texttt{(0, 021)} & \texttt{(λ, 021)} & \texttt{(λ, 021)} & en el primer autómata λ, en el segundo 021 \\
+ \texttt{(0101, λ)} & \texttt{(0101, 0)} & \texttt{(0101, λ)} & \texttt{(0101, λ)} & en el primer autómata 0101, en el segundo λ \\
+ \texttt{(0, 021)} & \texttt{(0, 021)} & \texttt{(01, 021)} & \texttt{(λ, 021)} & en el primer autómata 0, en el segundo 021 \\
+ \texttt{(0101, 0)} & \texttt{(0101, 0)} & \texttt{(0101, λ)} & \texttt{(0101, 02)} & en el primer autómata 0101, en el segundo 0 \\
+ \texttt{(01, 021)} & \texttt{(010, 021)} & \texttt{(λ, 021)} & \texttt{(λ, 021)} & en el primer autómata 01, en el segundo 021 \\
+ \texttt{(0101, 02)} & \texttt{(0101, 0)} & \texttt{(0101, 021)} & \texttt{(0101, λ)} & en el primer autómata 0101, en el segundo 02 \\
+ \texttt{(010, 021)} & \texttt{(0, 021)} & \texttt{(0101, 021)} & \texttt{(λ, 021)} & en el primer autómata 010, en el segundo 021 \\
+$*$ \texttt{(0101, 021)} & \texttt{(0101, 021)} & \texttt{(0101, 021)} & \texttt{(0101, 021)} & en el primer autómata 0101, en el segundo 021 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0101021} ✓, \texttt{01012021} ✓, \texttt{0101002120} ✓, \texttt{012010120210} ✓, \texttt{22001010021221} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{010} ✗, \texttt{20200} ✗, \texttt{11210010} ✗.
+\jflap{lista2-107}{Diagrama de transiciones en JFLAP (\texttt{lista2-107.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0210101}, \texttt{02101010}, \texttt{021010112}; rechazadas \texttt{0210100}, \texttt{20101010}, \texttt{121010112}.}}
+
+
+
+\begin{ejercicio}{108}{}
+Las palabras de $\Sigma_2$ que incluyen al menos una vez la subcadena \texttt{abbcb} y al menos una vez la subcadena \texttt{cbaabb}, asumiendo que no se pueden traslapar; así, cadenas similares a \texttt{abbcbaabb} no están en el lenguaje.
+\end{ejercicio}
+\proc Dos búsquedas secuenciales en paralelo: abbcb y, a partir de donde termina, cbaabb; y el orden inverso. Al terminar el primer patrón la búsqueda del segundo empieza de cero, lo que impide el traslape. Se construye un AFD con $|Q| = 49$ sobre $\Sigma = \{0, 1, a, b, c\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & a & b & c & Qué recuerda el estado \\\midrule
+$\to$ \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[λ ; λ]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[a ; λ]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[ab ; λ]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[λ ; c]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[λ ; cb]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[ab ; λ]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[abb ; λ]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[λ ; cb]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; cba]} & \texttt{[λ ; λ]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abb ; λ]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[λ ; λ]} & \texttt{[abbc ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[a ; cba]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; cbaa]} & \texttt{[ab ; λ]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbc ; c]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[abbcb|λ ; cb]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[a ; cbaa]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[ab ; cbaab]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cb]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; cba]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[ab ; cbaab]} & \texttt{[λ ; λ]} & \texttt{[λ ; λ]} & \texttt{[a ; λ]} & \texttt{[abb ; cbaabb|λ]} & \texttt{[λ ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cba]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; cbaa]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|c ; c]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|cb ; cb]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abb ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[abbc ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cbaa]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; cbaab]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cb ; cb]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|cba ; cba]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[a ; cbaabb|a]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[ab ; cbaabb|ab]} & \texttt{[λ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbc ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cbaab]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cba ; cba]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|cbaa ; cbaa]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[ab ; cbaabb|ab]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[abb ; cbaabb|abb]} & \texttt{[λ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cbaa ; cbaa]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|cbaab ; cbaab]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abb ; cbaabb|abb]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[abbc ; cbaabb|abbc]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|ab]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|c ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|cb ; cbaabb|λ]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cbaab ; cbaab]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[abbcb|λ ; λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[abbcb|c ; c]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbc ; cbaabb|abbc]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[λ ; cbaabb|λ]} & \texttt{[a ; cbaabb|a]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[λ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cbaabb|ab]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|abb]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cb ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|cba ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|a]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|c ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|λ ; cbaabb|abb]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|c ; cbaabb|abbc]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cba ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|cbaa ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|ab]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[✓ ; cbaabb|a]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|a]} & \texttt{[✓ ; cbaabb|ab]} & \texttt{[✓ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[abbcb|c ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|cb ; ✓]} & \texttt{[abbcb|c ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|c ; cbaabb|abbc]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|cb ; ✓]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cbaa ; cbaabb|a]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[abbcb|cbaab ; cbaabb|ab]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[✓ ; cbaabb|ab]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|a]} & \texttt{[✓ ; cbaabb|abb]} & \texttt{[✓ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[abbcb|cb ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|cba ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|c ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+ \texttt{[abbcb|cbaab ; cbaabb|ab]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|λ]} & \texttt{[abbcb|λ ; cbaabb|a]} & \texttt{[✓ ; cbaabb|abb]} & \texttt{[abbcb|c ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[✓ ; cbaabb|abb]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|a]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|abbc]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[abbcb|cba ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|cbaa ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|c ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[✓ ; cbaabb|abbc]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|λ]} & \texttt{[✓ ; cbaabb|a]} & \texttt{[✓ ; ✓]} & \texttt{[✓ ; cbaabb|λ]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[abbcb|cbaa ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|cbaab ; ✓]} & \texttt{[abbcb|c ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[✓ ; ✓]} & \texttt{[✓ ; ✓]} & \texttt{[✓ ; ✓]} & \texttt{[✓ ; ✓]} & \texttt{[✓ ; ✓]} & \texttt{[✓ ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+$*$ \texttt{[abbcb|cbaab ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[abbcb|λ ; ✓]} & \texttt{[✓ ; ✓]} & \texttt{[abbcb|c ; ✓]} & primera componente: búsqueda de abbcb y después cbaabb; segunda: el orden inverso \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{cbaabbabbcb} ✓, \texttt{0cbaabbabbcb} ✓, \texttt{0cbaabba0abbcb} ✓, \texttt{0bacbaabbcabbcb1} ✓, \texttt{c1cbaabbabbcbca11} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{acb} ✗, \texttt{ababc} ✗, \texttt{0bc11caa} ✗.
+\jflap{lista2-108}{Diagrama de transiciones en JFLAP (\texttt{lista2-108.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{cbaabbabbcb}, \texttt{1cbaabbabbcb}, \texttt{1abbcbcbaabba}; rechazadas \texttt{cbaabbabbc0}, \texttt{c1baabbabbcb}, \texttt{a1bbcbcbaabba}.}}
+
+
+
+\begin{ejercicio}{109}{*}
+Las palabras de $\Sigma_2$ que incluyen al menos una vez la subcadena \texttt{abbcb} y al menos una vez la subcadena \texttt{cbaabb}, asumiendo que sí se pueden traslapar.
+\end{ejercicio}
+\proc Producto de los dos buscadores de patrones: como pueden traslaparse, cada patrón se busca de forma independiente. Se construye un AFD con $|Q| = 22$ sobre $\Sigma = \{0, 1, a, b, c\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & a & b & c & Qué recuerda el estado \\\midrule
+$\to$ \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(λ, λ)} & \texttt{(λ, c)} & en el primer autómata λ, en el segundo λ \\
+ \texttt{(a, λ)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(ab, λ)} & \texttt{(λ, c)} & en el primer autómata a, en el segundo λ \\
+ \texttt{(λ, c)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(λ, cb)} & \texttt{(λ, c)} & en el primer autómata λ, en el segundo c \\
+ \texttt{(ab, λ)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(abb, λ)} & \texttt{(λ, c)} & en el primer autómata ab, en el segundo λ \\
+ \texttt{(λ, cb)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, cba)} & \texttt{(λ, λ)} & \texttt{(λ, c)} & en el primer autómata λ, en el segundo cb \\
+ \texttt{(abb, λ)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(λ, λ)} & \texttt{(abbc, c)} & en el primer autómata abb, en el segundo λ \\
+ \texttt{(a, cba)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, cbaa)} & \texttt{(ab, λ)} & \texttt{(λ, c)} & en el primer autómata a, en el segundo cba \\
+ \texttt{(abbc, c)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(abbcb, cb)} & \texttt{(λ, c)} & en el primer autómata abbc, en el segundo c \\
+ \texttt{(a, cbaa)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(ab, cbaab)} & \texttt{(λ, c)} & en el primer autómata a, en el segundo cbaa \\
+ \texttt{(abbcb, cb)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, cba)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, c)} & en el primer autómata abbcb, en el segundo cb \\
+ \texttt{(ab, cbaab)} & \texttt{(λ, λ)} & \texttt{(λ, λ)} & \texttt{(a, λ)} & \texttt{(abb, cbaabb)} & \texttt{(λ, c)} & en el primer autómata ab, en el segundo cbaab \\
+ \texttt{(abbcb, cba)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, cbaa)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, c)} & en el primer autómata abbcb, en el segundo cba \\
+ \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, c)} & en el primer autómata abbcb, en el segundo λ \\
+ \texttt{(abbcb, c)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, cb)} & \texttt{(abbcb, c)} & en el primer autómata abbcb, en el segundo c \\
+ \texttt{(abb, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(a, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(abbc, cbaabb)} & en el primer autómata abb, en el segundo cbaabb \\
+ \texttt{(abbcb, cbaa)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, cbaab)} & \texttt{(abbcb, c)} & en el primer autómata abbcb, en el segundo cbaa \\
+ \texttt{(a, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(a, cbaabb)} & \texttt{(ab, cbaabb)} & \texttt{(λ, cbaabb)} & en el primer autómata a, en el segundo cbaabb \\
+ \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(a, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & en el primer autómata λ, en el segundo cbaabb \\
+ \texttt{(abbc, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(a, cbaabb)} & \texttt{(abbcb, cbaabb)} & \texttt{(λ, cbaabb)} & en el primer autómata abbc, en el segundo cbaabb \\
+ \texttt{(abbcb, cbaab)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, λ)} & \texttt{(abbcb, cbaabb)} & \texttt{(abbcb, c)} & en el primer autómata abbcb, en el segundo cbaab \\
+ \texttt{(ab, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(λ, cbaabb)} & \texttt{(a, cbaabb)} & \texttt{(abb, cbaabb)} & \texttt{(λ, cbaabb)} & en el primer autómata ab, en el segundo cbaabb \\
+$*$ \texttt{(abbcb, cbaabb)} & \texttt{(abbcb, cbaabb)} & \texttt{(abbcb, cbaabb)} & \texttt{(abbcb, cbaabb)} & \texttt{(abbcb, cbaabb)} & \texttt{(abbcb, cbaabb)} & en el primer autómata abbcb, en el segundo cbaabb \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{cbaabbcb} ✓, \texttt{0cbaabbcb} ✓, \texttt{acacbaabbcb} ✓, \texttt{cbaabbcb10000} ✓, \texttt{0a111acbaabbcb} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{b0c} ✗, \texttt{1c1ab} ✗, \texttt{1111cccb} ✗.
+\jflap{lista2-109}{Diagrama de transiciones en JFLAP (\texttt{lista2-109.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{cbaabbcb}, \texttt{0cbaabbcb}, \texttt{1cbaabbcb}; rechazadas \texttt{cbaabbc0}, \texttt{c0baabbcb}, \texttt{1cbaabbc}.}}
+
+
+
+\begin{ejercicio}{110}{}
+Las palabras de $\Sigma_1$ que contienen exactamente tres veces la subcadena 01.
+\end{ejercicio}
+\proc Cada estado combina el número de apariciones de 01 (0 a 3, y muerto si pasa de 3) con el avance en el patrón; 01 no puede traslaparse consigo mismo. Se construye un AFD con $|Q| = 9$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{0·λ} & \texttt{0·0} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es λ \\
+ \texttt{0·0} & \texttt{0·0} & \texttt{1·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 0 \\
+ \texttt{1·λ} & \texttt{1·0} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es λ \\
+ \texttt{1·0} & \texttt{1·0} & \texttt{2·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 0 \\
+ \texttt{2·λ} & \texttt{2·0} & \texttt{2·λ} & \texttt{2·λ} & van 2 apariciones; el sufijo útil leído es λ \\
+ \texttt{2·0} & \texttt{2·0} & \texttt{3·λ} & \texttt{2·λ} & van 2 apariciones; el sufijo útil leído es 0 \\
+$*$ \texttt{3·λ} & \texttt{3·0} & \texttt{3·λ} & \texttt{3·λ} & van 3 apariciones; el sufijo útil leído es λ \\
+$*$ \texttt{3·0} & \texttt{3·0} & \texttt{muerto} & \texttt{3·λ} & van 3 apariciones; el sufijo útil leído es 0 \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & ya hay más de 3 apariciones de 01 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{010101} ✓, \texttt{0101201} ✓, \texttt{001201012} ✓, \texttt{20011101010} ✓, \texttt{10112010000112} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{022} ✗, \texttt{10210} ✗, \texttt{12110121} ✗.
+\jflap{lista2-110}{Diagrama de transiciones en JFLAP (\texttt{lista2-110.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010101}, \texttt{01100101}, \texttt{011201012}; rechazadas \texttt{010100}, \texttt{01010101}, \texttt{111201012}.}}
+
+
+
+\begin{ejercicio}{111}{*}
+Las palabras de $\Sigma_1$ que contienen exactamente tres veces la subcadena 01002.
+\end{ejercicio}
+\proc Cada estado combina el número de apariciones de 01002 (0 a 3, y muerto si pasa de 3) con el avance en el patrón; 01002 no puede traslaparse consigo mismo. Se construye un AFD con $|Q| = 21$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{0·λ} & \texttt{0·0} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es λ \\
+ \texttt{0·0} & \texttt{0·0} & \texttt{0·01} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 0 \\
+ \texttt{0·01} & \texttt{0·010} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 01 \\
+ \texttt{0·010} & \texttt{0·0100} & \texttt{0·01} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 010 \\
+ \texttt{0·0100} & \texttt{0·0} & \texttt{0·01} & \texttt{1·λ} & van 0 apariciones; el sufijo útil leído es 0100 \\
+ \texttt{1·λ} & \texttt{1·0} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es λ \\
+ \texttt{1·0} & \texttt{1·0} & \texttt{1·01} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 0 \\
+ \texttt{1·01} & \texttt{1·010} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 01 \\
+ \texttt{1·010} & \texttt{1·0100} & \texttt{1·01} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 010 \\
+ \texttt{1·0100} & \texttt{1·0} & \texttt{1·01} & \texttt{2·λ} & van 1 apariciones; el sufijo útil leído es 0100 \\
+ \texttt{2·λ} & \texttt{2·0} & \texttt{2·λ} & \texttt{2·λ} & van 2 apariciones; el sufijo útil leído es λ \\
+ \texttt{2·0} & \texttt{2·0} & \texttt{2·01} & \texttt{2·λ} & van 2 apariciones; el sufijo útil leído es 0 \\
+ \texttt{2·01} & \texttt{2·010} & \texttt{2·λ} & \texttt{2·λ} & van 2 apariciones; el sufijo útil leído es 01 \\
+ \texttt{2·010} & \texttt{2·0100} & \texttt{2·01} & \texttt{2·λ} & van 2 apariciones; el sufijo útil leído es 010 \\
+ \texttt{2·0100} & \texttt{2·0} & \texttt{2·01} & \texttt{3·λ} & van 2 apariciones; el sufijo útil leído es 0100 \\
+$*$ \texttt{3·λ} & \texttt{3·0} & \texttt{3·λ} & \texttt{3·λ} & van 3 apariciones; el sufijo útil leído es λ \\
+$*$ \texttt{3·0} & \texttt{3·0} & \texttt{3·01} & \texttt{3·λ} & van 3 apariciones; el sufijo útil leído es 0 \\
+$*$ \texttt{3·01} & \texttt{3·010} & \texttt{3·λ} & \texttt{3·λ} & van 3 apariciones; el sufijo útil leído es 01 \\
+$*$ \texttt{3·010} & \texttt{3·0100} & \texttt{3·01} & \texttt{3·λ} & van 3 apariciones; el sufijo útil leído es 010 \\
+$*$ \texttt{3·0100} & \texttt{3·0} & \texttt{3·01} & \texttt{muerto} & van 3 apariciones; el sufijo útil leído es 0100 \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & ya hay más de 3 apariciones de 01002 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{010020100201002} ✓, \texttt{0100201002001002} ✓, \texttt{010020010020101002} ✓, \texttt{10100210100201002110} ✓, \texttt{211010020100201002001} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{111} ✗, \texttt{20011} ✗, \texttt{12220221} ✗.
+\jflap{lista2-111}{Diagrama de transiciones en JFLAP (\texttt{lista2-111.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010020100201002}, \texttt{01002001002010020}, \texttt{0100200100201002010}; rechazadas \texttt{010020100201000}, \texttt{10002001002010020}, \texttt{1100200100201002010}.}}
+
+
+
+\begin{ejercicio}{112}{*}
+Las palabras de $\Sigma_1$ que contienen dos veces la subcadena 010, asumiendo que no se pueden traslapar; es decir, que 01010 no está en el lenguaje, mientras que 010010 sí pertenece.
+\end{ejercicio}
+\proc Se interpreta «al menos dos apariciones disjuntas». Tras completar 010 la búsqueda reinicia desde λ, de modo que la siguiente aparición no reutiliza el último 0. Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{0·λ} & \texttt{0·0} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es λ \\
+ \texttt{0·0} & \texttt{0·0} & \texttt{0·01} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 0 \\
+ \texttt{0·01} & \texttt{1·λ} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 01 \\
+ \texttt{1·λ} & \texttt{1·0} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es λ \\
+ \texttt{1·0} & \texttt{1·0} & \texttt{1·01} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 0 \\
+ \texttt{1·01} & \texttt{2+} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 01 \\
+$*$ \texttt{2+} & \texttt{2+} & \texttt{2+} & \texttt{2+} & ya hay 2 apariciones de 010 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{010010} ✓, \texttt{0100010} ✓, \texttt{001001012} ✓, \texttt{22010010022} ✓, \texttt{00101111201000} ✓; $\lambda$ ✗, \texttt{2} ✗, \texttt{122} ✗, \texttt{10021} ✗, \texttt{12120021} ✗.
+\jflap{lista2-112}{Diagrama de transiciones en JFLAP (\texttt{lista2-112.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{010010}, \texttt{01012010}, \texttt{010210101}; rechazadas \texttt{010011}, \texttt{10012010}, \texttt{110210101}.}}
+
+
+
+\begin{ejercicio}{113}{*}
+Las palabras de $\Sigma_1$ que contienen dos veces la subcadena 010, asumiendo que sí se pueden traslapar.
+\end{ejercicio}
+\proc Igual que 112, pero tras completar 010 el autómata conserva el borde 0, que puede iniciar la siguiente aparición (01010). Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{0·λ} & \texttt{0·0} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es λ \\
+ \texttt{0·0} & \texttt{0·0} & \texttt{0·01} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 0 \\
+ \texttt{0·01} & \texttt{1·0} & \texttt{0·λ} & \texttt{0·λ} & van 0 apariciones; el sufijo útil leído es 01 \\
+ \texttt{1·0} & \texttt{1·0} & \texttt{1·01} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 0 \\
+ \texttt{1·01} & \texttt{2+} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es 01 \\
+ \texttt{1·λ} & \texttt{1·0} & \texttt{1·λ} & \texttt{1·λ} & van 1 apariciones; el sufijo útil leído es λ \\
+$*$ \texttt{2+} & \texttt{2+} & \texttt{2+} & \texttt{2+} & ya hay 2 apariciones de 010 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{01010} ✓, \texttt{010010} ✓, \texttt{01010101} ✓, \texttt{0101000102} ✓, \texttt{0102001001111} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{012} ✗, \texttt{12200} ✗, \texttt{22111210} ✗.
+\jflap{lista2-113}{Diagrama de transiciones en JFLAP (\texttt{lista2-113.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{01010}, \texttt{0101022}, \texttt{022201010}; rechazadas \texttt{01011}, \texttt{1001022}, \texttt{02220101}.}}
+
+
+
+\begin{ejercicio}{114}{}
+$L = \{w \in \Sigma_3^* : w = a^n b^m,\ m, n \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc Dos fases: aes y después bes. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{a*} & \texttt{a*} & \texttt{a*b+} & sólo se han leído aes \\
+$*$ \texttt{a*b+} & \texttt{muerto} & \texttt{a*b+} & ya empezaron las bes \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & apareció una a después de una b \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{a} ✓, \texttt{aaa} ✓, \texttt{abbbb} ✓, \texttt{aabbbbbb} ✓; \texttt{ba} ✗, \texttt{baa} ✗, \texttt{baaab} ✗, \texttt{bbaabbb} ✗, \texttt{aaaababbab} ✗.
+\jflap{lista2-114}{Diagrama de transiciones en JFLAP (\texttt{lista2-114.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{ba}, \texttt{abab}, \texttt{baabbb}.}}
+
+
+
+\begin{ejercicio}{115}{}
+$L = \{w \in \Sigma_2^* : w = (abc)^n,\ n \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc Ciclo de tres estados que sigue el bloque abc. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1, a, b, c\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & a & b & c & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{(abc)*} & \texttt{muerto} & \texttt{muerto} & \texttt{…a} & \texttt{muerto} & \texttt{muerto} & se han leído bloques abc completos \\
+ \texttt{…a} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{…ab} & \texttt{muerto} & falta bc \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & se rompió el patrón \\
+ \texttt{…ab} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{(abc)*} & falta c \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{abc} ✓, \texttt{abcabc} ✓, \texttt{abcabcabc} ✓, \texttt{abcabcabcabc} ✓; \texttt{1} ✗, \texttt{ba} ✗, \texttt{cbaa} ✗, \texttt{ca1bba} ✗, \texttt{ba1bc11cb} ✗.
+\jflap{lista2-115}{Diagrama de transiciones en JFLAP (\texttt{lista2-115.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abc}, \texttt{abcabc}, \texttt{abcabcabc}; rechazadas \texttt{ab0}, \texttt{bacabc}, \texttt{abcabcab}.}}
+
+
+
+\begin{ejercicio}{116}{*}
+$L = \{w \in \Sigma_2^* : w = a^n b^m c^{n+1},\ m, n \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc \textbf{Demostración (lema de bombeo).} Supóngase que L es regular con longitud de bombeo p. La cadena s = aᵖcᵖ⁺¹ ∈ L (m = 0) se escribe s = xyz con |xy| ≤ p y |y| ≥ 1, así que y = aᵏ con k ≥ 1. Entonces xy²z = aᵖ⁺ᵏcᵖ⁺¹ tiene p + k aes y p + 1 ces, y p + 1 ≠ p + k + 1, por lo que no pertenece a L. La contradicción muestra que L no es regular; en su lugar se entrega una gramática que lo genera.
+\resp $L$ no es regular, así que no existe AFD. Lo genera la gramática $S \to aSc \mid Bc$, $B \to bB \mid \lambda$: cada $a$ se empareja con una $c$ y la $c$ final aporta el $+1$.
+\jflap{lista2-116-gramatica}{Gramática independiente del contexto para $L$ en JFLAP (116).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{c}, \texttt{bbbc}, \texttt{abbbcc}; rechazadas \texttt{a}, \texttt{bbcb}, \texttt{abbbc}.}}
+
+
+\begin{ejercicio}{117}{}
+$L = \{w \in \Sigma_3^* : w = a^n b^m a^p b^q,\ m, n, p, q \in \mathbb{N}\}$.
+\end{ejercicio}
+\proc Cuatro fases; cada cambio de letra avanza una fase. Se construye un AFD con $|Q| = 5$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{f1:a*} & \texttt{f1:a*} & \texttt{f2:b*} & se está en el bloque 1 de a*b*a*b* \\
+$*$ \texttt{f2:b*} & \texttt{f3:a*} & \texttt{f2:b*} & se está en el bloque 2 de a*b*a*b* \\
+$*$ \texttt{f3:a*} & \texttt{f3:a*} & \texttt{f4:b*} & se está en el bloque 3 de a*b*a*b* \\
+$*$ \texttt{f4:b*} & \texttt{muerto} & \texttt{f4:b*} & se está en el bloque 4 de a*b*a*b* \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & la cadena ya tiene más de cuatro bloques \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{a} ✓, \texttt{baa} ✓, \texttt{bbaaa} ✓, \texttt{aaaaaaab} ✓; \texttt{baba} ✗, \texttt{babab} ✗, \texttt{abbbaba} ✗, \texttt{bbabababa} ✗, \texttt{baabaaaaaaab} ✗.
+\jflap{lista2-117}{Diagrama de transiciones en JFLAP (\texttt{lista2-117.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abbb}, \texttt{abbabb}; rechazadas \texttt{abbabba}, \texttt{baba}, \texttt{baabbba}.}}
+
+
+
+\begin{ejercicio}{118}{*}
+$L = \{w \in \Sigma_3^* : w = axabya,\ x, y \in \Sigma_3^*\}$.
+\end{ejercicio}
+\proc La primera a no puede ser la del ab interior (debe haber una a inicial propia), y la a final debe ir después de la b. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{a} & \texttt{muerto} & no se ha leído nada \\
+ \texttt{a} & \texttt{a·a} & \texttt{a} & empieza con a; aún no hay una a utilizable para el ab interior \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & la cadena no empieza con a \\
+ \texttt{a·a} & \texttt{a·a} & \texttt{ab} & el último símbolo es una a que puede iniciar el ab interior \\
+ \texttt{ab} & \texttt{ab·a} & \texttt{ab} & ya apareció el ab interior; el último símbolo no es a \\
+$*$ \texttt{ab·a} & \texttt{ab·a} & \texttt{ab} & ya apareció el ab interior y el último símbolo es a \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aaba} ✓, \texttt{aabba} ✓, \texttt{aabbaaa} ✓, \texttt{abbbaabba} ✓, \texttt{aabbbaabaaaa} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{bbb} ✗, \texttt{babbb} ✗, \texttt{babaaabb} ✗.
+\jflap{lista2-118}{Diagrama de transiciones en JFLAP (\texttt{lista2-118.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aaba}, \texttt{aabbbaa}, \texttt{aabbbbaba}; rechazadas \texttt{aabb}, \texttt{babbbaa}, \texttt{aabbbbab}.}}
+
+
+
+\begin{ejercicio}{119}{}
+Las palabras de $\Sigma_3$ tales que después de cada subcadena \texttt{aa} aparece una \texttt{b}.
+\end{ejercicio}
+\proc Cada aa debe ir seguida inmediatamente de b: se prohíbe aaa y terminar en aa. Basta contar las aes finales. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{sin a} & \texttt{a} & \texttt{sin a} & la cadena termina con 0 aes consecutivas \\
+$*$ \texttt{a} & \texttt{aa} & \texttt{sin a} & la cadena termina con 1 aes consecutivas \\
+ \texttt{aa} & \texttt{muerto} & \texttt{sin a} & la cadena termina con 2 aes consecutivas \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & apareció aaa \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{a} ✓, \texttt{bbb} ✓, \texttt{ababa} ✓, \texttt{abababba} ✓; \texttt{aa} ✗, \texttt{aaa} ✗, \texttt{abbaa} ✗, \texttt{aabaaab} ✗, \texttt{aabababbaa} ✗.
+\jflap{lista2-119}{Diagrama de transiciones en JFLAP (\texttt{lista2-119.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baabba}; rechazadas \texttt{baa}, \texttt{aaabba}, \texttt{aa}.}}
+
+
+
+\begin{ejercicio}{120}{*}
+Las palabras de $\Sigma_1$ tales que el primer carácter y el último son distintos.
+\end{ejercicio}
+\proc Se recuerda el primer símbolo y si el último coincide con él. Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{0…=} & \texttt{1…=} & \texttt{2…=} & no se ha leído nada \\
+ \texttt{0…=} & \texttt{0…=} & \texttt{0…≠} & \texttt{0…≠} & empieza con 0 y el último símbolo es igual \\
+ \texttt{1…=} & \texttt{1…≠} & \texttt{1…=} & \texttt{1…≠} & empieza con 1 y el último símbolo es igual \\
+ \texttt{2…=} & \texttt{2…≠} & \texttt{2…≠} & \texttt{2…=} & empieza con 2 y el último símbolo es igual \\
+$*$ \texttt{0…≠} & \texttt{0…=} & \texttt{0…≠} & \texttt{0…≠} & empieza con 0 y el último símbolo es distinto \\
+$*$ \texttt{1…≠} & \texttt{1…≠} & \texttt{1…=} & \texttt{1…≠} & empieza con 1 y el último símbolo es distinto \\
+$*$ \texttt{2…≠} & \texttt{2…≠} & \texttt{2…≠} & \texttt{2…=} & empieza con 2 y el último símbolo es distinto \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{21} ✓, \texttt{012} ✓, \texttt{20001} ✓, \texttt{0222011} ✓, \texttt{2022102021} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{222} ✗, \texttt{10011} ✗, \texttt{10102211} ✗.
+\jflap{lista2-120}{Diagrama de transiciones en JFLAP (\texttt{lista2-120.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{12}, \texttt{11112}, \texttt{1111112}; rechazadas \texttt{11}, \texttt{11121}, \texttt{111111}.}}
+
+
+
+\begin{ejercicio}{121}{*}
+Las palabras de $\Sigma_1$ con longitud $3n$ para algún $n \in \mathbb{N}$, tales que si se dividen en $n$ bloques de longitud 3, cada uno de éstos tiene al menos un 0. Por ejemplo, 000 011 110 101 es una palabra válida, mientras que 001 101 111 010 no lo es, pues el tercer bloque no tiene ningún 0.
+\end{ejercicio}
+\proc Se lleva la posición dentro del bloque y si el bloque ya contiene un 0. λ (n = 0) se acepta. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{b0} & \texttt{b1+0} & \texttt{b1} & \texttt{b1} & posición 0 dentro del bloque; aún no hay un 0 en el bloque \\
+ \texttt{b1+0} & \texttt{b2+0} & \texttt{b2+0} & \texttt{b2+0} & posición 1 dentro del bloque; ya hay un 0 en el bloque \\
+ \texttt{b1} & \texttt{b2+0} & \texttt{b2} & \texttt{b2} & posición 1 dentro del bloque; aún no hay un 0 en el bloque \\
+ \texttt{b2+0} & \texttt{b0} & \texttt{b0} & \texttt{b0} & posición 2 dentro del bloque; ya hay un 0 en el bloque \\
+ \texttt{b2} & \texttt{b0} & \texttt{muerto} & \texttt{muerto} & posición 2 dentro del bloque; aún no hay un 0 en el bloque \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & un bloque terminó sin 0 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{011} ✓, \texttt{012220} ✓, \texttt{012020210} ✓, \texttt{100100102} ✓; \texttt{2} ✗, \texttt{02} ✗, \texttt{0202} ✗, \texttt{111101} ✗, \texttt{002111012} ✗.
+\jflap{lista2-121}{Diagrama de transiciones en JFLAP (\texttt{lista2-121.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{100000}, \texttt{220220}; rechazadas \texttt{00}, \texttt{10000}, \texttt{22022}.}}
+
+
+
+\begin{ejercicio}{122}{*}
+Las palabras de $\Sigma_1$ tales que cualquier cadena de tres símbolos consecutivos debe tener un 0. Note que la cadena 001110 sí está en el lenguaje del problema anterior, pero no en este, mientras que 00101 está en el lenguaje de este problema y no en el del anterior.
+\end{ejercicio}
+\proc Basta contar cuántos símbolos distintos de 0 hay al final; tres seguidos invalidan la cadena. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1, 2\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{0 sin 0} & \texttt{0 sin 0} & \texttt{1 sin 0} & \texttt{1 sin 0} & los últimos 0 símbolos son distintos de 0 \\
+$*$ \texttt{1 sin 0} & \texttt{0 sin 0} & \texttt{2 sin 0} & \texttt{2 sin 0} & los últimos 1 símbolos son distintos de 0 \\
+$*$ \texttt{2 sin 0} & \texttt{0 sin 0} & \texttt{muerto} & \texttt{muerto} & los últimos 2 símbolos son distintos de 0 \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & hubo tres símbolos seguidos sin 0 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{1} ✓, \texttt{100} ✓, \texttt{22010} ✓, \texttt{20202021} ✓; \texttt{112} ✗, \texttt{0122} ✗, \texttt{122010} ✗, \texttt{21110110} ✗, \texttt{01112200022} ✗.
+\jflap{lista2-122}{Diagrama de transiciones en JFLAP (\texttt{lista2-122.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1012}, \texttt{101020}; rechazadas \texttt{0112}, \texttt{211}, \texttt{120121}.}}
+
+
+
+\begin{ejercicio}{123}{*}
+Las palabras de $\Sigma_3$ de la forma $wxw$ donde $w \in \Sigma_3^2$ y $x \in \Sigma_3^*$.
+\end{ejercicio}
+\proc Se memoriza w (los dos primeros símbolos) y, para cada w, tres situaciones: la cadena termina en w, el último símbolo es la primera letra de w, u otra. Tras los dos primeros símbolos el estado es «otra» aunque la cadena termine en w, porque las dos copias de w no pueden traslaparse (se exige longitud ≥ 4). Se construye un AFD con $|Q| = 15$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{a} & \texttt{b} & no se ha leído nada \\
+ \texttt{a} & \texttt{aa:∅} & \texttt{ab:∅} & el primer símbolo es a \\
+ \texttt{b} & \texttt{ba:∅} & \texttt{bb:∅} & el primer símbolo es b \\
+ \texttt{aa:∅} & \texttt{aa:a…} & \texttt{aa:∅} & w = aa; el final leído no sirve para la copia final de w (o la longitud aún es 2) \\
+ \texttt{ab:∅} & \texttt{ab:a…} & \texttt{ab:∅} & w = ab; el final leído no sirve para la copia final de w (o la longitud aún es 2) \\
+ \texttt{ba:∅} & \texttt{ba:∅} & \texttt{ba:b…} & w = ba; el final leído no sirve para la copia final de w (o la longitud aún es 2) \\
+ \texttt{bb:∅} & \texttt{bb:∅} & \texttt{bb:b…} & w = bb; el final leído no sirve para la copia final de w (o la longitud aún es 2) \\
+ \texttt{aa:a…} & \texttt{aa:aa} & \texttt{aa:∅} & w = aa; el último símbolo es a, que puede iniciar la copia final de w \\
+ \texttt{ab:a…} & \texttt{ab:a…} & \texttt{ab:ab} & w = ab; el último símbolo es a, que puede iniciar la copia final de w \\
+ \texttt{ba:b…} & \texttt{ba:ba} & \texttt{ba:b…} & w = ba; el último símbolo es b, que puede iniciar la copia final de w \\
+ \texttt{bb:b…} & \texttt{bb:∅} & \texttt{bb:bb} & w = bb; el último símbolo es b, que puede iniciar la copia final de w \\
+$*$ \texttt{aa:aa} & \texttt{aa:aa} & \texttt{aa:∅} & w = aa y la cadena (de longitud ≥ 4) termina en aa \\
+$*$ \texttt{ab:ab} & \texttt{ab:a…} & \texttt{ab:∅} & w = ab y la cadena (de longitud ≥ 4) termina en ab \\
+$*$ \texttt{ba:ba} & \texttt{ba:∅} & \texttt{ba:b…} & w = ba y la cadena (de longitud ≥ 4) termina en ba \\
+$*$ \texttt{bb:bb} & \texttt{bb:∅} & \texttt{bb:bb} & w = bb y la cadena (de longitud ≥ 4) termina en bb \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{bbbb} ✓, \texttt{abbab} ✓, \texttt{bbbbabb} ✓, \texttt{abaabbbab} ✓, \texttt{abbaabaaaaab} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{bab} ✗, \texttt{babbb} ✗, \texttt{aabbbbba} ✗.
+\jflap{lista2-123}{Diagrama de transiciones en JFLAP (\texttt{lista2-123.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{baba}, \texttt{baaaaba}, \texttt{baaaaaaba}; rechazadas \texttt{babb}, \texttt{abaaaba}, \texttt{baaaaaab}.}}
+
+
+
+\begin{ejercicio}{124}{*}
+Un mecanismo con tres palancas recibe canicas por las entradas 0 y 1; la palabra 0010 significa que dos canicas caen por 0, luego una por 1 y una cuarta por 0. Cada palanca desvía la canica a la izquierda o a la derecha según su posición y cambia de posición cada vez que una canica pasa por ella. Una palabra es aceptada si la última canica sale por A y rechazada si sale por R. a) ¿De cuántas formas pueden estar colocadas las tres palancas? b) Dibuje cada estado e identifique el resultado de soltar una canica en 0 o en 1, y la posición en que quedan las palancas. c) Encuentre la tabla de transiciones de un AFD que decida si una palabra es aceptada o rechazada.
+\end{ejercicio}
+\proc Ver el análisis del mecanismo. Se construye un AFD con $|Q| = 13$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{III} & \texttt{DIIa} & \texttt{IDDa} & palancas izquierda=I, derecha=I, central=I (I: desvía a la izquierda, D: a la derecha); aún no cae ninguna canica \\
+$*$ \texttt{DIIa} & \texttt{IIDa} & \texttt{DDDa} & palancas izquierda=D, derecha=I, central=I (I: desvía a la izquierda, D: a la derecha); la última canica salió por A \\
+$*$ \texttt{IDDa} & \texttt{DDDa} & \texttt{IIDr} & palancas izquierda=I, derecha=D, central=D (I: desvía a la izquierda, D: a la derecha); la última canica salió por A \\
+$*$ \texttt{IIDa} & \texttt{DIDa} & \texttt{IDIr} & palancas izquierda=I, derecha=I, central=D (I: desvía a la izquierda, D: a la derecha); la última canica salió por A \\
+$*$ \texttt{DDDa} & \texttt{IDIr} & \texttt{DIDr} & palancas izquierda=D, derecha=D, central=D (I: desvía a la izquierda, D: a la derecha); la última canica salió por A \\
+ \texttt{IIDr} & \texttt{DIDa} & \texttt{IDIr} & palancas izquierda=I, derecha=I, central=D (I: desvía a la izquierda, D: a la derecha); la última canica salió por R \\
+$*$ \texttt{DIDa} & \texttt{IIIr} & \texttt{DDIr} & palancas izquierda=D, derecha=I, central=D (I: desvía a la izquierda, D: a la derecha); la última canica salió por A \\
+ \texttt{IDIr} & \texttt{DDIa} & \texttt{IIIr} & palancas izquierda=I, derecha=D, central=I (I: desvía a la izquierda, D: a la derecha); la última canica salió por R \\
+ \texttt{DIDr} & \texttt{IIIr} & \texttt{DDIr} & palancas izquierda=D, derecha=I, central=D (I: desvía a la izquierda, D: a la derecha); la última canica salió por R \\
+ \texttt{IIIr} & \texttt{DIIa} & \texttt{IDDa} & palancas izquierda=I, derecha=I, central=I (I: desvía a la izquierda, D: a la derecha); la última canica salió por R \\
+ \texttt{DDIr} & \texttt{IDDa} & \texttt{DIIr} & palancas izquierda=D, derecha=D, central=I (I: desvía a la izquierda, D: a la derecha); la última canica salió por R \\
+$*$ \texttt{DDIa} & \texttt{IDDa} & \texttt{DIIr} & palancas izquierda=D, derecha=D, central=I (I: desvía a la izquierda, D: a la derecha); la última canica salió por A \\
+ \texttt{DIIr} & \texttt{IIDa} & \texttt{DDDa} & palancas izquierda=D, derecha=I, central=I (I: desvía a la izquierda, D: a la derecha); la última canica salió por R \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0} ✓, \texttt{01} ✓, \texttt{0010} ✓, \texttt{010110} ✓, \texttt{101101100} ✓; $\lambda$ ✗, \texttt{1010} ✗, \texttt{00101} ✗, \texttt{001111} ✗, \texttt{01000001} ✗.
+
+
+\textbf{a)} Cada palanca tiene dos posiciones, así que hay 2³ = 8 configuraciones. \textbf{b)} La canica de la entrada 0 llega a la palanca izquierda: si apunta a la izquierda (I) sale por A; si apunta a la derecha (D) pasa a la palanca central. La de la entrada 1 llega a la palanca derecha: con D sale por R y con I pasa a la central. La central envía a A con I y a R con D. Toda palanca por la que pasa una canica cambia de posición. \textbf{c)} Los estados son la configuración (izquierda, derecha, central) más la salida de la última canica (a o r); en el estado inicial no ha caído ninguna, por lo que λ se rechaza. Las tres palancas empiezan en la posición dibujada, que desvía a la izquierda (III).\jflap{lista2-124}{Diagrama de transiciones en JFLAP (\texttt{lista2-124.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{11}, \texttt{100}, \texttt{1000000}.}}
+
+
+
+\begin{ejercicio}{125}{*}
+Sea $A = (Q, \Sigma, \delta, A_0, F)$ un AFD. ¿Cuál es el lenguaje del autómata $A' = (Q, \Sigma, \delta, A_0, Q \setminus F)$?
+\end{ejercicio}
+\proc Como ejemplo se complementa el AFD de 139 (número par de ceros). Se construye un AFD con $|Q| = 2$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{par} & \texttt{impar} & \texttt{par} & se ha leído un número par de ceros \\
+$*$ \texttt{impar} & \texttt{par} & \texttt{impar} & se ha leído un número impar de ceros \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0} ✓, \texttt{01} ✓, \texttt{1101} ✓, \texttt{111011} ✓, \texttt{110000000} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{100} ✗, \texttt{00010} ✗, \texttt{01101001} ✗.
+
+
+\textbf{Respuesta.} L(A') = Σ* \textbackslash{} L(A). Como A es determinista y completo, cada cadena termina en un único estado: está en F o en Q \textbackslash{} F, nunca en ambos. El ejemplo implementado es el complemento del AFD de 139: cadenas con un número impar de ceros. (Si δ fuera parcial, primero habría que completarla con un sumidero.)\jflap{lista2-125}{Diagrama de transiciones en JFLAP (\texttt{lista2-125.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{1}, \texttt{100}, \texttt{10000}.}}
+
+
+
+\begin{ejercicio}{126}{*}
+Sea $A = (Q, \Sigma, \delta, A_0, F)$ un AFD. ¿Cuál es el lenguaje del autómata si $F = \varnothing$?
+\end{ejercicio}
+\proc Ejemplo: el AFD de 139 con F = ∅. Se construye un AFD con $|Q| = 2$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{par} & \texttt{impar} & \texttt{par} & número par de ceros \\
+ \texttt{impar} & \texttt{par} & \texttt{impar} & número impar de ceros \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): ; $\lambda$ ✗, \texttt{1} ✗, \texttt{001} ✗, \texttt{10111} ✗, \texttt{10001101} ✗.
+
+
+\textbf{Respuesta.} L(A) = ∅: ninguna cadena termina en un estado de aceptación porque no los hay.\jflap{lista2-126}{Diagrama de transiciones en JFLAP (\texttt{lista2-126.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas ninguna; rechazadas \texttt{1}, \texttt{1000}, \texttt{100000}.}}
+
+
+
+\begin{ejercicio}{127}{*}
+Sea $A = (Q, \Sigma, \delta, q_0, F)$ un AFD. ¿Cuál es el lenguaje del autómata si $F = Q$?
+\end{ejercicio}
+\proc Ejemplo: el AFD de 139 con F = Q. Se construye un AFD con $|Q| = 2$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{par} & \texttt{impar} & \texttt{par} & número par de ceros \\
+$*$ \texttt{impar} & \texttt{par} & \texttt{impar} & número impar de ceros \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{1} ✓, \texttt{100} ✓, \texttt{00001} ✓, \texttt{00111011} ✓; .
+
+
+\textbf{Respuesta.} L(A) = Σ*: toda cadena termina en algún estado, y todos son de aceptación (con δ completa).\jflap{lista2-127}{Diagrama de transiciones en JFLAP (\texttt{lista2-127.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas ninguna.}}
+
+
+
+\begin{ejercicio}{128}{*}
+Sea $L$ el lenguaje del autómata del diagrama de la lista. Encuentre un AFD que identifique el lenguaje $L_2$ cuyas palabras son las de $L$ quitándoles el último símbolo; es decir, si $001001 \in L$, entonces $00100 \in L_2$.
+\end{ejercicio}
+\proc Se conservan los estados y las transiciones; un estado q es de aceptación en el nuevo autómata si algún símbolo lo lleva a F. Como δ(D, 0) = F y δ(E, 1) = F, F' = \{D, E\}. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} & mismo estado que en el autómata original \\
+ \texttt{B} & \texttt{C} & \texttt{D} & mismo estado que en el autómata original \\
+ \texttt{C} & \texttt{D} & \texttt{E} & mismo estado que en el autómata original \\
+$*$ \texttt{D} & \texttt{F} & \texttt{E} & mismo estado que en el autómata original \\
+$*$ \texttt{E} & \texttt{E} & \texttt{F} & mismo estado que en el autómata original \\
+ \texttt{F} & \texttt{D} & \texttt{D} & mismo estado que en el autómata original \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{10} ✓, \texttt{001} ✓, \texttt{10100} ✓, \texttt{0010101} ✓, \texttt{0100011101} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{111} ✗, \texttt{11100} ✗, \texttt{01001001} ✗.
+
+
+Transcripción del diagrama: A→B (0), A→C (1), B→C (0), B→D (1), C→D (0), C→E (1), D→F (0), D→E (1), E→E (0), E→F (1), F→D (0, 1), con F = \{F\}.\jflap{lista2-128}{Diagrama de transiciones en JFLAP (\texttt{lista2-128.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{10}, \texttt{01111}, \texttt{0111110}; rechazadas \texttt{1}, \texttt{0111}, \texttt{01111101}.}}
+
+
+
+\begin{ejercicio}{129}{}
+Diseñar un AFD $M$ que acepte $L_M = \{w \in \{a, b\}^* : w$ no contiene tres $b$ consecutivas$\}$, con $Q = \{q_0, q_1, q_2, q_3\}$, $F = \{q_0, q_1, q_2\}$ y $\delta$: $q_i \xrightarrow{a} q_0$ ($i \le 2$), $q_0 \xrightarrow{b} q_1 \xrightarrow{b} q_2 \xrightarrow{b} q_3$, $q_3$ con lazo $a, b$.
+\end{ejercicio}
+\proc qᵢ (i ≤ 2) indica que la cadena termina con i bes seguidas; q3, que ya apareció bbb. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$$*$ \texttt{q0} & \texttt{q0} & \texttt{q1} \\
+$*$ \texttt{q1} & \texttt{q0} & \texttt{q2} \\
+$*$ \texttt{q2} & \texttt{q0} & \texttt{q3} \\
+ \texttt{q3} & \texttt{q3} & \texttt{q3} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{b} ✓, \texttt{baa} ✓, \texttt{babba} ✓, \texttt{abbababa} ✓; \texttt{bbb} ✗, \texttt{abbb} ✗, \texttt{abbbaa} ✗, \texttt{abbbabba} ✗, \texttt{abbabbbaaaa} ✗.
+\jflap{lista2-129}{Diagrama de transiciones en JFLAP (\texttt{lista2-129.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abba}, \texttt{abbaba}; rechazadas \texttt{bbba}, \texttt{bbbaba}, \texttt{bbb}.}}
+
+
+
+\begin{ejercicio}{130}{}
+Determinar el esquema del AFD $M = (\{q_1, q_2, q_3\}, \{0, 1\}, \delta, q_1, \{q_2\})$ con $\delta(q_1,0)=q_1$, $\delta(q_1,1)=q_2$, $\delta(q_2,0)=q_3$, $\delta(q_2,1)=q_2$, $\delta(q_3,0)=q_2$, $\delta(q_3,1)=q_2$, y describir el lenguaje que reconoce.
+\end{ejercicio}
+\proc q1: aún no hay unos. Después del primer 1, cada 1 lleva a q2 y los ceros alternan q3 y q2. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q1} & \texttt{q1} & \texttt{q2} \\
+$*$ \texttt{q2} & \texttt{q3} & \texttt{q2} \\
+ \texttt{q3} & \texttt{q2} & \texttt{q2} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1} ✓, \texttt{01} ✓, \texttt{1001} ✓, \texttt{011100} ✓, \texttt{101001100} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{000} ✗, \texttt{00110} ✗, \texttt{11100110} ✗.
+
+
+\textbf{Lenguaje.} L(M) = 0*1(1 + 0(0 + 1))*: las cadenas que contienen al menos un 1 y terminan con un número par de ceros después del último 1.\jflap{lista2-130}{Diagrama de transiciones en JFLAP (\texttt{lista2-130.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{1000010}.}}
+
+
+
+\begin{ejercicio}{131}{*}
+Dibuje el AFD $M = (\{q_1, q_2\}, \{0, 1\}, \delta, q_1, \{q_2\})$ con $\delta(q_1,0)=q_1$, $\delta(q_2,0)=q_1$, $\delta(q_1,1)=q_2$ y $\delta(q_2,1)=q_2$. Determine el lenguaje $L(M)$.
+\end{ejercicio}
+\proc q2 significa que el último símbolo leído es 1. Se construye un AFD con $|Q| = 2$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{q1} & \texttt{q1} & \texttt{q2} \\
+$*$ \texttt{q2} & \texttt{q1} & \texttt{q2} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1} ✓, \texttt{11} ✓, \texttt{0111} ✓, \texttt{100111} ✓, \texttt{000010011} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{010} ✗, \texttt{01100} ✗, \texttt{01110010} ✗.
+
+
+\textbf{Lenguaje.} L(M) = \{w ∈ \{0, 1\}* : w termina en 1\} = (0 + 1)*1.\jflap{lista2-131}{Diagrama de transiciones en JFLAP (\texttt{lista2-131.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+
+
+
+\begin{ejercicio}{132}{}
+Diseñar un AFD que reconozca $L = \{a^n b : n \ge 0\}$: cero o más \texttt{a} seguidas exactamente por una \texttt{b}.
+\end{ejercicio}
+\proc Ciclo de aes y una única b final. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{a*} & \texttt{a*} & \texttt{a*b} & sólo se han leído aes \\
+$*$ \texttt{a*b} & \texttt{muerto} & \texttt{muerto} & se leyó la única b \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & hubo algo después de la b \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{b} ✓, \texttt{ab} ✓, \texttt{aaab} ✓, \texttt{aaaaab} ✓, \texttt{aaaaaaaab} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{bba} ✗, \texttt{bbbba} ✗, \texttt{bbaababa} ✗.
+\jflap{lista2-132}{Diagrama de transiciones en JFLAP (\texttt{lista2-132.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{aaab}, \texttt{aaaaab}; rechazadas \texttt{a}, \texttt{aaba}, \texttt{aaaaa}.}}
+
+
+
+\begin{ejercicio}{133}{*}
+Obtener la tabla de estados y el diagrama del AFD $M = (\{q_0,q_1,q_2,q_3\}, \{a,b\}, \delta, q_0, \{q_0\})$ con $\delta(q_0,a)=q_2$, $\delta(q_0,b)=q_1$, $\delta(q_1,a)=q_3$, $\delta(q_1,b)=q_0$, $\delta(q_2,a)=q_0$, $\delta(q_2,b)=q_3$, $\delta(q_3,a)=q_1$, $\delta(q_3,b)=q_2$.
+\end{ejercicio}
+\proc q0 = (a par, b par), q1 = (a par, b impar), q2 = (a impar, b par), q3 = (a impar, b impar). Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$$*$ \texttt{q0} & \texttt{q2} & \texttt{q1} \\
+ \texttt{q1} & \texttt{q3} & \texttt{q0} \\
+ \texttt{q2} & \texttt{q0} & \texttt{q3} \\
+ \texttt{q3} & \texttt{q1} & \texttt{q2} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{baab} ✓, \texttt{bbaa} ✓, \texttt{aabbaa} ✓, \texttt{baabaa} ✓; \texttt{a} ✗, \texttt{ab} ✗, \texttt{baaa} ✗, \texttt{aabbab} ✗, \texttt{aaabbbbab} ✗.
+
+
+\textbf{Lenguaje.} Las cadenas con un número par de aes y un número par de bes.\jflap{lista2-133}{Diagrama de transiciones en JFLAP (\texttt{lista2-133.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{bb}, \texttt{baab}, \texttt{baaaab}; rechazadas \texttt{ba}, \texttt{baa}, \texttt{baaaa}.}}
+
+
+
+\begin{ejercicio}{134}{}
+Obtener el AFD que reconoce $L(M) = \{w \in \{a,b,c\}^* : w$ contiene el patrón \texttt{abac}$\}$ (búsqueda de un patrón en un texto).
+\end{ejercicio}
+\proc Autómata de búsqueda de abac (Knuth-Morris-Pratt). Se construye un AFD con $|Q| = 5$ sobre $\Sigma = \{a, b, c\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & c & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{λ} & \texttt{λ} & aún no aparece abac; el sufijo más largo leído que es prefijo de abac es λ \\
+ \texttt{a} & \texttt{a} & \texttt{ab} & \texttt{λ} & aún no aparece abac; el sufijo más largo leído que es prefijo de abac es a \\
+ \texttt{ab} & \texttt{aba} & \texttt{λ} & \texttt{λ} & aún no aparece abac; el sufijo más largo leído que es prefijo de abac es ab \\
+ \texttt{aba} & \texttt{a} & \texttt{ab} & \texttt{abac} & aún no aparece abac; el sufijo más largo leído que es prefijo de abac es aba \\
+$*$ \texttt{abac} & \texttt{abac} & \texttt{abac} & \texttt{abac} & ya apareció abac \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{abac} ✓, \texttt{abaca} ✓, \texttt{bbaabac} ✓, \texttt{abacbbcbb} ✓, \texttt{ababacccacab} ✓; $\lambda$ ✗, \texttt{c} ✗, \texttt{bcc} ✗, \texttt{ccaba} ✗, \texttt{acbcbbcc} ✗.
+\jflap{lista2-134}{Diagrama de transiciones en JFLAP (\texttt{lista2-134.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abac}, \texttt{baaabac}, \texttt{babacabca}; rechazadas \texttt{abaa}, \texttt{baabaac}, \texttt{abbacabca}.}}
+
+
+
+\begin{ejercicio}{135}{*}
+Dado $\Sigma = \{a, b\}$, construir un AFD que reconozca $L = \{b^m a b^n : m, n > 0\}$.
+\end{ejercicio}
+\proc Cuatro fases; m > 0 y n > 0 exigen al menos una b en cada lado. Se construye un AFD con $|Q| = 5$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{muerto} & \texttt{b+} & no se ha leído nada \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & la cadena no tiene la forma \\
+ \texttt{b+} & \texttt{b+a} & \texttt{b+} & una o más bes iniciales \\
+ \texttt{b+a} & \texttt{muerto} & \texttt{b+ab+} & bes y la a \\
+$*$ \texttt{b+ab+} & \texttt{muerto} & \texttt{b+ab+} & bes, la a y una o más bes \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{bab} ✓, \texttt{babb} ✓, \texttt{bbbbab} ✓, \texttt{bbabbbbb} ✓, \texttt{bbbabbbbbbb} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{bba} ✗, \texttt{aabbb} ✗, \texttt{abbaaaba} ✗.
+\jflap{lista2-135}{Diagrama de transiciones en JFLAP (\texttt{lista2-135.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{bab}, \texttt{bbbabb}, \texttt{bbbbabbb}; rechazadas \texttt{baa}, \texttt{abbabb}, \texttt{abbbabbb}.}}
+
+
+
+\begin{ejercicio}{136}{}
+Dado $\Sigma = \{a, b\}$, construir un AFD que reconozca $L = \{a^m b^n : m, n > 0\}$.
+\end{ejercicio}
+\proc Tres fases con al menos un símbolo en cada bloque. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{a+} & \texttt{muerto} & no se ha leído nada \\
+ \texttt{a+} & \texttt{a+} & \texttt{a+b+} & una o más aes \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & orden incorrecto \\
+$*$ \texttt{a+b+} & \texttt{muerto} & \texttt{a+b+} & aes y una o más bes \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{ab} ✓, \texttt{aab} ✓, \texttt{aaabb} ✓, \texttt{aaaaabb} ✓, \texttt{aaaaaaabbb} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{bbb} ✗, \texttt{babaa} ✗, \texttt{bbbabbba} ✗.
+\jflap{lista2-136}{Diagrama de transiciones en JFLAP (\texttt{lista2-136.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabbb}, \texttt{aaabbbb}; rechazadas \texttt{aa}, \texttt{ababb}, \texttt{baabbbb}.}}
+
+
+
+\begin{ejercicio}{137}{*}
+Construir un AFD que reconozca las cadenas sobre $\Sigma = \{a, b\}$ que comienzan con el prefijo \texttt{ab}.
+\end{ejercicio}
+\proc Se verifica el prefijo y después se acepta todo. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{muerto} & se han leído los primeros 0 símbolos de ab \\
+ \texttt{a} & \texttt{muerto} & \texttt{ab} & se han leído los primeros 1 símbolos de ab \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & el prefijo leído no coincide con ab \\
+$*$ \texttt{ab} & \texttt{ab} & \texttt{ab} & ya se leyó el prefijo ab \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{ab} ✓, \texttt{aba} ✓, \texttt{abbbb} ✓, \texttt{abaaaaa} ✓, \texttt{abaaabaaab} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{bab} ✗, \texttt{bbbab} ✗, \texttt{bbabaaba} ✗.
+\jflap{lista2-137}{Diagrama de transiciones en JFLAP (\texttt{lista2-137.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{abbaa}, \texttt{abbaaaa}; rechazadas \texttt{aa}, \texttt{babaa}, \texttt{bbbaaaa}.}}
+
+
+
+\begin{ejercicio}{138}{}
+Determine el AFD que acepta las palabras sobre $\Sigma = \{a, b\}$ cuyo número de \texttt{b} es divisible entre tres, con su tabla de estados.
+\end{ejercicio}
+\proc Contador de bes módulo 3; las aes no cambian de estado. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{b≡0} & \texttt{b≡0} & \texttt{b≡1} & el número de bes es ≡ 0 (mod 3) \\
+ \texttt{b≡1} & \texttt{b≡1} & \texttt{b≡2} & el número de bes es ≡ 1 (mod 3) \\
+ \texttt{b≡2} & \texttt{b≡2} & \texttt{b≡0} & el número de bes es ≡ 2 (mod 3) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{a} ✓, \texttt{aaa} ✓, \texttt{aabbb} ✓, \texttt{bbabbabb} ✓; \texttt{b} ✗, \texttt{ba} ✗, \texttt{abba} ✗, \texttt{aabbaa} ✗, \texttt{baaaaaaba} ✗.
+\jflap{lista2-138}{Diagrama de transiciones en JFLAP (\texttt{lista2-138.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{babb}, \texttt{baaabb}; rechazadas \texttt{b}, \texttt{bab}, \texttt{baaab}.}}
+
+
+
+\begin{ejercicio}{139}{*}
+Construya un autómata finito que acepte las cadenas de $\{0, 1\}^*$ con un número par de ceros.
+\end{ejercicio}
+\proc Paridad de ceros. Se construye un AFD con $|Q| = 2$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{par} & \texttt{impar} & \texttt{par} & se ha leído un número par de ceros \\
+ \texttt{impar} & \texttt{par} & \texttt{impar} & se ha leído un número impar de ceros \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{1} ✓, \texttt{010} ✓, \texttt{10000} ✓, \texttt{11100111} ✓; \texttt{0} ✗, \texttt{01} ✗, \texttt{0100} ✗, \texttt{000100} ✗, \texttt{011011110} ✗.
+\jflap{lista2-139}{Diagrama de transiciones en JFLAP (\texttt{lista2-139.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{0001}, \texttt{000001}.}}
+
+
+
+\begin{ejercicio}{140}{}
+Construir autómatas finitos sobre $\{0, 1\}$ para las cadenas que: a) contienen un número impar de ceros; b) contienen un número par de ceros y un número par de unos.
+\end{ejercicio}
+\proc 
+
+\textbf{Inciso a)} Cadenas sobre \{0, 1\} con un número impar de ceros.
+
+Paridad de ceros; acepta impar. Se construye un AFD con $|Q| = 2$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{par} & \texttt{impar} & \texttt{par} & número par de ceros \\
+$*$ \texttt{impar} & \texttt{par} & \texttt{impar} & número impar de ceros \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0} ✓, \texttt{10} ✓, \texttt{1110} ✓, \texttt{001011} ✓, \texttt{011010001} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{100} ✗, \texttt{00001} ✗, \texttt{10010011} ✗.
+\jflap{lista2-140a}{Diagrama de transiciones en JFLAP, inciso a (\texttt{lista2-140a.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{1}, \texttt{100}, \texttt{10000}.}}
+
+
+\textbf{Inciso b)} Cadenas sobre \{0, 1\} con un número par de ceros y un número par de unos.
+
+Producto de las dos paridades. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{0p1p} & \texttt{0i1p} & \texttt{0p1i} & ceros pares, unos pares \\
+ \texttt{0i1p} & \texttt{0p1p} & \texttt{0i1i} & ceros impares, unos pares \\
+ \texttt{0p1i} & \texttt{0i1i} & \texttt{0p1p} & ceros pares, unos impares \\
+ \texttt{0i1i} & \texttt{0p1i} & \texttt{0i1p} & ceros impares, unos impares \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{11} ✓, \texttt{0000} ✓, \texttt{01100110} ✓, \texttt{001110000100} ✓; \texttt{1} ✗, \texttt{10} ✗, \texttt{0100} ✗, \texttt{111000} ✗, \texttt{111101010} ✗.
+\jflap{lista2-140b}{Diagrama de transiciones en JFLAP, inciso b (\texttt{lista2-140b.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{11}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{10}, \texttt{100}, \texttt{10000}.}}
+
+
+
+\begin{ejercicio}{141}{*}
+Determine un autómata finito $M$ que acepte $L = \{w \in \{0,1\}^* :$ cada 0 en $w$ tiene un 1 inmediatamente a su derecha$\}$.
+\end{ejercicio}
+\proc Un estado de espera después de cada 0. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{ok} & \texttt{0?} & \texttt{ok} & todo 0 leído ya tiene su 1 \\
+ \texttt{0?} & \texttt{muerto} & \texttt{ok} & el último 0 aún espera su 1 \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & un 0 no fue seguido de 1 \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{1} ✓, \texttt{111} ✓, \texttt{11111} ✓, \texttt{01110111} ✓; \texttt{0} ✗, \texttt{00} ✗, \texttt{0100} ✗, \texttt{101001} ✗, \texttt{110010110} ✗.
+\jflap{lista2-141}{Diagrama de transiciones en JFLAP (\texttt{lista2-141.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1011}, \texttt{101101}; rechazadas \texttt{0}, \texttt{0011}, \texttt{10110}.}}
+
+
+
+\begin{ejercicio}{142}{}
+Determine el autómata finito con $\Sigma = \{a, b\}$ para: a) $L_A = (ab)^* = \{(ab)^n : n \ge 0\}$; b) $L_B = \{(ab)^n : n \ge 1\}$. (La lista indica en ambos que $\varepsilon$ no es aceptada.)
+\end{ejercicio}
+\proc 
+
+\textbf{Inciso a)} LA = (ab)* = \{(ab)ⁿ : n ≥ 0\}.
+
+El enunciado indica que λ no se acepta, pero (ab)* con n ≥ 0 sí la contiene; se sigue la definición del lenguaje y se acepta λ. El inciso b) es la versión sin λ. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{(ab)*} & \texttt{…a} & \texttt{muerto} & se han leído bloques ab completos (o nada) \\
+ \texttt{…a} & \texttt{muerto} & \texttt{(ab)*} & falta la b del bloque \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & se rompió el patrón \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): $\lambda$ ✓, \texttt{ab} ✓, \texttt{abab} ✓, \texttt{abababababab} ✓, \texttt{ababababababab} ✓; \texttt{a} ✗, \texttt{aa} ✗, \texttt{abba} ✗, \texttt{bbbbba} ✗, \texttt{aaaaaabab} ✗.
+\jflap{lista2-142a}{Diagrama de transiciones en JFLAP, inciso a (\texttt{lista2-142a.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{abab}, \texttt{ababab}; rechazadas \texttt{aa}, \texttt{baab}, \texttt{ababa}.}}
+
+
+\textbf{Inciso b)} LB = \{(ab)ⁿ : n ≥ 1\}.
+
+Como a) pero el estado inicial no es de aceptación. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{…a} & \texttt{muerto} & no se ha leído nada \\
+ \texttt{…a} & \texttt{muerto} & \texttt{…ab} & falta la b del bloque \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & se rompió el patrón \\
+$*$ \texttt{…ab} & \texttt{…a} & \texttt{muerto} & uno o más bloques ab \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{ab} ✓, \texttt{abab} ✓, \texttt{ababab} ✓, \texttt{abababab} ✓, \texttt{abababababab} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{aba} ✗, \texttt{aabaa} ✗, \texttt{bbbbabab} ✗.
+\jflap{lista2-142b}{Diagrama de transiciones en JFLAP, inciso b (\texttt{lista2-142b.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{abab}, \texttt{ababab}; rechazadas \texttt{aa}, \texttt{baab}, \texttt{ababa}.}}
+
+
+
+\begin{ejercicio}{143}{*}
+Determine los lenguajes producidos por los autómatas finitos mostrados en las figuras (a) y (b).
+\end{ejercicio}
+\proc Las figuras (a) y (b) no aparecen en el PDF de la Lista 2 que se entregó (la página correspondiente sólo contiene el texto del enunciado).
+\resp No es posible determinar los lenguajes sin los diagramas; en cuanto se tengan, se resuelven cargándolos en JFLAP o en el simulador y aplicando la eliminación de estados.
+
+
+\begin{ejercicio}{144}{}
+Determine el autómata finito para: a) las cadenas que comienzan con \texttt{a}; b) las que comienzan con \texttt{a} y terminan con \texttt{b}; c) las que contienen \texttt{aaa}; d) el conjunto de números enteros; e) el conjunto de números enteros con signo.
+\end{ejercicio}
+\proc 
+
+\textbf{Inciso a)} El conjunto de cadenas sobre \{a, b\} que comienzan con a.
+
+Se verifica el primer símbolo. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{muerto} & se han leído los primeros 0 símbolos de a \\
+$*$ \texttt{a} & \texttt{a} & \texttt{a} & ya se leyó el prefijo a \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & el prefijo leído no coincide con a \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{a} ✓, \texttt{aa} ✓, \texttt{abaa} ✓, \texttt{aaaaba} ✓, \texttt{aaaaaaabb} ✓; $\lambda$ ✗, \texttt{b} ✗, \texttt{bba} ✗, \texttt{baaba} ✗, \texttt{baaabbbb} ✗.
+\jflap{lista2-144a}{Diagrama de transiciones en JFLAP, inciso a (\texttt{lista2-144a.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{abaa}, \texttt{abaaaa}; rechazadas \texttt{b}, \texttt{baaa}, \texttt{bbaaaa}.}}
+
+
+\textbf{Inciso b)} El conjunto de cadenas que comienzan con a y terminan con b.
+
+Igual que 94 con otro alfabeto. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{a…} & \texttt{muerto} & no se ha leído nada \\
+ \texttt{a…} & \texttt{a…} & \texttt{a…b} & empieza con a y el último no es b \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & no empieza con a \\
+$*$ \texttt{a…b} & \texttt{a…} & \texttt{a…b} & empieza con a y el último es b \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{ab} ✓, \texttt{aab} ✓, \texttt{aaaab} ✓, \texttt{aaabaab} ✓, \texttt{aaaaaaaaab} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{aba} ✗, \texttt{babba} ✗, \texttt{aaabaaaa} ✗.
+\jflap{lista2-144b}{Diagrama de transiciones en JFLAP, inciso b (\texttt{lista2-144b.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{abaab}, \texttt{abaaaab}; rechazadas \texttt{aa}, \texttt{baaab}, \texttt{abaaaa}.}}
+
+
+\textbf{Inciso c)} El conjunto de cadenas que contienen aaa.
+
+Búsqueda del patrón aaa. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{a, b\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & a & b & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{a} & \texttt{λ} & aún no aparece aaa; el sufijo más largo leído que es prefijo de aaa es λ \\
+ \texttt{a} & \texttt{aa} & \texttt{λ} & aún no aparece aaa; el sufijo más largo leído que es prefijo de aaa es a \\
+ \texttt{aa} & \texttt{aaa} & \texttt{λ} & aún no aparece aaa; el sufijo más largo leído que es prefijo de aaa es aa \\
+$*$ \texttt{aaa} & \texttt{aaa} & \texttt{aaa} & ya apareció aaa \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{aaa} ✓, \texttt{baaa} ✓, \texttt{baaaaa} ✓, \texttt{aaababbb} ✓, \texttt{aaabbaabbaa} ✓; $\lambda$ ✗, \texttt{a} ✗, \texttt{abb} ✗, \texttt{abbab} ✗, \texttt{bbabbaab} ✗.
+\jflap{lista2-144c}{Diagrama de transiciones en JFLAP, inciso c (\texttt{lista2-144c.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aaa}, \texttt{abaaab}, \texttt{abbaaaab}; rechazadas \texttt{aab}, \texttt{aabaab}, \texttt{b}.}}
+
+
+\textbf{Inciso d)} El conjunto de números enteros (sin signo).
+
+Se interpreta un entero como una cadena no vacía de dígitos sin ceros a la izquierda (salvo el propio 0). Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccccccccccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{cero} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & no se ha leído nada \\
+$*$ \texttt{cero} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & el número es 0 \\
+$*$ \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & dígito inicial distinto de 0 y dígitos \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & cero a la izquierda \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{8} ✓, \texttt{43} ✓, \texttt{2415} ✓, \texttt{117250} ✓, \texttt{438013017} ✓; $\lambda$ ✗, \texttt{0800} ✗, \texttt{001388} ✗, \texttt{0883244971} ✗, \texttt{09967547184791} ✗.
+\jflap{lista2-144d}{Diagrama de transiciones en JFLAP, inciso d (\texttt{lista2-144d.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{5}, \texttt{550}, \texttt{5500}; rechazadas \texttt{05}, \texttt{050}, \texttt{0500}.}}
+
+
+\textbf{Inciso e)} El conjunto de números enteros con signo.
+
+Signo opcional (+ o −) seguido de un entero como en d). Se construye un AFD con $|Q| = 5$ sobre $\Sigma = \{+, -, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccccccccccccp{0.42\linewidth}}\toprule
+$\delta$ & + & - & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{signo} & \texttt{signo} & \texttt{cero} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & no se ha leído nada \\
+$*$ \texttt{cero} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & el número es 0 \\
+$*$ \texttt{ok} & \texttt{muerto} & \texttt{muerto} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & dígitos sin cero a la izquierda \\
+ \texttt{signo} & \texttt{muerto} & \texttt{muerto} & \texttt{cero} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & \texttt{ok} & se leyó el signo \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & forma inválida \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1} ✓, \texttt{46} ✓, \texttt{8856} ✓, \texttt{658332} ✓, \texttt{509883324} ✓; $\lambda$ ✗, \texttt{-} ✗, \texttt{6-5} ✗, \texttt{33-++} ✗, \texttt{21296+77} ✗.
+\jflap{lista2-144e}{Diagrama de transiciones en JFLAP, inciso e (\texttt{lista2-144e.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{5}, \texttt{460}, \texttt{4600}; rechazadas \texttt{+}, \texttt{060}, \texttt{0600}.}}
+
+
+
+\begin{ejercicio}{145}{*}
+Encuentre un AFD que lee un número binario de derecha a izquierda e identifica los múltiplos de 5.
+\end{ejercicio}
+\proc El primer bit leído es el menos significativo. Si los bits restantes forman (de derecha a izquierda) el número V, leer el bit b hace que el valor total sea b + 2V; así, si se necesita que el total sea ≡ t, el resto debe valer V ≡ (t − b)·2⁻¹ = 3(t − b) (mod 5). El estado guarda ese valor t pendiente: se empieza pidiendo t = 0 y se acepta si, al terminar, lo pendiente es 0. La cadena vacía no es un número y se rechaza. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{t0} & \texttt{t2} & no se ha leído ningún bit \\
+$*$ \texttt{t0} & \texttt{t0} & \texttt{t2} & los bits que faltan, leídos como número desde su bit menos significativo, deben valer ≡ 0 (mod 5) \\
+ \texttt{t2} & \texttt{t1} & \texttt{t3} & los bits que faltan, leídos como número desde su bit menos significativo, deben valer ≡ 2 (mod 5) \\
+ \texttt{t1} & \texttt{t3} & \texttt{t0} & los bits que faltan, leídos como número desde su bit menos significativo, deben valer ≡ 1 (mod 5) \\
+ \texttt{t3} & \texttt{t4} & \texttt{t1} & los bits que faltan, leídos como número desde su bit menos significativo, deben valer ≡ 3 (mod 5) \\
+ \texttt{t4} & \texttt{t2} & \texttt{t4} & los bits que faltan, leídos como número desde su bit menos significativo, deben valer ≡ 4 (mod 5) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0} ✓, \texttt{00} ✓, \texttt{1111} ✓, \texttt{000000} ✓, \texttt{001010000} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{111} ✗, \texttt{01110} ✗, \texttt{01000111} ✗.
+\jflap{lista2-145}{Diagrama de transiciones en JFLAP (\texttt{lista2-145.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1010}, \texttt{011110}; rechazadas \texttt{1}, \texttt{0110}, \texttt{111110}.}}
+
+
+
+\begin{ejercicio}{146}{}
+Repita el problema anterior asumiendo que el autómata lee el número de izquierda a derecha.
+\end{ejercicio}
+\proc Leer un bit b convierte el valor v en 2v + b, así que basta el residuo mod 5. La cadena vacía no representa un número y se rechaza. Se construye un AFD con $|Q| = 6$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{r0} & \texttt{r1} & no se ha leído ningún bit \\
+$*$ \texttt{r0} & \texttt{r0} & \texttt{r1} & el número leído es ≡ 0 (mod 5) \\
+ \texttt{r1} & \texttt{r2} & \texttt{r3} & el número leído es ≡ 1 (mod 5) \\
+ \texttt{r2} & \texttt{r4} & \texttt{r0} & el número leído es ≡ 2 (mod 5) \\
+ \texttt{r3} & \texttt{r1} & \texttt{r2} & el número leído es ≡ 3 (mod 5) \\
+ \texttt{r4} & \texttt{r3} & \texttt{r4} & el número leído es ≡ 4 (mod 5) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0} ✓, \texttt{00} ✓, \texttt{0000} ✓, \texttt{011110} ✓, \texttt{101000000} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{010} ✗, \texttt{01011} ✗, \texttt{11000100} ✗.
+\jflap{lista2-146}{Diagrama de transiciones en JFLAP (\texttt{lista2-146.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1010}, \texttt{011110}; rechazadas \texttt{1}, \texttt{0110}, \texttt{111110}.}}
+
+
+
+\begin{ejercicio}{147}{*}
+Diseñe un AFD que lee un número binario de izquierda a derecha y lo acepta si es múltiplo de 6.
+\end{ejercicio}
+\proc Leer un bit b convierte el valor v en 2v + b, así que basta el residuo mod 6. La cadena vacía no representa un número y se rechaza. Este AFD de 7 estados se puede minimizar a 4: r y r + 3 tienen el mismo sucesor (2(r + 3) ≡ 2r), de modo que \{r1, r4\}, \{r2, r5\} e \{ini, r3\} son equivalentes; es la caracterización «múltiplo de 3 y par». Se construye un AFD con $|Q| = 7$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{r0} & \texttt{r1} & no se ha leído ningún bit \\
+$*$ \texttt{r0} & \texttt{r0} & \texttt{r1} & el número leído es ≡ 0 (mod 6) \\
+ \texttt{r1} & \texttt{r2} & \texttt{r3} & el número leído es ≡ 1 (mod 6) \\
+ \texttt{r2} & \texttt{r4} & \texttt{r5} & el número leído es ≡ 2 (mod 6) \\
+ \texttt{r3} & \texttt{r0} & \texttt{r1} & el número leído es ≡ 3 (mod 6) \\
+ \texttt{r4} & \texttt{r2} & \texttt{r3} & el número leído es ≡ 4 (mod 6) \\
+ \texttt{r5} & \texttt{r4} & \texttt{r5} & el número leído es ≡ 5 (mod 6) \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{0} ✓, \texttt{00} ✓, \texttt{0000} ✓, \texttt{110000} ✓, \texttt{101010000} ✓; $\lambda$ ✗, \texttt{1} ✗, \texttt{010} ✗, \texttt{10111} ✗, \texttt{01100111} ✗.
+\jflap{lista2-147}{Diagrama de transiciones en JFLAP (\texttt{lista2-147.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{0110}, \texttt{011110}; rechazadas \texttt{1}, \texttt{1010}, \texttt{01111}.}}
+
+
+
+\begin{ejercicio}{148}{*}
+Diseñar un autómata finito que modele el progreso de un alumno de la ESCOM en Teoría de la Computación: en cada convocatoria (febrero, septiembre y diciembre) el alumno se presenta (P) o no (N), y si se presenta aprueba (A) o aplaza (S); no se permiten más de dos convocatorias en un año, el ciclo se reinicia si no aprueba y el autómata concluye cuando el alumno aprueba.
+\end{ejercicio}
+\proc Interpretación: en cada convocatoria el alumno no se presenta (N) o se presenta (P) y después aprueba (A) o suspende (S). Se cuentan las presentaciones del año; con dos, en la convocatoria restante sólo cabe N. Después de diciembre empieza un año nuevo con el contador en cero. APROBADO es el único estado de aceptación y cualquier símbolo posterior lleva a muerto. Se construye un AFD con $|Q| = 13$ sobre $\Sigma = \{A, N, P, S\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccccp{0.42\linewidth}}\toprule
+$\delta$ & A & N & P & S & Qué recuerda el estado \\\midrule
+$\to$ \texttt{feb0} & \texttt{muerto} & \texttt{sep0} & \texttt{feb0?} & \texttt{muerto} & convocatoria de feb, 0 presentaciones usadas en el año; decide si se presenta \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & secuencia inválida \\
+ \texttt{sep0} & \texttt{muerto} & \texttt{dic0} & \texttt{sep0?} & \texttt{muerto} & convocatoria de sep, 0 presentaciones usadas en el año; decide si se presenta \\
+ \texttt{feb0?} & \texttt{APROBADO} & \texttt{muerto} & \texttt{muerto} & \texttt{sep1} & convocatoria de feb, 0 presentaciones usadas en el año; se presentó y espera el resultado \\
+ \texttt{dic0} & \texttt{muerto} & \texttt{feb0} & \texttt{dic0?} & \texttt{muerto} & convocatoria de dic, 0 presentaciones usadas en el año; decide si se presenta \\
+ \texttt{sep0?} & \texttt{APROBADO} & \texttt{muerto} & \texttt{muerto} & \texttt{dic1} & convocatoria de sep, 0 presentaciones usadas en el año; se presentó y espera el resultado \\
+$*$ \texttt{APROBADO} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & aprobó el curso \\
+ \texttt{sep1} & \texttt{muerto} & \texttt{dic1} & \texttt{sep1?} & \texttt{muerto} & convocatoria de sep, 1 presentaciones usadas en el año; decide si se presenta \\
+ \texttt{dic0?} & \texttt{APROBADO} & \texttt{muerto} & \texttt{muerto} & \texttt{feb0} & convocatoria de dic, 0 presentaciones usadas en el año; se presentó y espera el resultado \\
+ \texttt{dic1} & \texttt{muerto} & \texttt{feb0} & \texttt{dic1?} & \texttt{muerto} & convocatoria de dic, 1 presentaciones usadas en el año; decide si se presenta \\
+ \texttt{sep1?} & \texttt{APROBADO} & \texttt{muerto} & \texttt{muerto} & \texttt{dic2} & convocatoria de sep, 1 presentaciones usadas en el año; se presentó y espera el resultado \\
+ \texttt{dic1?} & \texttt{APROBADO} & \texttt{muerto} & \texttt{muerto} & \texttt{feb0} & convocatoria de dic, 1 presentaciones usadas en el año; se presentó y espera el resultado \\
+ \texttt{dic2} & \texttt{muerto} & \texttt{feb0} & \texttt{muerto} & \texttt{muerto} & convocatoria de dic, 2 presentaciones usadas en el año; decide si se presenta \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{PA} ✓, \texttt{NPA} ✓, \texttt{NPSPA} ✓, \texttt{NPSPSPA} ✓, \texttt{NPSNPSNNPA} ✓; $\lambda$ ✗, \texttt{N} ✗, \texttt{PAS} ✗, \texttt{NAPAS} ✗, \texttt{NNNPASAA} ✗.
+\jflap{lista2-148}{Diagrama de transiciones en JFLAP (\texttt{lista2-148.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{PA}, \texttt{NPSPA}, \texttt{NPSPSPA}; rechazadas \texttt{PN}, \texttt{PNSPA}, \texttt{NPSPSP}.}}
+
+
+
+\begin{ejercicio}{149}{*}
+Para el AFD de la tabla ($\to A$; $\delta(A)=(B, C)$, $\delta(B)=(A, C)$, $*C$: $\delta(C)=(C, A)$ para los símbolos 0 y 1) encuentre $Q$, $\Sigma$, $A_0$ y $F$, haga el diagrama y halle a) $\delta(B, 0)$; b) $\delta(C, 1)$; c) $\hat\delta(A, 1101)$; d) $\hat\delta(A, 01001)$.
+\end{ejercicio}
+\proc Q = \{A, B, C\}, Σ = \{0, 1\}, A0 = A, F = \{C\}. Se construye un AFD con $|Q| = 3$ sobre $\Sigma = \{0, 1\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{A} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{C} & \texttt{A} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1} ✓, \texttt{10} ✓, \texttt{1110} ✓, \texttt{111110} ✓, \texttt{110001000} ✓; $\lambda$ ✗, \texttt{0} ✗, \texttt{011} ✗, \texttt{10010} ✗, \texttt{00110000} ✗.
+
+
+\textbf{a)} δ(B, 0) = A. \textbf{b)} δ(C, 1) = A. \textbf{c)} $\hat{\delta}$(A, 1101) = C. \textbf{d)} $\hat{\delta}$(A, 01001) = A.\jflap{lista2-149}{Diagrama de transiciones en JFLAP (\texttt{lista2-149.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{100000}; rechazadas \texttt{0}, \texttt{0000}, \texttt{000000}.}}
+
+
+
+\begin{ejercicio}{150}{*}
+Para el AFD de la tabla (símbolos 0, 1, a; $\to A$: $B, C, D$; $*B$: $B, C, C$; $*C$: $A, A, D$; $*D$: $B, B, B$) encuentre $Q$, $\Sigma$, $A_0$ y $F$, haga el diagrama y halle a) $\hat\delta(B, 10a11)$; b) $\hat\delta(B, aa1100)$; c) $\hat\delta(A, a01a01)$; d) $\hat\delta(C, a11a00)$.
+\end{ejercicio}
+\proc Q = \{A, B, C, D\}, Σ = \{0, 1, a\}, A0 = A, F = \{B, C, D\}. Se construye un AFD con $|Q| = 4$ sobre $\Sigma = \{0, 1, a\}$; la tabla indica qué información del prefijo leído guarda cada estado.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & a \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} & \texttt{D} \\
+$*$ \texttt{B} & \texttt{B} & \texttt{C} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{A} & \texttt{A} & \texttt{D} \\
+$*$ \texttt{D} & \texttt{B} & \texttt{B} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+Pruebas (✓ aceptada, ✗ rechazada): \texttt{1} ✓, \texttt{aa} ✓, \texttt{1a01} ✓, \texttt{1a001a} ✓, \texttt{0a01a1001} ✓; $\lambda$ ✗, \texttt{01011} ✗, \texttt{0aa10a0} ✗, \texttt{001a01011} ✗, \texttt{0a001a0100a0} ✗.
+
+
+\textbf{a)} $\hat{\delta}$(B, 10a11) = C. \textbf{b)} $\hat{\delta}$(B, aa1100) = B. \textbf{c)} $\hat{\delta}$(A, a01a01) = C. \textbf{d)} $\hat{\delta}$(C, a11a00) = B.\jflap{lista2-150}{Diagrama de transiciones en JFLAP (\texttt{lista2-150.jff}).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1100}, \texttt{111a1a}; rechazadas \texttt{10}, \texttt{1010}, \texttt{111a1a0}.}}
+
+
+
+\end{document}

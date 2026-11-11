@@ -1,0 +1,111 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista2-115",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1",
+    "a",
+    "b",
+    "c"
+  ],
+  "estados": [
+    "(abc)*",
+    "…a",
+    "muerto",
+    "…ab"
+  ],
+  "inicial": "(abc)*",
+  "aceptacion": [
+    "(abc)*"
+  ],
+  "delta": {
+    "(abc)*": {
+      "0": [
+        "muerto"
+      ],
+      "1": [
+        "muerto"
+      ],
+      "a": [
+        "…a"
+      ],
+      "b": [
+        "muerto"
+      ],
+      "c": [
+        "muerto"
+      ]
+    },
+    "…a": {
+      "0": [
+        "muerto"
+      ],
+      "1": [
+        "muerto"
+      ],
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "…ab"
+      ],
+      "c": [
+        "muerto"
+      ]
+    },
+    "muerto": {
+      "0": [
+        "muerto"
+      ],
+      "1": [
+        "muerto"
+      ],
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "muerto"
+      ],
+      "c": [
+        "muerto"
+      ]
+    },
+    "…ab": {
+      "0": [
+        "muerto"
+      ],
+      "1": [
+        "muerto"
+      ],
+      "a": [
+        "muerto"
+      ],
+      "b": [
+        "muerto"
+      ],
+      "c": [
+        "(abc)*"
+      ]
+    }
+  },
+  "posiciones": {
+    "(abc)*": [
+      100.0,
+      165.0
+    ],
+    "…a": [
+      270.0,
+      100.0
+    ],
+    "muerto": [
+      270.0,
+      230.0
+    ],
+    "…ab": [
+      440.0,
+      165.0
+    ]
+  }
+}

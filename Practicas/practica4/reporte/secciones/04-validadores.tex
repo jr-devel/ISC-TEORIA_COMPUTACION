@@ -1,0 +1,146 @@
+\hypertarget{ejercicio-4.-aplicaciones-validadores}{%
+\section{Ejercicio 4. Aplicaciones: validadores}\label{ejercicio-4.-aplicaciones-validadores}}
+
+Se implementaron tres validadores: \textbf{correo electrónico}, \textbf{teléfono en formato nacional} y \textbf{URL}. Cada uno es un objeto \texttt{Validador} (\texttt{src/nucleo/validadores.py}) que guarda la expresión en la notación del curso; la traducción a \texttt{re} se genera del árbol sintáctico, y el texto se valida con el \textbf{AFD mínimo} que produce el Ejercicio 2 (Thompson, eliminación de λ, subconjuntos y minimización). La sección \textbf{Validadores} muestra la expresión, su traducción, el número de estados antes y después de minimizar, el diagrama del AFD mínimo y la lista de lo que queda fuera; el texto se valida mientras se escribe e indica en qué carácter falla.
+
+Los alfabetos grandes se escriben con las clases del Ejercicio 2: {[}D{]} (dígitos), {[}m{]} (minúsculas), {[}L{]} (letras) y {[}X{]} (letras y dígitos).
+
+\hypertarget{correo-electruxf3nico}{%
+\subsection{Correo electrónico}\label{correo-electruxf3nico}}
+
+\textbf{Notación del curso.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{([X] + \_)([X] + \_ + {-})*(.([X] + \_)([X] + \_ + {-})*)*@[X]([X] + {-})*(.[X]([X] + {-})*)*.[L][L][L]*}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Módulo \texttt{re}.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{[0{-}9A{-}Z\_a{-}z][\textbackslash{}{-}0{-}9A{-}Z\_a{-}z]*(?:\textbackslash{}.[0{-}9A{-}Z\_a{-}z][\textbackslash{}{-}0{-}9A{-}Z\_a{-}z]*)*@[0{-}9A{-}Za{-}z][\textbackslash{}{-}0{-}9A{-}Za{-}z]*(?:\textbackslash{}.[0{-}9A{-}Za{-}z][\textbackslash{}{-}0{-}9A{-}Za{-}z]*)*\textbackslash{}.[A{-}Za{-}z][A{-}Za{-}z][A{-}Za{-}z]*}
+\end{Highlighting}
+\end{Shaded}
+
+La parte local son palabras (letras, dígitos, \texttt{\_} y \texttt{-}, sin empezar con guion) separadas por un punto; después vienen \texttt{@}, uno o más subdominios y un dominio de primer nivel de al menos dos letras. Válidos: \texttt{juan.rico@ipn.mx}, \texttt{j\_diego-2025@alumno.ipn.mx}, \texttt{a@b.co}; inválidos: \texttt{juan..rico@ipn.mx} (dos puntos seguidos), \texttt{@ipn.mx}, \texttt{juan@ipn} (sin dominio de primer nivel), \texttt{.juan@ipn.mx}.
+
+\textbf{Norma consultada y lo que queda fuera.} Se tomó como referencia la forma \emph{Dot-string} de la parte local del RFC 5321 \autocite[sec.~4.1.2]{rfc5321} y la sintaxis de etiquetas de dominio del RFC 1035 \autocite[sec.~2.3.1]{rfc1035}. Quedan fuera, a propósito: las partes locales entre comillas y caracteres como \texttt{!\ \#\ \$\ \%\ \&\ \textquotesingle{}\ *\ +\ /\ =\ ?\ \^{}\ \{\ \textbar{}\ \}\ \textasciitilde{}} que el estándar sí admite; los dominios internacionalizados (con ñ o acentos) y las direcciones IP entre corchetes. Al revés, la expresión acepta etiquetas que terminan en guion o que pasan de 63 caracteres, que el RFC 1035 prohíbe. Una expresión regular para correos siempre es una aproximación: la gramática completa del estándar admite comentarios anidados, que no son regulares.
+
+\hypertarget{teluxe9fono-en-formato-nacional-muxe9xico}{%
+\subsection{Teléfono en formato nacional (México)}\label{teluxe9fono-en-formato-nacional-muxe9xico}}
+
+\textbf{Notación del curso.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(\textbackslash{}+52 + λ)([D][D]({-}[D][D][D][D]{-}[D][D][D][D] + .[D][D][D][D].[D][D][D][D] + [D][D][D][D][D][D][D][D])}
+\NormalTok{          + [D][D][D]{-}[D][D][D]{-}[D][D][D][D] + \textbackslash{}([D][D]\textbackslash{})[D][D][D][D]{-}[D][D][D][D])}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Módulo \texttt{re}.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(?:\textbackslash{}+52|)(?:(?:[0{-}9][0{-}9](?:(?:\textbackslash{}{-}[0{-}9][0{-}9][0{-}9][0{-}9]\textbackslash{}{-}[0{-}9][0{-}9][0{-}9][0{-}9]|\textbackslash{}.[0{-}9][0{-}9][0{-}9][0{-}9]\textbackslash{}.[0{-}9][0{-}9][0{-}9][0{-}9])|[0{-}9][0{-}9][0{-}9][0{-}9][0{-}9][0{-}9][0{-}9][0{-}9])|[0{-}9][0{-}9][0{-}9]\textbackslash{}{-}[0{-}9][0{-}9][0{-}9]\textbackslash{}{-}[0{-}9][0{-}9][0{-}9][0{-}9])|\textbackslash{}([0{-}9][0{-}9]\textbackslash{})[0{-}9][0{-}9][0{-}9][0{-}9]\textbackslash{}{-}[0{-}9][0{-}9][0{-}9][0{-}9])}
+\end{Highlighting}
+\end{Shaded}
+
+Diez dígitos, con el prefijo de país +52 opcional, en cinco presentaciones: sin separadores, 2-4-4 con guiones o con puntos, 3-3-4 con guiones y la clave de dos dígitos entre paréntesis. La expresión obliga a usar el \textbf{mismo} separador en todo el número. Válidos: \texttt{5512345678}, \texttt{55-1234-5678}, \texttt{+52222-123-4567}, \texttt{(55)1234-5678}, \texttt{55.1234.5678}; inválidos: \texttt{55-1234.5678} (separadores mezclados), \texttt{551234567} (nueve dígitos), \texttt{55\ 1234\ 5678}, \texttt{(55)12345678}.
+
+\textbf{Norma consultada y lo que queda fuera.} El Plan Técnico Fundamental de Numeración del Instituto Federal de Telecomunicaciones, que desde 2019 fija la marcación nacional a 10 dígitos \autocite{ift2019}. Quedan fuera los números con espacios (el alfabeto del autómata no incluye el espacio, para no confundirlo con el separador de los formatos de archivo), los prefijos antiguos 01, 044 y 045, y cualquier verificación de que la clave de larga distancia exista: la expresión acepta cualquier combinación de dígitos.
+
+\hypertarget{url-http-y-https}{%
+\subsection{URL (http y https)}\label{url-http-y-https}}
+
+\textbf{Notación del curso.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{http(s + λ)://([m] + [D])([m] + [D] + {-})*(.([m] + [D])([m] + [D] + {-})*)*.[m][m][m]*(:[D][D]* + λ)(/([X] + {-} + \_ + . + \textasciitilde{})*)*}
+\end{Highlighting}
+\end{Shaded}
+
+\textbf{Módulo \texttt{re}.}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{http(?:s|)://[0{-}9a{-}z][\textbackslash{}{-}0{-}9a{-}z]*(?:\textbackslash{}.[0{-}9a{-}z][\textbackslash{}{-}0{-}9a{-}z]*)*\textbackslash{}.[a{-}z][a{-}z][a{-}z]*(?::[0{-}9][0{-}9]*|)(?:/[\textbackslash{}{-}.0{-}9A{-}Z\_a{-}z\textasciitilde{}]*)*}
+\end{Highlighting}
+\end{Shaded}
+
+Esquema \texttt{http} o \texttt{https}, nombre de host en minúsculas con dominio de primer nivel, puerto opcional y una ruta de segmentos con caracteres no reservados. Válidos: \texttt{https://www.ipn.mx}, \texttt{http://escom.ipn.mx:8080/tc/practica4}, \texttt{https://a.io/}; inválidos: \texttt{ftp://ipn.mx}, \texttt{https//ipn.mx}, \texttt{https://ipn}, \texttt{https://IPN.mx}, \texttt{https://ipn.mx:/x}.
+
+\textbf{Norma consultada y lo que queda fuera.} RFC 3986, secciones 3.1 a 3.3 (\emph{scheme}, \emph{authority} y \emph{path}) \autocite{rfc3986}. Quedan fuera las consultas (\texttt{?a=1}), los fragmentos (\texttt{\#sec}), los caracteres codificados con \texttt{\%}, los hosts en mayúsculas o como direcciones IP, la información de usuario (\texttt{usuario@host}) y los demás esquemas.
+
+\hypertarget{tamauxf1o-de-los-autuxf3matas}{%
+\subsection{Tamaño de los autómatas}\label{tamauxf1o-de-los-autuxf3matas}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\caption{Estados de cada validador antes y después de la minimización.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Validador
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbar Σ\textbar{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+AFN-λ (Thompson)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+AFD (subconjuntos)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+AFD mínimo
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Validador
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbar Σ\textbar{}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+AFN-λ (Thompson)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+AFD (subconjuntos)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+AFD mínimo
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Correo & 66 & 76 & 23 & 7 \\
+Teléfono & 15 & 128 & 56 & 27 \\
+URL & 68 & 106 & 31 & 16 \\
+\end{longtable}
+
+La minimización reduce el correo de 23 a 7 estados porque los subconjuntos que sólo difieren en qué copia de la clase {[}X{]} están activas se comportan igual; el teléfono conserva más estados porque cada posición de los diez dígitos, en cada formato, es una situación distinta.
+
+\evidencia[0.95]{../evidencias/practica4/app/06-validador-correo.png}{Validador de correo: texto inválido con la posición del error,
+expresión, traducción y conteo de estados.}
+
+\evidencia[0.95]{../evidencias/practica4/app/07-validador-telefono.png}{Validador de teléfono y su AFD mínimo.}
+
+\hypertarget{congruencia-entre-modelos}{%
+\subsection{Congruencia entre modelos}\label{congruencia-entre-modelos}}
+
+\texttt{tests/test\_validadores.py} compara, para cada validador, el AFD con \texttt{re.fullmatch} \autocite{pythonre2026} sobre un conjunto generado por \texttt{GeneradorDePruebas}:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{300 palabras válidas} obtenidas recorriendo el árbol de la expresión al azar (con semilla fija, para que la prueba sea reproducible): en una unión se elige una rama, en una clase un símbolo y en una estrella entre 0 y 4 repeticiones.
+\item
+  \textbf{300 mutaciones} de esas palabras: una o dos operaciones elegidas al azar entre insertar, borrar, sustituir o duplicar un carácter, o intercambiar dos vecinos. La mitad de los caracteres nuevos salen del alfabeto del autómata y la otra mitad de un «ruido» fijo con espacio, ñ y signos (\texttt{@\ .\ -\ \_\ /\ :\ +\ (\ )\ \#}).
+\item
+  Los \textbf{casos frontera} escritos a mano: la cadena vacía, un espacio y los ejemplos válidos e inválidos de cada validador.
+\end{enumerate}
+
+Tras quitar repetidas quedan más de 600 palabras por validador, con al menos 100 válidas y 100 inválidas según \texttt{re} (en la última ejecución: correo 464 / 143, teléfono 328 / 281, URL 432 / 175). El autómata y \texttt{re.fullmatch} coinciden en \textbf{todas}. Las pruebas pasan con Python 3.11, 3.12 y 3.13.

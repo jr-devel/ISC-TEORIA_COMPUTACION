@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="λ">
+      <x>112.2</x>
+      <y>233.8</y>
+      <initial />
+    </state>
+    <state id="1" name="a">
+      <x>289.2</x>
+      <y>194.8</y>
+    </state>
+    <state id="2" name="ab">
+      <x>467.8</x>
+      <y>325.2</y>
+    </state>
+    <state id="3" name="aba">
+      <x>646.2</x>
+      <y>235.2</y>
+    </state>
+    <state id="4" name="abac">
+      <x>821.8</x>
+      <y>235.2</y>
+      <final />
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>1</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>2</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>0</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>0</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>0</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>1</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>2</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>4</to>
+      <read>c</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>4</from>
+      <to>4</to>
+      <read>c</read>
+    </transition>
+  </automaton>
+</structure>

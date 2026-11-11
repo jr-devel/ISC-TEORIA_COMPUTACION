@@ -1,0 +1,243 @@
+Sea $A$ un lenguaje sobre $\Sigma$, es decir, $A \subseteq \Sigma{*}$. Las siguientes son las propiedades de la clausura de Kleene $(A^*)$ y la clausura positiva $(A^+)$. Demuestre las 9 propiedades (57-65).
+
+\begin{enumerate}
+    \setcounter{enumi}{56}
+    \item $A^+ = A^* * A = A * A^*$.
+        \subitem Tenemos que $A^+$ contiene todas las cadenas positivas, es decir, todas las cadenas de $A^*$ excepto $\lambda$. Si concatenamos $A^*$ --que sí contiene $\lambda$-- con $A$, se agrega al menos un elemento de $A$.
+        
+        Entonces, tomando como ejemplo $A=\{a\}$:
+        \begin{center}
+            $A^* = \{\lambda, a, aa, aaa, \ldots\}$
+        \end{center}
+        
+        Y tenemos que:
+        \begin{center}
+            $A^+ = \{a, aa, aaa, \ldots\}$
+        \end{center}
+        
+        Por tanto, al concatenar $A^*$ con $A$, se agrega al menos un elemento, por lo que no es posible obtener la cadena vacía $\lambda$:
+        \begin{center}
+            $\therefore A^*A=A^+$
+        \end{center}
+        
+        De manera análoga, al concatenar $A$ con $A^*$ también se obtiene una cadena de longitud positiva:
+        \begin{center}
+            $\therefore AA^*=A^+$
+        \end{center}
+        
+        Por lo tanto:
+        \begin{center}
+            $\boxed{A^+=A^*A=AA^*}$
+        \end{center}
+    %
+    \item $A^* * A^* = A^*$.
+        \subitem Sea $A = \{a\}$ y $w$ es una cadena de $A$.\\
+        
+        Tenemos:
+        \begin{center}
+            $A^* = \{\lambda, a, aa, aaa, \ldots\}$
+        \end{center}
+        
+        Y recordemos también que:
+        \begin{center}
+            $A^* = A^0 \cup A^1 \cup A^2 \cup \dotsm \cup A^n, \forall n \in \mathbb{N}$
+        \end{center}
+        
+        Por tanto podemos notar que de la misma manera seguiremos contando con la cadena vacía $\lambda$. Además al momento de agregar una nueva cadena, ésta seguirá perteneciendo a $A$ y podría seguir siendo la misma.
+        
+        Si tenemos:
+        \begin{center}
+            $aaa * aa = aaaaa$,\\ donde\\ $aaa,aa,aaaaa \in A^*$
+        \end{center}
+        
+        También podemos visualizar que la cadena no tendría cambios si alguna de las dos --o las dos-- cuenta con cadena vacía:
+        \begin{center}
+            $w * \lambda = w$\\
+            $\lambda * w = w$\\
+            $\lambda * \lambda = \lambda$
+        \end{center}
+        
+        Por lo tanto:
+        \begin{center}
+            $\boxed{A^* = A^* * A^*}$
+        \end{center}
+    %
+    \item $(A^*)^n = A^*, \forall n \geq 1$.
+        \subitem Sea $A = \{a\}$ y $w$ es una cadena de $A$.\\
+        
+        Tenemos:
+        \begin{center}
+            $A^* = \{\lambda, a, aa, aaa, \ldots\}$
+        \end{center}
+        
+        Y recordemos también que:
+        \begin{center}
+            $A^* = A^0 \cup A^1 \cup A^2 \cup \dotsm \cup A^n, \forall n \in \mathbb{N}$
+        \end{center}
+        
+        Tomando en cuenta la propiedad $A^* * A^* = A^*$, que podría reescribirse como $(A^*)^2$, nos indica que la repeticion de eestas concatenaciones no saldría del dominio de $A^*$.
+        
+        Entonces:
+        \begin{center}
+            $(A^*)^2 = A^*A^* = A^*$\\
+            $(A^*)^3 = (A^*)^2A^* = A^*A^* = A^*$
+        \end{center}
+        
+        Para $n, \forall n \geq 1$:
+        \begin{center}
+            $(A^*)^n = (A^*)^{n-1} A^* = (A^*)^{n-2}A^*A^* = \dotsm = A^*$
+        \end{center}
+        
+        Por lo tanto, queda demostrado:
+        \begin{center}
+            $\boxed{A^* = (A^*)^n, \forall n \geq 1}$
+        \end{center}
+    %
+    \item $(A^*)^* = A^*$.
+        \subitem Sea $A = \{a\}$. Tenemos que la clausura de Kleene toma todas las repeticiones de $0$ a $n$. Si la aplicamos a $A^*$, seguiría tomando todas las repeticiones. 
+        
+        Por ello, podríamos tener las cadenas:
+        \begin{center}
+            $\lambda\lambda\lambda\ldots\lambda = \lambda$\\
+            $a * aa * aaa * \dotsm * a...a = aaaaaa...a$
+        \end{center}
+        Donde:
+        \begin{center}
+            $aaaaaa,aaa,aa,a,\lambda \in A^*$
+        \end{center}
+        
+        Véase que la operación seguiría sin generar cadenas fuera del dominio de $A^*$.
+        
+        Por lo tanto:
+        \begin{center}
+            $\boxed{(A^*)^* = A^*}$
+        \end{center}
+    %
+    \item $A^+ * A^+ \subseteq A^+$.
+        \subitem Sea $A = \{a\}$.
+        
+        Tenemos que:
+        \begin{center}
+            $A^+ = A^* - \{\lambda\}$
+        \end{center}
+        
+        Por ello, si realizamos la operación, seguiríamos teniendo una cadena perteneciente a la clausura positiva.
+        \begin{center}
+            $A^+A^+ = A^*A^* - {\lambda}$\\
+            y tomando en cuenta la identidad $(A^*)^n = A^*$:\\
+            $(A^*)^2 - \{\lambda\} = A^* - \{\lambda\} = A^+$.
+        \end{center}
+        
+        Siendo que:
+        \begin{center}
+            $A^+ = \{a,aa,aaa,aaaa,\ldots\}$
+        \end{center}
+        
+        Podemos definir que:
+        \begin{center}
+            $x,y \in A^*,$ donde $x$ y $y$ son cadenas no vacías\\
+            $\therefore x \in A^* - \{\lambda\}$; $y \in A^* - \{\lambda\}$\\
+            $xy \in A^* - \{\lambda\}$\\
+            $\therefore xy \in A^+$
+        \end{center}
+        
+        Por lo tanto:
+        \begin{center}
+            $\boxed{A^+A^+ \subseteq A^+}$
+        \end{center}
+    %
+    \item $(A^*)^+ = A^*$.
+        \subitem Sea $A = \{a\}$. Recordemos que:
+        \begin{center}
+            $A^* = \bigcup_{i=0}^{\infty}A_i$\\
+            $A^+ = \bigcup_{i=1}^{\infty}(A^*)^i$
+        \end{center}
+        
+        Donde notaremos que cada repetición de nuestro $A^*$ tendrá la cadena $\lambda$ aunque el $+$ del paréntesis omita el caso $(A^*)^0$ de nuestro conjunto.\\
+        
+        Por lo tanto:
+        \begin{center}
+            $\boxed{(A^*)^+ = A^*}$
+        \end{center}
+    %
+    \newpage
+    \item $(A^+)^* = A^*$.
+        \subitem Sea $A = \{a\}$. De manera similar a la propiedad $(A^*)^+ = A^*$, definimos lo siguiente:
+        
+        \begin{center}
+            $A^+ = \bigcup_{i=1}^{\infty}A_i$\\
+            $A^* = \bigcup_{i=0}^{\infty}(A^+)^i$
+        \end{center}
+        
+        Donde podemos visualizar que nuestra serie ahora toma el caso $(A^+)^0$:
+        \begin{center}
+            $(A^+)^0 = \{\lambda\}$
+        \end{center}
+        
+        Entonces:
+        \begin{center}
+            $\lambda \in (A^+)^0$ y $A^* = A^+ \cup \{\lambda\}$\\
+        \end{center}
+        
+        Por lo tanto, podemos decir que:
+        \begin{center}
+            $\boxed{(A^+)^* = A^*}$
+        \end{center}
+    %
+    \item $(A^+)^+ = A^+$.
+        \subitem Sea $A = \{a\}$. De manera similar a la propiedad $(A^*)^* = A^*$, podemos definir:
+        
+        \begin{center}
+            $A^+ = \bigcup_{i=1}^{\infty}A_i$\\
+            $(A^+)^+ = \bigcup_{i=1}^{\infty}(A^+)^i$
+        \end{center}
+        
+        Véase que, tanto dentro del paréntesis como fuera, se toma a partir del primer caso, por lo que $\lambda$ nunca llega a estar presente; al igual que en $A^+$.
+        
+        Por lo tanto, podemos inferir que:
+        \begin{center}
+            $\boxed{(A^+)^+ = A^+}$
+        \end{center}
+    %
+    \newpage
+    \item Si A y B son lenguajes sobre $\Sigma$, entonces $(A \cup B)^* = (A^* B^*)^*$.
+        \subitem Sean $A = \{a\}$ y $B = \{b\}$.
+        
+        Tenemos que:
+        \begin{center}
+            $A \cup B = \{a,b\}$
+        \end{center}
+        
+        Por lo que entonces:
+        \begin{center}
+            $(A \cup B)^* = \{a,b,ab,ba,aa,bb,aba,\ldots\}$
+        \end{center}
+        
+        Tomando este último ejemplo que:
+        \begin{center}
+            $aba \in (A \cup B)^*$
+        \end{center}
+        
+        Para poder igualar, definimos primero que:
+        \begin{center}
+            $A^* = \{\lambda,a,aa,aaa,aaaa,\ldots\}$\\
+            $B^* = \{\lambda,b,bb,bbb,bbbb,\ldots\}$
+        \end{center}
+        
+        Que tiene una forma:
+        \begin{center}
+            $a^i b^i, \forall i \in \mathbb{N}$
+        \end{center}
+        
+        Por lo que para poder tomar todas las repeticiones tomamos:
+        \begin{center}
+            $(A^*B^*)^*$\\
+            $\therefore aba \in (A^*B^*)^*$
+        \end{center}
+        
+        Por lo tanto, podemos decir que:
+        \begin{center}
+            $\boxed{(A \cup B)^* = (A^*B^*)^*}$
+        \end{center}
+    %
+\end{enumerate}

@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista3-240" tipo="AFN-λ">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="q76" inicial="si" aceptacion="no" x="100.0" y="490.0" />
+    <estado id="q12" inicial="no" aceptacion="no" x="270.0" y="425.0" />
+    <estado id="q4" inicial="no" aceptacion="no" x="440.0" y="295.0" />
+    <estado id="q0" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="q1" inicial="no" aceptacion="no" x="780.0" y="295.0" />
+    <estado id="q2" inicial="no" aceptacion="no" x="610.0" y="360.0" />
+    <estado id="q3" inicial="no" aceptacion="no" x="780.0" y="425.0" />
+    <estado id="q5" inicial="no" aceptacion="no" x="950.0" y="360.0" />
+    <estado id="q10" inicial="no" aceptacion="no" x="1120.0" y="295.0" />
+    <estado id="q6" inicial="no" aceptacion="no" x="1290.0" y="165.0" />
+    <estado id="q7" inicial="no" aceptacion="no" x="1460.0" y="100.0" />
+    <estado id="q8" inicial="no" aceptacion="no" x="1290.0" y="295.0" />
+    <estado id="q9" inicial="no" aceptacion="no" x="1460.0" y="230.0" />
+    <estado id="q11" inicial="no" aceptacion="no" x="1630.0" y="165.0" />
+    <estado id="q13" inicial="no" aceptacion="no" x="440.0" y="425.0" />
+    <estado id="q14" inicial="no" aceptacion="no" x="610.0" y="490.0" />
+    <estado id="q15" inicial="no" aceptacion="no" x="780.0" y="555.0" />
+    <estado id="q16" inicial="no" aceptacion="no" x="950.0" y="490.0" />
+    <estado id="q17" inicial="no" aceptacion="no" x="1120.0" y="425.0" />
+    <estado id="q30" inicial="no" aceptacion="no" x="1290.0" y="425.0" />
+    <estado id="q22" inicial="no" aceptacion="no" x="1460.0" y="360.0" />
+    <estado id="q18" inicial="no" aceptacion="no" x="1630.0" y="295.0" />
+    <estado id="q19" inicial="no" aceptacion="no" x="1800.0" y="295.0" />
+    <estado id="q20" inicial="no" aceptacion="no" x="1630.0" y="425.0" />
+    <estado id="q21" inicial="no" aceptacion="no" x="1800.0" y="425.0" />
+    <estado id="q23" inicial="no" aceptacion="no" x="1970.0" y="295.0" />
+    <estado id="q28" inicial="no" aceptacion="no" x="2140.0" y="230.0" />
+    <estado id="q24" inicial="no" aceptacion="no" x="2310.0" y="165.0" />
+    <estado id="q25" inicial="no" aceptacion="no" x="2480.0" y="165.0" />
+    <estado id="q26" inicial="no" aceptacion="no" x="2310.0" y="295.0" />
+    <estado id="q27" inicial="no" aceptacion="no" x="2480.0" y="295.0" />
+    <estado id="q29" inicial="no" aceptacion="no" x="2650.0" y="295.0" />
+    <estado id="q31" inicial="no" aceptacion="no" x="1460.0" y="490.0" />
+    <estado id="q36" inicial="no" aceptacion="no" x="270.0" y="555.0" />
+    <estado id="q32" inicial="no" aceptacion="no" x="440.0" y="555.0" />
+    <estado id="q33" inicial="no" aceptacion="no" x="610.0" y="620.0" />
+    <estado id="q34" inicial="no" aceptacion="no" x="440.0" y="685.0" />
+    <estado id="q35" inicial="no" aceptacion="no" x="610.0" y="750.0" />
+    <estado id="q37" inicial="no" aceptacion="no" x="780.0" y="685.0" />
+    <estado id="q50" inicial="no" aceptacion="no" x="950.0" y="620.0" />
+    <estado id="q42" inicial="no" aceptacion="no" x="1120.0" y="555.0" />
+    <estado id="q38" inicial="no" aceptacion="no" x="1290.0" y="555.0" />
+    <estado id="q39" inicial="no" aceptacion="no" x="1460.0" y="620.0" />
+    <estado id="q40" inicial="no" aceptacion="no" x="1290.0" y="685.0" />
+    <estado id="q41" inicial="no" aceptacion="no" x="1460.0" y="750.0" />
+    <estado id="q43" inicial="no" aceptacion="no" x="1630.0" y="555.0" />
+    <estado id="q48" inicial="no" aceptacion="no" x="1800.0" y="555.0" />
+    <estado id="q44" inicial="no" aceptacion="no" x="1970.0" y="425.0" />
+    <estado id="q45" inicial="no" aceptacion="no" x="2140.0" y="360.0" />
+    <estado id="q46" inicial="no" aceptacion="no" x="1970.0" y="555.0" />
+    <estado id="q47" inicial="no" aceptacion="no" x="2140.0" y="490.0" />
+    <estado id="q49" inicial="no" aceptacion="no" x="2310.0" y="425.0" />
+    <estado id="q51" inicial="no" aceptacion="no" x="1120.0" y="685.0" />
+    <estado id="q52" inicial="no" aceptacion="no" x="1290.0" y="815.0" />
+    <estado id="q53" inicial="no" aceptacion="no" x="1460.0" y="880.0" />
+    <estado id="q54" inicial="no" aceptacion="no" x="1630.0" y="685.0" />
+    <estado id="q55" inicial="no" aceptacion="no" x="1800.0" y="685.0" />
+    <estado id="q68" inicial="no" aceptacion="no" x="1970.0" y="685.0" />
+    <estado id="q60" inicial="no" aceptacion="no" x="2140.0" y="620.0" />
+    <estado id="q56" inicial="no" aceptacion="no" x="2310.0" y="555.0" />
+    <estado id="q57" inicial="no" aceptacion="no" x="2480.0" y="425.0" />
+    <estado id="q58" inicial="no" aceptacion="no" x="2310.0" y="685.0" />
+    <estado id="q59" inicial="no" aceptacion="no" x="2480.0" y="555.0" />
+    <estado id="q61" inicial="no" aceptacion="no" x="2650.0" y="425.0" />
+    <estado id="q66" inicial="no" aceptacion="no" x="2820.0" y="425.0" />
+    <estado id="q62" inicial="no" aceptacion="no" x="2990.0" y="425.0" />
+    <estado id="q63" inicial="no" aceptacion="no" x="3160.0" y="425.0" />
+    <estado id="q64" inicial="no" aceptacion="no" x="2990.0" y="555.0" />
+    <estado id="q65" inicial="no" aceptacion="no" x="3160.0" y="555.0" />
+    <estado id="q67" inicial="no" aceptacion="no" x="3330.0" y="490.0" />
+    <estado id="q69" inicial="no" aceptacion="no" x="2140.0" y="750.0" />
+    <estado id="q74" inicial="no" aceptacion="no" x="2310.0" y="815.0" />
+    <estado id="q70" inicial="no" aceptacion="no" x="2480.0" y="685.0" />
+    <estado id="q71" inicial="no" aceptacion="no" x="2650.0" y="555.0" />
+    <estado id="q72" inicial="no" aceptacion="no" x="2480.0" y="815.0" />
+    <estado id="q73" inicial="no" aceptacion="no" x="2650.0" y="685.0" />
+    <estado id="q75" inicial="no" aceptacion="no" x="2820.0" y="555.0" />
+    <estado id="q77" inicial="no" aceptacion="si" x="1630.0" y="815.0" />
+  </estados>
+  <delta>
+    <desde estado="q76">
+      <con simbolo="">
+        <hacia>q12</hacia>
+        <hacia>q36</hacia>
+      </con>
+    </desde>
+    <desde estado="q12">
+      <con simbolo="">
+        <hacia>q4</hacia>
+        <hacia>q13</hacia>
+      </con>
+    </desde>
+    <desde estado="q4">
+      <con simbolo="">
+        <hacia>q0</hacia>
+        <hacia>q2</hacia>
+      </con>
+    </desde>
+    <desde estado="q0">
+      <con simbolo="0">
+        <hacia>q1</hacia>
+      </con>
+    </desde>
+    <desde estado="q1">
+      <con simbolo="">
+        <hacia>q5</hacia>
+      </con>
+    </desde>
+    <desde estado="q2">
+      <con simbolo="1">
+        <hacia>q3</hacia>
+      </con>
+    </desde>
+    <desde estado="q3">
+      <con simbolo="">
+        <hacia>q5</hacia>
+      </con>
+    </desde>
+    <desde estado="q5">
+      <con simbolo="">
+        <hacia>q10</hacia>
+      </con>
+    </desde>
+    <desde estado="q10">
+      <con simbolo="">
+        <hacia>q6</hacia>
+        <hacia>q8</hacia>
+      </con>
+    </desde>
+    <desde estado="q6">
+      <con simbolo="0">
+        <hacia>q7</hacia>
+      </con>
+    </desde>
+    <desde estado="q7">
+      <con simbolo="">
+        <hacia>q11</hacia>
+      </con>
+    </desde>
+    <desde estado="q8">
+      <con simbolo="1">
+        <hacia>q9</hacia>
+      </con>
+    </desde>
+    <desde estado="q9">
+      <con simbolo="">
+        <hacia>q11</hacia>
+      </con>
+    </desde>
+    <desde estado="q11">
+      <con simbolo="">
+        <hacia>q4</hacia>
+        <hacia>q13</hacia>
+      </con>
+    </desde>
+    <desde estado="q13">
+      <con simbolo="">
+        <hacia>q14</hacia>
+      </con>
+    </desde>
+    <desde estado="q14">
+      <con simbolo="0">
+        <hacia>q15</hacia>
+      </con>
+    </desde>
+    <desde estado="q15">
+      <con simbolo="">
+        <hacia>q16</hacia>
+      </con>
+    </desde>
+    <desde estado="q16">
+      <con simbolo="1">
+        <hacia>q17</hacia>
+      </con>
+    </desde>
+    <desde estado="q17">
+      <con simbolo="">
+        <hacia>q30</hacia>
+      </con>
+    </desde>
+    <desde estado="q30">
+      <con simbolo="">
+        <hacia>q22</hacia>
+        <hacia>q31</hacia>
+      </con>
+    </desde>
+    <desde estado="q22">
+      <con simbolo="">
+        <hacia>q18</hacia>
+        <hacia>q20</hacia>
+      </con>
+    </desde>
+    <desde estado="q18">
+      <con simbolo="0">
+        <hacia>q19</hacia>
+      </con>
+    </desde>
+    <desde estado="q19">
+      <con simbolo="">
+        <hacia>q23</hacia>
+      </con>
+    </desde>
+    <desde estado="q20">
+      <con simbolo="1">
+        <hacia>q21</hacia>
+      </con>
+    </desde>
+    <desde estado="q21">
+      <con simbolo="">
+        <hacia>q23</hacia>
+      </con>
+    </desde>
+    <desde estado="q23">
+      <con simbolo="">
+        <hacia>q28</hacia>
+      </con>
+    </desde>
+    <desde estado="q28">
+      <con simbolo="">
+        <hacia>q24</hacia>
+        <hacia>q26</hacia>
+      </con>
+    </desde>
+    <desde estado="q24">
+      <con simbolo="0">
+        <hacia>q25</hacia>
+      </con>
+    </desde>
+    <desde estado="q25">
+      <con simbolo="">
+        <hacia>q29</hacia>
+      </con>
+    </desde>
+    <desde estado="q26">
+      <con simbolo="1">
+        <hacia>q27</hacia>
+      </con>
+    </desde>
+    <desde estado="q27">
+      <con simbolo="">
+        <hacia>q29</hacia>
+      </con>
+    </desde>
+    <desde estado="q29">
+      <con simbolo="">
+        <hacia>q22</hacia>
+        <hacia>q31</hacia>
+      </con>
+    </desde>
+    <desde estado="q31">
+      <con simbolo="">
+        <hacia>q77</hacia>
+      </con>
+    </desde>
+    <desde estado="q36">
+      <con simbolo="">
+        <hacia>q32</hacia>
+        <hacia>q34</hacia>
+      </con>
+    </desde>
+    <desde estado="q32">
+      <con simbolo="0">
+        <hacia>q33</hacia>
+      </con>
+    </desde>
+    <desde estado="q33">
+      <con simbolo="">
+        <hacia>q37</hacia>
+      </con>
+    </desde>
+    <desde estado="q34">
+      <con simbolo="1">
+        <hacia>q35</hacia>
+      </con>
+    </desde>
+    <desde estado="q35">
+      <con simbolo="">
+        <hacia>q37</hacia>
+      </con>
+    </desde>
+    <desde estado="q37">
+      <con simbolo="">
+        <hacia>q50</hacia>
+      </con>
+    </desde>
+    <desde estado="q50">
+      <con simbolo="">
+        <hacia>q42</hacia>
+        <hacia>q51</hacia>
+      </con>
+    </desde>
+    <desde estado="q42">
+      <con simbolo="">
+        <hacia>q38</hacia>
+        <hacia>q40</hacia>
+      </con>
+    </desde>
+    <desde estado="q38">
+      <con simbolo="0">
+        <hacia>q39</hacia>
+      </con>
+    </desde>
+    <desde estado="q39">
+      <con simbolo="">
+        <hacia>q43</hacia>
+      </con>
+    </desde>
+    <desde estado="q40">
+      <con simbolo="1">
+        <hacia>q41</hacia>
+      </con>
+    </desde>
+    <desde estado="q41">
+      <con simbolo="">
+        <hacia>q43</hacia>
+      </con>
+    </desde>
+    <desde estado="q43">
+      <con simbolo="">
+        <hacia>q48</hacia>
+      </con>
+    </desde>
+    <desde estado="q48">
+      <con simbolo="">
+        <hacia>q44</hacia>
+        <hacia>q46</hacia>
+      </con>
+    </desde>
+    <desde estado="q44">
+      <con simbolo="0">
+        <hacia>q45</hacia>
+      </con>
+    </desde>
+    <desde estado="q45">
+      <con simbolo="">
+        <hacia>q49</hacia>
+      </con>
+    </desde>
+    <desde estado="q46">
+      <con simbolo="1">
+        <hacia>q47</hacia>
+      </con>
+    </desde>
+    <desde estado="q47">
+      <con simbolo="">
+        <hacia>q49</hacia>
+      </con>
+    </desde>
+    <desde estado="q49">
+      <con simbolo="">
+        <hacia>q42</hacia>
+        <hacia>q51</hacia>
+      </con>
+    </desde>
+    <desde estado="q51">
+      <con simbolo="">
+        <hacia>q52</hacia>
+      </con>
+    </desde>
+    <desde estado="q52">
+      <con simbolo="0">
+        <hacia>q53</hacia>
+      </con>
+    </desde>
+    <desde estado="q53">
+      <con simbolo="">
+        <hacia>q54</hacia>
+      </con>
+    </desde>
+    <desde estado="q54">
+      <con simbolo="1">
+        <hacia>q55</hacia>
+      </con>
+    </desde>
+    <desde estado="q55">
+      <con simbolo="">
+        <hacia>q68</hacia>
+      </con>
+    </desde>
+    <desde estado="q68">
+      <con simbolo="">
+        <hacia>q60</hacia>
+        <hacia>q69</hacia>
+      </con>
+    </desde>
+    <desde estado="q60">
+      <con simbolo="">
+        <hacia>q56</hacia>
+        <hacia>q58</hacia>
+      </con>
+    </desde>
+    <desde estado="q56">
+      <con simbolo="0">
+        <hacia>q57</hacia>
+      </con>
+    </desde>
+    <desde estado="q57">
+      <con simbolo="">
+        <hacia>q61</hacia>
+      </con>
+    </desde>
+    <desde estado="q58">
+      <con simbolo="1">
+        <hacia>q59</hacia>
+      </con>
+    </desde>
+    <desde estado="q59">
+      <con simbolo="">
+        <hacia>q61</hacia>
+      </con>
+    </desde>
+    <desde estado="q61">
+      <con simbolo="">
+        <hacia>q66</hacia>
+      </con>
+    </desde>
+    <desde estado="q66">
+      <con simbolo="">
+        <hacia>q62</hacia>
+        <hacia>q64</hacia>
+      </con>
+    </desde>
+    <desde estado="q62">
+      <con simbolo="0">
+        <hacia>q63</hacia>
+      </con>
+    </desde>
+    <desde estado="q63">
+      <con simbolo="">
+        <hacia>q67</hacia>
+      </con>
+    </desde>
+    <desde estado="q64">
+      <con simbolo="1">
+        <hacia>q65</hacia>
+      </con>
+    </desde>
+    <desde estado="q65">
+      <con simbolo="">
+        <hacia>q67</hacia>
+      </con>
+    </desde>
+    <desde estado="q67">
+      <con simbolo="">
+        <hacia>q60</hacia>
+        <hacia>q69</hacia>
+      </con>
+    </desde>
+    <desde estado="q69">
+      <con simbolo="">
+        <hacia>q74</hacia>
+      </con>
+    </desde>
+    <desde estado="q74">
+      <con simbolo="">
+        <hacia>q70</hacia>
+        <hacia>q72</hacia>
+      </con>
+    </desde>
+    <desde estado="q70">
+      <con simbolo="0">
+        <hacia>q71</hacia>
+      </con>
+    </desde>
+    <desde estado="q71">
+      <con simbolo="">
+        <hacia>q75</hacia>
+      </con>
+    </desde>
+    <desde estado="q72">
+      <con simbolo="1">
+        <hacia>q73</hacia>
+      </con>
+    </desde>
+    <desde estado="q73">
+      <con simbolo="">
+        <hacia>q75</hacia>
+      </con>
+    </desde>
+    <desde estado="q75">
+      <con simbolo="">
+        <hacia>q77</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

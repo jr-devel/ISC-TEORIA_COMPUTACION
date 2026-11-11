@@ -1,0 +1,53 @@
+{
+  "formato": "automata-tc",
+  "version": 1,
+  "nombre": "lista3-afn-115",
+  "tipo": "AFD",
+  "alfabeto": [
+    "0",
+    "1",
+    "a",
+    "b",
+    "c"
+  ],
+  "estados": [
+    "(abc)*",
+    "…a",
+    "…ab"
+  ],
+  "inicial": "(abc)*",
+  "aceptacion": [
+    "(abc)*"
+  ],
+  "delta": {
+    "(abc)*": {
+      "a": [
+        "…a"
+      ]
+    },
+    "…a": {
+      "b": [
+        "…ab"
+      ]
+    },
+    "…ab": {
+      "c": [
+        "(abc)*"
+      ]
+    }
+  },
+  "posiciones": {
+    "(abc)*": [
+      100.0,
+      100.0
+    ],
+    "…a": [
+      270.0,
+      100.0
+    ],
+    "…ab": [
+      440.0,
+      100.0
+    ]
+  }
+}

@@ -1,0 +1,138 @@
+\hypertarget{ejercicio-2.-investigaciuxf3n-quuxe9-es-la-teoruxeda-de-la-computaciuxf3n}{%
+\section{Ejercicio 2. Investigación: qué es la Teoría de la Computación}\label{ejercicio-2.-investigaciuxf3n-quuxe9-es-la-teoruxeda-de-la-computaciuxf3n}}
+
+\hypertarget{objeto-de-estudio-y-preguntas-centrales}{%
+\subsection{Objeto de estudio y preguntas centrales}\label{objeto-de-estudio-y-preguntas-centrales}}
+
+La Teoría de la Computación estudia, con modelos matemáticos, qué pueden calcular las máquinas y con qué recursos. \textcite[cap. 0]{sipser2013} la organiza alrededor de una sola pregunta: \emph{cuáles son las capacidades y las limitaciones fundamentales de las computadoras}, y la descompone en tres áreas que responden a versiones cada vez más finas de esa pregunta. \textcite[cap. 1]{hopcroft2007} parten de un punto distinto: definen la teoría de autómatas como el estudio de dispositivos de cómputo abstractos, y llegan a la computabilidad y a la complejidad como consecuencias de preguntar qué lenguajes reconoce cada dispositivo. \textcite[cap. 1]{linz2017} adopta un enfoque todavía más concreto: los lenguajes formales, las gramáticas y los autómatas son el lenguaje común con el que se describen y comparan los modelos.
+
+Las definiciones coinciden en el objeto (modelos abstractos de cómputo) y en el método (definición formal y demostración), pero difieren en el orden y en el énfasis. Sipser parte de la pregunta filosófica y presenta los modelos como herramientas para contestarla; Hopcroft, Motwani y Ullman, y Linz, parten de los modelos y dejan que las preguntas surjan de sus límites. Para un curso que empieza por los autómatas, la segunda forma es la más práctica; la primera explica por qué vale la pena el esfuerzo.
+
+Las preguntas que plantea la teoría pueden resumirse en tres: ¿qué problemas se pueden resolver con un algoritmo?, ¿cuáles se pueden resolver eficientemente? y ¿qué modelo mínimo basta para un problema dado?
+
+\hypertarget{oruxedgenes}{%
+\subsection{Orígenes}\label{oruxedgenes}}
+
+A principios del siglo XX la lógica matemática atravesaba una crisis: la paradoja de Russell (el conjunto de los conjuntos que no se contienen a sí mismos) mostró que la teoría intuitiva de conjuntos era contradictoria, y otras paradojas de autorreferencia, como la del mentiroso, apuntaban al mismo problema \autocite[cap. 3]{kleene1952}. David Hilbert propuso entonces un programa para dar a la matemática una base segura: formalizarla por completo en sistemas axiomáticos y demostrar, con medios finitos, que esos sistemas son consistentes y completos.
+
+Una pieza del programa era el \emph{Entscheidungsproblem}, planteado por Hilbert y Ackermann en 1928: encontrar un procedimiento mecánico que, dada una fórmula de la lógica de primer orden, decida en un número finito de pasos si es válida. Para responder negativamente había que decir con precisión qué es un «procedimiento mecánico», y esa necesidad dio origen a la teoría. Gödel demostró en 1931 que todo sistema consistente suficientemente expresivo contiene enunciados verdaderos que no puede demostrar, y en 1936 Church \autocite*{church1936} y Turing \autocite*{turing1936}, de manera independiente, mostraron que el \emph{Entscheidungsproblem} no tiene solución: Church con el cálculo λ y Turing con sus máquinas.
+
+\hypertarget{las-tres-ramas}{%
+\subsection{Las tres ramas}\label{las-tres-ramas}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4167}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4583}}@{}}
+\caption{Las tres ramas de la teoría \autocite[cap. 0]{sipser2013}.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Rama
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pregunta
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ejemplo de resultado
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Rama
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pregunta
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ejemplo de resultado
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Teoría de autómatas y lenguajes formales & ¿Qué puede reconocer o generar cada modelo de cómputo restringido? & Los autómatas finitos reconocen exactamente los lenguajes regulares; \{aⁿbⁿ\} no es regular. \\
+Computabilidad & ¿Qué problemas se pueden resolver con un algoritmo? & El problema de la parada es indecidible. \\
+Complejidad & ¿Qué problemas se pueden resolver con recursos razonables de tiempo y memoria? & La pregunta P = NP sigue abierta. \\
+\end{longtable}
+
+\hypertarget{la-tesis-de-church-turing}{%
+\subsection{La tesis de Church-Turing}\label{la-tesis-de-church-turing}}
+
+La tesis afirma que \textbf{toda función que puede calcularse mediante un procedimiento efectivo, en el sentido intuitivo, puede calcularse con una máquina de Turing}. En la década de 1930 se propusieron varios modelos independientes: las funciones recursivas generales de Herbrand y Gödel, el cálculo λ de Church, las máquinas de Turing y los sistemas de Post; todos resultaron equivalentes, en el sentido de que calculan exactamente las mismas funciones \autocites[cap. 13]{kleene1952}[sec.~3.3]{sipser2013}. Turing lo demostró para su modelo y el de Church en el apéndice de su artículo.
+
+Se llama \emph{tesis} y no teorema porque uno de sus dos lados, «procedimiento efectivo», es una noción intuitiva y no un objeto matemático; no puede demostrarse una equivalencia entre algo definido y algo que no lo está. Lo que sí está demostrado es la equivalencia entre los modelos formales, y esa coincidencia es la mejor evidencia a favor de la tesis.
+
+\hypertarget{alfabetos-cadenas-y-lenguajes}{%
+\subsection{Alfabetos, cadenas y lenguajes}\label{alfabetos-cadenas-y-lenguajes}}
+
+Un \textbf{alfabeto} Σ es un conjunto finito y no vacío de símbolos. Una \textbf{cadena} (o palabra) sobre Σ es una sucesión finita de símbolos de Σ; su longitud \textbar ω\textbar{} es el número de símbolos, y la \textbf{cadena vacía} λ es la única de longitud 0. Σⁿ es el conjunto de las cadenas de longitud n, Σ* = ⋃ₙ≥₀ Σⁿ el de todas las cadenas y Σ⁺ = ⋃ₙ≥₁ Σⁿ el de las no vacías. Un \textbf{lenguaje} sobre Σ es cualquier subconjunto de Σ* \autocite[sec.~1.5]{hopcroft2007}.
+
+\textbf{Operaciones sobre cadenas.} La \emph{concatenación} ωπ escribe π a continuación de ω, es asociativa y tiene a λ como neutro; \textbar ωπ\textbar{} = \textbar ω\textbar{} + \textbar π\textbar. La \emph{potencia} se define por recursión: ω⁰ = λ y ωⁿ⁺¹ = ωⁿω. La \emph{reflexión} ωᴿ invierte el orden: λᴿ = λ y (aω)ᴿ = ωᴿa, con (ωπ)ᴿ = πᴿωᴿ.
+
+\textbf{Operaciones sobre lenguajes.} Como conjuntos, los lenguajes admiten \emph{unión}, \emph{intersección} y \emph{diferencia}. La \emph{concatenación} es L₁L₂ = \{xy : x ∈ L₁, y ∈ L₂\}; la \emph{potencia}, L⁰ = \{λ\} y Lⁿ⁺¹ = LⁿL; la \emph{reflexión}, Lᴿ = \{ωᴿ : ω ∈ L\}. La \textbf{cerradura de Kleene} es L* = ⋃ₙ≥₀ Lⁿ y la \textbf{cerradura positiva}, L⁺ = ⋃ₙ≥₁ Lⁿ \autocite[sec.~1.2]{linz2017}.
+
+\textbf{Por qué Σ⁰ = \{λ\}.} Σ⁰ es el conjunto de las cadenas de longitud 0, y hay exactamente una: λ. Además, \{λ\} es el neutro de la concatenación de lenguajes (L\{λ\} = L), igual que λ lo es de la de cadenas; si Σ⁰ fuera ∅, la identidad Σᵐ⁺ⁿ = ΣᵐΣⁿ fallaría para m = 0, porque ∅L = ∅. \textbf{Σ* frente a Σ⁺.} La única diferencia es λ: Σ* = Σ⁺ ∪ \{λ\} y Σ⁺ = ΣΣ\emph{. En general L⁺ = L} sólo si λ ∈ L.
+
+\hypertarget{la-jerarquuxeda-de-chomsky}{%
+\subsection{La jerarquía de Chomsky}\label{la-jerarquuxeda-de-chomsky}}
+
+\textcite{chomsky1956} clasificó las gramáticas según la forma de sus producciones; cada tipo genera una clase de lenguajes que contiene a la siguiente, y a cada clase corresponde una máquina que la reconoce.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1154}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1154}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.4231}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3462}}@{}}
+\caption{Jerarquía de Chomsky \autocite{hopcroft2007,lewis1998,sipser2013}.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tipo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lenguajes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Forma de las producciones
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Máquina reconocedora
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Tipo
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lenguajes
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Forma de las producciones
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Máquina reconocedora
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+0 & Recursivamente enumerables & α → β, con α no vacía (sin restricción) & Máquina de Turing \\
+1 & Sensibles al contexto & αAβ → αγβ, con γ no vacía & Autómata linealmente acotado \\
+2 & Independientes del contexto & A → γ & Autómata de pila (no determinista) \\
+3 & Regulares & A → aB o A → a (lineal por la derecha) & Autómata finito \\
+\end{longtable}
+
+Las inclusiones son estrictas: \{aⁿbⁿ : n ≥ 0\} es independiente del contexto pero no regular, \{aⁿbⁿcⁿ : n ≥ 0\} es sensible al contexto pero no independiente del contexto, y el lenguaje de la parada es recursivamente enumerable pero no recursivo.
+
+\hypertarget{autuxf3matas-finitos-y-expresiones-regulares}{%
+\subsection{Autómatas finitos y expresiones regulares}\label{autuxf3matas-finitos-y-expresiones-regulares}}
+
+Un \textbf{autómata finito determinista} es una quíntupla M = (Q, Σ, δ, q₀, F), con Q un conjunto finito de estados, Σ el alfabeto, δ: Q × Σ → Q la función de transición, q₀ ∈ Q el estado inicial y F ⊆ Q los de aceptación. δ se extiende a cadenas con δ̂(q, λ) = q y δ̂(q, ωa) = δ(δ̂(q, ω), a); M acepta ω si δ̂(q₀, ω) ∈ F, y L(M) es el conjunto de las cadenas aceptadas \autocite[sec.~2.2]{hopcroft2007}. Un \textbf{autómata finito no determinista} sólo cambia la función de transición: δ: Q × Σ → 𝒫(Q) devuelve un conjunto de estados, posiblemente vacío, y la cadena se acepta si \emph{alguna} de las sucesiones posibles de estados termina en F.
+
+Los dos modelos son \textbf{equivalentes}: para todo AFN existe un AFD que reconoce el mismo lenguaje \autocite{kozen1997}. \textcite{rabin1959} lo demostraron con la \emph{construcción de subconjuntos}, en la que cada estado del AFD es un conjunto de estados del AFN; el precio es que el AFD puede tener hasta 2ⁿ estados. \textcite{kleene1956} probó además que los lenguajes que reconocen los autómatas finitos son exactamente los que describen las \textbf{expresiones regulares}, construidas a partir de ∅, λ y los símbolos con unión, concatenación y estrella.
+
+Tres problemas reales en los que se aplican expresiones regulares:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Análisis léxico.} El primer paso de un compilador divide el código en fichas (identificadores, números, palabras reservadas); cada clase de ficha se describe con una expresión, como \texttt{{[}A-Za-z\_{]}{[}A-Za-z0-9\_{]}*} para los identificadores, y el analizador se construye como un AFD.
+\item
+  \textbf{Validación de datos.} Un formulario rechaza un correo o un código postal mal escritos comparando el texto con una expresión antes de enviarlo.
+\item
+  \textbf{Búsqueda en texto y registros.} Herramientas como \texttt{grep} encuentran todas las líneas de un archivo de bitácora que contienen, por ejemplo, una dirección IP o un código de error, sin recorrer el archivo más de una vez.
+\end{enumerate}
+
+Las expresiones de los lenguajes de programación añaden operadores que no son regulares, como las referencias hacia atrás, y sus motores pueden tardar un tiempo exponencial; el artículo de \textcite{davis2019} del Ejercicio 3 estudia esas diferencias.

@@ -1,0 +1,890 @@
+\documentclass[11pt]{article}
+\newcommand{\NombreTarea}{Tarea 4}
+\input{preambulo}
+\begin{document}
+\thispagestyle{fancy}
+\begin{center}
+\includegraphics[height=1.6cm]{img/logo-ipn.png}\hfill
+\begin{minipage}[b]{0.62\linewidth}\centering
+{\large\bfseries Instituto Politécnico Nacional}\\
+{\bfseries Escuela Superior de Cómputo}\\[2pt]
+Ingeniería en Sistemas Computacionales · Teoría de la Computación\\
+Docente: Gabriel Hurtado Avilés
+\end{minipage}\hfill
+\includegraphics[height=1.6cm]{img/logo-escom.png}\\[6pt]
+{\color{guinda}\rule{\linewidth}{1.2pt}}\\[4pt]
+{\LARGE\bfseries\color{guinda} Tarea 4. Expresiones regulares, teorema de Kleene, lema de bombeo, autómatas aplicados y gramáticas}\\[4pt]
+{\large Rico Espluga Juan Diego \quad·\quad Boleta 2025630474 \quad·\quad Grupo 4CV4}\\[2pt]
+{\color{guinda}\rule{\linewidth}{1.2pt}}
+\end{center}
+
+\tableofcontents
+\textbf{Instrucciones.} Se resuelven los ejercicios 264--308 de la Lista 4 con su procedimiento.
+Convenciones: $\lambda$ es la palabra vacía, $+$ la unión y $\mathbb{N} = \{0, 1, 2, \ldots\}$. Cada expresión regular
+tiene su archivo \texttt{.jff} de tipo \textit{Regular Expression} (en JFLAP, $\lambda$ se escribe \texttt{!}) y el
+AFD que le corresponde; cada autómata y cada gramática tienen su \texttt{.jff} y un espacio para la captura.
+Todas las expresiones se verificaron contra la definición del lenguaje sobre todas las palabras cortas.
+\seccion{Expresiones regulares (264--271)}
+
+
+\begin{ejercicio}{264}{*}
+Represente mediante una expresión regular: (a) $\{\varepsilon, ab\}$; (b) $\{1, 11, 111, \ldots\}$; (c) $\{ab, a, b, bb\}$.
+\end{ejercicio}
+\proc (a) Unión de las dos palabras. (b) Uno o más unos: $11^*$. (c) Unión de las cuatro palabras; se puede factorizar $a(b + \lambda) + b(\lambda + b)$.\par Expresión: \texttt{λ + ab}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-264a-er}{Expresión 264a en JFLAP.}
+\jflap{lista4-264a-afd}{AFD mínimo de la expresión 264a (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, $\lambda$; rechazadas \texttt{aa}, \texttt{a}, \texttt{b}.}}
+\par Expresión: \texttt{11*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-264b-er}{Expresión 264b en JFLAP.}
+\jflap{lista4-264b-afd}{AFD mínimo de la expresión 264b (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1111}, \texttt{111111}; rechazadas \texttt{0}, \texttt{0111}, \texttt{011111}.}}
+\par Expresión: \texttt{a(λ + b) + b(λ + b)}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-264c-er}{Expresión 264c en JFLAP.}
+\jflap{lista4-264c-afd}{AFD mínimo de la expresión 264c (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{ab}, \texttt{bb}; rechazadas \texttt{aa}, \texttt{ba}, \texttt{bba}.}}
+
+\resp (a) $\lambda + ab$; (b) $11^*$; (c) $ab + a + b + bb = (a + b)(\lambda + b)$.
+
+
+\begin{ejercicio}{265}{*}
+Obtenga expresiones regulares para: (a) las cadenas sobre $\{a, b\}$ que comienzan y terminan con $a$ (incluida $a$); (b) $\{b^2, b^5, b^8, \ldots\}$; (c) $\{a^{2n+1} \mid n > 0\}$.
+\end{ejercicio}
+\proc (a) $a$ sola, o $a$, cualquier cosa, $a$. (b) Exponentes $3k + 2$: $bb(bbb)^*$. (c) Exponentes impares $\ge 3$ (pues $n > 0$): $aaa(aa)^*$.\par Expresión: \texttt{a + a(a + b)*a}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-265a-er}{Expresión 265a en JFLAP.}
+\jflap{lista4-265a-afd}{AFD mínimo de la expresión 265a (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{abaa}, \texttt{abaaaa}; rechazadas \texttt{b}, \texttt{baaa}, \texttt{bbaaaa}.}}
+\par Expresión: \texttt{bb(bbb)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 14$: coinciden.
+\jflap{lista4-265b-er}{Expresión 265b en JFLAP.}
+\jflap{lista4-265b-afd}{AFD mínimo de la expresión 265b (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{bb}, \texttt{bbbbb}, \texttt{bbbbbbbb}; rechazadas \texttt{b}, \texttt{bbbb}, \texttt{bbbbbbb}.}}
+\par Expresión: \texttt{aaa(aa)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 14$: coinciden.
+\jflap{lista4-265c-er}{Expresión 265c en JFLAP.}
+\jflap{lista4-265c-afd}{AFD mínimo de la expresión 265c (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aaa}, \texttt{aaaaa}, \texttt{aaaaaaa}; rechazadas \texttt{aa}, \texttt{aaaa}, \texttt{aaaaaa}.}}
+
+\resp (a) $a + a(a + b)^*a$; (b) $bb(bbb)^*$; (c) $aaa(aa)^*$.
+
+
+\begin{ejercicio}{266}{*}
+Obtenga expresiones para: (a) $L_1 = \{a^{2n}b^{2m+1} \mid n, m \ge 0\}$; (b) $L_2 = \{w \in \{a, b\}^+ : |w| \le 3\}$; (c) $L_3$: cadenas binarias sin dos ceros consecutivos; (d) $L_4$: cadenas binarias que terminan en 00.
+\end{ejercicio}
+\proc (a) Pares de $a$ y luego un número impar de $b$. (b) Uno, dos o tres símbolos. (c) Cada 0 va seguido de un 1, salvo quizá el último: $(1 + 01)^*(\lambda + 0)$. (d) Cualquier prefijo y 00.\par Expresión: \texttt{(aa)*b(bb)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-266a-er}{Expresión 266a en JFLAP.}
+\jflap{lista4-266a-afd}{AFD mínimo de la expresión 266a (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{bbb}, \texttt{aabbb}; rechazadas \texttt{a}, \texttt{bb}, \texttt{aabb}.}}
+\par Expresión: \texttt{(a + b)(λ + (a + b)(λ + a + b))}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-266b-er}{Expresión 266b en JFLAP.}
+\jflap{lista4-266b-afd}{AFD mínimo de la expresión 266b (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{ba}, \texttt{baa}; rechazadas \texttt{baaa}, \texttt{abbb}, \texttt{baaaaaa}.}}
+\par Expresión: \texttt{(1 + 01)*(λ + 0)}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 12$: coinciden.
+\jflap{lista4-266c-er}{Expresión 266c en JFLAP.}
+\jflap{lista4-266c-afd}{AFD mínimo de la expresión 266c (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1011}, \texttt{101101}; rechazadas \texttt{0011}, \texttt{001101}, \texttt{00}.}}
+\par Expresión: \texttt{(0 + 1)*00}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 12$: coinciden.
+\jflap{lista4-266d-er}{Expresión 266d en JFLAP.}
+\jflap{lista4-266d-afd}{AFD mínimo de la expresión 266d (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{00}, \texttt{10000}, \texttt{1000000}; rechazadas \texttt{01}, \texttt{100001}, \texttt{10000001}.}}
+
+\resp (a) $(aa)^*b(bb)^*$; (b) $(a + b)(\lambda + (a + b)(\lambda + a + b))$; (c) $(1 + 01)^*(\lambda + 0)$; (d) $(0 + 1)^*00$.
+
+
+\begin{ejercicio}{267}{*}
+Describa el conjunto representado por $(aa + b)^*(bb + a)^*$.
+\end{ejercicio}
+\proc La primera parte genera cadenas donde las $a$ aparecen en bloques de longitud par (separados por $b$); la segunda, cadenas donde las $b$ aparecen en bloques de longitud par.
+\resp Las cadenas $xy$ con $x \in \{aa, b\}^*$ (toda racha de $a$ en $x$ tiene longitud par) y $y \in \{bb, a\}^*$ (toda racha de $b$ en $y$ tiene longitud par). Por ejemplo $aab\,abb$; no pertenece $abab$ ni $ab$: después de una $a$ aislada ya no puede aparecer una $b$ aislada.\par Expresión: \texttt{(aa + b)*(bb + a)*}.
+\jflap{lista4-267-er}{Expresión 267 en JFLAP.}
+\jflap{lista4-267-afd}{AFD mínimo de la expresión 267 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baaabb}; rechazadas \texttt{ab}, \texttt{abab}, \texttt{baaab}.}}
+
+
+
+\begin{ejercicio}{268}{*}
+Con $\Sigma = \{a, b, c\}$: (a) exactamente una $a$; (b) a lo sumo tres $a$; (c) al menos una ocurrencia de cada símbolo; (d) sin rachas de $a$ de longitud mayor que dos; (e) todas las rachas de $a$ con longitud múltiplo de tres.
+\end{ejercicio}
+\proc Sea $X = (b + c)$. (a) $X^*aX^*$. (b) Hasta tres $a$ separadas por $X^*$. (c) Se enumeran los seis órdenes en que aparecen por primera vez los tres símbolos. (d) Cada racha de $a$ mide 1 o 2 y va seguida de un símbolo de $X$, salvo al final. (e) Rachas $(aaa)^+$ separadas por $X$.\par Expresión: \texttt{(b + c)*a(b + c)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 6$: coinciden.
+\jflap{lista4-268a-er}{Expresión 268a en JFLAP.}
+\jflap{lista4-268a-afd}{AFD mínimo de la expresión 268a (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{bcab}, \texttt{bcbcab}; rechazadas \texttt{b}, \texttt{acab}, \texttt{acbcab}.}}
+\par Expresión: \texttt{(b + c)*(λ + a(b + c)*(λ + a(b + c)*(λ + a(b + c)*)))}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 6$: coinciden.
+\jflap{lista4-268b-er}{Expresión 268b en JFLAP.}
+\jflap{lista4-268b-afd}{AFD mínimo de la expresión 268b (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{bbbc}, \texttt{bbcbac}; rechazadas \texttt{aaaa}, \texttt{acaaacb}, \texttt{acccaaaba}.}}
+\par Expresión: \texttt{(a + b + c)*(a(a + b + c)*(b(a + b + c)*c + c(a + b + c)*b) + b(a + b + c)*(a(a + b + c)*c + c(a + b + c)*a) + c(a + b + c)*(a(a + b + c)*b + b(a + b + c)*a))(a + b + c)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 6$: coinciden.
+\jflap{lista4-268c-er}{Expresión 268c en JFLAP.}
+\jflap{lista4-268c-afd}{AFD mínimo de la expresión 268c (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{bca}, \texttt{bbbbca}, \texttt{bbbbbbca}; rechazadas \texttt{bcb}, \texttt{bbbbc}, \texttt{bbbbbbc}.}}
+\par Expresión: \texttt{((λ + a + aa)(b + c))*(λ + a + aa)}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 6$: coinciden.
+\jflap{lista4-268d-er}{Expresión 268d en JFLAP.}
+\jflap{lista4-268d-afd}{AFD mínimo de la expresión 268d (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{bbca}, \texttt{bbcaab}; rechazadas \texttt{bbcaaa}, \texttt{aaa}, \texttt{baaaab}.}}
+\par Expresión: \texttt{(b + c + aaa(aaa)*(b + c))*(λ + aaa(aaa)*)}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 7$: coinciden.
+\jflap{lista4-268e-er}{Expresión 268e en JFLAP.}
+\jflap{lista4-268e-afd}{AFD mínimo de la expresión 268e (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{c}, \texttt{bccc}, \texttt{bccbcc}; rechazadas \texttt{a}, \texttt{accc}, \texttt{accbcc}.}}
+
+\resp Ver cada expresión (incisos a--e).
+
+
+\begin{ejercicio}{269}{*}
+Con $\Sigma = \{a, b\}$: (a) $L_1 = \{a^mb^n \mid m, n > 0\}$; (b) $L_2 = \{b^mab^n \mid m, n > 0\}$; (c) $L_3 = \{a^mb^n \mid m, n \ge 0, m + n$ par$\}$.
+\end{ejercicio}
+\proc (c) $m + n$ es par si $m$ y $n$ son ambos pares o ambos impares.
+\resp (a) $aa^*bb^*$; (b) $bb^*abb^*$; (c) $(aa)^*(bb)^* + a(aa)^*b(bb)^*$.\par Expresión: \texttt{aa*bb*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-269a-er}{Expresión 269a en JFLAP.}
+\jflap{lista4-269a-afd}{AFD mínimo de la expresión 269a (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabbb}, \texttt{aaabbbb}; rechazadas \texttt{aa}, \texttt{ababb}, \texttt{baabbbb}.}}
+\par Expresión: \texttt{bb*abb*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-269b-er}{Expresión 269b en JFLAP.}
+\jflap{lista4-269b-afd}{AFD mínimo de la expresión 269b (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{bab}, \texttt{bbbabb}, \texttt{bbbbabbb}; rechazadas \texttt{baa}, \texttt{abbabb}, \texttt{abbbabbb}.}}
+\par Expresión: \texttt{(aa)*(bb)* + a(aa)*b(bb)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-269c-er}{Expresión 269c en JFLAP.}
+\jflap{lista4-269c-afd}{AFD mínimo de la expresión 269c (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{ba}, \texttt{abab}, \texttt{aaabb}.}}
+
+
+
+\begin{ejercicio}{270}{*}
+Determine todas las cadenas en $L((a + b)^*b(a + ab)^*)$ de longitud menor que cuatro.
+\end{ejercicio}
+\proc Toda palabra del lenguaje contiene al menos una $b$, y después de la última $b$ «elegida» sólo hay bloques $a$ o $ab$; como $(a + b)^*$ absorbe cualquier prefijo, el lenguaje es el de las palabras que contienen una $b$. Se enumeran las de longitud 0 a 3.
+\resp \texttt{b}, \texttt{ab}, \texttt{ba}, \texttt{bb}, \texttt{aab}, \texttt{aba}, \texttt{abb}, \texttt{baa}, \texttt{bab}, \texttt{bba}, \texttt{bbb} (11 palabras: todas las que tienen al menos una $b$).\par Expresión: \texttt{(a + b)*b(a + ab)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-270-er}{Expresión 270 en JFLAP.}
+\jflap{lista4-270-afd}{AFD mínimo de la expresión 270 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baaa}, \texttt{baaaaa}; rechazadas \texttt{a}, \texttt{aaaa}, \texttt{aaaaaa}.}}
+
+
+
+\begin{ejercicio}{271}{*}
+Encuentre expresiones para: (i) $L_1 = \{a^nb^m : n, m \ge 1, nm \ge 3\}$; (ii) $L_2 = \{ab^nw : n \ge 3, w \in \{a, b\}^+\}$; (iii) $L_3 = \{vwv : v, w \in \{a, b\}^*, |v| = 2\}$; (iv) $L_4 = \{w : |w| \bmod 3 = 0\}$.
+\end{ejercicio}
+\proc (i) Se excluyen $(n, m) \in \{(1,1), (1,2), (2,1)\}$: $n = 1, m \ge 3$; $n = 2, m \ge 2$; o $n \ge 3$. (ii) $ab^n$ con $n \ge 3$ y luego al menos un símbolo; las $b$ adicionales pueden contarse en $w$. (iii) Los cuatro valores de $v$. (iv) Bloques de tres símbolos.
+\resp (i) $abbbb^* + aabbb^* + aaaa^*bb^*$; (ii) $abbb(a + b)(a + b)^*$; (iii) $aa(a+b)^*aa + ab(a+b)^*ab + ba(a+b)^*ba + bb(a+b)^*bb$; (iv) $((a + b)(a + b)(a + b))^*$.\par Expresión: \texttt{abbbb* + aabbb* + aaaa*bb*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-271i-er}{Expresión 271i en JFLAP.}
+\jflap{lista4-271i-afd}{AFD mínimo de la expresión 271i (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aabb}, \texttt{aaabbbb}, \texttt{aaaabbbbb}; rechazadas \texttt{aaba}, \texttt{aababbb}, \texttt{baaabbbbb}.}}
+\par Expresión: \texttt{abbb(a + b)(a + b)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-271ii-er}{Expresión 271ii en JFLAP.}
+\jflap{lista4-271ii-afd}{AFD mínimo de la expresión 271ii (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abbbb}, \texttt{abbbbaaa}, \texttt{abbbbaaaaa}; rechazadas \texttt{babbb}, \texttt{babbbaaa}, \texttt{bbbbbaaaaa}.}}
+\par Expresión: \texttt{aa(a + b)*aa + ab(a + b)*ab + ba(a + b)*ba + bb(a + b)*bb}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-271iii-er}{Expresión 271iii en JFLAP.}
+\jflap{lista4-271iii-afd}{AFD mínimo de la expresión 271iii (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{baba}, \texttt{baaaaba}, \texttt{baaaaaaba}; rechazadas \texttt{babb}, \texttt{abaaaba}, \texttt{baaaaaab}.}}
+\par Expresión: \texttt{((a + b)(a + b)(a + b))*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 8$: coinciden.
+\jflap{lista4-271iv-er}{Expresión 271iv en JFLAP.}
+\jflap{lista4-271iv-afd}{AFD mínimo de la expresión 271iv (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{aaa}, \texttt{abbbaa}, \texttt{bbbbbb}; rechazadas \texttt{aa}, \texttt{abbba}, \texttt{bbbbb}.}}
+
+
+
+\seccion{Teorema de Kleene (272--279)}
+
+
+\begin{ejercicio}{272}{*}
+Con la Parte I del teorema de Kleene (casos básicos, unión, concatenación y estrella), encuentre un AFN-λ para: (a) $a + b^*$; (b) $(ab)^*a$; (c) $(a + b)^*abb$; (d) $a(ba)^* + b$; (e) $(a + \lambda)(b + \varnothing)$. Indique en cada paso qué pieza construye.
+\end{ejercicio}
+\proc Casos básicos: $\varnothing$ da dos estados sin transiciones; $\lambda$, $i \xrightarrow{\lambda} f$; un símbolo $x$, $i \xrightarrow{x} f$. Unión: nuevo inicial con λ a los dos iniciales y λ de los dos finales a un final nuevo. Concatenación: λ del final del primero al inicial del segundo. Estrella: nuevo inicial y nuevo final, λ para saltar (acepta λ) y λ del final al inicial para repetir. En (e), $b + \varnothing$ tiene una rama que no llega a ninguna parte, así que el lenguaje es $\{ab, b\}$.
+\textbf{(a) \texttt{a + b*}.} Piezas en el orden en que se construyen: 1) Caso básico: a; 2) Caso básico: b; 3) Estrella: b*; 4) Unión: a + b*. Resultado: AFN-λ de 8 estados.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q5\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q4\}} \\
+$*$ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-272a}{AFN-λ de 272(a) en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{bbbb}, \texttt{bbbbbb}; rechazadas \texttt{ba}, \texttt{abbb}, \texttt{abbbbb}.}}
+\textbf{(b) \texttt{(ab)*a}.} Piezas en el orden en que se construyen: 1) Caso básico: a; 2) Caso básico: b; 3) Concatenación: ab; 4) Estrella: (ab)*; 5) Caso básico: a; 6) Concatenación: (ab)*a. Resultado: AFN-λ de 8 estados.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q2\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q5\}} \\
+$\to$ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q5\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q6\}} \\
+ \texttt{q6} & \texttt{\{q7\}} & \texttt{∅} & \texttt{∅} \\
+$*$ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-272b}{AFN-λ de 272(b) en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{aba}, \texttt{ababa}; rechazadas \texttt{b}, \texttt{baa}, \texttt{abab}.}}
+\textbf{(c) \texttt{(a + b)*abb}.} Piezas en el orden en que se construyen: 1) Caso básico: a; 2) Caso básico: b; 3) Unión: a + b; 4) Estrella: (a + b)*; 5) Caso básico: a; 6) Concatenación: (a + b)*a; 7) Caso básico: b; 8) Concatenación: (a + b)*ab; 9) Caso básico: b; 10) Concatenación: (a + b)*abb. Resultado: AFN-λ de 14 estados.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q2\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q10\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{\{q11\}} & \texttt{∅} \\
+ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{\{q12\}} \\
+ \texttt{q12} & \texttt{∅} & \texttt{\{q13\}} & \texttt{∅} \\
+$*$ \texttt{q13} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-272c}{AFN-λ de 272(c) en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abb}, \texttt{baaabb}, \texttt{baaaaabb}; rechazadas \texttt{aba}, \texttt{baabab}, \texttt{baaaaab}.}}
+\textbf{(d) \texttt{a(ba)* + b}.} Piezas en el orden en que se construyen: 1) Caso básico: a; 2) Caso básico: b; 3) Caso básico: a; 4) Concatenación: ba; 5) Estrella: (ba)*; 6) Concatenación: a(ba)*; 7) Caso básico: b; 8) Unión: a(ba)* + b. Resultado: AFN-λ de 12 estados.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q6\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q4\}} \\
+ \texttt{q4} & \texttt{\{q5\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q2, q7\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{\{q9\}} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+$\to$ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q8\}} \\
+$*$ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-272d}{AFN-λ de 272(d) en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{aba}, \texttt{ababa}; rechazadas \texttt{ba}, \texttt{baa}, \texttt{abab}.}}
+\textbf{(e) \texttt{(a + λ)(b + ∅)}.} Piezas en el orden en que se construyen: 1) Caso básico: a; 2) Caso básico: λ; 3) Unión: a + λ; 4) Caso básico: b; 5) Caso básico: ∅; 6) Unión: b + ∅; 7) Concatenación: (a + λ)(b + ∅). Resultado: AFN-λ de 12 estados.
+\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{∅} & \texttt{\{q3\}} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+$\to$ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q2\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q10\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{\{q7\}} & \texttt{∅} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q6, q8\}} \\
+$*$ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-272e}{AFN-λ de 272(e) en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{ab}; rechazadas \texttt{a}, \texttt{ba}, \texttt{bb}.}}
+
+
+
+\begin{ejercicio}{273}{*}
+Para los autómatas de 272(b) y 272(c), verifique con el procesamiento por λ-clausuras si se aceptan $aba$, $ab$, $babb$ y $abab$.
+\end{ejercicio}
+\proc Se parte de λ-cl(inicial) y, por cada símbolo, se mueve el conjunto y se cierra.\par\textbf{272(b)}, $(ab)^*a$:\par \texttt{aba}: \{q0, q4, q5, q6\} $\to$ \texttt{a}: \{q1, q2, q7\} $\to$ \texttt{b}: \{q0, q3, q5, q6\} $\to$ \texttt{a}: \{q1, q2, q7\} — \textbf{aceptada}\par \texttt{ab}: \{q0, q4, q5, q6\} $\to$ \texttt{a}: \{q1, q2, q7\} $\to$ \texttt{b}: \{q0, q3, q5, q6\} — \textbf{rechazada}\par \texttt{babb}: \{q0, q4, q5, q6\} $\to$ \texttt{b}: ∅ $\to$ \texttt{a}: ∅ $\to$ \texttt{b}: ∅ $\to$ \texttt{b}: ∅ — \textbf{rechazada}\par \texttt{abab}: \{q0, q4, q5, q6\} $\to$ \texttt{a}: \{q1, q2, q7\} $\to$ \texttt{b}: \{q0, q3, q5, q6\} $\to$ \texttt{a}: \{q1, q2, q7\} $\to$ \texttt{b}: \{q0, q3, q5, q6\} — \textbf{rechazada}\par\textbf{272(c)}, $(a + b)^*abb$:\par \texttt{aba}: \{q0, q2, q4, q6, q7, q8\} $\to$ \texttt{a}: \{q0, q1, q2, q4, q5, q7, q8, q9, q10\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8, q11, q12\} $\to$ \texttt{a}: \{q0, q1, q2, q4, q5, q7, q8, q9, q10\} — \textbf{rechazada}\par \texttt{ab}: \{q0, q2, q4, q6, q7, q8\} $\to$ \texttt{a}: \{q0, q1, q2, q4, q5, q7, q8, q9, q10\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8, q11, q12\} — \textbf{rechazada}\par \texttt{babb}: \{q0, q2, q4, q6, q7, q8\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8\} $\to$ \texttt{a}: \{q0, q1, q2, q4, q5, q7, q8, q9, q10\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8, q11, q12\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8, q13\} — \textbf{aceptada}\par \texttt{abab}: \{q0, q2, q4, q6, q7, q8\} $\to$ \texttt{a}: \{q0, q1, q2, q4, q5, q7, q8, q9, q10\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8, q11, q12\} $\to$ \texttt{a}: \{q0, q1, q2, q4, q5, q7, q8, q9, q10\} $\to$ \texttt{b}: \{q0, q2, q3, q4, q5, q7, q8, q11, q12\} — \textbf{rechazada}
+\resp $(ab)^*a$ acepta $aba$ y rechaza $ab$, $babb$, $abab$; $(a + b)^*abb$ acepta $babb$ y rechaza $aba$, $ab$, $abab$.
+
+
+\begin{ejercicio}{274}{*}
+Al construir el autómata de $E^*$, alguien propone hacer final el estado inicial del autómata de $E$ y agregar una transición λ de su final a su inicial, sin estados nuevos. (a) Aplíquelo al autómata de $a^*b$ ($q_0$ con lazo $a$ y $q_0 \xrightarrow{b} q_1$, $q_1$ final). (b) Encuentre una cadena que acepte y no pertenezca a $(a^*b)^*$. (c) Explique por qué la construcción correcta no tiene este problema.
+\end{ejercicio}
+\proc (a) Resultado: $q_0$ inicial y final, lazo $a$ en $q_0$, $q_0 \xrightarrow{b} q_1$ y $q_1 \xrightarrow{\lambda} q_0$.\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+$\to$$*$ \texttt{q0} & \texttt{\{q0\}} & \texttt{\{q1\}} & \texttt{∅} \\
+$*$ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q0\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-274-propuesta}{Construcción propuesta (incorrecta).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baaa}, \texttt{baaaaa}; rechazadas ninguna.}}
+\jflap{lista4-274-correcta}{Construcción correcta de $(a^*b)^*$ con estados nuevos.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baaaab}; rechazadas \texttt{a}, \texttt{baba}, \texttt{baaaa}.}}
+(b) Al hacer final a $q_0$ se aceptan las palabras que terminan en el lazo $a$: \texttt{a}: \{q0\} $\to$ \texttt{a}: \{q0\} — \textbf{aceptada}, pero toda palabra no vacía de $(a^*b)^*$ termina en $b$.
+\resp (b) $a$ (también $ba$, $aab\,a$). (c) El problema es que el estado inicial de $E$ tenía un ciclo propio: al volverlo final se aceptan los recorridos que entran a ese ciclo sin completar una copia de $E$. Con un inicial nuevo $i$ y un final nuevo $f$, sin transiciones de regreso hacia $i$, la única forma de llegar a $f$ es desde $i$ con λ (palabra vacía) o desde el final de $E$ tras completar una copia; así se aceptan exactamente $E^0 \cup E^1 \cup E^2 \cup \cdots$.
+
+
+\begin{ejercicio}{275}{*}
+Elimine las transiciones λ del AFN-λ de la tabla ($\to A$: λ→{B}, 0→{A}; $B$: 1→{C}; $*C$: λ→{A}) con $\Delta'(q, a) = \lambda\text{-cl}(\Delta(\lambda\text{-cl}(q), a))$ y $F' = \{q : \lambda\text{-cl}(q) \cap F \ne \varnothing\}$; después obtenga un AFD con la construcción de subconjuntos.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & 0 & 1 & λ \\\midrule
+$\to$ \texttt{A} & \texttt{\{A\}} & \texttt{∅} & \texttt{\{B\}} \\
+ \texttt{B} & \texttt{∅} & \texttt{\{C\}} & \texttt{∅} \\
+$*$ \texttt{C} & \texttt{∅} & \texttt{∅} & \texttt{\{A\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-275}{AFN-λ de 275 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+\textit{1. Cerradura λ de cada estado.} λ-cl(q) reúne los estados a los que se llega desde q sin leer símbolos (q incluido).
+\begin{center}\footnotesize\begin{tabular}{ll}\toprule
+q & λ-cl(q) \\\midrule
+\texttt{A} & \texttt{\{A, B\}} \\
+\texttt{B} & \texttt{\{B\}} \\
+\texttt{C} & \texttt{\{A, B, C\}} \\
+\bottomrule\end{tabular}\end{center}
+\textit{2. Nuevas transiciones Δ'(q, a) = λ-cl(δ(λ-cl(q), a)).} Entre paréntesis, los destinos que no estaban en δ(q, a) y que se añaden.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & Δ'(q, 0) & Δ'(q, 1) \\\midrule
+\texttt{A} & \texttt{\{A, B\}  (+B)} & \texttt{\{A, B, C\}  (+A, B, C)} \\
+\texttt{B} & \texttt{∅} & \texttt{\{A, B, C\}  (+A, B)} \\
+\texttt{C} & \texttt{\{A, B\}  (+A, B)} & \texttt{\{A, B, C\}  (+A, B, C)} \\
+\bottomrule\end{tabular}\end{center}
+\textit{3. Estados de aceptación F' = \{q : λ-cl(q) ∩ F ≠ ∅\}.} Ningún estado nuevo pasa a ser de aceptación.
+\begin{center}\footnotesize\begin{tabular}{lll}\toprule
+q & λ-cl(q) ∩ F &  \\\midrule
+\texttt{C} & \texttt{\{C\}} & \texttt{ya era final} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{\{A, B\}} & \texttt{\{A, B, C\}} \\
+ \texttt{B} & \texttt{∅} & \texttt{\{A, B, C\}} \\
+$*$ \texttt{C} & \texttt{\{A, B\}} & \texttt{\{A, B, C\}} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-275-sin-lambda}{AFN sin λ de 275.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+Se procesa C = \{A,B,C\}: para cada símbolo a se calcula λ-cl(δ(S, a)). No aparecen subconjuntos nuevos.
+\begin{center}\footnotesize\begin{tabular}{llll}\toprule
+ & Subconjunto & 0 & 1 \\\midrule
+\texttt{→} & \texttt{A = \{A\}} & \texttt{B} & \texttt{C} \\
+\texttt{} & \texttt{B = \{A,B\}} & \texttt{B} & \texttt{C} \\
+\texttt{*} & \texttt{C = \{A,B,C\}} & \texttt{B} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-275-afd}{AFD de 275.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+
+\resp AFN sin λ con F' = \{C\} y AFD de 3 estados (tablas anteriores).
+
+
+\begin{ejercicio}{276}{*}
+Con el lema de Arden, encuentre una expresión regular para el AFD sobre $\{a, b\}$ que acepta las cadenas cuyo número de $a$ es múltiplo de 3 ($\to *A$: $a \to B$, $b \to A$; $B$: $a \to C$, $b \to B$; $C$: $a \to A$, $b \to C$).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$$*$ \texttt{A} & \texttt{B} & \texttt{A} \\
+ \texttt{B} & \texttt{C} & \texttt{B} \\
+ \texttt{C} & \texttt{A} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-276}{AFD 276 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abaa}, \texttt{baaabb}; rechazadas \texttt{a}, \texttt{aba}, \texttt{aaaabb}.}}
+Lema de Arden: si $X = AX + B$ y $\lambda \notin L(A)$, entonces $X = A^*B$. Ecuaciones: $X_A = bX_A + aX_B + \lambda$, $X_B = bX_B + aX_C$, $X_C = bX_C + aX_A$. Por Arden, $X_C = b^*aX_A$; sustituyendo, $X_B = bX_B + ab^*aX_A$, de donde $X_B = b^*ab^*aX_A$; y $X_A = bX_A + ab^*ab^*aX_A + \lambda = (b + ab^*ab^*a)X_A + \lambda$, de donde $X_A = (b + ab^*ab^*a)^*$.\jflap{lista4-276-er}{Expresión de 276 en JFLAP.}
+
+\resp \texttt{(b + ab*ab*a)*}.
+
+
+\begin{ejercicio}{277}{*}
+Encuentre una expresión regular para el AFD ($\to A$: 0→A, 1→B; $*B$: 0→A, 1→B) con el método $R_{ij}^{k}$ y con el lema de Arden; justifique su equivalencia y pruebe al menos cinco cadenas.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & 0 & 1 \\\midrule
+$\to$ \texttt{A} & \texttt{A} & \texttt{B} \\
+$*$ \texttt{B} & \texttt{A} & \texttt{B} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-277}{AFD 277 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{0}, \texttt{1010}, \texttt{10000}.}}
+\textbf{Método $R_{ij}^{(k)}$} (1 = A, 2 = B). $k = 0$: $R_{11} = \lambda + 0$, $R_{12} = 1$, $R_{21} = 0$, $R_{22} = \lambda + 1$. Con $R_{ij}^{(k)} = R_{ij}^{(k-1)} + R_{ik}^{(k-1)}(R_{kk}^{(k-1)})^*R_{kj}^{(k-1)}$: $k = 1$: $R_{12}^{(1)} = 1 + (\lambda + 0)0^*1 = 0^*1$ y $R_{22}^{(1)} = (\lambda + 1) + 0\,0^*1 = \lambda + (\lambda + 00^*)1 = \lambda + 0^*1$. $k = 2$: $R_{12}^{(2)} = R_{12}^{(1)} + R_{12}^{(1)}(R_{22}^{(1)})^*R_{22}^{(1)} = 0^*1(0^*1)^*$, usando $(\lambda + X)^* = X^*$ y $Y + YX^*X = YX^*$.\par \textbf{Lema de Arden.} $X_A = 0X_A + 1X_B$, $X_B = 0X_A + 1X_B + \lambda$. De la segunda, $X_B = 1^*(0X_A + \lambda)$; en la primera, $X_A = (0 + 11^*0)X_A + 11^*$, así que $X_A = (0 + 11^*0)^*11^*$.\par \textbf{Equivalencia.} $0^*1(0^*1)^* = (0^*1)^+$ son las palabras formadas por bloques que terminan en 1, es decir, las no vacías que terminan en 1; $(0 + 11^*0)^*11^* = (0 + 1^+0)^*1^+$ es una sucesión de bloques que terminan en 0 seguida de al menos un 1: las mismas palabras. Los AFD mínimos de ambas expresiones coinciden (comprobado con la prueba de equivalencia). Cadenas: \texttt{1} ✓/✓, \texttt{01} ✓/✓, \texttt{0011} ✓/✓, \texttt{1101} ✓/✓, $\lambda$ ✗/✗, \texttt{0} ✗/✗, \texttt{10} ✗/✗, \texttt{110} ✗/✗ (primera expresión/segunda).\jflap{lista4-277-er-rijk}{Expresión por $R_{ij}^{(k)}$.}
+\jflap{lista4-277-er-arden}{Expresión por Arden.}
+
+\resp $R_{12}^{(2)} = 0^*1(0^*1)^*$; Arden: $(0 + 11^*0)^*11^*$; son equivalentes (confirmado por AFD mínimos).
+
+
+\begin{ejercicio}{278}{*}
+El ciclo completo para $(a + b)^*b$: (a) AFN-λ con la Parte I; (b) eliminar λ; (c) AFD con subconjuntos y minimizarlo; (d) aplicar Arden al AFD mínimo y comprobar la equivalencia.
+\end{ejercicio}
+\proc (a) AFN-λ de 10 estados.\begin{center}\small\begin{tabular}{lccc}\toprule
+$\delta$ & a & b & λ \\\midrule
+ \texttt{q0} & \texttt{\{q1\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{\{q5\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{∅} & \texttt{\{q0, q2\}} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+$\to$ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{\{q9\}} & \texttt{∅} \\
+$*$ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-278-afn-lambda}{(a) AFN-λ.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baaaab}; rechazadas \texttt{a}, \texttt{baba}, \texttt{baaaa}.}}
+(b) AFN de 10 estados sin λ.\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+ \texttt{q0} & \texttt{\{q0, q1, q2, q4, q5, q7, q8\}} & \texttt{∅} \\
+ \texttt{q1} & \texttt{\{q0, q1, q2, q4, q5, q7, q8\}} & \texttt{\{q0, q2, q3, q4, q5, q7, q8, q9\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q0, q2, q3, q4, q5, q7, q8\}} \\
+ \texttt{q3} & \texttt{\{q0, q1, q2, q4, q5, q7, q8\}} & \texttt{\{q0, q2, q3, q4, q5, q7, q8, q9\}} \\
+ \texttt{q4} & \texttt{\{q0, q1, q2, q4, q5, q7, q8\}} & \texttt{\{q0, q2, q3, q4, q5, q7, q8\}} \\
+ \texttt{q5} & \texttt{\{q0, q1, q2, q4, q5, q7, q8\}} & \texttt{\{q0, q2, q3, q4, q5, q7, q8, q9\}} \\
+$\to$ \texttt{q6} & \texttt{\{q0, q1, q2, q4, q5, q7, q8\}} & \texttt{\{q0, q2, q3, q4, q5, q7, q8, q9\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{\{q9\}} \\
+ \texttt{q8} & \texttt{∅} & \texttt{\{q9\}} \\
+$*$ \texttt{q9} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-278-afn}{(b) AFN sin λ.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baaaab}; rechazadas \texttt{a}, \texttt{baba}, \texttt{baaaa}.}}
+(c) Subconjuntos: 3 estados; mínimo: 2.\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{A} & \texttt{B} & \texttt{C} \\
+ \texttt{B} & \texttt{B} & \texttt{C} \\
+$*$ \texttt{C} & \texttt{B} & \texttt{C} \\
+\bottomrule\end{tabular}\end{center}
+\begin{center}\small\begin{tabular}{lcc}\toprule
+$\delta$ & a & b \\\midrule
+$\to$ \texttt{q0} & \texttt{q0} & \texttt{q1} \\
+$*$ \texttt{q1} & \texttt{q0} & \texttt{q1} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-278-afd-minimo}{(c) AFD mínimo.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baab}, \texttt{baaaab}; rechazadas \texttt{a}, \texttt{baba}, \texttt{baaaa}.}}
+(d) Con los estados del mínimo ($q_0$ inicial, $q_1$ final), $X_0 = aX_0 + bX_1$, $X_1 = aX_0 + bX_1 + \lambda$; por Arden $X_1 = b^*(aX_0 + \lambda)$ y $X_0 = (a + bb^*a)X_0 + bb^*$, de donde $X_0 = (a + bb^*a)^*bb^*$.\jflap{lista4-278-er}{(d) Expresión obtenida por Arden.}
+
+\resp \texttt{(a + bb*a)*bb*}, equivalente a \texttt{(a + b)*b} (confirmado por AFD mínimos).
+
+
+\begin{ejercicio}{279}{}
+Responda: (a) ¿una expresión regular y un lenguaje regular son lo mismo? (b) ¿Qué afirma el teorema de Kleene y qué parte demuestra cada dirección? (c) ¿Por qué basta una construcción para $\varnothing$, $\lambda$, cada símbolo, la unión, la concatenación y la estrella?
+\end{ejercicio}
+\proc Se responde con las definiciones.
+\resp (a) No: la expresión es una fórmula (sintaxis) y el lenguaje, el conjunto de palabras que denota (semántica). Un lenguaje es regular si alguna expresión lo denota, y muchas expresiones distintas denotan el mismo lenguaje. (b) Un lenguaje es denotado por una expresión regular si y sólo si lo reconoce un autómata finito. La Parte I (expresión $\Rightarrow$ autómata) construye un AFN-λ por inducción; la Parte II (autómata $\Rightarrow$ expresión) la obtiene por $R_{ij}^{(k)}$, eliminación de estados o ecuaciones de Arden. (c) Porque las expresiones se definen por inducción con exactamente esas reglas: toda expresión es un caso básico o se forma de expresiones más pequeñas con $+$, concatenación o $*$; si cada caso produce un autómata, por inducción estructural toda expresión lo tiene.
+
+
+\seccion{Lema de bombeo (280--283)}
+\textbf{Lema de bombeo.} Si $L$ es regular, existe $p \ge 1$ tal que toda $s \in L$ con $|s| \ge p$ se escribe $s = xyz$ con $|xy| \le p$, $|y| \ge 1$ y $xy^iz \in L$ para todo $i \ge 0$. En cada prueba se supone que $L$ es regular, se elige $s$ y se llega a una contradicción. Para los lenguajes independientes del contexto se agrega la gramática en JFLAP.
+
+\begin{ejercicio}{280}{*}
+Use el lema de bombeo para demostrar que los lenguajes (a)--(g) no son regulares.
+\end{ejercicio}
+\proc \textbf{(a) $\{a^rb^{2r} : r \in \mathbb{N}\}$.} $s = a^pb^{2p}$. Como $|xy| \le p$, $y = a^k$ con $k \ge 1$; $xy^2z = a^{p+k}b^{2p}$ y $2(p + k) \ne 2p$.\jflap{lista4-280a-gramatica}{Gramática del inciso (a).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{abb}, \texttt{aabbbb}, \texttt{aaabbbbbb}; rechazadas \texttt{aba}, \texttt{ababbb}, \texttt{aaabbbbb}.}}
+\textbf{(b) $\{a^rb^tc^r : t, r \in \mathbb{N}\}$.} $s = a^pc^p$ ($t = 0$). $y = a^k$; $xy^0z = a^{p-k}c^p$ tiene distinto número de $a$ y de $c$.\jflap{lista4-280b-gramatica}{Gramática del inciso (b).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abbc}, \texttt{abbbbc}; rechazadas \texttt{a}, \texttt{babc}, \texttt{abbbb}.}}
+\textbf{(c) $\{a^rb^t : r \le t\}$.} $s = a^pb^p$. $y = a^k$; $xy^2z = a^{p+k}b^p$ con $p + k > p$.\jflap{lista4-280c-gramatica}{Gramática del inciso (c).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abbb}, \texttt{abbbbb}; rechazadas \texttt{a}, \texttt{babb}, \texttt{abbbbba}.}}
+\textbf{(d) $\{a^r : r$ es potencia de $2\}$.} $s = a^{2^n}$ con $2^n > p$; $y = a^k$, $1 \le k \le p \le 2^n$. $|xy^2z| = 2^n + k$ cumple $2^n < 2^n + k \le 2^{n+1}$; la igualdad sólo con $k = 2^n$, imposible porque $k \le p$ y se elige $2^n > p$. No hay potencias de 2 estrictamente entre $2^n$ y $2^{n+1}$. Este lenguaje tampoco es independiente del contexto, así que no tiene gramática de tipo 2.\par \textbf{(e) $\{a^r : r$ es cuadrado perfecto$\}$.} $s = a^{p^2}$; $y = a^k$, $1 \le k \le p$. Entonces $p^2 < p^2 + k \le p^2 + p < (p + 1)^2$, así que $|xy^2z|$ no es un cuadrado. Este lenguaje tampoco es independiente del contexto, así que no tiene gramática de tipo 2.\par \textbf{(f) $\{\omega\omega : \omega \in \{0, 1\}^*\}$.} $s = 0^p1\,0^p1$. $y = 0^k$ dentro del primer bloque; $xy^2z = 0^{p+k}10^p1$. Si $k$ es impar su longitud es impar y no es $\omega\omega$. Si $k \ge 2$ es par, cada mitad mide $p + 1 + k/2 \le p + k$, así que la primera mitad es $0^{p+1+k/2}$ (sólo ceros) mientras que la segunda termina en 1: tampoco es $\omega\omega$. Este lenguaje tampoco es independiente del contexto, así que no tiene gramática de tipo 2.\par \textbf{(g) corchetes equilibrados.} $s = [^p\,]^p$. $y = [^k$; $xy^0z = [^{p-k}]^p$ tiene más corchetes de cierre que de apertura, así que no está equilibrada.\jflap{lista4-280g-gramatica}{Gramática del inciso (g).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{[]}, \texttt{[][]}, \texttt{[[]][]}; rechazadas \texttt{[[}, \texttt{][[]}, \texttt{[[]][}.}}
+
+\resp Ninguno de los siete lenguajes es regular.
+
+
+\begin{ejercicio}{281}{*}
+Demuestre que $L = \{a^nb^n : n \ge 0\}$ no es regular.
+\end{ejercicio}
+\proc Supóngase regular con constante $p$; $s = a^pb^p$. Como $|xy| \le p$, $y = a^k$, $k \ge 1$, y $xy^2z = a^{p+k}b^p \notin L$.\jflap{lista4-281-gramatica}{Gramática $S \to aSb \mid \lambda$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{aa}, \texttt{abab}, \texttt{aaabb}.}}
+
+\resp $L$ no es regular.
+
+
+\begin{ejercicio}{282}{*}
+Demuestre que $L = \{a^nb^k : n > k \ge 0\}$ no es regular.
+\end{ejercicio}
+\proc $s = a^{p+1}b^p$. $y = a^j$ con $1 \le j \le p$; con $i = 0$, $xz = a^{p+1-j}b^p$ y $p + 1 - j \le p$, así que $n > k$ falla.\jflap{lista4-282-gramatica}{Gramática $S \to aSb \mid aS \mid a$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{aaab}, \texttt{aaaaab}; rechazadas \texttt{b}, \texttt{aaba}, \texttt{baaaab}.}}
+
+\resp $L$ no es regular.
+
+
+\begin{ejercicio}{283}{*}
+Demuestre que $L = \{a^n : n$ es primo$\}$ no es regular.
+\end{ejercicio}
+\proc Sea $q \ge p + 2$ primo y $s = a^q$; $y = a^k$ con $1 \le k \le p$, $|xz| = q - k = m \ge 2$. Con $i = m$: $|xy^mz| = m + mk = m(1 + k)$, producto de dos factores $\ge 2$: no es primo.
+\resp $L$ no es regular (ni independiente del contexto).
+
+
+\seccion{Autómatas finitos aplicados (284--301)}
+En cada caso se explica qué representa cada estado (columna derecha de la tabla).
+
+\begin{ejercicio}{284}{*}
+Máquina expendedora de un refresco de \$15 con monedas de \$5 ($c$) y \$10 ($d$); entrega si el total final es exactamente \$15. (a) AFD; (b) simule $cdc$, $ccc$ y $dc$; (c) escriba todas las palabras del lenguaje; ¿es finito?
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & c & d & Qué recuerda el estado \\\midrule
+$\to$ \texttt{\$0} & \texttt{\$5} & \texttt{\$10} & se han depositado 0 pesos \\
+ \texttt{\$5} & \texttt{\$10} & \texttt{\$15} & se han depositado 5 pesos \\
+ \texttt{\$10} & \texttt{\$15} & \texttt{X} & se han depositado 10 pesos \\
+$*$ \texttt{\$15} & \texttt{X} & \texttt{X} & se han depositado 15 pesos \\
+ \texttt{X} & \texttt{X} & \texttt{X} & más de 15 pesos: bloquea y devuelve \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-284}{AFD 284 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{cd}, \texttt{dc}, \texttt{ccc}; rechazadas \texttt{cc}, \texttt{d}, \texttt{dcc}.}}
+Simulaciones: \texttt{cdc}: \{\$0\} $\to$ \texttt{c}: \{\$5\} $\to$ \texttt{d}: \{\$15\} $\to$ \texttt{c}: \{X\} — \textbf{rechazada}\par \texttt{ccc}: \{\$0\} $\to$ \texttt{c}: \{\$5\} $\to$ \texttt{c}: \{\$10\} $\to$ \texttt{c}: \{\$15\} — \textbf{aceptada}\par \texttt{dc}: \{\$0\} $\to$ \texttt{d}: \{\$10\} $\to$ \texttt{c}: \{\$15\} — \textbf{aceptada}
+\resp (c) \texttt{ccc}, \texttt{cd}, \texttt{dc}: las sucesiones de monedas que suman 15. El lenguaje es finito (tres palabras): después de \$15 cualquier moneda lleva al bloqueo.
+
+
+\begin{ejercicio}{285}{*}
+Torniquete con $t$ (tarjeta) y $e$ (empujar), inicialmente bloqueado. (a) AFD de las secuencias que lo dejan desbloqueado; (b) expresión regular; (c) interprete $tte$ y $ete$.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & t & e & Qué recuerda el estado \\\midrule
+$\to$ \texttt{B} & \texttt{D} & \texttt{B} & bloqueado \\
+$*$ \texttt{D} & \texttt{D} & \texttt{B} & desbloqueado \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-285}{AFD 285 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{t}, \texttt{teet}, \texttt{teeeet}; rechazadas \texttt{e}, \texttt{tete}, \texttt{teeee}.}}
+El torniquete queda desbloqueado exactamente cuando el último evento fue $t$. \par Expresión: \texttt{(t + e)*t}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 10$: coinciden.
+\jflap{lista4-285-er}{Expresión 285 en JFLAP.}
+\jflap{lista4-285-afd}{AFD mínimo de la expresión 285 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{t}, \texttt{teet}, \texttt{teeeet}; rechazadas \texttt{e}, \texttt{tete}, \texttt{teeee}.}}
+Simulaciones: \texttt{tte}: \{B\} $\to$ \texttt{t}: \{D\} $\to$ \texttt{t}: \{D\} $\to$ \texttt{e}: \{B\} — \textbf{rechazada}\par \texttt{ete}: \{B\} $\to$ \texttt{e}: \{B\} $\to$ \texttt{t}: \{D\} $\to$ \texttt{e}: \{B\} — \textbf{rechazada}
+\resp (b) $(t + e)^*t$. (c) $tte$: se acerca la tarjeta dos veces (la segunda no cambia nada) y la persona pasa; queda bloqueado. $ete$: empujar bloqueado no hace nada, la tarjeta lo desbloquea y la persona pasa; queda bloqueado.
+
+
+\begin{ejercicio}{286}{*}
+Detector de 1011 (con traslapes) en una línea serial. (a) AFD de las cadenas que terminan en 1011; (b) simule 1011011 y diga en qué pulsos se enciende el LED; (c) ¿cuántos estados tiene?, demuestre con la minimización que no hay uno con menos.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{λ} & \texttt{1} & los últimos bits coinciden con λ (prefijo del patrón) \\
+ \texttt{1} & \texttt{10} & \texttt{1} & los últimos bits coinciden con 1 (prefijo del patrón) \\
+ \texttt{10} & \texttt{λ} & \texttt{101} & los últimos bits coinciden con 10 (prefijo del patrón) \\
+ \texttt{101} & \texttt{10} & \texttt{1011} & los últimos bits coinciden con 101 (prefijo del patrón) \\
+$*$ \texttt{1011} & \texttt{10} & \texttt{1} & los últimos bits coinciden con 1011 (prefijo del patrón) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-286}{AFD 286 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1011}, \texttt{1001011}, \texttt{100001011}; rechazadas \texttt{1010}, \texttt{1010011}, \texttt{10000101}.}}
+Cada estado guarda el sufijo más largo de lo leído que es prefijo de 1011 (construcción de Knuth-Morris-Pratt). Simulación: \texttt{1011011}: \{λ\} $\to$ \texttt{1}: \{1\} $\to$ \texttt{0}: \{10\} $\to$ \texttt{1}: \{101\} $\to$ \texttt{1}: \{1011\} $\to$ \texttt{0}: \{10\} $\to$ \texttt{1}: \{101\} $\to$ \texttt{1}: \{1011\} — \textbf{aceptada}. Minimización: \textit{3. Ronda 0.} Se marcan los pares con exactamente un estado de aceptación.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & λ & 1 & 10 & 101 \\\midrule
+\texttt{1} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{10} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{101} & \texttt{·} & \texttt{·} & \texttt{·} & \texttt{} \\
+\texttt{1011} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 1.} Se marcan 3 pares. \{λ, 101\}: con «1» van a 1 y 1011, ya distinguibles; \{1, 101\}: con «1» van a 1 y 1011, ya distinguibles; \{10, 101\}: con «1» van a 101 y 1011, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & λ & 1 & 10 & 101 \\\midrule
+\texttt{1} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{10} & \texttt{·} & \texttt{·} & \texttt{} & \texttt{} \\
+\texttt{101} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{1011} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 2.} Se marcan 2 pares. \{λ, 10\}: con «1» van a 1 y 101, ya distinguibles; \{1, 10\}: con «1» van a 1 y 101, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & λ & 1 & 10 & 101 \\\midrule
+\texttt{1} & \texttt{·} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{10} & \texttt{×2} & \texttt{×2} & \texttt{} & \texttt{} \\
+\texttt{101} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{1011} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 3.} Se marcan 1 pares. \{λ, 1\}: con «0» van a λ y 10, ya distinguibles.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & λ & 1 & 10 & 101 \\\midrule
+\texttt{1} & \texttt{×3} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{10} & \texttt{×2} & \texttt{×2} & \texttt{} & \texttt{} \\
+\texttt{101} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{1011} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+\textit{Ronda 4.} No se marca ningún par nuevo: la tabla se estabilizó.
+\begin{center}\footnotesize\begin{tabular}{lllll}\toprule
+ & λ & 1 & 10 & 101 \\\midrule
+\texttt{1} & \texttt{×3} & \texttt{} & \texttt{} & \texttt{} \\
+\texttt{10} & \texttt{×2} & \texttt{×2} & \texttt{} & \texttt{} \\
+\texttt{101} & \texttt{×1} & \texttt{×1} & \texttt{×1} & \texttt{} \\
+\texttt{1011} & \texttt{×0} & \texttt{×0} & \texttt{×0} & \texttt{×0} \\
+\bottomrule\end{tabular}\end{center}
+
+\resp (b) El LED se enciende en los pulsos 4, 7. (c) 5 estados; la tabla de pares marca todos los pares, así que ninguno se fusiona y el AFD es mínimo.
+
+
+\begin{ejercicio}{287}{}
+Cerradura electrónica con teclas $\{1, 2, 3\}$ que se abre con 3132 consecutivas y permanece abierta. Diseñe el AFD y simule 3313132 y 31312.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & 1 & 2 & 3 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{λ} & \texttt{λ} & \texttt{λ} & \texttt{3} & se ha tecleado nada de la clave \\
+ \texttt{3} & \texttt{31} & \texttt{λ} & \texttt{3} & se ha tecleado 3 de la clave \\
+ \texttt{31} & \texttt{λ} & \texttt{λ} & \texttt{313} & se ha tecleado 31 de la clave \\
+ \texttt{313} & \texttt{31} & \texttt{abierta} & \texttt{3} & se ha tecleado 313 de la clave \\
+$*$ \texttt{abierta} & \texttt{abierta} & \texttt{abierta} & \texttt{abierta} & puerta abierta (permanece) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-287}{AFD 287 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{3132}, \texttt{3113132}, \texttt{231331322}; rechazadas \texttt{3131}, \texttt{3131132}, \texttt{231313322}.}}
+Simulaciones: \texttt{3313132}: \{λ\} $\to$ \texttt{3}: \{3\} $\to$ \texttt{3}: \{3\} $\to$ \texttt{1}: \{31\} $\to$ \texttt{3}: \{313\} $\to$ \texttt{1}: \{31\} $\to$ \texttt{3}: \{313\} $\to$ \texttt{2}: \{abierta\} — \textbf{aceptada}\par \texttt{31312}: \{λ\} $\to$ \texttt{3}: \{3\} $\to$ \texttt{1}: \{31\} $\to$ \texttt{3}: \{313\} $\to$ \texttt{1}: \{31\} $\to$ \texttt{2}: \{λ\} — \textbf{rechazada}
+\resp 3313132 abre la puerta (contiene 3132 al final); 31312 no.
+
+
+\begin{ejercicio}{288}{}
+Elevador (planta baja, pisos 1 y 2) con $s$ (sube) y $b$ (baja). AFD de las secuencias que lo dejan en planta baja; ¿acepta $sbsbb$ y $ssbsb$?
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & s & b & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{PB} & \texttt{P1} & \texttt{PB} & planta baja \\
+ \texttt{P1} & \texttt{P2} & \texttt{PB} & piso 1 \\
+ \texttt{P2} & \texttt{P2} & \texttt{P1} & piso 2 \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-288}{AFD 288 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{sbbb}, \texttt{sbbbbb}; rechazadas \texttt{s}, \texttt{sbbbs}, \texttt{sbbbbbs}.}}
+Simulaciones: \texttt{sbsbb}: \{PB\} $\to$ \texttt{s}: \{P1\} $\to$ \texttt{b}: \{PB\} $\to$ \texttt{s}: \{P1\} $\to$ \texttt{b}: \{PB\} $\to$ \texttt{b}: \{PB\} — \textbf{aceptada}\par \texttt{ssbsb}: \{PB\} $\to$ \texttt{s}: \{P1\} $\to$ \texttt{s}: \{P2\} $\to$ \texttt{b}: \{P1\} $\to$ \texttt{s}: \{P2\} $\to$ \texttt{b}: \{P1\} — \textbf{rechazada}
+\resp Acepta $sbsbb$ y rechaza $ssbsb$ (termina en el piso 1).
+
+
+\begin{ejercicio}{289}{}
+Bit de paridad par: (a) AFD de las palabras válidas (número par de unos) y expresión regular; (b) ¿se detecta la inversión de un bit?, ¿y la de dos?
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{par} & \texttt{par} & \texttt{impar} & se ha leído un número par de unos \\
+ \texttt{impar} & \texttt{impar} & \texttt{par} & se ha leído un número impar de unos \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-289}{AFD 289 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{1}, \texttt{100}, \texttt{10000}.}}
+\par Expresión: \texttt{0*(10*10*)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 12$: coinciden.
+\jflap{lista4-289-er}{Expresión 289 en JFLAP.}
+\jflap{lista4-289-afd}{AFD mínimo de la expresión 289 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{1}, \texttt{100}, \texttt{10000}.}}
+
+\resp (a) $0^*(10^*10^*)^*$. (b) Invertir un bit cambia en uno el número de unos, así que la palabra pasa de «par» a «impar» y el AFD la rechaza: se detecta. Invertir dos bits cambia la paridad dos veces y la deja igual: la palabra sigue en el estado «par» y el error no se detecta.
+
+
+\begin{ejercicio}{290}{*}
+Semáforo verde $\to$ amarillo $\to$ rojo $\to$ verde con el reloj $t$; el botón $p$ en verde lo pasa a amarillo y no hace nada en amarillo o rojo. (a) AFD de las secuencias que lo dejan en rojo; (b) simule $tpt$, $ptt$ y $pt$.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & t & p & Qué recuerda el estado \\\midrule
+$\to$ \texttt{V} & \texttt{A} & \texttt{A} & verde \\
+ \texttt{A} & \texttt{R} & \texttt{A} & amarillo \\
+$*$ \texttt{R} & \texttt{V} & \texttt{R} & rojo (cruzan los peatones) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-290}{AFD 290 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{tt}, \texttt{tpppt}, \texttt{tpppppt}; rechazadas \texttt{tp}, \texttt{ptppt}, \texttt{tppppp}.}}
+Simulaciones: \texttt{tpt}: \{V\} $\to$ \texttt{t}: \{A\} $\to$ \texttt{p}: \{A\} $\to$ \texttt{t}: \{R\} — \textbf{aceptada}\par \texttt{ptt}: \{V\} $\to$ \texttt{p}: \{A\} $\to$ \texttt{t}: \{R\} $\to$ \texttt{t}: \{V\} — \textbf{rechazada}\par \texttt{pt}: \{V\} $\to$ \texttt{p}: \{A\} $\to$ \texttt{t}: \{R\} — \textbf{aceptada}
+\resp Aceptan $tpt$ y $pt$; $ptt$ se rechaza (termina en verde).
+
+
+\begin{ejercicio}{291}{*}
+Contador de pulsos $p$ con reinicio $r$: AFD de las secuencias en que el número de pulsos desde el último reinicio es múltiplo de 4. Simule $ppppp$, $pprpppp$ y $pppr$.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & p & r & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{c0} & \texttt{c1} & \texttt{c0} & pulsos desde el último reinicio ≡ 0 (mod 4) \\
+ \texttt{c1} & \texttt{c2} & \texttt{c0} & pulsos desde el último reinicio ≡ 1 (mod 4) \\
+ \texttt{c2} & \texttt{c3} & \texttt{c0} & pulsos desde el último reinicio ≡ 2 (mod 4) \\
+ \texttt{c3} & \texttt{c0} & \texttt{c0} & pulsos desde el último reinicio ≡ 3 (mod 4) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-291}{AFD 291 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{r}, \texttt{prrr}, \texttt{rppppr}; rechazadas \texttt{p}, \texttt{prrrp}, \texttt{rpppprp}.}}
+Simulaciones: \texttt{ppppp}: \{c0\} $\to$ \texttt{p}: \{c1\} $\to$ \texttt{p}: \{c2\} $\to$ \texttt{p}: \{c3\} $\to$ \texttt{p}: \{c0\} $\to$ \texttt{p}: \{c1\} — \textbf{rechazada}\par \texttt{pprpppp}: \{c0\} $\to$ \texttt{p}: \{c1\} $\to$ \texttt{p}: \{c2\} $\to$ \texttt{r}: \{c0\} $\to$ \texttt{p}: \{c1\} $\to$ \texttt{p}: \{c2\} $\to$ \texttt{p}: \{c3\} $\to$ \texttt{p}: \{c0\} — \textbf{aceptada}\par \texttt{pppr}: \{c0\} $\to$ \texttt{p}: \{c1\} $\to$ \texttt{p}: \{c2\} $\to$ \texttt{p}: \{c3\} $\to$ \texttt{r}: \{c0\} — \textbf{aceptada}
+\resp Rechaza $ppppp$ (5 pulsos); acepta $pprpppp$ (4 desde el reinicio) y $pppr$ (0 desde el reinicio).
+
+
+\begin{ejercicio}{292}{*}
+Estacionamiento de 3 lugares, inicialmente vacío; $e$ llega un auto (si está lleno no cambia), $s$ sale uno (si está vacío no cambia). (a) AFD de las secuencias que lo dejan con lugares disponibles; (b) modifíquelo para las que lo dejan exactamente lleno. ¿Qué cambió?
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & e & s & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{0 autos} & \texttt{1 autos} & \texttt{0 autos} & hay 0 autos (3 lugares libres) \\
+$*$ \texttt{1 autos} & \texttt{2 autos} & \texttt{0 autos} & hay 1 autos (2 lugares libres) \\
+$*$ \texttt{2 autos} & \texttt{3 autos} & \texttt{1 autos} & hay 2 autos (1 lugares libres) \\
+ \texttt{3 autos} & \texttt{3 autos} & \texttt{2 autos} & hay 3 autos (0 lugares libres) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-292}{AFD 292 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{s}, \texttt{sees}, \texttt{seeees}; rechazadas \texttt{seee}, \texttt{seeee}, \texttt{eee}.}}
+\jflap{lista4-292-lleno}{Inciso (b): mismo autómata con F = {3 autos}.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{eee}, \texttt{seeeee}, \texttt{seeeeeee}; rechazadas \texttt{ees}, \texttt{seeeees}, \texttt{seeeeeees}.}}
+
+\resp (b) Sólo cambia el conjunto de aceptación: de $\{0, 1, 2\}$ autos a $\{3\}$; los estados y las transiciones son los mismos, porque el sistema físico no cambió, sólo la pregunta.
+
+
+\begin{ejercicio}{293}{*}
+Flancos de subida (un 0 seguido de un 1). AFD de las cadenas con exactamente dos flancos y su expresión regular.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{0i} & \texttt{00} & \texttt{01} & 0 flancos; última muestra: ninguna \\
+ \texttt{00} & \texttt{00} & \texttt{11} & 0 flancos; última muestra: 0 \\
+ \texttt{01} & \texttt{00} & \texttt{01} & 0 flancos; última muestra: 1 \\
+ \texttt{11} & \texttt{10} & \texttt{11} & 1 flancos; última muestra: 1 \\
+ \texttt{10} & \texttt{10} & \texttt{21} & 1 flancos; última muestra: 0 \\
+$*$ \texttt{21} & \texttt{20} & \texttt{21} & 2 flancos; última muestra: 1 \\
+$*$ \texttt{20} & \texttt{20} & \texttt{muerto} & 2 flancos; última muestra: 0 \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & más de dos flancos \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-293}{AFD 293 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0101}, \texttt{0110100}, \texttt{100000101}; rechazadas \texttt{0100}, \texttt{0111000}, \texttt{10000010}.}}
+\par Expresión: \texttt{1*00*11*00*11*0*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 12$: coinciden.
+\jflap{lista4-293-er}{Expresión 293 en JFLAP.}
+\jflap{lista4-293-afd}{AFD mínimo de la expresión 293 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0101}, \texttt{0110100}, \texttt{100000101}; rechazadas \texttt{0100}, \texttt{0111000}, \texttt{10000010}.}}
+
+\resp $1^*0^+1^+0^+1^+0^*$, escrita $1^*00^*11^*00^*11^*0^*$.
+
+
+\begin{ejercicio}{294}{*}
+Contenido de una trama (RFC 1662, simplificado): AFD de las cadenas binarias sin seis unos consecutivos; indique qué representa cada estado y simule 0111110111 y 1011111101.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{u0} & \texttt{u0} & \texttt{u1} & la cadena termina con 0 unos seguidos \\
+$*$ \texttt{u1} & \texttt{u0} & \texttt{u2} & la cadena termina con 1 unos seguidos \\
+$*$ \texttt{u2} & \texttt{u0} & \texttt{u3} & la cadena termina con 2 unos seguidos \\
+$*$ \texttt{u3} & \texttt{u0} & \texttt{u4} & la cadena termina con 3 unos seguidos \\
+$*$ \texttt{u4} & \texttt{u0} & \texttt{u5} & la cadena termina con 4 unos seguidos \\
+$*$ \texttt{u5} & \texttt{u0} & \texttt{muerto} & la cadena termina con 5 unos seguidos \\
+ \texttt{muerto} & \texttt{muerto} & \texttt{muerto} & ya hubo seis unos seguidos \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-294}{AFD 294 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{1}, \texttt{1000}, \texttt{011111}; rechazadas \texttt{111111}, \texttt{1111110}, \texttt{101111111}.}}
+Simulaciones: \texttt{0111110111}: \{u0\} $\to$ \texttt{0}: \{u0\} $\to$ \texttt{1}: \{u1\} $\to$ \texttt{1}: \{u2\} $\to$ \texttt{1}: \{u3\} $\to$ \texttt{1}: \{u4\} $\to$ \texttt{1}: \{u5\} $\to$ \texttt{0}: \{u0\} $\to$ \texttt{1}: \{u1\} $\to$ \texttt{1}: \{u2\} $\to$ \texttt{1}: \{u3\} — \textbf{aceptada}\par \texttt{1011111101}: \{u0\} $\to$ \texttt{1}: \{u1\} $\to$ \texttt{0}: \{u0\} $\to$ \texttt{1}: \{u1\} $\to$ \texttt{1}: \{u2\} $\to$ \texttt{1}: \{u3\} $\to$ \texttt{1}: \{u4\} $\to$ \texttt{1}: \{u5\} $\to$ \texttt{1}: \{muerto\} $\to$ \texttt{0}: \{muerto\} $\to$ \texttt{1}: \{muerto\} — \textbf{rechazada}
+\resp Acepta 0111110111 (la racha más larga es de cinco unos) y rechaza 1011111101 (seis unos seguidos).
+
+
+\begin{ejercicio}{295}{}
+Cerradura con clave 101 e intentos de tres dígitos; se abre con un intento correcto y se bloquea tras tres incorrectos. AFD de las secuencias con las que queda abierta; simule 000101, 111000110101 y 101111.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{f0p0+} & \texttt{f0p1-} & \texttt{f0p1+} & 0 intentos fallidos; 0 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f0p1-} & \texttt{f0p2-} & \texttt{f0p2-} & 0 intentos fallidos; 1 dígitos del intento actual, ya falló \\
+ \texttt{f0p1+} & \texttt{f0p2+} & \texttt{f0p2-} & 0 intentos fallidos; 1 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f0p2-} & \texttt{f1p0+} & \texttt{f1p0+} & 0 intentos fallidos; 2 dígitos del intento actual, ya falló \\
+ \texttt{f0p2+} & \texttt{f1p0+} & \texttt{abierta} & 0 intentos fallidos; 2 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f1p0+} & \texttt{f1p1-} & \texttt{f1p1+} & 1 intentos fallidos; 0 dígitos del intento actual, coinciden con 101 \\
+$*$ \texttt{abierta} & \texttt{abierta} & \texttt{abierta} & puerta abierta \\
+ \texttt{f1p1-} & \texttt{f1p2-} & \texttt{f1p2-} & 1 intentos fallidos; 1 dígitos del intento actual, ya falló \\
+ \texttt{f1p1+} & \texttt{f1p2+} & \texttt{f1p2-} & 1 intentos fallidos; 1 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f1p2-} & \texttt{f2p0+} & \texttt{f2p0+} & 1 intentos fallidos; 2 dígitos del intento actual, ya falló \\
+ \texttt{f1p2+} & \texttt{f2p0+} & \texttt{abierta} & 1 intentos fallidos; 2 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f2p0+} & \texttt{f2p1-} & \texttt{f2p1+} & 2 intentos fallidos; 0 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f2p1-} & \texttt{f2p2-} & \texttt{f2p2-} & 2 intentos fallidos; 1 dígitos del intento actual, ya falló \\
+ \texttt{f2p1+} & \texttt{f2p2+} & \texttt{f2p2-} & 2 intentos fallidos; 1 dígitos del intento actual, coinciden con 101 \\
+ \texttt{f2p2-} & \texttt{bloqueada} & \texttt{bloqueada} & 2 intentos fallidos; 2 dígitos del intento actual, ya falló \\
+ \texttt{f2p2+} & \texttt{bloqueada} & \texttt{abierta} & 2 intentos fallidos; 2 dígitos del intento actual, coinciden con 101 \\
+ \texttt{bloqueada} & \texttt{bloqueada} & \texttt{bloqueada} & tres intentos fallidos \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-295}{AFD 295 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{101}, \texttt{101010}, \texttt{10101010}; rechazadas \texttt{100}, \texttt{011010}, \texttt{00101010}.}}
+Simulaciones: \texttt{000101}: \{f0p0+\} $\to$ \texttt{0}: \{f0p1-\} $\to$ \texttt{0}: \{f0p2-\} $\to$ \texttt{0}: \{f1p0+\} $\to$ \texttt{1}: \{f1p1+\} $\to$ \texttt{0}: \{f1p2+\} $\to$ \texttt{1}: \{abierta\} — \textbf{aceptada}\par \texttt{111000110101}: \{f0p0+\} $\to$ \texttt{1}: \{f0p1+\} $\to$ \texttt{1}: \{f0p2-\} $\to$ \texttt{1}: \{f1p0+\} $\to$ \texttt{0}: \{f1p1-\} $\to$ \texttt{0}: \{f1p2-\} $\to$ \texttt{0}: \{f2p0+\} $\to$ \texttt{1}: \{f2p1+\} $\to$ \texttt{1}: \{f2p2-\} $\to$ \texttt{0}: \{bloqueada\} $\to$ \texttt{1}: \{bloqueada\} $\to$ \texttt{0}: \{bloqueada\} $\to$ \texttt{1}: \{bloqueada\} — \textbf{rechazada}\par \texttt{101111}: \{f0p0+\} $\to$ \texttt{1}: \{f0p1+\} $\to$ \texttt{0}: \{f0p2+\} $\to$ \texttt{1}: \{abierta\} $\to$ \texttt{1}: \{abierta\} $\to$ \texttt{1}: \{abierta\} $\to$ \texttt{1}: \{abierta\} — \textbf{aceptada}
+\resp Abren 000101 y 101111; 111000110101 bloquea la cerradura en el tercer intento, antes de teclear 101.
+
+
+\begin{ejercicio}{296}{*}
+Lavadora: un ciclo es lavado ($l$), uno o más enjuagues ($e$) y centrifugado ($c$); puede ejecutar uno o más ciclos. (a) Expresión regular; (b) AFN-λ con la Parte I; (c) AFD diseñado directamente y comparación.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & l & e & c & Qué recuerda el estado \\\midrule
+$\to$ \texttt{S} & \texttt{L} & \texttt{X} & \texttt{X} & inicio \\
+ \texttt{L} & \texttt{X} & \texttt{E} & \texttt{X} & lavado hecho \\
+ \texttt{X} & \texttt{X} & \texttt{X} & \texttt{X} & secuencia inválida \\
+ \texttt{E} & \texttt{X} & \texttt{E} & \texttt{C} & al menos un enjuague \\
+$*$ \texttt{C} & \texttt{L} & \texttt{X} & \texttt{X} & ciclo completo \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-296}{AFD 296 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{lec}, \texttt{leeeec}, \texttt{leeeclec}; rechazadas \texttt{lee}, \texttt{eleeec}, \texttt{leeecle}.}}
+\par Expresión: \texttt{lee*c(lee*c)*}.
+\jflap{lista4-296-er}{Expresión 296 en JFLAP.}
+\jflap{lista4-296-afd}{AFD mínimo de la expresión 296 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{lec}, \texttt{leeeec}, \texttt{leeeclec}; rechazadas \texttt{lee}, \texttt{eleeec}, \texttt{leeecle}.}}
+\begin{center}\small\begin{tabular}{lcccc}\toprule
+$\delta$ & c & e & l & λ \\\midrule
+$\to$ \texttt{q0} & \texttt{∅} & \texttt{∅} & \texttt{\{q1\}} & \texttt{∅} \\
+ \texttt{q1} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q2\}} \\
+ \texttt{q2} & \texttt{∅} & \texttt{\{q3\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q3} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q6\}} \\
+ \texttt{q4} & \texttt{∅} & \texttt{\{q5\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q5} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q6} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q4, q7\}} \\
+ \texttt{q7} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q8\}} \\
+ \texttt{q8} & \texttt{\{q9\}} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q9} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q20\}} \\
+ \texttt{q10} & \texttt{∅} & \texttt{∅} & \texttt{\{q11\}} & \texttt{∅} \\
+ \texttt{q11} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q12\}} \\
+ \texttt{q12} & \texttt{∅} & \texttt{\{q13\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q13} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q16\}} \\
+ \texttt{q14} & \texttt{∅} & \texttt{\{q15\}} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q15} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q14, q17\}} \\
+ \texttt{q16} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q14, q17\}} \\
+ \texttt{q17} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q18\}} \\
+ \texttt{q18} & \texttt{\{q19\}} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+ \texttt{q19} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q10, q21\}} \\
+ \texttt{q20} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{\{q10, q21\}} \\
+$*$ \texttt{q21} & \texttt{∅} & \texttt{∅} & \texttt{∅} & \texttt{∅} \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-296-afn-lambda}{(b) AFN-λ de Thompson.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{lec}, \texttt{leeeec}, \texttt{leeeclec}; rechazadas \texttt{lee}, \texttt{eleeec}, \texttt{leeecle}.}}
+
+\resp (a) $lee^*c(lee^*c)^*$. (c) El AFN-λ tiene 22 estados y muchas transiciones λ; el AFD directo tiene 5 (con el sumidero) y es el mínimo: cada estado corresponde a una fase del ciclo.
+
+
+\begin{ejercicio}{297}{*}
+Números de calculadora sobre $\{d, s, p\}$: signo opcional, uno o más dígitos y, opcionalmente, punto seguido de uno o más dígitos. (a) Expresión regular; (b) AFD.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & d & s & p & Qué recuerda el estado \\\midrule
+$\to$ \texttt{I} & \texttt{N} & \texttt{S} & \texttt{X} & inicio \\
+$*$ \texttt{N} & \texttt{N} & \texttt{X} & \texttt{P} & parte entera (válida) \\
+ \texttt{S} & \texttt{N} & \texttt{X} & \texttt{X} & signo leído \\
+ \texttt{X} & \texttt{X} & \texttt{X} & \texttt{X} & inválido \\
+ \texttt{P} & \texttt{F} & \texttt{X} & \texttt{X} & punto leído \\
+$*$ \texttt{F} & \texttt{F} & \texttt{X} & \texttt{X} & parte decimal (válida) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-297}{AFD 297 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{d}, \texttt{dpdd}, \texttt{dpdddd}; rechazadas \texttt{p}, \texttt{pddd}, \texttt{ppdddd}.}}
+\par Expresión: \texttt{(s + λ)dd*(λ + pdd*)}.
+\jflap{lista4-297-er}{Expresión 297 en JFLAP.}
+\jflap{lista4-297-afd}{AFD mínimo de la expresión 297 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{d}, \texttt{dpdd}, \texttt{dpdddd}; rechazadas \texttt{p}, \texttt{pddd}, \texttt{ppdddd}.}}
+
+\resp (a) $(s + \lambda)dd^*(\lambda + pdd^*)$. Acepta $sdd$, $dpdd$, $sdpd$; rechaza $sp$, $dp$, $pd$.
+
+
+\begin{ejercicio}{298}{}
+Identificadores: empiezan con letra ($l$), siguen con letras, dígitos ($d$) o guiones bajos ($g$) y no terminan en guion bajo. AFD y expresión regular.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lcccp{0.42\linewidth}}\toprule
+$\delta$ & l & d & g & Qué recuerda el estado \\\midrule
+$\to$ \texttt{I} & \texttt{V} & \texttt{X} & \texttt{X} & inicio \\
+$*$ \texttt{V} & \texttt{V} & \texttt{V} & \texttt{G} & identificador válido (no termina en guion) \\
+ \texttt{X} & \texttt{X} & \texttt{X} & \texttt{X} & no empieza con letra \\
+ \texttt{G} & \texttt{V} & \texttt{V} & \texttt{G} & termina en guion bajo \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-298}{AFD 298 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{l}, \texttt{lggl}, \texttt{lggggl}; rechazadas \texttt{d}, \texttt{glgl}, \texttt{lgggg}.}}
+\par Expresión: \texttt{l + l(l + d + g)*(l + d)}.
+\jflap{lista4-298-er}{Expresión 298 en JFLAP.}
+\jflap{lista4-298-afd}{AFD mínimo de la expresión 298 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{l}, \texttt{lggl}, \texttt{lggggl}; rechazadas \texttt{d}, \texttt{glgl}, \texttt{lgggg}.}}
+
+\resp $l + l(l + d + g)^*(l + d)$.
+
+
+\begin{ejercicio}{299}{*}
+Múltiplos de 3 en binario leídos de izquierda a derecha (λ se rechaza; se admiten ceros iniciales). Diseñe el AFD y simule 1001 (nueve) y 1011 (once).
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$ \texttt{ini} & \texttt{r0} & \texttt{r1} & no se ha leído ningún bit \\
+$*$ \texttt{r0} & \texttt{r0} & \texttt{r1} & el número leído ≡ 0 (mod 3) \\
+ \texttt{r1} & \texttt{r2} & \texttt{r0} & el número leído ≡ 1 (mod 3) \\
+ \texttt{r2} & \texttt{r1} & \texttt{r2} & el número leído ≡ 2 (mod 3) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-299}{AFD 299 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{0}, \texttt{1001}, \texttt{100001}; rechazadas \texttt{1}, \texttt{0101}, \texttt{10000}.}}
+Leer el bit $b$ convierte el valor $v$ en $2v + b$, así que basta el residuo módulo 3. Simulaciones: \texttt{1001}: \{ini\} $\to$ \texttt{1}: \{r1\} $\to$ \texttt{0}: \{r2\} $\to$ \texttt{0}: \{r1\} $\to$ \texttt{1}: \{r0\} — \textbf{aceptada}\par \texttt{1011}: \{ini\} $\to$ \texttt{1}: \{r1\} $\to$ \texttt{0}: \{r2\} $\to$ \texttt{1}: \{r2\} $\to$ \texttt{1}: \{r2\} — \textbf{rechazada}
+\resp 1001 (9) se acepta; 1011 (11 ≡ 2) se rechaza.
+
+
+\begin{ejercicio}{300}{}
+Puerta de garaje (cerrada, abriéndose, abierta, cerrándose) con botón $b$ y fin de recorrido $f$. AFD de las secuencias que la dejan abierta; simule $bf$, $bbf$ y $bfbbf$.
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & b & f & Qué recuerda el estado \\\midrule
+$\to$ \texttt{Cerrada} & \texttt{Abriendo} & \texttt{Cerrada} & quieta y cerrada \\
+ \texttt{Abriendo} & \texttt{Cerrando} & \texttt{Abierta} & en movimiento hacia arriba \\
+ \texttt{Cerrando} & \texttt{Abriendo} & \texttt{Cerrada} & en movimiento hacia abajo \\
+$*$ \texttt{Abierta} & \texttt{Cerrando} & \texttt{Abierta} & quieta y abierta \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-300}{AFD 300 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{bf}, \texttt{fbbbf}, \texttt{fbbbbbf}; rechazadas \texttt{bb}, \texttt{fbbfb}, \texttt{fbbbbb}.}}
+Simulaciones: \texttt{bf}: \{Cerrada\} $\to$ \texttt{b}: \{Abriendo\} $\to$ \texttt{f}: \{Abierta\} — \textbf{aceptada}\par \texttt{bbf}: \{Cerrada\} $\to$ \texttt{b}: \{Abriendo\} $\to$ \texttt{b}: \{Cerrando\} $\to$ \texttt{f}: \{Cerrada\} — \textbf{rechazada}\par \texttt{bfbbf}: \{Cerrada\} $\to$ \texttt{b}: \{Abriendo\} $\to$ \texttt{f}: \{Abierta\} $\to$ \texttt{b}: \{Cerrando\} $\to$ \texttt{b}: \{Abriendo\} $\to$ \texttt{f}: \{Abierta\} — \textbf{aceptada}
+\resp Aceptan $bf$ y $bfbbf$; $bbf$ termina cerrada.
+
+
+\begin{ejercicio}{301}{*}
+Código de repetición (cada bit se envía tres veces). (a) Expresión regular; (b) AFD; (c) ¿acepta 000110111?; ¿se detecta siempre la inversión de un bit?
+\end{ejercicio}
+\proc \begin{center}\small\begin{tabular}{lccp{0.42\linewidth}}\toprule
+$\delta$ & 0 & 1 & Qué recuerda el estado \\\midrule
+$\to$$*$ \texttt{B} & \texttt{0} & \texttt{1} & bloques completos \\
+ \texttt{0} & \texttt{00} & \texttt{X} & bloque 0 (1 de 3) \\
+ \texttt{1} & \texttt{X} & \texttt{11} & bloque 1 (1 de 3) \\
+ \texttt{00} & \texttt{B} & \texttt{X} & bloque 0 (2 de 3) \\
+ \texttt{X} & \texttt{X} & \texttt{X} & bloque inválido \\
+ \texttt{11} & \texttt{X} & \texttt{B} & bloque 1 (2 de 3) \\
+\bottomrule\end{tabular}\end{center}
+\jflap{lista4-301}{AFD 301 en JFLAP.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{000111}, \texttt{111111}; rechazadas \texttt{001}, \texttt{001011}, \texttt{11111}.}}
+\par Expresión: \texttt{(000 + 111)*}. Se comprobó contra la definición del lenguaje en todas las palabras de longitud $\le 12$: coinciden.
+\jflap{lista4-301-er}{Expresión 301 en JFLAP.}
+\jflap{lista4-301-afd}{AFD mínimo de la expresión 301 (Convert to DFA).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{000}, \texttt{000111}, \texttt{111111}; rechazadas \texttt{001}, \texttt{001011}, \texttt{11111}.}}
+Simulación: \texttt{000110111}: \{B\} $\to$ \texttt{0}: \{0\} $\to$ \texttt{0}: \{00\} $\to$ \texttt{0}: \{B\} $\to$ \texttt{1}: \{1\} $\to$ \texttt{1}: \{11\} $\to$ \texttt{0}: \{X\} $\to$ \texttt{1}: \{X\} $\to$ \texttt{1}: \{X\} $\to$ \texttt{1}: \{X\} — \textbf{rechazada}
+\resp (a) $(000 + 111)^*$. (c) No: el bloque 110 no es válido. Invertir un bit de una palabra válida deja un bloque con dos símbolos iguales y uno distinto, que no es $000$ ni $111$; el AFD llega al estado inválido, así que el error siempre se detecta (aunque no se corrige con este autómata).
+
+
+\seccion{Introducción a las gramáticas (302--308)}
+
+
+\begin{ejercicio}{302}{*}
+Dada $G = (\{S\}, \{a, b\}, S, P)$ con $S \to aSb$, $S \to \lambda$: (i) obtenga una sentencia y su forma sentencial; (ii) obtenga $L(G)$.
+\end{ejercicio}
+\proc Derivación: $S \Rightarrow aSb \Rightarrow aaSbb \Rightarrow aabb$. Las formas sentenciales son $a^nSb^n$; al aplicar $S \to \lambda$ se obtiene $a^nb^n$.\jflap{lista4-302}{Gramática de 302.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{aa}, \texttt{abab}, \texttt{aaabb}.}}
+
+\resp (i) La sentencia $aabb$, con forma sentencial $aaSbb$. (ii) $L(G) = \{a^nb^n : n \ge 0\}$.
+
+
+\begin{ejercicio}{303}{*}
+Obtenga una gramática que genere $L = \{a^nb^{n+1} : n \ge 0\}$.
+\end{ejercicio}
+\proc Se genera la $b$ extra en el caso base y se emparejan $a$ y $b$ alrededor.
+\resp $S \to aSb \mid b$. Por ejemplo, $S \Rightarrow aSb \Rightarrow aaSbb \Rightarrow aabbb = a^2b^3$.\jflap{lista4-303}{Gramática de 303.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{abb}, \texttt{aabbb}; rechazadas \texttt{a}, \texttt{bab}, \texttt{aabb}.}}
+
+
+
+\begin{ejercicio}{304}{*}
+Obtenga el lenguaje de $S \to SS \mid \lambda \mid aSb \mid bSa$.
+\end{ejercicio}
+\proc Toda producción agrega igual número de $a$ que de $b$, así que $L(G) \subseteq \{w : |w|_a = |w|_b\}$. Recíprocamente, por inducción sobre $|w|$: si $w \ne \lambda$ tiene tantas $a$ como $b$, o bien $w$ se parte en dos factores no vacíos balanceados ($S \to SS$), o bien empieza y termina con símbolos distintos y el interior está balanceado ($aSb$ o $bSa$).\jflap{lista4-304}{Gramática de 304.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ba}, \texttt{baab}, \texttt{baaabb}; rechazadas \texttt{bb}, \texttt{baa}, \texttt{baaab}.}}
+
+\resp $L(G) = \{w \in \{a, b\}^* : w$ tiene el mismo número de $a$ que de $b\}$.
+
+
+\begin{ejercicio}{305}{*}
+Con $G_1$: $S \to aAb \mid \lambda$, $A \to aAb \mid \lambda$, demuestre que $L(G_1) = \{a^nb^n : n \ge 0\}$ y que $G_1$ es equivalente a $G$: $S \to aSb \mid \lambda$.
+\end{ejercicio}
+\proc Por inducción, $A \Rightarrow^* a^kb^k$ para todo $k \ge 0$ y sólo esas palabras (cada paso agrega una $a$ y una $b$ alrededor). Entonces $S$ genera $\lambda$ o $a\,a^kb^k\,b = a^{k+1}b^{k+1}$: todas las $a^nb^n$, $n \ge 0$. $G$ genera el mismo conjunto (ejercicio 302); dos gramáticas son equivalentes si generan el mismo lenguaje.\jflap{lista4-305-G1}{Gramática $G_1$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{aa}, \texttt{abab}, \texttt{aaabb}.}}
+\jflap{lista4-305-G}{Gramática $G$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabb}, \texttt{aaabbb}; rechazadas \texttt{aa}, \texttt{abab}, \texttt{aaabb}.}}
+
+\resp $L(G_1) = L(G) = \{a^nb^n : n \ge 0\}$.
+
+
+\begin{ejercicio}{306}{*}
+Con $S \to AB$, $A \to Aa \mid a$, $B \to Bb \mid b$, demuestre que $a^2b^4 \in L(G)$.
+\end{ejercicio}
+\proc $S \Rightarrow AB \Rightarrow AaB \Rightarrow aaB \Rightarrow aaBb \Rightarrow aaBbb \Rightarrow aaBbbb \Rightarrow aabbbb$.\jflap{lista4-306}{Gramática de 306 (en JFLAP, Brute Force Parse de aabbbb).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{aabbb}, \texttt{aaabbbb}; rechazadas \texttt{aa}, \texttt{ababb}, \texttt{baabbbb}.}}
+
+\resp La derivación anterior muestra $aabbbb \in L(G)$; en general $L(G) = \{a^mb^n : m, n \ge 1\}$.
+
+
+\begin{ejercicio}{307}{*}
+Gramáticas sobre $\{a, b\}$ para: (a) exactamente una $a$; (b) al menos una $a$; (c) no más de tres $a$.
+\end{ejercicio}
+\proc Se usa $B \to bB \mid \lambda$ para las $b$ y se coloca cada $a$ entre bloques de $b$.\jflap{lista4-307a}{(a) Exactamente una $a$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{bbab}, \texttt{bbbabb}; rechazadas \texttt{b}, \texttt{abab}, \texttt{abbabb}.}}
+\jflap{lista4-307b}{(b) Al menos una $a$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{a}, \texttt{abbb}, \texttt{abbbbb}; rechazadas \texttt{b}, \texttt{bbbb}, \texttt{bbbbbb}.}}
+\jflap{lista4-307c}{(c) A lo sumo tres $a$.\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{b}, \texttt{baaa}, \texttt{bababa}; rechazadas \texttt{aaaa}, \texttt{aababa}, \texttt{aabaa}.}}
+
+\resp (a) $S \to BaB$, $B \to bB \mid \lambda$. (b) $S \to BaT$, $T \to aT \mid bT \mid \lambda$, $B \to bB \mid \lambda$. (c) $S \to B \mid BaB \mid BaBaB \mid BaBaBaB$, $B \to bB \mid \lambda$.
+
+
+\begin{ejercicio}{308}{*}
+Describa el lenguaje de: (a) $S \to aA$, $A \to bS$, $S \to \lambda$; (b) $S \to Aa$, $A \to B$, $B \to Aa$.
+\end{ejercicio}
+\proc (a) Cada vuelta $S \Rightarrow aA \Rightarrow abS$ agrega $ab$, y se termina con $S \to \lambda$. (b) $S \Rightarrow Aa \Rightarrow Ba \Rightarrow Aaa \Rightarrow \cdots$: siempre queda una variable ($A$ o $B$) y ninguna regla la elimina, así que ninguna derivación termina.\jflap{lista4-308a}{Gramática (a).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas \texttt{ab}, \texttt{abab}, \texttt{ababab}; rechazadas \texttt{aa}, \texttt{baab}, \texttt{ababa}.}}
+\jflap{lista4-308b}{Gramática (b).\\ {\footnotesize\upshape Multiple Run en JFLAP: aceptadas ninguna; rechazadas \texttt{a}, \texttt{aaaa}, \texttt{aaaaaa}.}}
+
+\resp (a) $L = (ab)^* = \{(ab)^n : n \ge 0\}$. (b) $L = \varnothing$.
+
+
+\end{document}

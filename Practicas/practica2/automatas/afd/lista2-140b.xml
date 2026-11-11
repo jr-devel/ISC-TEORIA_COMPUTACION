@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-140b" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="0p1p" inicial="si" aceptacion="si" x="100.0" y="165.0" />
+    <estado id="0i1p" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="0p1i" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="0i1i" inicial="no" aceptacion="no" x="440.0" y="165.0" />
+  </estados>
+  <delta>
+    <desde estado="0p1p">
+      <con simbolo="0">
+        <hacia>0i1p</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0p1i</hacia>
+      </con>
+    </desde>
+    <desde estado="0i1p">
+      <con simbolo="0">
+        <hacia>0p1p</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0i1i</hacia>
+      </con>
+    </desde>
+    <desde estado="0p1i">
+      <con simbolo="0">
+        <hacia>0i1i</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0p1p</hacia>
+      </con>
+    </desde>
+    <desde estado="0i1i">
+      <con simbolo="0">
+        <hacia>0p1i</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>0i1p</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

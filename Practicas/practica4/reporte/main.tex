@@ -1,0 +1,39 @@
+\documentclass[12pt]{article}
+
+% ---------------------------------------------------------------------
+%  Datos de la práctica
+% ---------------------------------------------------------------------
+\newcommand{\NumPractica}{4}
+\newcommand{\TituloPractica}{Uso de las Expresiones Regulares y Extensión de Software para Convertir Expresiones Regulares}
+\newcommand{\PracticaCorta}{Práctica \NumPractica}
+\newcommand{\Alumno}{Rico Espluga Juan Diego}
+\newcommand{\Boleta}{2025630474}
+\newcommand{\Grupo}{4CV4}
+\newcommand{\Docente}{Gabriel Hurtado Avilés}
+\newcommand{\FechaEntrega}{6 de noviembre de 2026}
+
+\input{preambulo}
+\addbibresource{referencias.bib}
+
+
+\begin{document}
+\input{portada}
+
+\tableofcontents
+\clearpage
+
+\section{Objetivo}
+Estudiar las expresiones regulares y sus aplicaciones, e incorporar al software las dos direcciones del teorema de Kleene: de una expresión regular a un autómata y de un autómata a una expresión regular.
+
+La práctica tiene cuatro ejercicios y reutiliza la eliminación de λ, la construcción de subconjuntos y la minimización de la Práctica 3. Los casos de prueba están en \texttt{automatas/practica4/} y el reporte en Markdown en \texttt{docs/practica4/}.
+
+\input{secciones/01-investigacion}
+\input{secciones/02-er-a-afd}
+\input{secciones/03-afd-a-er}
+\input{secciones/04-validadores}
+\input{secciones/conclusiones}
+
+\clearpage
+\printbibliography[title={Referencias}]
+
+\end{document}

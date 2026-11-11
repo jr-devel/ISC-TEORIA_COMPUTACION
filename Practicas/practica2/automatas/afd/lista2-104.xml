@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-104" tipo="AFD">
+  <alfabeto>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="λ" inicial="si" aceptacion="no" x="100.0" y="165.0" />
+    <estado id="a" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="muerto" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="ab" inicial="no" aceptacion="no" x="440.0" y="165.0" />
+    <estado id="abb" inicial="no" aceptacion="no" x="610.0" y="165.0" />
+    <estado id="abba" inicial="no" aceptacion="no" x="780.0" y="165.0" />
+    <estado id="abbab" inicial="no" aceptacion="si" x="950.0" y="165.0" />
+  </estados>
+  <delta>
+    <desde estado="λ">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="a">
+      <con simbolo="a">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab</hacia>
+      </con>
+    </desde>
+    <desde estado="muerto">
+      <con simbolo="a">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="ab">
+      <con simbolo="a">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abb</hacia>
+      </con>
+    </desde>
+    <desde estado="abb">
+      <con simbolo="a">
+        <hacia>abba</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>muerto</hacia>
+      </con>
+    </desde>
+    <desde estado="abba">
+      <con simbolo="a">
+        <hacia>muerto</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abbab</hacia>
+      </con>
+    </desde>
+    <desde estado="abbab">
+      <con simbolo="a">
+        <hacia>abbab</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abbab</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<structure>
+  <type>fa</type>
+  <automaton>
+    <state id="0" name="sin a">
+      <x>112.2</x>
+      <y>194.8</y>
+      <initial />
+      <final />
+    </state>
+    <state id="1" name="a">
+      <x>290.8</x>
+      <y>178.2</y>
+      <final />
+    </state>
+    <state id="2" name="aa">
+      <x>467.8</x>
+      <y>244.2</y>
+    </state>
+    <state id="3" name="muerto">
+      <x>644.8</x>
+      <y>244.2</y>
+    </state>
+    <transition>
+      <from>0</from>
+      <to>1</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>0</from>
+      <to>0</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>2</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>1</from>
+      <to>0</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>3</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>2</from>
+      <to>0</to>
+      <read>b</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>a</read>
+    </transition>
+    <transition>
+      <from>3</from>
+      <to>3</to>
+      <read>b</read>
+    </transition>
+  </automaton>
+</structure>

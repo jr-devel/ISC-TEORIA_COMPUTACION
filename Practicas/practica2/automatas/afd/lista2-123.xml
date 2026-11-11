@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-123" tipo="AFD">
+  <alfabeto>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="ini" inicial="si" aceptacion="no" x="100.0" y="295.0" />
+    <estado id="a" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="b" inicial="no" aceptacion="no" x="270.0" y="360.0" />
+    <estado id="aa:∅" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="ab:∅" inicial="no" aceptacion="no" x="440.0" y="230.0" />
+    <estado id="ba:∅" inicial="no" aceptacion="no" x="440.0" y="360.0" />
+    <estado id="bb:∅" inicial="no" aceptacion="no" x="440.0" y="490.0" />
+    <estado id="aa:a…" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="ab:a…" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="ba:b…" inicial="no" aceptacion="no" x="610.0" y="360.0" />
+    <estado id="bb:b…" inicial="no" aceptacion="no" x="610.0" y="490.0" />
+    <estado id="aa:aa" inicial="no" aceptacion="si" x="780.0" y="100.0" />
+    <estado id="ab:ab" inicial="no" aceptacion="si" x="780.0" y="230.0" />
+    <estado id="ba:ba" inicial="no" aceptacion="si" x="780.0" y="360.0" />
+    <estado id="bb:bb" inicial="no" aceptacion="si" x="780.0" y="490.0" />
+  </estados>
+  <delta>
+    <desde estado="ini">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>b</hacia>
+      </con>
+    </desde>
+    <desde estado="a">
+      <con simbolo="a">
+        <hacia>aa:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="b">
+      <con simbolo="a">
+        <hacia>ba:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>bb:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="aa:∅">
+      <con simbolo="a">
+        <hacia>aa:a…</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>aa:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="ab:∅">
+      <con simbolo="a">
+        <hacia>ab:a…</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="ba:∅">
+      <con simbolo="a">
+        <hacia>ba:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ba:b…</hacia>
+      </con>
+    </desde>
+    <desde estado="bb:∅">
+      <con simbolo="a">
+        <hacia>bb:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>bb:b…</hacia>
+      </con>
+    </desde>
+    <desde estado="aa:a…">
+      <con simbolo="a">
+        <hacia>aa:aa</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>aa:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="ab:a…">
+      <con simbolo="a">
+        <hacia>ab:a…</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab:ab</hacia>
+      </con>
+    </desde>
+    <desde estado="ba:b…">
+      <con simbolo="a">
+        <hacia>ba:ba</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ba:b…</hacia>
+      </con>
+    </desde>
+    <desde estado="bb:b…">
+      <con simbolo="a">
+        <hacia>bb:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>bb:bb</hacia>
+      </con>
+    </desde>
+    <desde estado="aa:aa">
+      <con simbolo="a">
+        <hacia>aa:aa</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>aa:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="ab:ab">
+      <con simbolo="a">
+        <hacia>ab:a…</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab:∅</hacia>
+      </con>
+    </desde>
+    <desde estado="ba:ba">
+      <con simbolo="a">
+        <hacia>ba:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ba:b…</hacia>
+      </con>
+    </desde>
+    <desde estado="bb:bb">
+      <con simbolo="a">
+        <hacia>bb:∅</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>bb:bb</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

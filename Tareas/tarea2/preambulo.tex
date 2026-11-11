@@ -1,0 +1,144 @@
+% Preámbulo común de las Tareas de Teoría de la Computación (XeLaTeX)
+\usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{\setmainfont{TeX Gyre Termes}}
+\setmonofont{DejaVu Sans Mono}[Scale=0.85]
+\newfontfamily\simbolos{DejaVu Sans}[Scale=0.9]
+\usepackage[spanish,mexico,es-noshorthands]{babel}
+\usepackage[letterpaper,top=2.6cm,bottom=2.2cm,left=2.2cm,right=2.2cm,headheight=28pt]{geometry}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+\usepackage{booktabs,longtable,array,multicol,tabularx}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=*}
+\usepackage{fancyhdr}
+\usepackage[most]{tcolorbox}
+\usepackage[hidelinks]{hyperref}
+\usepackage{newunicodechar}
+\newunicodechar{λ}{\ensuremath{\lambda}}
+\newunicodechar{Σ}{\ensuremath{\Sigma}}
+\newunicodechar{δ}{\ensuremath{\delta}}
+\newunicodechar{∅}{\ensuremath{\varnothing}}
+\newunicodechar{→}{\ensuremath{\to}}
+\newunicodechar{…}{\ldots}
+\newunicodechar{·}{\ensuremath{\cdot}}
+\newunicodechar{≡}{\ensuremath{\equiv}}
+\newunicodechar{≥}{\ensuremath{\ge}}
+\newunicodechar{≤}{\ensuremath{\le}}
+\newunicodechar{∈}{\ensuremath{\in}}
+\newunicodechar{ⁿ}{\textsuperscript{\textit{n}}}
+\newunicodechar{ᵐ}{\textsuperscript{\textit{m}}}
+\newunicodechar{⁺}{\textsuperscript{+}}
+\newunicodechar{₀}{\textsubscript{0}}
+\newunicodechar{₁}{\textsubscript{1}}
+\newunicodechar{₂}{\textsubscript{2}}
+\newunicodechar{₃}{\textsubscript{3}}
+\newunicodechar{✓}{{\simbolos ✓}}
+\newunicodechar{✗}{{\simbolos ✗}}
+\newunicodechar{⁻}{\textsuperscript{−}}
+\newunicodechar{¹}{\textsuperscript{1}}
+\newunicodechar{²}{\textsuperscript{2}}
+\newunicodechar{³}{\textsuperscript{3}}
+
+\newunicodechar{⁰}{\textsuperscript{0}}
+\newunicodechar{⁴}{\textsuperscript{4}}
+\newunicodechar{⁵}{\textsuperscript{5}}
+\newunicodechar{⁶}{\textsuperscript{6}}
+\newunicodechar{⁷}{\textsuperscript{7}}
+\newunicodechar{⁸}{\textsuperscript{8}}
+\newunicodechar{⁹}{\textsuperscript{9}}
+\newunicodechar{ᵏ}{\textsuperscript{\textit{k}}}
+\newunicodechar{ᴿ}{\textsuperscript{\textit{R}}}
+\newunicodechar{∉}{\ensuremath{\notin}}
+\newunicodechar{∣}{\ensuremath{\mid}}
+\newunicodechar{∩}{\ensuremath{\cap}}
+\newunicodechar{∪}{\ensuremath{\cup}}
+\newunicodechar{⊆}{\ensuremath{\subseteq}}
+\newunicodechar{⋃}{\ensuremath{\bigcup}}
+\newunicodechar{⋯}{\ensuremath{\cdots}}
+\newunicodechar{≠}{\ensuremath{\neq}}
+\newunicodechar{↦}{\ensuremath{\mapsto}}
+\newunicodechar{×}{\ensuremath{\times}}
+\newunicodechar{𝒫}{\ensuremath{\mathcal{P}}}
+\newunicodechar{↔}{\ensuremath{\leftrightarrow}}
+\newunicodechar{⇔}{\ensuremath{\Leftrightarrow}}
+\newunicodechar{∋}{\ensuremath{\ni}}
+\newunicodechar{⊥}{\ensuremath{\bot}}
+\newunicodechar{ᵖ}{\textsuperscript{\textit{p}}}
+\newunicodechar{ᵢ}{\textsubscript{\textit{i}}}
+\newunicodechar{ⱼ}{\textsubscript{\textit{j}}}
+\newunicodechar{ₓ}{\textsubscript{\textit{x}}}
+\newunicodechar{ᵃ}{\textsuperscript{\textit{a}}}
+\newunicodechar{ᵇ}{\textsuperscript{\textit{b}}}
+\newunicodechar{ᶜ}{\textsuperscript{\textit{c}}}
+\newunicodechar{∃}{\ensuremath{\exists}}
+\newunicodechar{∀}{\ensuremath{\forall}}
+\newunicodechar{ˣ}{\textsuperscript{\textit{x}}}
+\newunicodechar{ⁱ}{\textsuperscript{\textit{i}}}
+\newunicodechar{ₙ}{\textsubscript{\textit{n}}}
+\newunicodechar{⟶}{\ensuremath{\longrightarrow}}
+\newunicodechar{⇒}{\ensuremath{\Rightarrow}}
+\newunicodechar{ʳ}{\textsuperscript{\textit{r}}}
+\newunicodechar{ᵗ}{\textsuperscript{\textit{t}}}
+\newunicodechar{ʲ}{\textsuperscript{\textit{j}}}
+\newunicodechar{ᑫ}{\textsuperscript{\textit{q}}}
+\newunicodechar{ᵒ}{\textsuperscript{o}}
+\newunicodechar{₄}{\textsubscript{4}}
+\newunicodechar{ₖ}{\textsubscript{\textit{k}}}
+\newunicodechar{ₘ}{\textsubscript{\textit{m}}}
+\newunicodechar{ₚ}{\textsubscript{\textit{p}}}
+\newunicodechar{∖}{\ensuremath{\setminus}}
+\newunicodechar{¬}{\ensuremath{\neg}}
+\newunicodechar{∧}{\ensuremath{\wedge}}
+\newunicodechar{∨}{\ensuremath{\vee}}
+\newunicodechar{ℕ}{\ensuremath{\mathbb{N}}}
+\newunicodechar{Ø}{\ensuremath{\varnothing}}
+\newunicodechar{ε}{\ensuremath{\varepsilon}}
+\newunicodechar{ω}{\ensuremath{\omega}}
+\newunicodechar{π}{\ensuremath{\pi}}
+\newunicodechar{τ}{\ensuremath{\tau}}
+\newunicodechar{ρ}{\ensuremath{\rho}}
+\newunicodechar{Δ}{\ensuremath{\Delta}}
+\newunicodechar{⇐}{\ensuremath{\Leftarrow}}
+\newunicodechar{−}{\ensuremath{-}}
+\newunicodechar{∞}{\ensuremath{\infty}}
+
+\definecolor{guinda}{HTML}{6C1D45}
+\definecolor{dorado}{HTML}{B38E5D}
+\definecolor{fondo}{HTML}{F7F2F4}
+
+% --- Encabezado en todas las hojas: nombre, boleta y grupo -----------------
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\textbf{Rico Espluga Juan Diego}\\\small Boleta: 2025630474 \quad Grupo: 4CV4}
+\fancyhead[R]{\small\textcolor{guinda}{Teoría de la Computación}\\\small\NombreTarea}
+\fancyfoot[C]{\small\thepage}
+\renewcommand{\headrulewidth}{0.6pt}
+\fancypagestyle{plain}{}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\renewcommand{\arraystretch}{1.15}
+
+% --- Ejercicios ---------------------------------------------------------
+% \begin{ejercicio}{97}{*} enunciado \end{ejercicio}
+\newtcolorbox{ejercicio}[2]{enhanced,breakable,colback=fondo,colframe=guinda,boxrule=0.6pt,arc=2pt,
+  left=6pt,right=6pt,top=4pt,bottom=4pt,fonttitle=\bfseries\small,
+  title={Ejercicio #1\ifx&#2&\else\ (obligatorio)\fi}, before skip=10pt, after skip=4pt}
+\newcommand{\proc}{\par\textbf{\textcolor{guinda}{Procedimiento.}}\ }
+\newcommand{\resp}{\par\textbf{\textcolor{guinda}{Respuesta.}}\ }
+\newcommand{\seccion}[1]{\section*{\textcolor{guinda}{#1}}\addcontentsline{toc}{section}{#1}}
+
+% \jflap{archivo sin extensión}{leyenda}: captura de JFLAP o recuadro para insertarla.
+\newcommand{\jflap}[2]{%
+  \par\begin{center}
+  \IfFileExists{img/#1.png}{%
+    \includegraphics[width=0.96\linewidth,height=0.4\textheight,keepaspectratio]{img/#1.png}%
+  }{%
+    \fcolorbox{dorado}{white}{\parbox[c][2.6cm][c]{0.78\linewidth}{\centering
+      \textbf{\textcolor{dorado}{Espacio para la captura de JFLAP}}\\[3pt]
+      \small Archivo: \texttt{jff/\detokenize{#1}.jff}\\
+      \footnotesize Guarde la captura como \texttt{img/\detokenize{#1}.png} y vuelva a compilar.}}%
+  }\\[2pt]
+  {\small\textit{#2}}
+  \end{center}}

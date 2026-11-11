@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-109" tipo="AFD">
+  <alfabeto>
+    <simbolo>0</simbolo>
+    <simbolo>1</simbolo>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+    <simbolo>c</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="(λ, λ)" inicial="si" aceptacion="no" x="100.0" y="295.0" />
+    <estado id="(a, λ)" inicial="no" aceptacion="no" x="270.0" y="230.0" />
+    <estado id="(λ, c)" inicial="no" aceptacion="no" x="270.0" y="360.0" />
+    <estado id="(ab, λ)" inicial="no" aceptacion="no" x="440.0" y="230.0" />
+    <estado id="(λ, cb)" inicial="no" aceptacion="no" x="440.0" y="360.0" />
+    <estado id="(abb, λ)" inicial="no" aceptacion="no" x="610.0" y="230.0" />
+    <estado id="(a, cba)" inicial="no" aceptacion="no" x="610.0" y="360.0" />
+    <estado id="(abbc, c)" inicial="no" aceptacion="no" x="780.0" y="230.0" />
+    <estado id="(a, cbaa)" inicial="no" aceptacion="no" x="780.0" y="360.0" />
+    <estado id="(abbcb, cb)" inicial="no" aceptacion="no" x="950.0" y="230.0" />
+    <estado id="(ab, cbaab)" inicial="no" aceptacion="no" x="950.0" y="360.0" />
+    <estado id="(abbcb, cba)" inicial="no" aceptacion="no" x="1120.0" y="100.0" />
+    <estado id="(abbcb, λ)" inicial="no" aceptacion="no" x="1120.0" y="230.0" />
+    <estado id="(abbcb, c)" inicial="no" aceptacion="no" x="1120.0" y="360.0" />
+    <estado id="(abb, cbaabb)" inicial="no" aceptacion="no" x="1120.0" y="490.0" />
+    <estado id="(abbcb, cbaa)" inicial="no" aceptacion="no" x="1290.0" y="100.0" />
+    <estado id="(a, cbaabb)" inicial="no" aceptacion="no" x="1290.0" y="230.0" />
+    <estado id="(λ, cbaabb)" inicial="no" aceptacion="no" x="1290.0" y="360.0" />
+    <estado id="(abbc, cbaabb)" inicial="no" aceptacion="no" x="1290.0" y="490.0" />
+    <estado id="(abbcb, cbaab)" inicial="no" aceptacion="no" x="1460.0" y="165.0" />
+    <estado id="(ab, cbaabb)" inicial="no" aceptacion="no" x="1460.0" y="295.0" />
+    <estado id="(abbcb, cbaabb)" inicial="no" aceptacion="si" x="1460.0" y="425.0" />
+  </estados>
+  <delta>
+    <desde estado="(λ, λ)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(a, λ)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(ab, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(λ, c)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(λ, cb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(ab, λ)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abb, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(λ, cb)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cba)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abb, λ)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbc, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(a, cba)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cbaa)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(ab, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbc, c)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, cb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(a, cbaa)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(ab, cbaab)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, cb)">
+      <con simbolo="0">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, cba)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(ab, cbaab)">
+      <con simbolo="0">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abb, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, cba)">
+      <con simbolo="0">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, cbaa)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, λ)">
+      <con simbolo="0">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, c)">
+      <con simbolo="0">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, cb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abb, cbaabb)">
+      <con simbolo="0">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cbaabb)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbc, cbaabb)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, cbaa)">
+      <con simbolo="0">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, cbaab)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(a, cbaabb)">
+      <con simbolo="0">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cbaabb)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(ab, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+    </desde>
+    <desde estado="(λ, cbaabb)">
+      <con simbolo="0">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cbaabb)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbc, cbaabb)">
+      <con simbolo="0">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cbaabb)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, cbaab)">
+      <con simbolo="0">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, λ)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, c)</hacia>
+      </con>
+    </desde>
+    <desde estado="(ab, cbaabb)">
+      <con simbolo="0">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(a, cbaabb)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abb, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(λ, cbaabb)</hacia>
+      </con>
+    </desde>
+    <desde estado="(abbcb, cbaabb)">
+      <con simbolo="0">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+      <con simbolo="1">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+      <con simbolo="a">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+      <con simbolo="c">
+        <hacia>(abbcb, cbaabb)</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

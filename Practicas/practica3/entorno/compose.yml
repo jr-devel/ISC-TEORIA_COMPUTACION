@@ -1,0 +1,35 @@
+# Tres contenedores, uno por versión de Python, construidos con el mismo Dockerfile.
+services:
+  py311:
+    build:
+      context: ..
+      dockerfile: entorno/Dockerfile
+      args:
+        PYTHON_VERSION: "3.11"
+    container_name: tc_p3_py311
+    volumes:
+      - ..:/app
+    command: pytest -q
+
+  py312:
+    build:
+      context: ..
+      dockerfile: entorno/Dockerfile
+      args:
+        PYTHON_VERSION: "3.12"
+    container_name: tc_p3_py312
+    ports:
+      - "8550:8550"     # puerto del equipo : puerto del contenedor
+    volumes:
+      - ..:/app
+
+  py313:
+    build:
+      context: ..
+      dockerfile: entorno/Dockerfile
+      args:
+        PYTHON_VERSION: "3.13"
+    container_name: tc_p3_py313
+    volumes:
+      - ..:/app
+    command: pytest -q

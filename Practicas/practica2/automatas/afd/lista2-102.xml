@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<automata formato="automata-tc" version="1" nombre="lista2-102" tipo="AFD">
+  <alfabeto>
+    <simbolo>a</simbolo>
+    <simbolo>b</simbolo>
+  </alfabeto>
+  <estados>
+    <estado id="λ" inicial="si" aceptacion="no" x="100.0" y="100.0" />
+    <estado id="a" inicial="no" aceptacion="no" x="270.0" y="100.0" />
+    <estado id="ab" inicial="no" aceptacion="no" x="440.0" y="100.0" />
+    <estado id="abb" inicial="no" aceptacion="no" x="610.0" y="100.0" />
+    <estado id="abbb" inicial="no" aceptacion="no" x="780.0" y="100.0" />
+    <estado id="abbba" inicial="no" aceptacion="no" x="950.0" y="100.0" />
+    <estado id="abbbab" inicial="no" aceptacion="si" x="1120.0" y="100.0" />
+  </estados>
+  <delta>
+    <desde estado="λ">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="a">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>ab</hacia>
+      </con>
+    </desde>
+    <desde estado="ab">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abb</hacia>
+      </con>
+    </desde>
+    <desde estado="abb">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abbb</hacia>
+      </con>
+    </desde>
+    <desde estado="abbb">
+      <con simbolo="a">
+        <hacia>abbba</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>λ</hacia>
+      </con>
+    </desde>
+    <desde estado="abbba">
+      <con simbolo="a">
+        <hacia>a</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abbbab</hacia>
+      </con>
+    </desde>
+    <desde estado="abbbab">
+      <con simbolo="a">
+        <hacia>abbbab</hacia>
+      </con>
+      <con simbolo="b">
+        <hacia>abbbab</hacia>
+      </con>
+    </desde>
+  </delta>
+</automata>

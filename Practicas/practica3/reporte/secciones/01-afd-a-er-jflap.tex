@@ -1,0 +1,301 @@
+\hypertarget{ejercicio-1.-conversiuxf3n-de-afd-a-expresiones-regulares}{%
+\section{Ejercicio 1. Conversión de AFD a expresiones regulares}\label{ejercicio-1.-conversiuxf3n-de-afd-a-expresiones-regulares}}
+
+\hypertarget{conversiuxf3n-con-jflap}{%
+\subsection{Conversión con JFLAP}\label{conversiuxf3n-con-jflap}}
+
+\hypertarget{los-cinco-autuxf3matas}{%
+\subsubsection{Los cinco autómatas}\label{los-cinco-autuxf3matas}}
+
+Se eligieron cinco AFD de la Lista 2 con estructuras distintas: dos con estado sumidero (119 y 142a), uno con alfabeto de tres símbolos (122), un contador módulo 3 (138) y un producto de dos contadores módulo 2 (140b). Sus estados se renombraron q0, q1, \ldots{} en orden de recorrido para que coincidan con los nombres que JFLAP asigna; los archivos están en \texttt{automatas/practica3/afd-a-er/}.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.1200}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 4\tabcolsep) * \real{0.4800}}@{}}
+\caption{Análisis previo.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+AFD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lenguaje
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ciclos y ramas que anticipan la expresión
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+AFD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lenguaje
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ciclos y ramas que anticipan la expresión
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+119 & Sobre \{a, b\}: después de cada \texttt{aa} aparece una \texttt{b} & Todo regresa a q0 con \texttt{b}; desde q0 se sale con \texttt{a} (q1) o \texttt{aa} (q2) y se vuelve con \texttt{b}. El sumidero q3 no aporta términos. Se anticipa (b + ab + aab)* seguida de un final opcional \texttt{a}. \\
+122 & Sobre \{0, 1, 2\}: todo bloque de tres símbolos tiene un 0 & Igual estructura con 0 como «regreso» y 1, 2 como avance; dos finales extra (q1, q2) dan la cola opcional. \\
+138 & Sobre \{a, b\}: el número de \texttt{b} es múltiplo de 3 & Un ciclo de tres \texttt{b} con lazos \texttt{a} en cada estado: (a + ba*ba*b)*. \\
+140b & Sobre \{0, 1\}: número par de 0 y par de 1 & Cuatro estados en un ciclo de paridades; los pares \texttt{00}, \texttt{11} regresan y \texttt{01}, \texttt{10} cruzan. \\
+142a & (ab)* & Un solo ciclo q0 → q1 → q0 con \texttt{ab}; q2 es sumidero. \\
+\end{longtable}
+
+\hypertarget{estados-eliminados}{%
+\subsubsection{Estados eliminados}\label{estados-eliminados}}
+
+JFLAP (\emph{Convert → Convert FA to RE}) agrega un estado final único con transiciones λ, une las transiciones paralelas y pide eliminar los estados uno por uno; al quitar k, cada par de aristas p → k → q se reemplaza por \(R_{pq} + R_{pk} R_{kk}^* R_{kq}\) \autocite[cap. 3]{rodger2006}. Conviene eliminar primero el sumidero (no tiene camino al final, así que desaparece sin dejar términos) y después los estados con menos aristas entrantes y salientes. JFLAP no deja eliminar el estado inicial ni el final que agrega: al terminar quedan q0 y el final nuevo T (JFLAP lo nombra q4), y la expresión se lee como \((R_{00})^* R_{0T}\). La tabla documenta cada eliminación tal como la hizo JFLAP; la última columna es la expresión que JFLAP muestra al terminar, con espacios alrededor de + para que se pueda leer.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1429}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.5714}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1429}}@{}}
+\caption{Eliminación de estados en JFLAP.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+AFD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Orden
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lo que queda después de cada eliminación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Expresión de JFLAP
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+AFD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Orden
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lo que queda después de cada eliminación
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Expresión de JFLAP
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+119 & q3, q2, q1 & q3: nada (es sumidero). q2: R(q1,q0) = b + ab. q1: R(q0,q0) = b + a(b + ab), R(q0,T) = λ + a. & (b + a(b + ab))*(λ + a) \\
+122 & q3, q2, q1 & q3: nada. q2: R(q1,q0) = 0 + (1 + 2)0, R(q1,T) = λ + 1 + 2. q1: R(q0,q0) = 0 + (1 + 2)(0 + (1 + 2)0), R(q0,T) = λ + (1 + 2)(λ + 1 + 2). & (0 + (1 + 2)(0 + (1 + 2)0))*(λ + (1 + 2)(λ + 1 + 2)) \\
+138 & q1, q2 & q1: R(q0,q2) = ba*b. q2: R(q0,q0) = a + ba*ba*b, R(q0,T) = λ. & (a + ba*ba*b)* \\
+140b & q1, q2, q3 & q1, q2: R(q0,q0) = 00 + 11, R(q0,q3) = 01 + 10, R(q3,q0) = 10 + 01, R(q3,q3) = 11 + 00. q3: R(q0,q0) = 00 + 11 + (01 + 10)(11 + 00)*(10 + 01). & (00 + 11 + (01 + 10)(11 + 00)*(10 + 01))* \\
+142a & q2, q1 & q2: nada. q1: R(q0,q0) = ab, R(q0,T) = λ. & (ab)* \\
+\end{longtable}
+
+El orden importa: en JFLAP, eliminar 140b en el orden q3, q2, q1 da (1(00)*1 + (0 + 1(00)*01)(11 + 10(00)*01)*(0 + 10(00)*1))*, y en el software del Ejercicio 2, que sí puede quitar q0 porque agrega también un inicial I, eliminar en el orden de Q (q0 primero) produce para 140b una expresión de 234 caracteres y para 122 una de 145, aunque todas describen los mismos lenguajes.
+
+\evidencia[0.95]{../evidencias/practica3/jflap/140b-convert-fa-to-re.png}{JFLAP: Convert FA to RE sobre el AFD 140b, después de eliminar q1 y q2.}
+
+\evidencia[0.95]{../evidencias/practica3/jflap/119-convert-fa-to-re.png}{JFLAP: expresión final del AFD 119.}
+
+\hypertarget{verificaciuxf3n}{%
+\subsubsection{Verificación}\label{verificaciuxf3n}}
+
+Cada expresión se volvió a convertir en autómata con \emph{Convert to NFA} y se comparó con el AFD original con \emph{Test → Compare Equivalence}; en las cinco JFLAP responde que son equivalentes. El software del Ejercicio 2 confirma lo mismo con la prueba de equivalencia por AFD mínimos. Además se probaron cinco cadenas en ambos formalismos:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 2\tabcolsep) * \real{0.8000}}@{}}
+\caption{Cadenas de prueba.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+AFD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cadenas (✓ aceptada, ✗ rechazada; mismo resultado en el AFD y en la expresión)
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+AFD
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Cadenas (✓ aceptada, ✗ rechazada; mismo resultado en el AFD y en la expresión)
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+119 & λ ✓, \texttt{a} ✓, \texttt{ababa} ✓, \texttt{aa} ✗, \texttt{abbaa} ✗ \\
+122 & λ ✓, \texttt{100} ✓, \texttt{22010} ✓, \texttt{112} ✗, \texttt{0122} ✗ \\
+138 & λ ✓, \texttt{aaa} ✓, \texttt{aabbb} ✓, \texttt{ba} ✗, \texttt{abba} ✗ \\
+140b & λ ✓, \texttt{0000} ✓, \texttt{01100110} ✓, \texttt{10} ✗, \texttt{0100} ✗ \\
+142a & λ ✓, \texttt{abab} ✓, \texttt{abababababab} ✓, \texttt{aa} ✗, \texttt{abba} ✗ \\
+\end{longtable}
+
+\evidencia[0.95]{../evidencias/practica3/jflap/140b-compare-equivalence.png}{JFLAP: Compare Equivalence entre el AFD 140b y el autómata de su
+expresión.}
+
+\hypertarget{simplificaciuxf3n}{%
+\subsubsection{Simplificación}\label{simplificaciuxf3n}}
+
+Las leyes algebraicas que se usan son las de \textcite[sec.~3.4]{hopcroft2007}: conmutatividad y asociatividad de +, idempotencia (R + R = R), distributividad (R(S + T) = RS + RT), ∅ como neutro de + y absorbente de la concatenación, λ como neutro de la concatenación, (R*)* = R*, λ + RR* = R* y la ley de desplazamiento R(SR)* = (RS)*R.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{119.} b + a(b + ab) = b + ab + aab por distributividad, así que la expresión es (b + ab + aab)*(λ + a): bloques que terminan en \texttt{b} con a lo sumo dos \texttt{a} antes, y al final, opcionalmente, una \texttt{a} suelta. Es la que se anticipó en el análisis.
+\item
+  \textbf{122.} Igual que 119, con 0 en el papel de \texttt{b} y (1 + 2) en el de \texttt{a}: (0 + (1 + 2)0 + (1 + 2)(1 + 2)0)*(λ + (1 + 2) + (1 + 2)(1 + 2)).
+\item
+  \textbf{138} y \textbf{142a} ya están en su forma más simple; en 142a, la expresión que resulta de eliminar en el orden de Q es λ + a(ba)*b, y por desplazamiento a(ba)*b = (ab)*ab, de modo que λ + (ab)*ab = λ + (ab)⁺ = (ab)*.
+\item
+  \textbf{140b.} Por conmutatividad, 11 + 00 = 00 + 11 y 10 + 01 = 01 + 10; queda la forma clásica (00 + 11 + (01 + 10)(00 + 11)*(01 + 10))*.
+\end{itemize}
+
+\hypertarget{comparaciuxf3n-de-muxe9todos}{%
+\subsection{Comparación de métodos}\label{comparaciuxf3n-de-muxe9todos}}
+
+Para 142a y 138 la expresión se obtuvo a mano por tres métodos.
+
+\hypertarget{afd-142a-ab}{%
+\subsubsection{AFD 142a: (ab)*}\label{afd-142a-ab}}
+
+\textbf{Eliminación de estados.} Ya documentada: tres pasos, uno por estado, con resultado (ab)*.
+
+\textbf{Expresiones \(R_{ij}^{(k)}\)} \autocite[sec.~3.2.1]{hopcroft2007}. Con q0 = 1, q1 = 2, q2 = 3, \(R_{ij}^{(k)}\) describe los caminos de i a j que sólo pasan por estados intermedios ≤ k, y \(R_{ij}^{(k)} = R_{ij}^{(k-1)} + R_{ik}^{(k-1)}\big(R_{kk}^{(k-1)}\big)^* R_{kj}^{(k-1)}\).
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 18\tabcolsep) * \real{0.1000}}@{}}
+\caption{\(R_{ij}^{(k)}\) para 142a, simplificadas en cada paso.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R11
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R12
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R13
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R21
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R22
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R23
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R31
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R32
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R33
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R11
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R12
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R13
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R21
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R22
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R23
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R31
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R32
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+R33
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+k = 0 & λ & a & b & b & λ & a & ∅ & ∅ & λ + a + b \\
+k = 1 & λ & a & b & b & λ + ba & a + bb & ∅ & ∅ & λ + a + b \\
+k = 2 & λ + a(ba)*b & a(ba)* & b + a(ba)*(a + bb) & (ba)*b & (ba)* & (ba)*(a + bb) & ∅ & ∅ & λ + a + b \\
+\end{longtable}
+
+Como F = \{q0\}, la expresión es \(R_{11}^{(3)} = R_{11}^{(2)} + R_{13}^{(2)}\big(R_{33}^{(2)}\big)^* R_{31}^{(2)}\) = λ + a(ba)*b, porque \(R_{31}^{(2)}\) = ∅ anula el segundo término. Por desplazamiento, λ + a(ba)*b = (ab)*.
+
+\textbf{Lema de Arden} \autocite{schreiner2013,arden1961}. Con una ecuación por estado, \(X_i = \sum_{a} a\, X_{\delta(i,a)}\) (más λ si i ∈ F):
+
+X0 = aX1 + bX2 + λ, X1 = bX0 + aX2, X2 = (a + b)X2.
+
+La última tiene la forma X = AX + B con B = ∅, así que X2 = (a + b)*∅ = ∅. Queda X1 = bX0, y al sustituir, X0 = abX0 + λ; por Arden, X0 = (ab)*λ = (ab)*.
+
+\hypertarget{afd-138-nuxfamero-de-b-muxfaltiplo-de-3}{%
+\subsubsection{AFD 138: número de b múltiplo de 3}\label{afd-138-nuxfamero-de-b-muxfaltiplo-de-3}}
+
+\textbf{Eliminación de estados} (q1, q2, q0): (a + ba*ba*b)*.
+
+\textbf{\(R_{ij}^{(k)}\).} Con q0 = 1, q1 = 2, q2 = 3: \(R_{11}^{(0)}\) = \(R_{22}^{(0)}\) = \(R_{33}^{(0)}\) = λ + a, \(R_{12}^{(0)}\) = \(R_{23}^{(0)}\) = \(R_{31}^{(0)}\) = b y las demás ∅. Simplificando con (λ + a)* = a*:
+
+\begin{itemize}
+\tightlist
+\item
+  k = 1: R11 = a*, R12 = a*b, R31 = ba*, R32 = ba*b, R33 = λ + a.
+\item
+  k = 2: R13 = a*b·a*·b = a*ba*b, R33 = λ + a + ba*ba*b, R11 = a*, R31 = ba*.
+\item
+  k = 3: \(R_{11}^{(3)}\) = a* + a*ba*b(a + ba*ba*b)*ba*.
+\end{itemize}
+
+La equivalencia con (a + ba*ba*b)* se sigue de (R + S)* = R*(SR*)* con R = a y S = ba*ba*b: ambas describen palabras formadas por bloques de \texttt{a} y grupos de exactamente tres \texttt{b}. La prueba de equivalencia del software lo confirma.
+
+\textbf{Lema de Arden.} X0 = aX0 + bX1 + λ, X1 = aX1 + bX2, X2 = aX2 + bX0. Por Arden, X2 = a*bX0; sustituyendo, X1 = aX1 + ba*bX0 ⇒ X1 = a*ba*bX0; y X0 = aX0 + ba*ba*bX0 + λ = (a + ba*ba*b)X0 + λ ⇒ X0 = (a + ba*ba*b)*.
+
+\hypertarget{comparaciuxf3n}{%
+\subsubsection{Comparación}\label{comparaciuxf3n}}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2000}}@{}}
+\caption{Comparación de los tres métodos.}\tabularnewline
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Método
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Longitud (142a / 138)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pasos
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Facilidad
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Base
+\end{minipage} \\
+\midrule\noalign{}
+\endfirsthead
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Método
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Longitud (142a / 138)
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pasos
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Facilidad
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Base
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Eliminación de estados & 5 / 14 caracteres & uno por estado & La más visual; el orden decide el tamaño. & \textcite[sec.~3.2.2]{hopcroft2007}; \textcite{rodger2006} \\
+\(R_{ij}^{(k)}\) & 11 / 28 sin simplificar & n³ expresiones (27 en ambos) & Mecánica pero larga; obliga a simplificar en cada paso. & \textcite[sec.~3.2.1]{hopcroft2007} \\
+Lema de Arden & 5 / 14 & una sustitución por estado & Algebraica y corta si se despeja en buen orden. & \textcite[sec.~2.4, teorema 4]{schreiner2013}; \textcite{arden1961} \\
+\end{longtable}
+
+Los tres dan expresiones equivalentes, como garantiza el teorema de Kleene, pero de forma distinta. \(R_{ij}^{(k)}\) es el método que se usa para \emph{demostrar} el teorema, porque es uniforme, pero a mano es el más largo; la eliminación de estados y Arden son el mismo cálculo visto como grafo o como sistema de ecuaciones, y ambos dan la expresión más corta cuando se eliminan primero el sumidero y los estados con menos conexiones.
