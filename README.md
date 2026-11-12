@@ -1,5 +1,13 @@
 # Teoría de la Computación — Prácticas y tareas
 
+| | |
+|---|---|
+| **Alumno** | Rico Espluga Juan Diego |
+| **Boleta** | 2025630474 |
+| **Grupo** | 4CV4 |
+| **Profesor** | Gabriel Hurtado Avilés |
+| **Escuela** | ESCOM-IPN |
+
 Aquí están las cuatro prácticas y las tareas de las Listas 1 a 4. Las prácticas son un solo programa en Python que crece de una práctica a otra: cada una agrega funciones a la anterior. Las tareas resuelven los ejercicios de las listas en LaTeX, con un archivo de JFLAP para cada autómata, expresión regular y gramática.
 
 ## Contenido
@@ -45,6 +53,99 @@ python src/app.py               # abre la aplicación
 ```
 
 Con Docker, desde `entorno/`: `docker compose run --rm py312 pytest -q` corre las pruebas, y `docker compose up py312` deja la interfaz en http://localhost:8550.
+
+## Uso paso a paso
+
+Al abrir la aplicación (`python src/app.py`), el menú de la izquierda muestra las secciones de esa práctica. Cada sección tiene el botón **«¿Cómo se usa?»** con sus pasos. Los resultados que se guardan van a la carpeta `salidas/`.
+
+Varias secciones trabajan sobre el **autómata activo**, cuyo nombre aparece arriba a la derecha. Se activa desde el **Editor** («Usar este autómata») o desde la **Biblioteca** («Usar»).
+
+### Práctica 1. Operaciones sobre palabras y lenguajes
+
+**Palabras**
+1. Escriba el alfabeto, por ejemplo `a, b` o `ab`.
+2. Escriba una palabra, como `abba`. Si usa un símbolo que no está en Σ, el campo se marca en rojo.
+3. Elija la operación en la barra: prefijos, sufijos, subcadenas, reflexión o potencia. El resultado aparece solo.
+4. Pulse «Guardar .txt» para guardar el resultado.
+
+**Cerraduras**
+1. Escriba el alfabeto.
+2. Mueva el control de longitud máxima n. El contador indica cuántas cadenas se generarían.
+3. Elija Σ*, Σ⁺ o Σⁿ y pulse «Generar». Si el total pasa de 200 000 cadenas, el botón se desactiva.
+4. «Guardar .txt» escribe la lista completa.
+
+**Lenguajes**
+1. Escriba L₁ y L₂ separando las palabras con comas, por ejemplo `a, ab, λ`.
+2. Elija la operación: unión, intersección, diferencia, concatenación, potencia, inverso, L* o L⁺.
+3. Para la potencia y las cerraduras, indique n.
+
+Los 77 AFD del anexo están en `automatas/lista2/` y `automatas/lista3/` y se abren con JFLAP (*File → Open*).
+
+### Práctica 2. Autómatas y simulación
+
+Incluye todo lo de la Práctica 1, más estas secciones:
+
+**Editor** (crear un autómata)
+1. Escriba Σ y Q separados por comas, por ejemplo `0, 1` y `q0, q1, q2`.
+2. Elija el estado inicial y toque las pastillas de los estados de aceptación.
+3. Llene la tabla: en cada celda van los destinos separados por comas; una celda vacía significa que no hay transición.
+4. Active «Transiciones λ» si las necesita. El tipo (AFD, AFN o AFN-λ) se deduce solo.
+5. Pulse «Usar este autómata».
+
+**Biblioteca** (abrir un autómata)
+1. Escriba en el buscador parte del nombre, por ejemplo `196`.
+2. Toque el archivo para ver su quíntupla, su diagrama y su tabla, y pulse «Usar».
+3. Para guardarlo, elija un nombre y un formato (`.jff`, JSON o XML) en «Guardar».
+
+**Simulador**
+1. Con un autómata activo, escriba la palabra (`λ` o nada para la palabra vacía).
+2. «Validar» la recorre completa. «Paso a paso» y luego «Siguiente» leen un símbolo a la vez.
+3. Los estados activos se resaltan en el diagrama y en la tabla. En un AFN o AFN-λ se ve el conjunto de estados activos.
+
+Ejemplo: abra `aplicacion/fantasma-pacman` en la Biblioteca, pulse «Usar» y simule `lveax` (aceptada) o `lve` (rechazada).
+
+### Práctica 3. Transformaciones, equivalencia y lotes
+
+Incluye todo lo de la Práctica 2, más:
+
+**Transformaciones** (AFN-λ → AFN → AFD → AFD mínimo)
+1. Active un autómata, por ejemplo `lista3-196` (un AFN-λ).
+2. Elija la etapa en la barra superior: quitar λ, subconjuntos o minimización. Las que no hacen falta aparecen como «no aplica».
+3. Avance con «Anterior» y «Siguiente»; cada paso trae su explicación y su tabla.
+4. «Usar resultado» vuelve activo el autómata obtenido y «Guardar .jff» lo guarda.
+
+**Equivalencia**
+1. Elija el primer autómata (puede ser el activo) y el segundo de la biblioteca.
+2. Pulse «Comparar». Si son equivalentes, se muestra la correspondencia entre estados. Si no, aparece la palabra más corta que uno acepta y el otro no.
+
+**Validación por lotes**
+1. Active `lista3-263` (las palabras que terminan en 01).
+2. En «Archivo .txt» ya viene escrita la ruta `automatas/practica3/cadenas-ejemplo.txt`; pulse «Cargar archivo». También puede escribir las palabras directamente, una por línea.
+3. Pulse «Validar todo» y después «Guardar informe».
+
+La parte de JFLAP (convertir los AFD de `automatas/practica3/afd-a-er/` a expresión regular) se hace en JFLAP con *Convert → Convert FA to RE*.
+
+### Práctica 4. Expresiones regulares
+
+Incluye todo lo de la Práctica 3, más:
+
+**ER → AFD**
+1. Escriba la expresión: `+` es unión, escribir seguido concatena, `*` es la estrella, y `λ` y `∅` son la palabra vacía y el lenguaje vacío. Ejemplo: `(a + b)*abb`.
+2. Si hay un error de sintaxis, se señala con `^` bajo el carácter que lo provoca.
+3. Pulse «Construir» y recorra las etapas: los casos básicos, uniones, concatenaciones y estrellas de Thompson, y después el AFD mínimo.
+4. Pruebe palabras abajo. Cada una se valida con el AFD y se compara con `re.fullmatch` de Python.
+5. «Guardar .jff» exporta el autómata de la etapa elegida y «Usar» lo vuelve el autómata activo.
+
+**AFD → ER**
+1. Elija el AFD, por ejemplo `lista4-276` de `automatas/practica4/casos-de-prueba/`.
+2. Elija el método: eliminación de estados o lema de Arden. En la eliminación puede fijar el orden (por ejemplo `B, C, A`) o dejarlo vacío para que el programa lo elija.
+3. Recorra los pasos. Después de cada eliminación se muestra el autómata generalizado como tabla.
+4. Para comparar con JFLAP, pegue la expresión de JFLAP en «Comparar con» y pulse el botón. Ambas expresiones se convierten en AFD mínimos y se prueban por equivalencia.
+
+**Validadores**
+1. Elija correo, teléfono o URL en la barra.
+2. Escriba un texto. Se valida mientras escribe y se indica dónde falla.
+3. Toque un ejemplo para probarlo. Abajo se listan los casos que la expresión deja fuera a propósito.
 
 ## Tareas
 
